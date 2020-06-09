@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2069124158901168171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2069124158901168172}
+  - component: {fileID: 1911358796}
+  m_Layer: 0
+  m_Name: Audio Director Prologue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2069124158901168172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069124158901168171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1911358796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069124158901168171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536a99f81829c30479a7a62348aecd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Beyond
+    clip: {fileID: 8300000, guid: aa27a98ded316404581da47d4e87a514, type: 3}
+    volume: 0.125
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: City1
+    clip: {fileID: 8300000, guid: c9e8d7e135f32d844bd913700fcfd8b9, type: 3}
+    volume: 0.125
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: City2
+    clip: {fileID: 8300000, guid: 0820cb5739265ff49a4e6a114debf5b2, type: 3}
+    volume: 0.125
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Piano
+    clip: {fileID: 8300000, guid: 80cb8c4658c543f498aa4a92687fb9d5, type: 3}
+    volume: 0.125
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: AutoBackground
+    clip: {fileID: 8300000, guid: 3a28a66975760124ba9ade50e4e77b7c, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Dog
+    clip: {fileID: 8300000, guid: ff2416c5b75a2ab4980ed7a9c09dc466, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Men
+    clip: {fileID: 8300000, guid: 648e726cdf63caf4ab67bd39836cd6de, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: ThrowGarbage
+    clip: {fileID: 8300000, guid: b533187e20bd5bb4a8ce682651cc36f2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Door
+    clip: {fileID: 8300000, guid: ef0162b5b3a4fe645b2980b3e153952b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
