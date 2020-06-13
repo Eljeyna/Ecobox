@@ -13,6 +13,15 @@ public class Fade : MonoBehaviour
         StartCoroutine(End());
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.Escape))
+        {
+            StopCoroutine(End());
+            SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+        }
+    }
+
     IEnumerator End()
     {
         yield return new WaitForSeconds(time);

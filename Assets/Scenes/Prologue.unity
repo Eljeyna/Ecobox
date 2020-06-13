@@ -928,7 +928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1033574748
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -989,7 +989,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 150, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 154895023}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2331,7 +2332,6 @@ Transform:
   - {fileID: 1701468386}
   - {fileID: 1983180435}
   - {fileID: 523468222}
-  - {fileID: 154895023}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2435,7 +2435,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1941500400}
+    m_TransformParent: {fileID: 1033574749}
     m_Modifications:
     - target: {fileID: 1403300668, guid: 131b5ba51eb88554b9f5bed8cca8d886, type: 3}
       propertyPath: m_IsActive
@@ -2616,12 +2616,12 @@ PrefabInstance:
     - target: {fileID: 5013238128506024157, guid: 131b5ba51eb88554b9f5bed8cca8d886,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 140.5
+      value: -0.95
       objectReference: {fileID: 0}
     - target: {fileID: 5013238128506024157, guid: 131b5ba51eb88554b9f5bed8cca8d886,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.7
+      value: -1.17
       objectReference: {fileID: 0}
     - target: {fileID: 5013238128506024157, guid: 131b5ba51eb88554b9f5bed8cca8d886,
         type: 3}
@@ -2651,7 +2651,7 @@ PrefabInstance:
     - target: {fileID: 5013238128506024157, guid: 131b5ba51eb88554b9f5bed8cca8d886,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5013238128506024157, guid: 131b5ba51eb88554b9f5bed8cca8d886,
         type: 3}
@@ -2671,12 +2671,12 @@ PrefabInstance:
     - target: {fileID: 5013238128506024157, guid: 131b5ba51eb88554b9f5bed8cca8d886,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5013238128506024157, guid: 131b5ba51eb88554b9f5bed8cca8d886,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5013238128506024157, guid: 131b5ba51eb88554b9f5bed8cca8d886,
         type: 3}
