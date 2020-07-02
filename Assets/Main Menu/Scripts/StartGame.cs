@@ -4,10 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
+    public SceneLoading sceneLoader;
     public Animator transition;
     public string level;
     public float waitTime;
-    public void StartNewGame() {
+    public void StartNewGame()
+    {
+        sceneLoader.SwitchToScene(level, "Start");
+    }
+    /*public void StartNewGame()
+    {
         StartCoroutine(StartNewGameCoroutine(waitTime));
     }
 
@@ -16,5 +22,5 @@ public class StartGame : MonoBehaviour
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene(level, LoadSceneMode.Single);
-    }
+    }*/
 }
