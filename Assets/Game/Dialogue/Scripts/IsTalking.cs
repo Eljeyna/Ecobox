@@ -1,17 +1,26 @@
-﻿using UnityEditor;
+﻿using System;
+using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class IsTalking : MonoBehaviour
 {
     public GameDirector game;
-    public DialogueNode[] node;
-    public string speakerName;
-    public int _currentNode;
+    public string dialogue_file;
+    public int _currentLine;
     public bool isTalking = true;
     public bool dialogueStart = false;
     public bool controlAfter = true;
     public GameObject talkButton;
-    
+
+    public string speakerName;
+
+    private TextAsset text = null;
+    private Dialogue[] dialogue;
+    private int dialogue_count;
+    private int answer_count;
+
     void OnGUI()
     {
         if (dialogueStart)
@@ -22,40 +31,35 @@ public class IsTalking : MonoBehaviour
                 game.StartDialogue();
                 return;
             }
-            game.dialogue_box_text.text = node[_currentNode].NpcText;
-            game.dialogue_box_name.text = speakerName;
 
-            if (node[_currentNode].PlayerAnswer.Length > 0)
+            if (text == null)
             {
-                for (int i = 0; i < node[_currentNode].PlayerAnswer.Length; i++)
+                SetDialogue(null);
+            }
+
+            game.dialogue_box_name.text = dialogue[_currentLine].name;
+            game.dialogue_box_text.text = dialogue[_currentLine].text;
+
+            if (dialogue[_currentLine].answers != null)
+            {
+                for (int i = 0; i < dialogue[_currentLine].answers.Length; i++)
                 {
                     if (GUI.Button(new Rect(
                             Screen.width * 0.5f - (Screen.width * 0.15f),
                             Screen.height - (Screen.height * 0.235f) + (Screen.height * 0.11f) * i,
                             Screen.width * 0.3f,
                             Screen.height * 0.1f),
-                            node[_currentNode].PlayerAnswer[i].Text,
+                            dialogue[_currentLine].answers[i].answer_text,
                             game.dialogueButton)
                         )
                     {
-                        if (node[_currentNode].PlayerAnswer[i].SpeakEnd)
+                        if (dialogue[_currentLine].answers[i].dialogue_file.Equals("0"))
                         {
-                            if (node[_currentNode].Script != null)
-                            {
-                                node[_currentNode].Script.enabled = true;
-                            }
-                            _currentNode = 0;
-                            dialogueStart = false;
-                            game.SetControlAfter(controlAfter);
-                            game.StopDialogue();
+                            IsTalkingDone();
                         }
                         else
                         {
-                            if (node[_currentNode].Script != null)
-                            {
-                                node[_currentNode].Script.enabled = true;
-                            }
-                            _currentNode = node[_currentNode].PlayerAnswer[i].ToNode;
+                            SetDialogue(dialogue[_currentLine].answers[i].dialogue_file);
                         }
                     }
                 }
@@ -71,46 +75,122 @@ public class IsTalking : MonoBehaviour
                         game.invisibleButton)
                     )
                 {
-                    if (node.Length - 1 == _currentNode)
+                    if (dialogue.Length - 1 == _currentLine)
                     {
-                        if (node[_currentNode].Script != null)
-                        {
-                            node[_currentNode].Script.enabled = true;
-                        }
-                        _currentNode = 0;
-                        dialogueStart = false;
-                        game.SetControlAfter(controlAfter);
-                        game.StopDialogue();
+                        IsTalkingDone();
                     }
                     else
                     {
-                        if (node[_currentNode].Script != null)
-                        {
-                            node[_currentNode].Script.enabled = true;
-                        }
-                        _currentNode = _currentNode + 1;
+                        _currentLine += 1;
                     }
                 }
             }
         }
     }
-}
 
-[System.Serializable]
-public class DialogueNode
-{
-    [TextArea(3, 10)]
-    public string NpcText;
-    public Answer[] PlayerAnswer;
-    public MonoBehaviour Script;
-}
+    public void SetDialogue(string file)
+    {
+        if (file == null)
+        {
+            text = (TextAsset)Resources.Load("Dialogues/" + SceneManager.GetActiveScene().name + "/" + dialogue_file + " RU");
+        }
+        else
+        {
+            text = (TextAsset)Resources.Load("Dialogues/" + SceneManager.GetActiveScene().name + "/" + file + " RU");
+        }
+        string line = text.text.Replace(": ", ":");
+        string[] lines = line.Split('\n');
+        
+        _currentLine = 0;
+        dialogue_count = 0;
+        answer_count = 0;
 
+        int count_answers = 0;
+        int i = 0;
+        int j = 0;
 
-[System.Serializable]
-public class Answer
-{
-    [TextArea(3, 10)]
-    public string Text;
-    public int ToNode;
-    public bool SpeakEnd;
+        while (i < lines.Length - 1)
+        {
+            if (lines[i][0] == '*')
+            {
+                count_answers++;
+            }
+            i++;
+        }
+
+        dialogue = new Dialogue[lines.Length - 1];
+        i = 0;
+
+        if (count_answers > 0)
+        {
+            while (i < lines.Length - 1)
+            {
+                dialogue[dialogue_count] = new Dialogue();
+                if (lines[i][0] == '*')
+                {
+                    dialogue[dialogue_count].answers = new Answer[count_answers];
+                    while (i < lines.Length - 1 && lines[i][0] == '*')
+                    {
+                        dialogue[dialogue_count].answers[answer_count] = new Answer();
+                        int index = lines[i].IndexOf('>');
+                        dialogue[dialogue_count].answers[answer_count].answer_text = lines[i].Substring(3, index - 4);
+                        dialogue[dialogue_count].answers[answer_count].dialogue_file = lines[i].Substring(index + 1, lines[i].Length - 2 - index);
+                        i++;
+                        answer_count++;
+                    }
+                }
+                else
+                {
+                    j = 0;
+                    while (lines[i][j] != ':')
+                    {
+                        dialogue[dialogue_count].name += lines[i][j];
+                        j++;
+                    }
+                    dialogue[dialogue_count].text = lines[i].Substring(j + 1);
+                }
+
+                i++;
+                dialogue_count++;
+            }
+        }
+        else
+        {
+            while (i < lines.Length - 1)
+            {
+                j = 0;
+                dialogue[dialogue_count] = new Dialogue();
+                while (lines[i][j] != ':')
+                {
+                    dialogue[dialogue_count].name += lines[i][j];
+                    j++;
+                }
+                dialogue[dialogue_count].text = lines[i].Substring(j + 1);
+
+                i++;
+                dialogue_count++;
+            }
+        }
+    }
+
+    public void IsTalkingDone()
+    {
+        _currentLine = 0;
+        dialogueStart = false;
+        game.SetControlAfter(controlAfter);
+        game.StopDialogue();
+    }
+
+    public class Dialogue
+    {
+        public string text;
+        public string name;
+        public Answer[] answers;
+    }
+
+    public class Answer
+    {
+        public string answer_text;
+        public string dialogue_file;
+    }
 }

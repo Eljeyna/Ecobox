@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 08f719c4daa81714eaeb15ceb6f49e55,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -118,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -173,6 +176,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -428,6 +432,21 @@ PrefabInstance:
       propertyPath: sceneLoader
       value: 
       objectReference: {fileID: 745802797}
+    - target: {fileID: 203266369834834105, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 203266369834834105, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -960
+      objectReference: {fileID: 0}
+    - target: {fileID: 203266369834834105, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -380
+      objectReference: {fileID: 0}
     - target: {fileID: 203266370054694234, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
         type: 3}
       propertyPath: m_Material
@@ -437,6 +456,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 203266370160812286, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -509.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 203266370160812286, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1217.9917
       objectReference: {fileID: 0}
     - target: {fileID: 203266370222864224, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
         type: 3}
@@ -567,6 +596,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 203266370490765379, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 575
+      objectReference: {fileID: 0}
+    - target: {fileID: 203266370745298689, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1058
+      objectReference: {fileID: 0}
+    - target: {fileID: 203266370745298689, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 203266370922856896, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
         type: 3}
