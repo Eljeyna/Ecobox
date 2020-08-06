@@ -49,6 +49,7 @@ Material:
     - _BumpFace: 0
     - _BumpOutline: 0
     - _ColorMask: 15
+    - _CullMode: 0
     - _Diffuse: 0.5
     - _FaceDilate: 0
     - _FaceUVSpeedX: 0
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hashCode: -1780275815
   material: {fileID: -6709994687122458685}
-  materialHashCode: 1056513138
+  materialHashCode: -1067052903
   m_Version: 1.1.0
   m_SourceFontFileGUID: c6d0c8bebb99e0c4daf40508dba657db
   m_SourceFontFile_EditorRef: {fileID: 0}
