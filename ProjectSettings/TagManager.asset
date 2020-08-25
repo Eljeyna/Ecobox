@@ -4,9 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Trash
-  - TrashBox
-  - Wall
   - Citizen
   layers:
   - Default
@@ -17,9 +14,9 @@ TagManager:
   - UI
   - 
   - 
-  - TrashBox
-  - Trash
-  - Player
+  - 
+  - 
+  - 
   - 
   - 
   - 

@@ -20,14 +20,14 @@ public class Synthea03 : MonoBehaviour
         int random = Random.Range(0, 2);
         yield return new WaitForSeconds(time);
         fade.gameObject.SetActive(false);
-        if (random == 0)
+        /*if (random == 0)
         {
             audioDirector.Play("City1");
         }
         else
         {
             audioDirector.Play("City2");
-        }
+        }*/
         audioDirector.Play("Men");
         audioDirector.Play("AutoBackground");
     }

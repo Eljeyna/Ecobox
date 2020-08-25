@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class IsTalking : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class IsTalking : MonoBehaviour
 
     public string speakerName;
 
-    private TextAsset text = null;
+    private string text;
     private Dialogue[] dialogue;
     private int dialogue_count;
     private int answer_count;
@@ -60,6 +58,7 @@ public class IsTalking : MonoBehaviour
                         else
                         {
                             SetDialogue(dialogue[_currentLine].answers[i].dialogue_file);
+                            return;
                         }
                     }
                 }
@@ -92,15 +91,19 @@ public class IsTalking : MonoBehaviour
     {
         if (file == null)
         {
-            text = (TextAsset)Resources.Load("Dialogues/" + SceneManager.GetActiveScene().name + "/" + dialogue_file + " RU");
+            text = Path.Combine(Application.streamingAssetsPath, "Dialogues/" + SceneManager.GetActiveScene().name + "/" + dialogue_file + " RU.txt");
         }
         else
         {
-            text = (TextAsset)Resources.Load("Dialogues/" + SceneManager.GetActiveScene().name + "/" + file + " RU");
+            text = Path.Combine(Application.streamingAssetsPath, "Dialogues/" + SceneManager.GetActiveScene().name + "/" + file + " RU.txt");
         }
-        string line = text.text.Replace(": ", ":");
+
+        StreamReader reader = new StreamReader(text);
+        text = reader.ReadToEnd();
+
+        string line = text.Replace(": ", ":");
         string[] lines = line.Split('\n');
-        
+
         _currentLine = 0;
         dialogue_count = 0;
         answer_count = 0;
@@ -171,6 +174,7 @@ public class IsTalking : MonoBehaviour
                 dialogue_count++;
             }
         }
+        reader.Close();
     }
 
     public void IsTalkingDone()

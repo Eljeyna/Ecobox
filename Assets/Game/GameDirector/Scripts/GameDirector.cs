@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameDirector : MonoBehaviour
 {
@@ -9,12 +8,10 @@ public class GameDirector : MonoBehaviour
     private bool dialogue_started = false;
     private bool controlAfter = true;
     public bool canControl = true;
-    public GameObject player;
     public GameObject dialogue_box;
     public TMP_Text dialogue_box_text;
     public TMP_Text dialogue_box_name;
     public Font dialogue_box_button_font;
-    public Joystick joystick;
     public GUIStyle dialogueButton;
     public GUIStyle invisibleButton;
 
