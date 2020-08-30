@@ -160,7 +160,7 @@ PlayerSettings:
       v2Signing: 1
     enable360StereoCapture: 0
   isWsaHolographicRemotingEnabled: 0
-  enableFrameTimingStats: 0
+  enableFrameTimingStats: 1
   useHDRDisplay: 0
   D3DHDRBitDepth: 0
   m_ColorGamuts: 00000000
@@ -271,7 +271,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 53dba29f317c8094fbea398f15af06ae, type: 3}
+      m_Icon: {fileID: 2800000, guid: 20659da514943224d8b17c6a4066182f, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

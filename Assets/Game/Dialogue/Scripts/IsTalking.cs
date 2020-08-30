@@ -13,6 +13,7 @@ public class IsTalking : MonoBehaviour
     public GameObject talkButton;
 
     public string speakerName;
+    public MonoBehaviour scriptAfterDialogue;
 
     private string text;
     private Dialogue[] dialogue;
@@ -54,6 +55,7 @@ public class IsTalking : MonoBehaviour
                         if (dialogue[_currentLine].answers[i].dialogue_file.Equals("0"))
                         {
                             IsTalkingDone();
+                            return;
                         }
                         else
                         {
@@ -77,6 +79,7 @@ public class IsTalking : MonoBehaviour
                     if (dialogue.Length - 1 == _currentLine)
                     {
                         IsTalkingDone();
+                        return;
                     }
                     else
                     {
@@ -181,6 +184,21 @@ public class IsTalking : MonoBehaviour
     {
         _currentLine = 0;
         dialogueStart = false;
+
+        if (scriptAfterDialogue != null)
+        {
+            if ((object)scriptAfterDialogue.GetType() == typeof(IsTalking))
+            {
+                IsTalking nextDialogue = (IsTalking)scriptAfterDialogue;
+                SetDialogue(nextDialogue.dialogue_file);
+                return;
+            }
+            else
+            {
+                scriptAfterDialogue.enabled = true;
+            }
+        }
+
         game.SetControlAfter(controlAfter);
         game.StopDialogue();
     }
