@@ -4,6 +4,7 @@ public class RangeAttacks : EntityAttacks
 {
     public float cast;
     public Animator animations;
+
     public override void Start()
     {
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
@@ -17,6 +18,8 @@ public class RangeAttacks : EntityAttacks
         {
             return;
         }
+
+        eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
 
         if (cast > 0f)
         {
@@ -65,5 +68,10 @@ public class RangeAttacks : EntityAttacks
     public override void SecondaryAttack()
     {
         return;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawRay(eyesPosition, transform.forward * attackRange, Color.yellow);
     }
 }

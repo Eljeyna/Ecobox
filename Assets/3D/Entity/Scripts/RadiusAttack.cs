@@ -16,12 +16,31 @@ public class RadiusAttack : MonoBehaviour
                 {
                     BaseEntity entity = enemy.GetComponent<BaseEntity>();
 
-                    if (entity != null)
+                    if (entity != null && !entity.flagDeath)
                     {
                         entity.TakeDamage(amount, thisEntity);
                     }
                 }
             }
         }
+    }
+
+    public static GameObject FindEnemy(GameObject attacker, Vector3 pos, float radius)
+    {
+        Collider[] targets = Physics.OverlapSphere(pos, radius);
+
+        if (targets.Length > 0)
+        {
+            foreach (Collider enemy in targets)
+            {
+                BaseEntity entity = enemy.GetComponent<BaseEntity>();
+                if (entity != null && !entity.flagDeath && !enemy.CompareTag(attacker.tag))
+                {
+                    return enemy.gameObject;
+                }
+            }
+        }
+
+        return null;
     }
 }

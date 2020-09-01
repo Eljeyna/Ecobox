@@ -37,23 +37,29 @@ public class PlayerController : MonoBehaviour
                 transform.LookAt(hit.point);
                 if (hit.collider && !hit.collider.isTrigger && hit.collider.CompareTag("Enemies"))
                 {
-                    BaseEntity entity = hit.collider.gameObject.GetComponent<BaseEntity>();
-                    if (entity != null)
-                    {
-                        attack.PrimaryAttack(hit.collider.gameObject);
-                        return;
-                    }
+                    attack.PrimaryAttack(hit.collider.gameObject);
+                    return;
                 }
 
                 agent.SetDestination(hit.point);
                 animations.SetInteger("Animations", 1);
             }
         }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            GameObject enemy = RadiusAttack.FindEnemy(gameObject, transform.position, attack.attackRange);
+            if (enemy != null)
+            {
+                transform.LookAt(enemy.transform);
+                attack.PrimaryAttack(hit.collider.gameObject);
+            }
+        }
+
     }
 
     public void FaceToFace(Vector3 target)
     {
-        Vector3 direction = (target - transform.position).normalized;
+        Vector3 direction = (target - transform.position);
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = lookRotation;
     }
