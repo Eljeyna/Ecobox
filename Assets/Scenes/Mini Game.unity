@@ -850,28 +850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321a36df6300ede4b937236d6136b99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1772680172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1772680170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073293ff63f324e449e28516b0a7149d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  attackRange: 4
-  fireRate: 1
-  interuptAttack: 1
-  eyesPosition: {x: 0, y: 0, z: 0}
-  thisEntity: {fileID: 0}
-  impactForce: 0
-  nextAttack: 0
-  cast: 0
-  animations: {fileID: 0}
 --- !u!1 &1823013689
 GameObject:
   m_ObjectHideFlags: 0

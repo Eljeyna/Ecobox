@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animations = GetComponent<Animator>();
         playerCollider = GetComponent<Collider>();
+        attack = GetComponent<EntityAttacks>();
     }
 
     private void Update()
@@ -40,7 +41,6 @@ public class PlayerController : MonoBehaviour
                     if (entity != null)
                     {
                         attack.PrimaryAttack(hit.collider.gameObject);
-                        //animations.Play("Firing Rifle");
                         return;
                     }
                 }
@@ -56,10 +56,5 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = (target - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = lookRotation;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(cam.transform.position, ray.GetPoint(10f));
     }
 }

@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameDirector3D
 {
-    public static GameObject player;
     public static int maxWave = 8;
     public static int maxEntities = 40;
+
+    private static GameObject player;
 
     public static Transform GetPlayer()
     {
@@ -19,10 +18,5 @@ public class GameDirector3D
     public static void StartGame()
     {
 
-    }
-
-    IEnumerator Spawner()
-    {
-        yield return null;
     }
 }

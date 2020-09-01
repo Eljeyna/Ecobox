@@ -23,7 +23,7 @@ public class BallisticAttacks : EntityAttacks
         //FaceToFace();
 
         float time = 0f;
-        while (particle.transform.position.y > transform.position.y)
+        while (particle.transform.position.y > end.y)
         {
             time += Time.deltaTime;
             Vector3 pos = Vector3.Lerp(start, end, time);

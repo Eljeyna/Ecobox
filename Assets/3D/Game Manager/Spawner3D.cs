@@ -24,38 +24,28 @@ public class Spawner3D : MonoBehaviour
 
         if (spawn && currentWaveCount < GameDirector3D.maxWave)
         {
-            for (int i = 0; i < (int)Random.Range(1f, GameDirector3D.maxWave); i++)
+            for (int i = 0; i < (int)Random.Range(1f, GameDirector3D.maxWave - currentWaveCount); i++)
             {
-                int random = (int)Random.Range(0f, wavePrefabs.Length - 1);
-                int attempts = 0;
+                int random = (int)Random.Range(0f, wavePrefabs.Length);
 
                 Vector3 pos = new Vector3(
                         Random.Range(spawnArea.transform.position.x, spawnArea.transform.position.x + spawnArea.size.x),
-                        0,
+                        spawnArea.transform.position.y + spawnArea.size.y + checkRadius,
                         Random.Range(spawnArea.transform.position.z, spawnArea.transform.position.z + spawnArea.size.z)
                 );
 
+                float distance = Vector3.Distance(GameDirector3D.GetPlayer().position, pos);
+
                 Collider[] checkResult = Physics.OverlapSphere(pos, checkRadius);
 
-                while (checkResult.Length > 0 && attempts < 10)
+                if (checkResult.Length == 0 && distance > 4f)
                 {
-                    pos = new Vector3(
-                        Random.Range(spawnArea.transform.position.x, spawnArea.transform.position.x + spawnArea.size.x),
-                        0,
-                        Random.Range(spawnArea.transform.position.z, spawnArea.transform.position.z + spawnArea.size.z)
-                    );
-
-                    if (checkResult.Length == 0)
-                    {
-                        waveEntities.Add(Instantiate(wavePrefabs[random], pos, Quaternion.identity, entitiesGroup));
-                        currentWaveCount++;
-                        waitingTime = Time.time + Random.Range(0f, 2f);
-                        continue;
-                    }
-
-                    checkResult = Physics.OverlapSphere(pos, checkRadius);
-                    attempts++;
+                    pos.y -= spawnArea.size.y + checkRadius;
+                    waveEntities.Add(Instantiate(wavePrefabs[random], pos, Quaternion.identity, entitiesGroup));
+                    waitingTime = Time.time + Random.Range(0f, 5f);
                 }
+
+                currentWaveCount++;
             }
         }
     }

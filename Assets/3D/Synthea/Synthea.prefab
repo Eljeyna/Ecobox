@@ -2062,6 +2062,7 @@ GameObject:
   - component: {fileID: 7686793008860751877}
   - component: {fileID: 7686793008860751879}
   - component: {fileID: 1772680171}
+  - component: {fileID: 1772680172}
   m_Layer: 8
   m_Name: Synthea
   m_TagString: Player
@@ -2158,6 +2159,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   animations: {fileID: 0}
   playerCollider: {fileID: 0}
+  attack: {fileID: 0}
 --- !u!114 &1772680171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2177,6 +2179,28 @@ MonoBehaviour:
   attacker: {fileID: 0}
   healthText: {fileID: 0}
   invincibilityTime: 2
+--- !u!114 &1772680172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686793008860751875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073293ff63f324e449e28516b0a7149d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  attackRange: 4
+  fireRate: 1
+  interuptAttack: 1
+  eyesPosition: {x: 0, y: 0, z: 0}
+  thisEntity: {fileID: 0}
+  impactForce: 0
+  nextAttack: 0
+  cast: 0
+  animations: {fileID: 0}
 --- !u!1 &7686793008861276641
 GameObject:
   m_ObjectHideFlags: 0
