@@ -43,18 +43,22 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 3bb97a278d02d524ea668f1d8f63d3ca, type: 3}
-    totalSpriteSurfaceArea: 5645259
+    totalSpriteSurfaceArea: 6236875
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: c0915840024ac4b4cbc050fedc972f45, type: 3}
   - {fileID: 21300000, guid: 60248c4203d23f841a0687e6fa0b90e4, type: 3}
   - {fileID: 21300000, guid: 64dc39624df53d74c99cbf448e80c428, type: 3}
   - {fileID: 21300000, guid: 453409f35ab56a54c86ad86e1231991c, type: 3}
+  - {fileID: 21300000, guid: 949017c41cb5051438ad413393363fcd, type: 3}
   - {fileID: 21300000, guid: 20659da514943224d8b17c6a4066182f, type: 3}
+  - {fileID: 21300000, guid: 520450879d275444783585f3da81fa25, type: 3}
   - {fileID: 21300000, guid: b36ee397c45b0b94baa14f73f1df5ed9, type: 3}
   - {fileID: 21300000, guid: ccf0e8ba3d055b34e938711984459fcd, type: 3}
+  - {fileID: 21300000, guid: e4601bfa18635764badf659dece6a7c2, type: 3}
   - {fileID: 21300000, guid: fe997e6bf48a5424b80fc4bfa2fab4b2, type: 3}
   - {fileID: 2705394952172798406, guid: 0b5fcfdbd575eb94db96c2150f7f1f0a, type: 3}
   - {fileID: -1512960349811478853, guid: 0b5fcfdbd575eb94db96c2150f7f1f0a, type: 3}
@@ -83,12 +87,16 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f263e66d8dafdc74c9db0a7f244a5ac6, type: 3}
   - {fileID: 21300000, guid: afbcf59d9c2227d4aaf81bf6bfa4d8dc, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Health
   - Prologue Background
   - Main Menu
   - Talk
+  - HealthCircle
   - Logo
+  - Ball
   - White
   - HomeMaster
+  - Ball 1
   - Throw_garbage
   - Human_22
   - Human_18
