@@ -135,6 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23603915}
   - component: {fileID: 23603916}
+  - component: {fileID: 23603917}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -150,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23603914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5372944, y: 0.9184227, z: 4.4517674}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -168,10 +169,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5770eb65ee62ef043ae47c64fa992340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawn: 0
   wavePrefabs:
   - {fileID: 5805543155743125316, guid: 866607e3378d28c4ab62cad3d09604f7, type: 3}
   - {fileID: 6828652731466953972, guid: 18e4f315cbc7abe4e9f2388ca4d24ad0, type: 3}
   waveEntities: []
+  currentWaveCount: 0
+  checkRadius: 1
+  spawnArea: {fileID: 0}
+  entitiesGroup: {fileID: 370579990}
+  waitingTime: 0
+--- !u!65 &23603917
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23603914}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16, y: 1, z: 15}
+  m_Center: {x: 6.5, y: 0, z: 5}
 --- !u!1 &150941762
 GameObject:
   m_ObjectHideFlags: 0
