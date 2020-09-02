@@ -23,9 +23,13 @@ public class AudioDirector : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + "is undefined!");
+            Debug.LogWarning("Sound: " + name + " is undefined!");
             return;
         }
+
+        if (s.source.isPlaying)
+            return;
+
         s.source.volume = s.volume;
         s.source.pitch = s.pitch;
         s.source.Play();
@@ -36,7 +40,7 @@ public class AudioDirector : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + "is undefined!");
+            Debug.LogWarning("Sound: " + name + " is undefined!");
             return;
         }
         s.source.Stop();

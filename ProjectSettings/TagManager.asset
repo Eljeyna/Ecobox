@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Citizen
   - Enemies
+  - PickUp
   layers:
   - Default
   - TransparentFX

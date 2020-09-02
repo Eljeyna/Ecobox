@@ -20,6 +20,16 @@
         }
     }
 
+    public override void TakeHealth(float amount, BaseEntity healer)
+    {
+        health += amount;
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+    }
+
     public override void Die()
     {
         //Destroy(gameObject);

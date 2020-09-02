@@ -31,6 +31,18 @@ public class BasePlayer : BaseEntity
         //healthText.ChangeText(health);
     }
 
+    public override void TakeHealth(float amount, BaseEntity healer)
+    {
+        health += amount;
+
+        if (health > maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        healthText.ChangeText(health);
+    }
+
     IEnumerator InvinsibilityTimer(float amount)
     {
         //yield return new WaitForSeconds(invincibilityTime);
@@ -47,7 +59,6 @@ public class BasePlayer : BaseEntity
 
     public override void Die()
     {
-        health = maxHealth;
-        healthText.ChangeText(maxHealth);
+        flagDeath = true;
     }
 }

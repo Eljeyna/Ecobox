@@ -4,11 +4,15 @@ public class MeleeAttacks : EntityAttacks
 {
     public float cast;
     public Animator animations;
+
+    public AudioDirector sounds;
+    public string[] soundsAttack;
     public override void Start()
     {
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
         animations = GetComponent<Animator>();
         thisEntity = GetComponent<BaseEntity>();
+        sounds = GetComponent<AudioDirector>();
     }
 
     public override void PrimaryAttack(GameObject target)
@@ -21,13 +25,14 @@ public class MeleeAttacks : EntityAttacks
         if (cast > 0f)
         {
             StartCoroutine(CastAttack());
-            nextAttack = Time.time + cast;
+            nextAttack = Time.time + fireRate;
             if (animations != null)
                 animations.SetInteger("Animation", 1);
             return;
         }
 
         Attack();
+        animations.SetInteger("Animation", 2);
     }
 
     IEnumerator CastAttack()
@@ -57,6 +62,7 @@ public class MeleeAttacks : EntityAttacks
             }
         }
 
+        GameDirector3D.PlayRandomSound(sounds, soundsAttack);
         nextAttack = Time.time + fireRate;
         if (cast > 0f && animations != null)
             animations.SetInteger("Animation", 1);

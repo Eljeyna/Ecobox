@@ -4987,6 +4987,7 @@ GameObject:
   - component: {fileID: 6828652731466953974}
   - component: {fileID: 6828652731466953481}
   - component: {fileID: 816555898}
+  - component: {fileID: 871557820}
   m_Layer: 8
   m_Name: Mushroom
   m_TagString: Enemies
@@ -5067,6 +5068,9 @@ MonoBehaviour:
   animations: {fileID: 0}
   triggerEnemy: {fileID: 0}
   thisEntity: {fileID: 0}
+  sounds: {fileID: 0}
+  soundsIdle: []
+  soundsDeath: []
 --- !u!114 &816555898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5127,6 +5131,34 @@ MonoBehaviour:
     m_RotationOrder: 4
   start: {x: 0, y: 0, z: 0}
   end: {x: 0, y: 0, z: 0}
+  sounds: {fileID: 0}
+  soundsAttack:
+  - Explosive
+--- !u!114 &871557820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6828652731466953972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536a99f81829c30479a7a62348aecd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Explosive
+    clip: {fileID: 8300000, guid: 9e2c4c0453591ab4e9b5e4cd044db25a, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Attack 1
+    clip: {fileID: 8300000, guid: b80812ba1fc891a4d9ab29efbfb56ccb, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &6828652731632055474
 GameObject:
   m_ObjectHideFlags: 0

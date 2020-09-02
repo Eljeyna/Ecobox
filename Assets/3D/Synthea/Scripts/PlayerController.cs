@@ -12,6 +12,13 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public RaycastHit hit;
     [HideInInspector] public Ray ray;
     [HideInInspector] public EntityAttacks attack;
+    [HideInInspector] public GameObject target;
+    [HideInInspector] public BasePlayer thisPlayer;
+    [HideInInspector] public float waitingTime;
+
+    public AudioDirector sounds;
+    public string[] soundsIdle;
+    public string[] soundsDeath;
 
     private void Start()
     {
@@ -20,13 +27,38 @@ public class PlayerController : MonoBehaviour
         animations = GetComponent<Animator>();
         playerCollider = GetComponent<Collider>();
         attack = GetComponent<EntityAttacks>();
+        sounds = GameDirector3D.GetAudioDirector();
+        thisPlayer = GetComponent<BasePlayer>();
+        sounds.Play("Ambient");
     }
 
     private void Update()
     {
-        if (hit.point != Vector3.zero && agent.remainingDistance <= agent.stoppingDistance)
+        if (thisPlayer.flagDeath)
         {
-            animations.SetInteger("Animations", 0);
+            agent.enabled = false;
+            playerCollider.enabled = false;
+            animations.Play("Death");
+            GameDirector3D.DefeatGame();
+            this.enabled = false;
+            return;
+        }
+
+        if (waitingTime > Time.time)
+            return;
+
+        if (thisPlayer.attacker != null)
+        {
+            thisPlayer.attacker = null;
+            agent.SetDestination(transform.position);
+            waitingTime = Time.time + 0.5f;
+            animations.Play("Hit");
+            return;
+        }
+
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            animations.SetInteger("Animation", 0);
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -35,26 +67,30 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 10f))
             {
                 transform.LookAt(hit.point);
-                if (hit.collider && !hit.collider.isTrigger && hit.collider.CompareTag("Enemies"))
-                {
-                    attack.PrimaryAttack(hit.collider.gameObject);
-                    return;
-                }
-
                 agent.SetDestination(hit.point);
-                animations.SetInteger("Animations", 1);
+                animations.SetInteger("Animation", 1);
             }
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            GameObject enemy = RadiusAttack.FindEnemy(gameObject, transform.position, attack.attackRange);
-            if (enemy != null)
-            {
-                transform.LookAt(enemy.transform);
-                attack.PrimaryAttack(hit.collider.gameObject);
-            }
+            Attack();
         }
 
+    }
+
+    public void Attack()
+    {
+        GameObject enemy = RadiusAttack.FindEnemy(gameObject, transform.position, attack.attackRange);
+        if (enemy != null)
+        {
+            agent.SetDestination(transform.position);
+            transform.LookAt(enemy.transform);
+            if (attack.nextAttack <= Time.time)
+            {
+                attack.PrimaryAttack(hit.collider.gameObject);
+                waitingTime = Time.time + attack.fireRate / 2;
+            }
+        }
     }
 
     public void FaceToFace(Vector3 target)
@@ -62,5 +98,15 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = (target - transform.position);
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = lookRotation;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PickUp"))
+    {
+            thisPlayer.TakeHealth(1, null);
+            sounds.Play("Healing");
+            Destroy(other.gameObject);
+        }
     }
 }

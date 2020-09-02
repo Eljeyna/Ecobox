@@ -13,6 +13,9 @@ public class BallisticAttacks : EntityAttacks
     public Vector3 start;
     public Vector3 end;
 
+    public AudioDirector sounds;
+    public string[] soundsAttack;
+
     /*public Quaternion startRotation;
     public Quaternion endRotation;
     public Quaternion rotation;*/
@@ -36,6 +39,7 @@ public class BallisticAttacks : EntityAttacks
         }
 
         RadiusAttack.RadiusDamage(gameObject, particle.transform.position, radiusBallistic, damage);
+        GameDirector3D.PlayRandomSound(sounds, soundsAttack);
 
         particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         particle.transform.position = start;
@@ -49,6 +53,7 @@ public class BallisticAttacks : EntityAttacks
         animations = GetComponent<Animator>();
         thisEntity = GetComponent<BaseEntity>();
         start = particle.transform.position;
+        sounds = GetComponent<AudioDirector>();
         //startRotation = particle.transform.rotation;
     }
 

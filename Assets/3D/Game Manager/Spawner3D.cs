@@ -9,8 +9,9 @@ public class Spawner3D : MonoBehaviour
     public int currentWaveCount;
     public float checkRadius = 1f;
     public BoxCollider spawnArea;
-    public Transform entitiesGroup;
     public float waitingTime;
+
+    public int allWaveCount;
 
     private void Start()
     {
@@ -19,6 +20,13 @@ public class Spawner3D : MonoBehaviour
 
     private void Update()
     {
+        if (allWaveCount >= GameDirector3D.maxEntities)
+        {
+            GameDirector3D.VictoryGame();
+            this.enabled = false;
+            return;
+        }
+
         if (waitingTime > Time.time)
             return;
 
@@ -41,11 +49,12 @@ public class Spawner3D : MonoBehaviour
                 if (checkResult.Length == 0 && distance > 4f)
                 {
                     pos.y -= spawnArea.size.y + checkRadius;
-                    waveEntities.Add(Instantiate(wavePrefabs[random], pos, Quaternion.identity, entitiesGroup));
+                    waveEntities.Add(Instantiate(wavePrefabs[random], pos, Quaternion.identity, transform));
                     waitingTime = Time.time + Random.Range(0f, 5f);
-                }
 
-                currentWaveCount++;
+                    currentWaveCount++;
+                    allWaveCount++;
+                }
             }
         }
     }

@@ -15,6 +15,10 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public BoxCollider triggerEnemy;
     [HideInInspector] public BaseEntity thisEntity;
 
+    public AudioDirector sounds;
+    public string[] soundsIdle;
+    public string[] soundsDeath;
+
     private void Start()
     {
         entityAttacks = GetComponent<EntityAttacks>();
@@ -23,6 +27,7 @@ public class EnemyController : MonoBehaviour
         triggerEnemy = GetComponent<BoxCollider>();
         thisEntity = GetComponent<BaseEnemy>();
         target = GameDirector3D.GetPlayer();
+        sounds = GetComponent<AudioDirector>();
     }
 
     void Update()
@@ -36,11 +41,34 @@ public class EnemyController : MonoBehaviour
             //animations.SetInteger("Animation", 4);
             if (animations != null)
                 animations.Play("Death");
+            GameDirector3D.PlayRandomSound(sounds, soundsDeath);
+
+            Spawner3D spawner = transform.parent.GetComponent<Spawner3D>();
+            if (spawner != null)
+            {
+                spawner.currentWaveCount--;
+                spawner.waveEntities.Remove(gameObject);
+            }
+
+            Destroy(gameObject, 2f);
             return;
         }
 
+        GameDirector3D.PlayRandomSound(sounds, soundsIdle);
+
         if (nextWait > Time.time)
             return;
+
+        if (thisEntity.attacker != null)
+        {
+            thisEntity.attacker = null;
+            nextWait = Time.time + 1f;
+            if (agent != null)
+                agent.SetDestination(target.position);
+            if (animations != null)
+                animations.Play("Hit");
+            return;
+        }
 
         if (target == null)
         {
@@ -65,14 +93,18 @@ public class EnemyController : MonoBehaviour
         if (allowRotation)
             FaceToFace();
 
-        if (entityAttacks.nextAttack - entityAttacks.fireRate / 4 <= Time.time)
+        if (animations != null)
         {
-            if (animations != null)
+            if (entityAttacks.nextAttack - entityAttacks.fireRate / 4 <= Time.time)
+            {
                 animations.SetInteger("Animation", 2);
+            }
         }
 
         if (distance <= entityAttacks.attackRange)
         {
+            if (agent != null)
+                agent.SetDestination(transform.position);
             PrimaryAttack();
         }
     }

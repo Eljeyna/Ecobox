@@ -33,6 +33,55 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &265353508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805543155743125316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536a99f81829c30479a7a62348aecd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Idle 1
+    clip: {fileID: 8300000, guid: 99e6a83e09835aa4fb018b0e623b7f93, type: 3}
+    volume: 0.04
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Idle 2
+    clip: {fileID: 8300000, guid: 3d354ab12e40b7c41943b101a4f05ede, type: 3}
+    volume: 0.04
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Idle 3
+    clip: {fileID: 8300000, guid: a5d113a32425eb94ebc0e12b17fbf75b, type: 3}
+    volume: 0.04
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Idle 4
+    clip: {fileID: 8300000, guid: 4e234db66e2b51c4081d2b9ec868d5dd, type: 3}
+    volume: 0.04
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Attack 1
+    clip: {fileID: 8300000, guid: cfab447498ff4f0479e80e6f82e73ad9, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hit 1
+    clip: {fileID: 8300000, guid: 4b02eaaa931e43847a01a0639b2e2cee, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!114 &1955984350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,6 +104,9 @@ MonoBehaviour:
   nextAttack: 0
   cast: 0.5
   animations: {fileID: 0}
+  sounds: {fileID: 0}
+  soundsAttack:
+  - Attack 1
 --- !u!114 &1955984351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +131,14 @@ MonoBehaviour:
   animations: {fileID: 0}
   triggerEnemy: {fileID: 0}
   thisEntity: {fileID: 0}
+  sounds: {fileID: 0}
+  soundsIdle:
+  - Idle 1
+  - Idle 2
+  - Idle 3
+  - Idle 4
+  soundsDeath:
+  - Hit 1
 --- !u!114 &1955984352
 MonoBehaviour:
   m_ObjectHideFlags: 0

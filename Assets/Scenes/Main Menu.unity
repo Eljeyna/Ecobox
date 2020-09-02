@@ -426,6 +426,10 @@ PrefabInstance:
       propertyPath: sceneLoader
       value: 
       objectReference: {fileID: 745802797}
+    - target: {fileID: 1877957919, guid: 9fe3ccf071270234ebbdae6cb1d63b88, type: 3}
+      propertyPath: level
+      value: Mini Game
+      objectReference: {fileID: 0}
     - target: {fileID: 203266369702780936, guid: 9fe3ccf071270234ebbdae6cb1d63b88,
         type: 3}
       propertyPath: m_AnchoredPosition.y
