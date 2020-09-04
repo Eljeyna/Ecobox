@@ -21,7 +21,6 @@ public class AttackButton : MonoBehaviour
 
     public void Attack()
     {
-        thisPlayer.agent.SetDestination(thisPlayer.transform.position);
         thisPlayer.Attack();
     }
 }

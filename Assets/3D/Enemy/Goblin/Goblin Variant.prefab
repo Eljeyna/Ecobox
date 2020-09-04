@@ -25,7 +25,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7d58d94d33fdb6e4ebe98eef3d0c7935, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  attackRange: 0.5
+  attackRange: 0.75
   fireRate: 1.5
   interuptAttack: 1
   eyesPosition: {x: 0, y: 0, z: 0}
