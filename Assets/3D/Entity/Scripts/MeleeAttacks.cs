@@ -32,7 +32,8 @@ public class MeleeAttacks : EntityAttacks
         }
 
         Attack();
-        animations.SetInteger("Animation", 2);
+        if (animations != null)
+            animations.SetInteger("Animation", 2);
     }
 
     IEnumerator CastAttack()

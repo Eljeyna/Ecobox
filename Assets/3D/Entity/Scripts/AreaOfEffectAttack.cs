@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using UnityEngine;
-public class RangeAttacks : EntityAttacks
+
+public class AreaOfEffectAttack : EntityAttacks
 {
     public float cast;
+    public float radius;
     public Animator animations;
+    public ParticleSystem particle;
+
     public AudioDirector sounds;
     public string[] soundsAttack;
-
     private int soundNumber;
-
     public override void Start()
     {
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
@@ -23,8 +25,6 @@ public class RangeAttacks : EntityAttacks
         {
             return;
         }
-
-        eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
 
         if (cast > 0f)
         {
@@ -42,6 +42,8 @@ public class RangeAttacks : EntityAttacks
 
     IEnumerator CastAttack()
     {
+        if (particle != null)
+            particle.Play();
         yield return new WaitForSeconds(cast);
 
         if (animations != null)
@@ -51,37 +53,16 @@ public class RangeAttacks : EntityAttacks
 
     public void Attack()
     {
-        RaycastHit hit;
-        eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
-        if (Physics.Raycast(eyesPosition, transform.forward, out hit, attackRange))
-        {
-            BaseEntity entity = hit.transform.GetComponent<BaseEntity>();
-            if (entity != null)
-            {
-                entity.TakeDamage(damage, thisEntity);
-            }
-
-            if (hit.rigidbody != null)
-            {
-                hit.rigidbody.AddForce(-hit.normal * impactForce, ForceMode.Impulse);
-            }
-        }
-
+        RadiusAttack.RadiusDamage(gameObject, transform.position, radius, damage);
         if (soundNumber != -1)
             sounds.Stop(soundsAttack[soundNumber]);
         soundNumber = GameDirector3D.PlayRandomSound(sounds, soundsAttack);
-        nextAttack = Time.time + fireRate;
-        if (cast > 0f && animations != null)
+        if (animations != null)
             animations.SetInteger("Animation", 2);
     }
 
     public override void SecondaryAttack()
     {
         return;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Debug.DrawRay(eyesPosition, transform.forward * attackRange, Color.yellow);
     }
 }

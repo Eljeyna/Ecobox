@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 3bb97a278d02d524ea668f1d8f63d3ca, type: 3}
-    totalSpriteSurfaceArea: 6253259
+    totalSpriteSurfaceArea: 6236875
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -83,7 +83,6 @@ SpriteAtlas:
   - {fileID: -1194269119152116161, guid: 0b5fcfdbd575eb94db96c2150f7f1f0a, type: 3}
   - {fileID: 5141848466958252020, guid: 0b5fcfdbd575eb94db96c2150f7f1f0a, type: 3}
   - {fileID: -7796864351666666146, guid: 0b5fcfdbd575eb94db96c2150f7f1f0a, type: 3}
-  - {fileID: 21300000, guid: 0c1419bc503f6fd44b7db491fac0b8c7, type: 3}
   - {fileID: 21300000, guid: 51b1111df060d93499e4cbfa736c7674, type: 3}
   - {fileID: 21300000, guid: f263e66d8dafdc74c9db0a7f244a5ac6, type: 3}
   - {fileID: 21300000, guid: afbcf59d9c2227d4aaf81bf6bfa4d8dc, type: 3}
@@ -122,7 +121,6 @@ SpriteAtlas:
   - Human_2
   - Human_1
   - Human_0
-  - Attack Icon
   - Settings 1
   - Dialogue Box
   - Black

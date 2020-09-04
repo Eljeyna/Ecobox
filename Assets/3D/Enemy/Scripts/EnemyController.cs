@@ -38,7 +38,6 @@ public class EnemyController : MonoBehaviour
                 agent.enabled = false;
             GetComponent<CapsuleCollider>().enabled = false;
             this.enabled = false;
-            //animations.SetInteger("Animation", 4);
             if (animations != null)
                 animations.Play("Death");
             GameDirector3D.PlayRandomSound(sounds, soundsDeath);
@@ -53,20 +52,32 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject, 2f);
             return;
         }
+        else
+        {
+            CharacterControl();
+        }
+    }
 
+    public void CharacterControl()
+    {
         GameDirector3D.PlayRandomSound(sounds, soundsIdle);
 
         if (nextWait > Time.time)
+        {
             return;
+        }
 
         if (thisEntity.attacker != null)
         {
             thisEntity.attacker = null;
-            nextWait = Time.time + 1f;
+            nextWait = Time.time + 0.5f;
             if (agent != null)
-                agent.SetDestination(target.position);
+                agent.SetDestination(transform.position);
             if (animations != null)
+            {
+                animations.SetInteger("Animation", 0);
                 animations.Play("Hit");
+            }
             return;
         }
 
@@ -111,27 +122,31 @@ public class EnemyController : MonoBehaviour
 
     public void PrimaryAttack()
     {
-        waitingTime = Time.time + 1f;
+        nextWait = Time.time + 1f;
         entityAttacks.PrimaryAttack(target.gameObject);
     }
 
     public void SecondaryAttack()
     {
-        waitingTime = Time.time + 1f;
+        nextWait = Time.time + 1f;
         entityAttacks.SecondaryAttack();
     }
 
     public void FaceToFace()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
+        /*Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);*/
+
+        Vector3 direction = (target.position - transform.position);
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = lookRotation;
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         triggerEnemy.enabled = false;
         target = other.gameObject.transform;
-        waitingTime = Time.time + 0.5f;
-    }
+        nextWait = Time.time + 0.5f;
+    }*/
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class BasePlayer : BaseEntity
 {
     public HealthGUI healthText;
-    public float invincibilityTime = 2f;
+    public float invincibilityTime = 2.5f;
 
     public override void Awake()
     {

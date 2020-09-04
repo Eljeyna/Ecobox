@@ -16,24 +16,24 @@ public class BallisticAttacks : EntityAttacks
     public AudioDirector sounds;
     public string[] soundsAttack;
 
-    /*public Quaternion startRotation;
+    public Quaternion startRotation;
     public Quaternion endRotation;
-    public Quaternion rotation;*/
+    public Quaternion rotation;
 
     IEnumerator Parabola()
     {
         end = target.position;
-        //FaceToFace();
+        FaceToFace();
 
         float time = 0f;
         while (particle.transform.position.y > end.y)
         {
             time += Time.deltaTime;
             Vector3 pos = Vector3.Lerp(start, end, time);
-            //Quaternion rot = Quaternion.Slerp(rotation, endRotation, time);
+            Quaternion rot = Quaternion.Slerp(rotation, endRotation, time);
             pos.y += curve.Evaluate(time);
             particle.transform.position = pos;
-            //particle.transform.rotation = rot;
+            particle.transform.rotation = rot;
 
             yield return null;
         }
@@ -44,7 +44,7 @@ public class BallisticAttacks : EntityAttacks
         particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         particle.transform.position = start;
 
-        //particle.transform.rotation = startRotation;
+        particle.transform.rotation = startRotation;
     }
 
     public override void Start()
@@ -54,7 +54,7 @@ public class BallisticAttacks : EntityAttacks
         thisEntity = GetComponent<BaseEntity>();
         start = particle.transform.position;
         sounds = GetComponent<AudioDirector>();
-        //startRotation = particle.transform.rotation;
+        startRotation = particle.transform.rotation;
     }
 
     public override void PrimaryAttack(GameObject target)
@@ -99,7 +99,7 @@ public class BallisticAttacks : EntityAttacks
         this.target = target;
     }
 
-    /*public void FaceToFace()
+    public void FaceToFace()
     {
         Vector3 direction = (target.position - particle.transform.position);
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
@@ -107,5 +107,5 @@ public class BallisticAttacks : EntityAttacks
         rotation = particle.transform.rotation;
         endRotation = particle.transform.rotation;
         endRotation.eulerAngles = new Vector3(180f, endRotation.eulerAngles.y, endRotation.eulerAngles.z);
-    }*/
+    }
 }

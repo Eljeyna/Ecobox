@@ -2,7 +2,7 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 2f;
+    public float speed = 4f;
     public FixedJoystick joystick;
     public LayerMask LAYER_MASK;
 
@@ -14,13 +14,17 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public EntityAttacks attack;
     [HideInInspector] public GameObject target;
     [HideInInspector] public BasePlayer thisPlayer;
-    [HideInInspector] public float waitingTime;
+    [HideInInspector] public float nextWait;
     [HideInInspector] public Rigidbody rigidBody;
     [HideInInspector] public Vector3 moveVelocity;
 
     public AudioDirector sounds;
     public string[] soundsIdle;
     public string[] soundsDeath;
+
+#if UNITY_ANDROID
+    private Touch lastTouch;
+#endif
 
     private void Start()
     {
@@ -36,82 +40,111 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //rigidBody.MovePosition(rigidBody.position + moveVelocity * Time.fixedDeltaTime);
+        rigidBody.MovePosition(rigidBody.position + moveVelocity * Time.fixedDeltaTime);
     }
 
     private void Update()
     {
         if (thisPlayer.flagDeath)
         {
-            playerCollider.enabled = false;
             animations.Play("Death");
             GameDirector3D.DefeatGame();
             this.enabled = false;
             return;
         }
+        else
+        {
+            CharacterControl();
+        }
+    }
 
-        if (waitingTime > Time.time)
+    public void CharacterControl()
+    {
+        if (nextWait > Time.time)
+        {
             return;
+        }
+
+        if (thisPlayer.attacker != null)
+        {
+            moveVelocity = Vector3.zero;
+            thisPlayer.attacker = null;
+            nextWait = Time.time + 0.5f;
+            animations.Play("Hit");
+            return;
+        }
 
         Vector3 moving;
-        if (SystemInfo.deviceType == DeviceType.Desktop)
-            moving = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        else
-            moving = new Vector3(joystick.Direction.x, 0f, joystick.Direction.y);
+#if UNITY_ANDROID
+        moving = new Vector3(joystick.Direction.x, 0f, joystick.Direction.y);
+#else
+        moving = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+#endif
 
         moveVelocity = moving.normalized * speed;
         moveVelocity = cam.transform.TransformDirection(moveVelocity);
         moveVelocity = Vector3.ProjectOnPlane(moveVelocity, Vector3.up);
 
-        if (SystemInfo.deviceType == DeviceType.Desktop)
+#if !UNITY_ANDROID
+        Ray cameraRay = cam.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+        if (groundPlane.Raycast(cameraRay, out float rayLength))
         {
-            //transform.Rotate(new Vector3(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f));
-            Ray cameraRay = cam.ScreenPointToRay(Input.mousePosition);
-            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-
-            if (groundPlane.Raycast(cameraRay, out float rayLength))
-            {
-                Vector3 pointToLook = cameraRay.GetPoint(rayLength);
-                Debug.DrawLine(cameraRay.origin, pointToLook, Color.cyan);
-
-                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }
+            Vector3 pointToLook = cameraRay.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
         }
-
+#endif
 
         if (moving.x != 0f || moving.z != 0f)
         {
             animations.SetInteger("Animation", 1);
-            if (SystemInfo.deviceType != DeviceType.Desktop)
-                FaceToFace(rigidBody.position + moving);
+#if UNITY_ANDROID
+            FaceToFace(rigidBody.position + moveVelocity);
+#endif
         }
         else
         {
             animations.SetInteger("Animation", 0);
         }
 
-        if (thisPlayer.attacker != null)
+#if UNITY_ANDROID
+        foreach (Touch touch in Input.touches)
         {
-            thisPlayer.attacker = null;
-            waitingTime = Time.time + 0.5f;
-            animations.Play("Hit");
-            return;
-        }
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (lastTouch.phase != TouchPhase.Moved && lastTouch.phase != TouchPhase.Stationary)
+                {
+                    Ray cameraRay = cam.ScreenPointToRay(touch.deltaPosition);
+                    Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
-        if (SystemInfo.deviceType == DeviceType.Desktop && Input.GetMouseButtonDown(0))
+                    if (groundPlane.Raycast(cameraRay, out float rayLength))
+                    {
+                        Vector3 pointToLook = cameraRay.GetPoint(rayLength);
+                        transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+                    }
+
+                    Attack();
+                }
+
+                lastTouch = touch;
+            }
+        }
+#else
+        if (Input.GetMouseButtonDown(0))
         {
             Attack();
         }
-
+#endif
     }
 
     public void Attack()
     {
         if (attack.nextAttack <= Time.time)
         {
-            //attack.PrimaryAttack(hit.collider.gameObject);
+            moveVelocity = Vector3.zero;
+            nextWait = Time.time + attack.fireRate / 2;
             attack.PrimaryAttack(null);
-            waitingTime = Time.time + attack.fireRate / 2;
         }
     }
 
@@ -124,6 +157,7 @@ public class PlayerController : MonoBehaviour
         return lookRotation;
     }
 
+#if UNITY_EDITOR
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))
@@ -133,4 +167,5 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+#endif
 }

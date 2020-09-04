@@ -2062,9 +2062,9 @@ GameObject:
   - component: {fileID: 7686793008860751876}
   - component: {fileID: 7686793008860751879}
   - component: {fileID: 1772680171}
-  - component: {fileID: 1772680172}
   - component: {fileID: 6777391541039457416}
   - component: {fileID: 7195147507255588308}
+  - component: {fileID: 4380231979590427686}
   m_Layer: 8
   m_Name: Synthea
   m_TagString: Player
@@ -2099,8 +2099,8 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 05b2fe485ce990b4f99f3b68dc8e2f22, type: 3}
   m_Controller: {fileID: 9100000, guid: fd3e1e2a890f5b940b334882f0601586, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_UpdateMode: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2132,7 +2132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e4c9fc0775ef9e419970d22aacdacac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 4
   joystick: {fileID: 0}
   LAYER_MASK:
     serializedVersion: 2
@@ -2143,7 +2143,7 @@ MonoBehaviour:
   attack: {fileID: 0}
   target: {fileID: 0}
   thisPlayer: {fileID: 0}
-  waitingTime: 0
+  nextWait: 0
   rigidBody: {fileID: 0}
   moveVelocity: {x: 0, y: 0, z: 0}
   sounds: {fileID: 0}
@@ -2168,31 +2168,6 @@ MonoBehaviour:
   attacker: {fileID: 0}
   healthText: {fileID: 0}
   invincibilityTime: 2.5
---- !u!114 &1772680172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7686793008860751875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073293ff63f324e449e28516b0a7149d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  attackRange: 4
-  fireRate: 0.5
-  interuptAttack: 1
-  eyesPosition: {x: 0, y: 0, z: 0}
-  thisEntity: {fileID: 0}
-  impactForce: 0
-  nextAttack: 0
-  cast: 0
-  animations: {fileID: 0}
-  sounds: {fileID: 0}
-  soundsAttack:
-  - Attack 1
 --- !u!114 &6777391541039457416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2234,6 +2209,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &4380231979590427686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686793008860751875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504f004042b597d49a7653ed9886914a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  attackRange: 0
+  fireRate: 0.75
+  interuptAttack: 1
+  eyesPosition: {x: 0, y: 0, z: 0}
+  thisEntity: {fileID: 0}
+  impactForce: 0
+  nextAttack: 0
+  cast: 0
+  radius: 1.5
+  animations: {fileID: 0}
+  particle: {fileID: 0}
+  sounds: {fileID: 0}
+  soundsAttack:
+  - Attack 1
 --- !u!1 &7686793008861276641
 GameObject:
   m_ObjectHideFlags: 0

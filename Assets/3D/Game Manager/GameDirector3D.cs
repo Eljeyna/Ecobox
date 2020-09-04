@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GameDirector3D : MonoBehaviour
+public static class GameDirector3D
 {
     public static int maxWave = 8;
     public static int maxEntities = 40;
