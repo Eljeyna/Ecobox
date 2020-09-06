@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
-public class RangeAttacks : EntityAttacks
+
+public class CollidesAttack : EntityAttacks
 {
     public float cast;
+    public CollisionObject collides;
+
     public Animator animations;
+
     public AudioDirector sounds;
     public string[] soundsAttack;
 
@@ -11,6 +15,7 @@ public class RangeAttacks : EntityAttacks
 
     public override void Start()
     {
+        collides = transform.GetChild(0).GetComponent<CollisionObject>();
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
         animations = GetComponent<Animator>();
         thisEntity = GetComponent<BaseEntity>();
@@ -23,8 +28,6 @@ public class RangeAttacks : EntityAttacks
         {
             return;
         }
-
-        eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
 
         if (cast > 0f)
         {
@@ -48,19 +51,22 @@ public class RangeAttacks : EntityAttacks
 
     public void Attack()
     {
-        RaycastHit hit;
-        eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
-        if (Physics.Raycast(eyesPosition, transform.forward, out hit, attackRange))
+        if (collides.objectCollision.Count > 0)
         {
-            BaseEntity entity = hit.transform.GetComponent<BaseEntity>();
-            if (entity != null)
+            for (int i = 0; i < collides.objectCollision.Count; i++)
             {
-                entity.TakeDamage(damage, thisEntity);
-            }
-
-            if (hit.rigidbody != null)
-            {
-                hit.rigidbody.AddForce(-hit.normal * impactForce, ForceMode.Impulse);
+                if (collides.objectCollision[i] == null)
+                {
+                    collides.objectCollision.Remove(collides.objectCollision[i]);
+                }
+                else
+                {
+                    BaseEntity entity = collides.objectCollision[i].GetComponent<BaseEntity>();
+                    if (entity != null)
+                    {
+                        entity.TakeDamage(damage, thisEntity);
+                    }
+                }
             }
         }
 
@@ -73,10 +79,5 @@ public class RangeAttacks : EntityAttacks
     public override void SecondaryAttack()
     {
         return;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Debug.DrawRay(eyesPosition, transform.forward * attackRange, Color.yellow);
     }
 }

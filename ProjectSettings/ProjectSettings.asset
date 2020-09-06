@@ -126,7 +126,8 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: Demo
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: 609a3018d054a0f4baf7a7f7f2c41e74, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -746,7 +747,7 @@ PlayerSettings:
   projectName: ECOBOX
   organizationId: eljeyna
   cloudEnabled: 0
-  enableNativePlatformBackendsForNewInputSystem: 0
-  disableOldInputManagerSupport: 0
+  enableNativePlatformBackendsForNewInputSystem: 1
+  disableOldInputManagerSupport: 1
   legacyClampBlendShapeWeights: 0
   virtualTexturingSupportEnabled: 0

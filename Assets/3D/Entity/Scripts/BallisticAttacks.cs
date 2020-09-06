@@ -20,6 +20,8 @@ public class BallisticAttacks : EntityAttacks
     public Quaternion endRotation;
     public Quaternion rotation;
 
+    private int soundNumber;
+
     IEnumerator Parabola()
     {
         end = target.position;
@@ -39,7 +41,9 @@ public class BallisticAttacks : EntityAttacks
         }
 
         RadiusAttack.RadiusDamage(gameObject, particle.transform.position, radiusBallistic, damage);
-        GameDirector3D.PlayRandomSound(sounds, soundsAttack);
+        if (soundNumber != -1)
+            sounds.Stop(soundsAttack[soundNumber]);
+        soundNumber = GameDirector3D.PlayRandomSound(sounds, soundsAttack);
 
         particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         particle.transform.position = start;
@@ -68,7 +72,7 @@ public class BallisticAttacks : EntityAttacks
         StartCoroutine(CastAttack());
         nextAttack = Time.time + fireRate + cast;
         if (animations != null)
-            animations.SetInteger("Animation", 1);
+            animations.SetInteger("Animation", 2);
         return;
     }
 
@@ -76,9 +80,6 @@ public class BallisticAttacks : EntityAttacks
     {
         particle.Play();
         yield return new WaitForSeconds(cast);
-
-        if (animations != null)
-            animations.SetInteger("Animation", 0);
         Attack();
     }
 
@@ -86,7 +87,7 @@ public class BallisticAttacks : EntityAttacks
     {
         StartCoroutine(Parabola());
         if (animations != null)
-            animations.SetInteger("Animation", 1);
+            animations.SetInteger("Animation", 2);
     }
 
     public override void SecondaryAttack()

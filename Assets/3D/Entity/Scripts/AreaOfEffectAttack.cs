@@ -47,7 +47,7 @@ public class AreaOfEffectAttack : EntityAttacks
         yield return new WaitForSeconds(cast);
 
         if (animations != null)
-            animations.SetInteger("Animation", 0);
+            animations.SetInteger("Animation", 2);
         Attack();
     }
 
@@ -57,8 +57,6 @@ public class AreaOfEffectAttack : EntityAttacks
         if (soundNumber != -1)
             sounds.Stop(soundsAttack[soundNumber]);
         soundNumber = GameDirector3D.PlayRandomSound(sounds, soundsAttack);
-        if (animations != null)
-            animations.SetInteger("Animation", 2);
     }
 
     public override void SecondaryAttack()
