@@ -24,20 +24,28 @@ public class RangeAttacks : EntityAttacks
             return;
         }
 
+        nextAttack = Time.time + fireRate + cast;
+
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
+        if (animations != null)
+            animations.SetInteger("Animation", 2);
 
         if (cast > 0f)
         {
-            StartCoroutine(CastAttack());
-            nextAttack = Time.time + fireRate;
-            if (animations != null)
-                animations.SetInteger("Animation", 2);
+            castCoroutine = StartCoroutine(CastAttack());
             return;
         }
 
         Attack();
-        if (animations != null)
-            animations.SetInteger("Animation", 2);
+    }
+
+    public override void StopCastAttackCoroutine()
+    {
+        if (castCoroutine != null)
+        {
+            StopCoroutine(castCoroutine);
+            castCoroutine = null;
+        }
     }
 
     IEnumerator CastAttack()
@@ -48,6 +56,7 @@ public class RangeAttacks : EntityAttacks
 
     public void Attack()
     {
+        castCoroutine = null;
         RaycastHit hit;
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
         if (Physics.Raycast(eyesPosition, transform.forward, out hit, attackRange))
@@ -67,7 +76,6 @@ public class RangeAttacks : EntityAttacks
         if (soundNumber != -1)
             sounds.Stop(soundsAttack[soundNumber]);
         soundNumber = GameDirector3D.PlayRandomSound(sounds, soundsAttack);
-        nextAttack = Time.time + fireRate;
     }
 
     public override void SecondaryAttack()

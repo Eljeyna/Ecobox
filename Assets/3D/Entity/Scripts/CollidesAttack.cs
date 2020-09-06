@@ -29,18 +29,26 @@ public class CollidesAttack : EntityAttacks
             return;
         }
 
+        nextAttack = Time.time + fireRate + cast;
+        if (animations != null)
+            animations.SetInteger("Animation", 2);
+
         if (cast > 0f)
         {
-            StartCoroutine(CastAttack());
-            nextAttack = Time.time + fireRate;
-            if (animations != null)
-                animations.SetInteger("Animation", 2);
+            castCoroutine = StartCoroutine(CastAttack());
             return;
         }
 
         Attack();
-        if (animations != null)
-            animations.SetInteger("Animation", 2);
+    }
+
+    public override void StopCastAttackCoroutine()
+    {
+        if (castCoroutine != null)
+        {
+            StopCoroutine(castCoroutine);
+            castCoroutine = null;
+        }
     }
 
     IEnumerator CastAttack()
@@ -51,21 +59,16 @@ public class CollidesAttack : EntityAttacks
 
     public void Attack()
     {
+        castCoroutine = null;
         if (collides.objectCollision.Count > 0)
         {
+            collides.objectCollision.RemoveAll(Collider => Collider == null);
             for (int i = 0; i < collides.objectCollision.Count; i++)
             {
-                if (collides.objectCollision[i] == null)
+                BaseEntity entity = collides.objectCollision[i].GetComponent<BaseEntity>();
+                if (entity != null)
                 {
-                    collides.objectCollision.Remove(collides.objectCollision[i]);
-                }
-                else
-                {
-                    BaseEntity entity = collides.objectCollision[i].GetComponent<BaseEntity>();
-                    if (entity != null)
-                    {
-                        entity.TakeDamage(damage, thisEntity);
-                    }
+                    entity.TakeDamage(damage, thisEntity);
                 }
             }
         }
@@ -73,7 +76,6 @@ public class CollidesAttack : EntityAttacks
         if (soundNumber != -1)
             sounds.Stop(soundsAttack[soundNumber]);
         soundNumber = GameDirector3D.PlayRandomSound(sounds, soundsAttack);
-        nextAttack = Time.time + fireRate;
     }
 
     public override void SecondaryAttack()

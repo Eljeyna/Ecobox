@@ -3,5 +3,5 @@ using UnityEngine;
 
 public class CollisionObject : MonoBehaviour
 {
-    [HideInInspector] public List<Collider> objectCollision = new List<Collider>();
+    public List<Collider> objectCollision = new List<Collider>();
 }

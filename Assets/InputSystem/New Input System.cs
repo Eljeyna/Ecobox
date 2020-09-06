@@ -38,17 +38,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""78ab16af-1c57-469d-b77b-fa691db4fa1a"",
-                    ""path"": ""<Touchscreen>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""0e8bdf2f-a1c7-4481-8194-b73a029b1e12"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",

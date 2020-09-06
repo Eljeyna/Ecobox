@@ -48,7 +48,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -5067,6 +5067,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   animations: {fileID: 0}
   triggerEnemy: {fileID: 0}
+  capsuleCollider: {fileID: 0}
   thisEntity: {fileID: 0}
   sounds: {fileID: 0}
   soundsIdle: []
@@ -5134,6 +5135,9 @@ MonoBehaviour:
   sounds: {fileID: 0}
   soundsAttack:
   - Explosive
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
+  endRotation: {x: 0, y: 0, z: 0, w: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &871557820
 MonoBehaviour:
   m_ObjectHideFlags: 0

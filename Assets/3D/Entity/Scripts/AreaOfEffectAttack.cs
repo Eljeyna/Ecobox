@@ -26,18 +26,26 @@ public class AreaOfEffectAttack : EntityAttacks
             return;
         }
 
+        nextAttack = Time.time + fireRate + cast;
+        if (animations != null)
+            animations.SetInteger("Animation", 2);
+
         if (cast > 0f)
         {
-            StartCoroutine(CastAttack());
-            nextAttack = Time.time + fireRate;
-            if (animations != null)
-                animations.SetInteger("Animation", 2);
+            castCoroutine = StartCoroutine(CastAttack());
             return;
         }
 
         Attack();
-        if (animations != null)
-            animations.SetInteger("Animation", 2);
+    }
+
+    public override void StopCastAttackCoroutine()
+    {
+        if (castCoroutine != null)
+        {
+            StopCoroutine(castCoroutine);
+            castCoroutine = null;
+        }
     }
 
     IEnumerator CastAttack()
@@ -45,14 +53,12 @@ public class AreaOfEffectAttack : EntityAttacks
         if (particle != null)
             particle.Play();
         yield return new WaitForSeconds(cast);
-
-        if (animations != null)
-            animations.SetInteger("Animation", 2);
         Attack();
     }
 
     public void Attack()
     {
+        castCoroutine = null;
         RadiusAttack.RadiusDamage(gameObject, transform.position, radius, damage);
         if (soundNumber != -1)
             sounds.Stop(soundsAttack[soundNumber]);

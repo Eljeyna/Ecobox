@@ -10,7 +10,7 @@ public class ChangeOnStartMobile : MonoBehaviour
     {
 #if UNITY_ANDROID || UNITY_IOS
         text = GetComponent<TMP_Text>();
-        text.text = "Чтобы атаковать, нажмите на экран\nTo attack you should use touch screen";
+        text.text = "Чтобы атаковать, нажмите на кнопку в правом углу\nTo attack you should use button on the right corner";
 #else
         Destroy(this);
 #endif

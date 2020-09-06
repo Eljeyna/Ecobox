@@ -68,23 +68,48 @@ public class BallisticAttacks : EntityAttacks
             return;
         }
 
-        this.target = target.transform;
-        StartCoroutine(CastAttack());
         nextAttack = Time.time + fireRate + cast;
+        particle.Play();
+        this.target = target.transform;
         if (animations != null)
             animations.SetInteger("Animation", 2);
-        return;
+
+        if (cast > 0f)
+        {
+            castCoroutine = StartCoroutine(CastAttack());
+            return;
+        }
+
+        Attack();
+    }
+
+    public override void StopCastAttackCoroutine()
+    {
+        if (castCoroutine != null)
+        {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            StopCoroutine(castCoroutine);
+            castCoroutine = null;
+        }
     }
 
     IEnumerator CastAttack()
     {
-        particle.Play();
         yield return new WaitForSeconds(cast);
         Attack();
     }
 
     public void Attack()
     {
+        castCoroutine = null;
+        float distance = Vector3.Distance(target.position, transform.position);
+
+        if (distance > attackRange)
+        {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            return;
+        }
+
         StartCoroutine(Parabola());
         if (animations != null)
             animations.SetInteger("Animation", 2);

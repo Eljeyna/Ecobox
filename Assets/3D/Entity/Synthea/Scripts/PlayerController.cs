@@ -60,6 +60,11 @@ public class PlayerController : MonoBehaviour
     {
         if (thisPlayer.flagDeath)
         {
+            if (attack != null)
+            {
+                attack.StopCastAttackCoroutine();
+                attack.enabled = false;
+            }
             animations.Play("Death");
             GameDirector3D.DefeatGame();
             this.enabled = false;
@@ -81,6 +86,8 @@ public class PlayerController : MonoBehaviour
         if (thisPlayer.attacker != null)
         {
             moveVelocity = Vector3.zero;
+            if (attack.interuptAttack)
+                attack.StopCastAttackCoroutine();
             thisPlayer.attacker = null;
             nextWait = Time.time + 0.5f;
             animations.Play("Hit");
@@ -124,16 +131,15 @@ public class PlayerController : MonoBehaviour
     {
         if (attack.nextAttack <= Time.time)
         {
-//#if UNITY_STANDALONE
-            Ray cameraRay = cam.ScreenPointToRay(Pointer.current.position.ReadValue());
+            /*Ray cameraRay = cam.ScreenPointToRay(Pointer.current.position.ReadValue());
             Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
             if (groundPlane.Raycast(cameraRay, out float rayLength))
             {
                 Vector3 pointToLook = cameraRay.GetPoint(rayLength);
                 transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }
-//#endif
+            }*/
+
             moveVelocity = Vector3.zero;
             nextWait = Time.time + attack.fireRate / 2;
             attack.PrimaryAttack(null);

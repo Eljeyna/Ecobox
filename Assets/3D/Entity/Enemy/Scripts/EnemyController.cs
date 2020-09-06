@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
         {
             if (agent != null)
                 agent.enabled = false;
+            entityAttacks.StopCastAttackCoroutine();
             GetComponent<CapsuleCollider>().enabled = false;
             this.enabled = false;
             if (animations != null)
@@ -73,6 +74,8 @@ public class EnemyController : MonoBehaviour
         {
             thisEntity.attacker = null;
             nextWait = Time.time + 0.5f;
+            if (entityAttacks.interuptAttack)
+                entityAttacks.StopCastAttackCoroutine();
             if (agent != null)
                 agent.SetDestination(transform.position);
             if (animations != null)
@@ -136,13 +139,13 @@ public class EnemyController : MonoBehaviour
 
     public void FaceToFace()
     {
-        /*Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);*/
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
-        Vector3 direction = (target.position - transform.position);
+        /*Vector3 direction = (target.position - transform.position);
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = lookRotation;
+        transform.rotation = lookRotation;*/
     }
 
     private void OnTriggerEnter(Collider other)
