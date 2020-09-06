@@ -1,5 +1,4 @@
-﻿using UnityEngine.Audio;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public class AudioDirector : MonoBehaviour
@@ -13,7 +12,6 @@ public class AudioDirector : MonoBehaviour
 
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-
             s.source.loop = s.loop;
         }
     }

@@ -82,6 +82,19 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+--- !u!114 &404940257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805543155743125316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cbdf836426466e4ca52aa6a3a7f85b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityTag: 2
 --- !u!114 &1955984350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,17 +202,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a7b65376ea991324294158a59d087e77,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.7157965
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a7b65376ea991324294158a59d087e77,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.00000071525574
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a7b65376ea991324294158a59d087e77,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5.4881277
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a7b65376ea991324294158a59d087e77,
         type: 3}
@@ -349,7 +362,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a7b65376ea991324294158a59d087e77,
         type: 3}
       propertyPath: m_TagString
-      value: Enemies
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 987911551313956683, guid: a7b65376ea991324294158a59d087e77,
         type: 3}

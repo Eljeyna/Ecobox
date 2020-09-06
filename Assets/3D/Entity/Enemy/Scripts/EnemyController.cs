@@ -43,7 +43,7 @@ public class EnemyController : MonoBehaviour
             this.enabled = false;
             if (animations != null)
                 animations.Play("Death");
-            GameDirector3D.PlayRandomSound(sounds, soundsDeath);
+            GameDirector3D.PlayRandomSound(sounds, soundsDeath, false);
 
             Spawner3D spawner = transform.parent.GetComponent<Spawner3D>();
             if (spawner != null)
@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
 
     public void CharacterControl()
     {
-        GameDirector3D.PlayRandomSound(sounds, soundsIdle);
+        GameDirector3D.PlayRandomSound(sounds, soundsIdle, false);
 
         if (nextWait > Time.time)
         {
@@ -150,7 +150,8 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Conus"))
+        Tags.EntityTags conusEntity = other.GetComponent<BaseTag>().entityTag;
+        if ((conusEntity & Tags.EntityTags.FL_CONUS) != 0)
         {
             other.GetComponent<CollisionObject>().objectCollision.Add(capsuleCollider);
         }
@@ -158,7 +159,8 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Conus"))
+        Tags.EntityTags conusEntity = other.GetComponent<BaseTag>().entityTag;
+        if ((conusEntity & Tags.EntityTags.FL_CONUS) != 0)
         {
             other.GetComponent<CollisionObject>().objectCollision.Remove(capsuleCollider);
         }

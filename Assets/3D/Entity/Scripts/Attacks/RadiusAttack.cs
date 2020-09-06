@@ -2,20 +2,20 @@
 
 public class RadiusAttack : MonoBehaviour
 {
-    public static void RadiusDamage(GameObject attacker, Vector3 pos, float radius, float amount)
+    public static void RadiusDamage(GameObject attacker, Vector3 pos, float radius, float amount, LayerMask mask)
     {
-        BaseEntity thisEntity = attacker.GetComponent<BaseEntity>();
-
-        Collider[] targets = Physics.OverlapSphere(pos, radius);
+        Collider[] targets = Physics.OverlapSphere(pos, radius, mask);
 
         if (targets.Length > 0)
         {
+            BaseEntity thisEntity = attacker.GetComponent<BaseEntity>();
             foreach (Collider enemy in targets)
             {
-                if (!enemy.CompareTag(attacker.tag))
+                Tags.EntityTags entityTag = enemy.GetComponent<BaseTag>().entityTag;
+                Tags.EntityTags attackerTag = attacker.GetComponent<BaseTag>().entityTag;
+                if ((entityTag & attackerTag) == 0)
                 {
                     BaseEntity entity = enemy.GetComponent<BaseEntity>();
-
                     if (entity != null && !entity.flagDeath)
                     {
                         entity.TakeDamage(amount, thisEntity);
@@ -25,7 +25,7 @@ public class RadiusAttack : MonoBehaviour
         }
     }
 
-    public static GameObject FindEnemy(GameObject attacker, Vector3 pos, float radius)
+    /*public static GameObject FindEnemy(GameObject attacker, Vector3 pos, float radius)
     {
         Collider[] targets = Physics.OverlapSphere(pos, radius);
 
@@ -42,5 +42,5 @@ public class RadiusAttack : MonoBehaviour
         }
 
         return null;
-    }
+    }*/
 }

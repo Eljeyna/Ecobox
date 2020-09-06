@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,6 +42,7 @@ public class PlayerController : MonoBehaviour
         sounds = GameDirector3D.GetAudioDirector();
         thisPlayer = GetComponent<BasePlayer>();
         sounds.Play("Ambient");
+        sounds = GetComponent<AudioDirector>();
 
         controls.Player.Movement.performed += movementEvent => moving = movementEvent.ReadValue<Vector2>();
         controls.Player.Movement.canceled += movementEvent => moving = Vector3.zero;
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         if (thisPlayer.flagDeath)
         {
+            controls.Disable();
             if (attack != null)
             {
                 attack.StopCastAttackCoroutine();
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour
         moveVelocity = moving.normalized * speed;
         moveVelocity = cam.transform.TransformDirection(moveVelocity);
         moveVelocity = Vector3.ProjectOnPlane(moveVelocity, Vector3.up);
+        moveVelocity.y = 0f;
 
         if (moving != Vector3.zero)
         {
@@ -113,13 +115,11 @@ public class PlayerController : MonoBehaviour
             animations.SetInteger("Animation", 0);
         }
 
-//#if UNITY_STANDALONE
         if (attacking)
         {
             attacking = false;
             Attack();
         }
-//#endif
 
 #if UNITY_ANDROID || UNITY_IOS
         if (joystick.Direction != Vector2.zero)
@@ -169,8 +169,9 @@ public class PlayerController : MonoBehaviour
 #if UNITY_EDITOR
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PickUp"))
-    {
+        BaseTag pickUpEntity = other.GetComponent<BaseTag>();
+        if (pickUpEntity != null && (pickUpEntity.entityTag & Tags.EntityTags.FL_PICKUP) != 0)
+        {
             thisPlayer.TakeHealth(1, null);
             sounds.Play("Healing");
             Destroy(other.gameObject);

@@ -28,17 +28,21 @@ public static class GameDirector3D
         return audioDirector;
     }
 
-    public static int PlayRandomSound(AudioDirector sounds, string[] soundsList)
+    public static int PlayRandomSound(AudioDirector sounds, string[] soundsList, bool stopping)
     {
         if (soundsList.Length > 0)
         {
             if (soundsList.Length == 1)
             {
+                if (stopping)
+                    sounds.Stop(soundsList[0]);
                 sounds.Play(soundsList[0]);
                 return 0;
             }
 
             int randomSound = Random.Range(0, soundsList.Length);
+            if (stopping)
+                sounds.Stop(soundsList[randomSound]);
             sounds.Play(soundsList[randomSound]);
             return randomSound;
         }

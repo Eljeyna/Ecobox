@@ -11,8 +11,6 @@ public class CollidesAttack : EntityAttacks
     public AudioDirector sounds;
     public string[] soundsAttack;
 
-    private int soundNumber;
-
     public override void Start()
     {
         collides = transform.GetChild(0).GetComponent<CollisionObject>();
@@ -72,10 +70,7 @@ public class CollidesAttack : EntityAttacks
                 }
             }
         }
-
-        if (soundNumber != -1)
-            sounds.Stop(soundsAttack[soundNumber]);
-        soundNumber = GameDirector3D.PlayRandomSound(sounds, soundsAttack);
+        GameDirector3D.PlayRandomSound(sounds, soundsAttack, true);
     }
 
     public override void SecondaryAttack()

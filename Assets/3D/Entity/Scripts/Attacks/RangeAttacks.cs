@@ -7,8 +7,6 @@ public class RangeAttacks : EntityAttacks
     public AudioDirector sounds;
     public string[] soundsAttack;
 
-    private int soundNumber;
-
     public override void Start()
     {
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
@@ -72,10 +70,7 @@ public class RangeAttacks : EntityAttacks
                 hit.rigidbody.AddForce(-hit.normal * impactForce, ForceMode.Impulse);
             }
         }
-
-        if (soundNumber != -1)
-            sounds.Stop(soundsAttack[soundNumber]);
-        soundNumber = GameDirector3D.PlayRandomSound(sounds, soundsAttack);
+        GameDirector3D.PlayRandomSound(sounds, soundsAttack, true);
     }
 
     public override void SecondaryAttack()

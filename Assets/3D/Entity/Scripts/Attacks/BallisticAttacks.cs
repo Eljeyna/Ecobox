@@ -15,12 +15,11 @@ public class BallisticAttacks : EntityAttacks
 
     public AudioDirector sounds;
     public string[] soundsAttack;
+    public string[] soundsBallistic;
 
     public Quaternion startRotation;
     public Quaternion endRotation;
     public Quaternion rotation;
-
-    private int soundNumber;
 
     IEnumerator Parabola()
     {
@@ -40,10 +39,8 @@ public class BallisticAttacks : EntityAttacks
             yield return null;
         }
 
-        RadiusAttack.RadiusDamage(gameObject, particle.transform.position, radiusBallistic, damage);
-        if (soundNumber != -1)
-            sounds.Stop(soundsAttack[soundNumber]);
-        soundNumber = GameDirector3D.PlayRandomSound(sounds, soundsAttack);
+        RadiusAttack.RadiusDamage(gameObject, particle.transform.position, radiusBallistic, damage, 1 << gameObject.layer);
+        GameDirector3D.PlayRandomSound(sounds, soundsBallistic, true);
 
         particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         particle.transform.position = start;
@@ -110,6 +107,7 @@ public class BallisticAttacks : EntityAttacks
             return;
         }
 
+        GameDirector3D.PlayRandomSound(sounds, soundsAttack, true);
         StartCoroutine(Parabola());
         if (animations != null)
             animations.SetInteger("Animation", 2);

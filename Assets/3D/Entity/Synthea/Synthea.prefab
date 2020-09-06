@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 1702081544}
   - component: {fileID: 1702081548}
   - component: {fileID: 1702081549}
+  - component: {fileID: 1294333560}
   m_Layer: 2
   m_Name: Conus
-  m_TagString: Conus
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3999,6 +4000,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &1294333560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702081542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cbdf836426466e4ca52aa6a3a7f85b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityTag: 0
 --- !u!1 &7686793007199880919
 GameObject:
   m_ObjectHideFlags: 0
@@ -6065,6 +6079,7 @@ GameObject:
   - component: {fileID: 7195147507255588308}
   - component: {fileID: 5382966284558309002}
   - component: {fileID: 1772680172}
+  - component: {fileID: 1882610583171798674}
   m_Layer: 8
   m_Name: Synthea
   m_TagString: Player
@@ -6100,7 +6115,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 05b2fe485ce990b4f99f3b68dc8e2f22, type: 3}
   m_Controller: {fileID: 9100000, guid: fd3e1e2a890f5b940b334882f0601586, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 1
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -6208,7 +6223,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &5382966284558309002
 MonoBehaviour:
@@ -6275,6 +6290,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1882610583171798674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686793008860751875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cbdf836426466e4ca52aa6a3a7f85b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityTag: 1
 --- !u!1 &7686793008861276641
 GameObject:
   m_ObjectHideFlags: 0
