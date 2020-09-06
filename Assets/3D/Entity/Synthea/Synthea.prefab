@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1702081546}
   - component: {fileID: 1702081545}
   - component: {fileID: 1702081544}
-  - component: {fileID: 1702081548}
   - component: {fileID: 1702081549}
+  - component: {fileID: 1702081548}
   - component: {fileID: 1294333560}
   m_Layer: 2
   m_Name: Conus
@@ -3971,19 +3971,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &1702081548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1702081542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce25ed42891294a4ea5d702bae8392ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectCollision: []
 --- !u!54 &1702081549
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4000,6 +3987,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!114 &1702081548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702081542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce25ed42891294a4ea5d702bae8392ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectCollision: []
 --- !u!114 &1294333560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4012,7 +4012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cbdf836426466e4ca52aa6a3a7f85b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityTag: 0
+  entityTag: 8
 --- !u!1 &7686793007199880919
 GameObject:
   m_ObjectHideFlags: 0
@@ -6073,13 +6073,13 @@ GameObject:
   - component: {fileID: 7686793008860751872}
   - component: {fileID: 7686793008860751874}
   - component: {fileID: 7686793008860751876}
-  - component: {fileID: 7686793008860751879}
+  - component: {fileID: 7195147507255588308}
+  - component: {fileID: 1882610583171798674}
   - component: {fileID: 1772680171}
   - component: {fileID: 6777391541039457416}
-  - component: {fileID: 7195147507255588308}
+  - component: {fileID: 7686793008860751879}
   - component: {fileID: 5382966284558309002}
   - component: {fileID: 1772680172}
-  - component: {fileID: 1882610583171798674}
   m_Layer: 8
   m_Name: Synthea
   m_TagString: Player
@@ -6136,7 +6136,23 @@ CapsuleCollider:
   m_Height: 0.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!114 &7686793008860751879
+--- !u!54 &7195147507255588308
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686793008860751875}
+  serializedVersion: 2
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &1882610583171798674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6145,26 +6161,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7686793008860751875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e4c9fc0775ef9e419970d22aacdacac, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cbdf836426466e4ca52aa6a3a7f85b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  joystick: {fileID: 0}
-  LAYER_MASK:
-    serializedVersion: 2
-    m_Bits: 256
-  cam: {fileID: 0}
-  animations: {fileID: 0}
-  playerCollider: {fileID: 0}
-  attack: {fileID: 0}
-  target: {fileID: 0}
-  thisPlayer: {fileID: 0}
-  nextWait: 0
-  rigidBody: {fileID: 0}
-  moveVelocity: {x: 0, y: 0, z: 0}
-  sounds: {fileID: 0}
-  soundsIdle: []
-  soundsDeath: []
+  entityTag: 1
 --- !u!114 &1772680171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6209,22 +6209,35 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
---- !u!54 &7195147507255588308
-Rigidbody:
+--- !u!114 &7686793008860751879
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7686793008860751875}
-  serializedVersion: 2
-  m_Mass: 10
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4c9fc0775ef9e419970d22aacdacac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  joystick: {fileID: 0}
+  LAYER_MASK:
+    serializedVersion: 2
+    m_Bits: 256
+  cam: {fileID: 0}
+  animations: {fileID: 0}
+  playerCollider: {fileID: 0}
+  attack: {fileID: 0}
+  target: {fileID: 0}
+  thisPlayer: {fileID: 0}
+  nextWait: 0
+  rigidBody: {fileID: 0}
+  moveVelocity: {x: 0, y: 0, z: 0}
+  sounds: {fileID: 0}
+  soundsIdle: []
+  soundsDeath: []
 --- !u!114 &5382966284558309002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6290,19 +6303,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1882610583171798674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7686793008860751875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cbdf836426466e4ca52aa6a3a7f85b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityTag: 1
 --- !u!1 &7686793008861276641
 GameObject:
   m_ObjectHideFlags: 0

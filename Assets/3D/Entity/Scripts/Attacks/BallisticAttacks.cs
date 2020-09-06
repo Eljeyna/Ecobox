@@ -69,7 +69,7 @@ public class BallisticAttacks : EntityAttacks
         particle.Play();
         this.target = target.transform;
         if (animations != null)
-            animations.SetInteger("Animation", 2);
+            animations.SetInteger("Animation", 1);
 
         if (cast > 0f)
         {
@@ -109,8 +109,6 @@ public class BallisticAttacks : EntityAttacks
 
         GameDirector3D.PlayRandomSound(sounds, soundsAttack, true);
         StartCoroutine(Parabola());
-        if (animations != null)
-            animations.SetInteger("Animation", 2);
     }
 
     public override void SecondaryAttack()

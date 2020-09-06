@@ -24,7 +24,7 @@ public class MeleeAttacks : EntityAttacks
 
         nextAttack = Time.time + fireRate + cast;
         if (animations != null)
-            animations.SetInteger("Animation", 2);
+            animations.SetInteger("Animation", 1);
 
         if (cast > 0f)
         {

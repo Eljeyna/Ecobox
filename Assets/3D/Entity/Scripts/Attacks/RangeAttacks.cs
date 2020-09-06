@@ -26,7 +26,7 @@ public class RangeAttacks : EntityAttacks
 
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
         if (animations != null)
-            animations.SetInteger("Animation", 2);
+            animations.SetInteger("Animation", 1);
 
         if (cast > 0f)
         {
