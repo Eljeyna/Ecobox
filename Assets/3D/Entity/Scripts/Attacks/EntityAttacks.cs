@@ -6,6 +6,7 @@ public abstract class EntityAttacks : MonoBehaviour
     public float attackRange;
     public float fireRate;
     public bool interruptAttack = false;
+    public bool interrupted = false;
     public Vector3 eyesPosition;
     public BaseEntity thisEntity;
     public float impactForce;

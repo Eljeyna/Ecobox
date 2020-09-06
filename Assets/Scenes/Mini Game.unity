@@ -9759,7 +9759,7 @@ PrefabInstance:
       objectReference: {fileID: 185441806}
     - target: {fileID: 1772680171, guid: 420fc1481c8742c4a8e7f7ce2e12b396, type: 3}
       propertyPath: invinsibility
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1772680172, guid: 420fc1481c8742c4a8e7f7ce2e12b396, type: 3}
       propertyPath: m_Camera

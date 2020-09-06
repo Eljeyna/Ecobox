@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CollidesAttack : EntityAttacks
@@ -33,7 +35,8 @@ public class CollidesAttack : EntityAttacks
 
         if (cast > 0f)
         {
-            StartCoroutine(CastAttack());
+            StartTimer();
+            //StartCoroutine(CastAttack());
             return;
         }
 
@@ -52,6 +55,19 @@ public class CollidesAttack : EntityAttacks
             }
         }
         Attack();
+    }
+
+    public void StartTimer()
+    {
+        DoSomething(() => Attack());
+    }
+
+    public async void DoSomething(Action callback)
+    {
+        interrupted = false;
+        await Task.Delay(500);
+        if (!interrupted)
+            callback();
     }
 
     public void Attack()

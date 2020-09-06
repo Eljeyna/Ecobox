@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 public class RangeAttacks : EntityAttacks
 {
@@ -30,7 +32,8 @@ public class RangeAttacks : EntityAttacks
 
         if (cast > 0f)
         {
-            StartCoroutine(CastAttack());
+            StartTimer();
+            //StartCoroutine(CastAttack());
             return;
         }
 
@@ -49,6 +52,19 @@ public class RangeAttacks : EntityAttacks
             }
         }
         Attack();
+    }
+
+    public void StartTimer()
+    {
+        DoSomething(() => Attack());
+    }
+
+    public async void DoSomething(Action callback)
+    {
+        interrupted = false;
+        await Task.Delay(500);
+        if (!interrupted)
+            callback();
     }
 
     public void Attack()

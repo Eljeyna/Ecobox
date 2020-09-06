@@ -62,14 +62,10 @@ public class EnemyController : MonoBehaviour
     {
         GameDirector3D.PlayRandomSound(sounds, soundsIdle, false);
 
-        if (nextWait > Time.time)
-        {
-            return;
-        }
-
         if (thisEntity.attacker != null)
         {
             thisEntity.attacker = null;
+            entityAttacks.interrupted = true;
             nextWait = Time.time + 0.5f;
             if (agent != null)
                 agent.SetDestination(transform.position);
@@ -78,6 +74,11 @@ public class EnemyController : MonoBehaviour
                 animations.SetInteger("Animation", 0);
                 animations.Play("Hit");
             }
+            return;
+        }
+
+        if (nextWait > Time.time)
+        {
             return;
         }
 
