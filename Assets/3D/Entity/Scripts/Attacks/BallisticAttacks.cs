@@ -73,32 +73,29 @@ public class BallisticAttacks : EntityAttacks
 
         if (cast > 0f)
         {
-            castCoroutine = StartCoroutine(CastAttack());
+            StartCoroutine(CastAttack());
             return;
         }
 
         Attack();
     }
 
-    public override void StopCastAttackCoroutine()
-    {
-        if (castCoroutine != null)
-        {
-            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            StopCoroutine(castCoroutine);
-            castCoroutine = null;
-        }
-    }
-
     IEnumerator CastAttack()
     {
-        yield return new WaitForSeconds(cast);
+        float remainingTime = Time.time + cast;
+        while (remainingTime > Time.time)
+        {
+            yield return null;
+            if (interruptAttack && thisEntity.attacker != null)
+            {
+                yield break;
+            }
+        }
         Attack();
     }
 
     public void Attack()
     {
-        castCoroutine = null;
         float distance = Vector3.Distance(target.position, transform.position);
 
         if (distance > attackRange)

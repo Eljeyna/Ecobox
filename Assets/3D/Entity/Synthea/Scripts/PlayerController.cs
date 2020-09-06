@@ -61,37 +61,29 @@ public class PlayerController : MonoBehaviour
         if (thisPlayer.flagDeath)
         {
             controls.Disable();
-            if (attack != null)
-            {
-                attack.StopCastAttackCoroutine();
-                attack.enabled = false;
-            }
+            attack.enabled = false;
             animations.Play("Death");
             GameDirector3D.DefeatGame();
             this.enabled = false;
             return;
         }
-        else
-        {
-            CharacterControl();
-        }
+
+        CharacterControl();
     }
 
     public void CharacterControl()
     {
-        if (nextWait > Time.time)
+        if (thisPlayer.attacker != null)
         {
+            thisPlayer.attacker = null;
+            nextWait = Time.time + 0.5f;
+            moveVelocity = Vector3.zero;
+            animations.Play("Hit");
             return;
         }
 
-        if (thisPlayer.attacker != null)
+        if (nextWait > Time.time)
         {
-            moveVelocity = Vector3.zero;
-            if (attack.interuptAttack)
-                attack.StopCastAttackCoroutine();
-            thisPlayer.attacker = null;
-            nextWait = Time.time + 0.5f;
-            animations.Play("Hit");
             return;
         }
 

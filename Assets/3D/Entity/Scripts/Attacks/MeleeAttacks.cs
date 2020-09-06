@@ -28,31 +28,29 @@ public class MeleeAttacks : EntityAttacks
 
         if (cast > 0f)
         {
-            castCoroutine = StartCoroutine(CastAttack());
+            StartCoroutine(CastAttack());
             return;
         }
 
         Attack();
     }
 
-    public override void StopCastAttackCoroutine()
-    {
-        if (castCoroutine != null)
-        {
-            StopCoroutine(castCoroutine);
-            castCoroutine = null;
-        }
-    }
-
     IEnumerator CastAttack()
     {
-        yield return new WaitForSeconds(cast);
+        float remainingTime = Time.time + cast;
+        while (remainingTime > Time.time)
+        {
+            yield return null;
+            if (interruptAttack && thisEntity.attacker != null)
+            {
+                yield break;
+            }
+        }
         Attack();
     }
 
     public void Attack()
     {
-        castCoroutine = null;
         RaycastHit hit;
         eyesPosition = new Vector3(transform.position.x, transform.position.y + 0.25f, transform.position.z);
         if (Physics.Raycast(eyesPosition, transform.forward, out hit, attackRange))

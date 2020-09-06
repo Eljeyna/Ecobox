@@ -33,31 +33,29 @@ public class CollidesAttack : EntityAttacks
 
         if (cast > 0f)
         {
-            castCoroutine = StartCoroutine(CastAttack());
+            StartCoroutine(CastAttack());
             return;
         }
 
         Attack();
     }
 
-    public override void StopCastAttackCoroutine()
-    {
-        if (castCoroutine != null)
-        {
-            StopCoroutine(castCoroutine);
-            castCoroutine = null;
-        }
-    }
-
     IEnumerator CastAttack()
     {
-        yield return new WaitForSeconds(cast);
+        float remainingTime = Time.time + cast;
+        while (remainingTime > Time.time)
+        {
+            yield return null;
+            if (interruptAttack && thisEntity.attacker != null)
+            {
+                yield break;
+            }
+        }
         Attack();
     }
 
     public void Attack()
     {
-        castCoroutine = null;
         if (collides.objectCollision.Count > 0)
         {
             collides.objectCollision.RemoveAll(Collider => Collider == null);

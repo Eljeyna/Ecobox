@@ -32,7 +32,6 @@
 
     public override void Die()
     {
-        //Destroy(gameObject);
         flagDeath = true;
     }
 }

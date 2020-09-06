@@ -28,7 +28,6 @@ public class BasePlayer : BaseEntity
 
         invinsibility = true;
         StartCoroutine(InvinsibilityTimer(amount));
-        //healthText.ChangeText(health);
     }
 
     public override void TakeHealth(float amount, BaseEntity healer)
@@ -45,12 +44,10 @@ public class BasePlayer : BaseEntity
 
     IEnumerator InvinsibilityTimer(float amount)
     {
-        //yield return new WaitForSeconds(invincibilityTime);
-
         for (float i = health + amount; i >= health; i -= amount * Time.deltaTime)
         {
             healthText.ChangeText(i);
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return null;
         }
 
         invinsibility = false;

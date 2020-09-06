@@ -38,7 +38,6 @@ public class EnemyController : MonoBehaviour
         {
             if (agent != null)
                 agent.enabled = false;
-            entityAttacks.StopCastAttackCoroutine();
             GetComponent<CapsuleCollider>().enabled = false;
             this.enabled = false;
             if (animations != null)
@@ -55,10 +54,8 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject, 2f);
             return;
         }
-        else
-        {
-            CharacterControl();
-        }
+
+        CharacterControl();
     }
 
     public void CharacterControl()
@@ -74,8 +71,6 @@ public class EnemyController : MonoBehaviour
         {
             thisEntity.attacker = null;
             nextWait = Time.time + 0.5f;
-            if (entityAttacks.interuptAttack)
-                entityAttacks.StopCastAttackCoroutine();
             if (agent != null)
                 agent.SetDestination(transform.position);
             if (animations != null)
