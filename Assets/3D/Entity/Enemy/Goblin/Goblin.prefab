@@ -411,7 +411,7 @@ MonoBehaviour:
   damage: 1
   attackRange: 0.75
   fireRate: 1.5
-  interuptAttack: 1
+  interruptAttack: 1
   eyesPosition: {x: 0, y: 0, z: 0}
   thisEntity: {fileID: 0}
   impactForce: 0

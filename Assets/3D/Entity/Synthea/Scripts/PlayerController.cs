@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         if (thisPlayer.flagDeath)
         {
             controls.Disable();
+            attack.StopCastAttackCoroutine();
             attack.enabled = false;
             animations.Play("Death");
             GameDirector3D.DefeatGame();
@@ -75,6 +76,8 @@ public class PlayerController : MonoBehaviour
     {
         if (thisPlayer.attacker != null)
         {
+            if (attack.interruptAttack)
+                attack.StopCastAttackCoroutine();
             thisPlayer.attacker = null;
             nextWait = Time.time + 0.5f;
             moveVelocity = Vector3.zero;
