@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Preview.unity
     guid: 9e403c86b19bcbb42a70f8bf066fccf5
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 3a49edaaf0c6f544eb11a926ee359aca
   - enabled: 0
@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Mini Game.unity
     guid: e79a8c6b7fd923f47aa0cbf5289015b8
+  - enabled: 1
+    path: Assets/Scenes/Snake Game.unity
+    guid: 1fe02e865b0b03a41a2dc0b16f4642d0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 609a3018d054a0f4baf7a7f7f2c41e74,
       type: 2}
