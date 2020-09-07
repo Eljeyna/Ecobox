@@ -88,6 +88,7 @@ public class BallisticAttacks : EntityAttacks
     {
         if (castCoroutine != null)
         {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             StopCoroutine(castCoroutine);
             castCoroutine = null;
         }
