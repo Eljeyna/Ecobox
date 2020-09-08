@@ -159,9 +159,7 @@ public class PlayerController : MonoBehaviour
     {
         controls.Disable();
     }
-
-
-#if UNITY_EDITOR
+    
     void OnTriggerEnter(Collider other)
     {
         BaseTag pickUpEntity = other.GetComponent<BaseTag>();
@@ -172,5 +170,4 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-#endif
 }

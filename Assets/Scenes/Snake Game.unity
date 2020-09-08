@@ -666,7 +666,6 @@ GameObject:
   - component: {fileID: 1209075557}
   - component: {fileID: 1209075556}
   - component: {fileID: 1209075555}
-  - component: {fileID: 1209075554}
   - component: {fileID: 1209075553}
   m_Layer: 5
   m_Name: Exit
@@ -710,18 +709,6 @@ MonoBehaviour:
   transition: {fileID: 907525752}
   level: Main Menu
   waitTime: 1
---- !u!114 &1209075554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209075551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec2db35dee8b5d94d9ed3ed0644426df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1209075555
 MonoBehaviour:
   m_ObjectHideFlags: 0

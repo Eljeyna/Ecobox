@@ -574,7 +574,6 @@ GameObject:
   - component: {fileID: 262986474}
   - component: {fileID: 262986473}
   - component: {fileID: 262986472}
-  - component: {fileID: 262986471}
   - component: {fileID: 262986475}
   m_Layer: 5
   m_Name: Exit
@@ -602,18 +601,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -32}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &262986471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 262986469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec2db35dee8b5d94d9ed3ed0644426df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &262986472
 MonoBehaviour:
   m_ObjectHideFlags: 0
