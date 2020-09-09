@@ -39,7 +39,7 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0e8bdf2f-a1c7-4481-8194-b73a029b1e12"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -54,6 +54,17 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cfde525-a594-49fc-a013-52cdcd4b7546"",
+                    ""path"": ""<HID::USB Gamepad >/button5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -178,6 +189,154 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""afdacc3b-fe85-408c-912d-923bd0b437c2"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7cddb18f-35d6-4c0e-aea3-1b38b4526e28"",
+                    ""path"": ""<Joystick>/stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""6eab8b41-0f69-42cc-9d10-b43f04bd094b"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""862f9c16-21ca-4e59-9750-09c68cba1f54"",
+                    ""path"": ""<Joystick>/stick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ce9e0591-db70-41be-b609-794de9aef0e0"",
+                    ""path"": ""<Joystick>/stick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""213df39d-eae8-40b4-867b-276bc055ae49"",
+                    ""path"": ""<Joystick>/stick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""0c97aae5-bb1b-43dc-950c-f00313f418bb"",
+                    ""path"": ""<Joystick>/stick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""2D Story"",
+            ""id"": ""31ce847e-8a39-4018-9241-8182298ed1a6"",
+            ""actions"": [
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""4eca223b-0807-4412-8b67-0f3c374831bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e55ee5b5-3314-4c47-8858-68f134403e70"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c2eeaa7-bc52-458a-8231-80e22b3acfeb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4975fe0d-870c-44aa-b442-649a15fc13af"",
+                    ""path"": ""<HID::USB Gamepad >/button5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""edef5d46-3b88-4ab1-a9a5-02ae7d0dacdb"",
+                    ""path"": ""<Touchscreen>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touchscreen"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""861a86fb-68f1-4784-a2b1-d3c86741111c"",
+                    ""path"": ""<Pointer>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touchscreen"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -220,6 +379,17 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Joystick"",
+            ""bindingGroup"": ""Joystick"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Joystick>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -227,6 +397,9 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        // 2D Story
+        m__2DStory = asset.FindActionMap("2D Story", throwIfNotFound: true);
+        m__2DStory_Attack = m__2DStory.FindAction("Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -313,6 +486,39 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // 2D Story
+    private readonly InputActionMap m__2DStory;
+    private I_2DStoryActions m__2DStoryActionsCallbackInterface;
+    private readonly InputAction m__2DStory_Attack;
+    public struct _2DStoryActions
+    {
+        private @NewInputSystem m_Wrapper;
+        public _2DStoryActions(@NewInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Attack => m_Wrapper.m__2DStory_Attack;
+        public InputActionMap Get() { return m_Wrapper.m__2DStory; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(_2DStoryActions set) { return set.Get(); }
+        public void SetCallbacks(I_2DStoryActions instance)
+        {
+            if (m_Wrapper.m__2DStoryActionsCallbackInterface != null)
+            {
+                @Attack.started -= m_Wrapper.m__2DStoryActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m__2DStoryActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m__2DStoryActionsCallbackInterface.OnAttack;
+            }
+            m_Wrapper.m__2DStoryActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+            }
+        }
+    }
+    public _2DStoryActions @_2DStory => new _2DStoryActions(this);
     private int m_KeyboardandmouseSchemeIndex = -1;
     public InputControlScheme KeyboardandmouseScheme
     {
@@ -340,9 +546,22 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_TouchscreenSchemeIndex];
         }
     }
+    private int m_JoystickSchemeIndex = -1;
+    public InputControlScheme JoystickScheme
+    {
+        get
+        {
+            if (m_JoystickSchemeIndex == -1) m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
+            return asset.controlSchemes[m_JoystickSchemeIndex];
+        }
+    }
     public interface IPlayerActions
     {
         void OnAttack(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+    }
+    public interface I_2DStoryActions
+    {
+        void OnAttack(InputAction.CallbackContext context);
     }
 }

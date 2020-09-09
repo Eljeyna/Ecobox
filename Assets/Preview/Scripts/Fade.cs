@@ -1,11 +1,39 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
 public class Fade : MonoBehaviour
 {
     private Animator fade;
     public float time = 4f;
+
+    private bool m_ButtonPressed;
+
+    private void Awake()
+    {
+        InputSystem.onEvent +=
+        (eventPtr, device) =>
+        {
+            if (!eventPtr.IsA<StateEvent>() && !eventPtr.IsA<DeltaStateEvent>())
+                return;
+            var controls = device.allControls;
+            var buttonPressPoint = InputSystem.settings.defaultButtonPressPoint;
+            for (var i = 0; i < controls.Count; ++i)
+            {
+                var control = controls[i] as ButtonControl;
+                if (control == null || control.synthetic || control.noisy)
+                    continue;
+                if (control.ReadValueFromEvent(eventPtr, out var value) && value >= buttonPressPoint)
+                {
+                    m_ButtonPressed = true;
+                    break;
+                }
+            }
+        };
+    }
 
     private void Start()
     {
@@ -15,7 +43,7 @@ public class Fade : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.Escape))
+        if (m_ButtonPressed)
         {
             StopCoroutine(End());
             SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
