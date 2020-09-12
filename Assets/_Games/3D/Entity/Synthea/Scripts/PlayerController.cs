@@ -162,12 +162,15 @@ public class PlayerController : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        BaseTag pickUpEntity = other.GetComponent<BaseTag>();
-        if (pickUpEntity != null && (pickUpEntity.entityTag & Tags.EntityTags.FL_PICKUP) != 0)
+        if (other.gameObject.layer == 8) // Layer: Entities
         {
-            thisPlayer.TakeHealth(1, null);
-            sounds.Play("Healing");
-            Destroy(other.gameObject);
+            BaseTag pickUpEntity = other.GetComponent<BaseTag>();
+            if ((pickUpEntity.entityTag & Tags.EntityTags.FL_PICKUP) != 0)
+            {
+                thisPlayer.TakeHealth(1, null);
+                sounds.Play("Healing");
+                Destroy(other.gameObject);
+            }
         }
     }
 }

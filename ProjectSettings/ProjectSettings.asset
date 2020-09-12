@@ -655,8 +655,10 @@ PlayerSettings:
   scriptingDefineSymbols: {}
   platformArchitecture: {}
   scriptingBackend:
-    Standalone: 1
+    Android: 1
+    Standalone: 0
   il2cppCompilerConfiguration:
+    Android: 2
     Standalone: 2
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
@@ -667,6 +669,7 @@ PlayerSettings:
   gcIncremental: 0
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
+    Android: 3
     Standalone: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1

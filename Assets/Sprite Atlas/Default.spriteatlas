@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 3bb97a278d02d524ea668f1d8f63d3ca, type: 3}
-    totalSpriteSurfaceArea: 7430906
+    totalSpriteSurfaceArea: 7639466
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -93,6 +93,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 51b1111df060d93499e4cbfa736c7674, type: 3}
   - {fileID: 21300000, guid: f263e66d8dafdc74c9db0a7f244a5ac6, type: 3}
   - {fileID: 21300000, guid: afbcf59d9c2227d4aaf81bf6bfa4d8dc, type: 3}
+  - {fileID: 21300000, guid: 45ca848e20a05274087342ab5b2850ea, type: 3}
   - {fileID: 21300000, guid: 77732f9e9fc190f469734cfb9f9b9ab7, type: 3}
   m_PackedSpriteNamesToIndex:
   - Health
@@ -139,6 +140,7 @@ SpriteAtlas:
   - Settings 1
   - Dialogue Box
   - Black
+  - New_2D_Paper
   - Attack Icon
   m_Tag: Default
   m_IsVariant: 0

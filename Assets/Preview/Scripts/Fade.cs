@@ -35,6 +35,11 @@ public class Fade : MonoBehaviour
         };
     }
 
+    private void OnAttack()
+    {
+        m_ButtonPressed = true;
+    }
+
     private void Start()
     {
         fade = gameObject.GetComponent<Animator>();

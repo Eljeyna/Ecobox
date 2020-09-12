@@ -14,6 +14,7 @@ public class SceneLoading : MonoBehaviour
 
     public void SwitchToScene(string sceneName, string animId)
     {
+        Application.backgroundLoadingPriority = ThreadPriority.High;
         instance.anim.SetTrigger(animId);
         StartCoroutine(AsyncLoad(sceneName));
     }

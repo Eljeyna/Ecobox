@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour
     [HideInInspector] public Vector2 moving;
 
     private int score;
+    private int scoreAdd;
     private Vector2 moveVelocity;
     private NewInputSystem controls;
 
@@ -67,7 +68,7 @@ public class PlayerControl : MonoBehaviour
 
     private void UpdatePlayerScore()
     {
-        score++;
+        score += scoreAdd;
         scoreText.text = "Score: " + score;
     }
 
@@ -88,23 +89,13 @@ public class PlayerControl : MonoBehaviour
             transform.position = -transform.position;
             return;
         }
-
-        if (trash == null)
+        else if (other.gameObject.layer == 8) // Layer: Entities
         {
             BaseTag trashEntity = other.GetComponent<BaseTag>();
-            if (trashEntity != null && (trashEntity.entityTag & Tags.EntityTags.FL_PICKUP) != 0)
-            {
-                trash = other.gameObject;
-                other.enabled = false;
-            }
-        }
-        else
-        {
-            BaseTag trashBoxEntity = other.GetComponent<BaseTag>();
-            if (trashBoxEntity != null && (trashBoxEntity.entityTag & Tags.EntityTags.FL_TRASHBOX) != 0)
+            if (trash != null && (trashEntity.entityTag & Tags.EntityTags.FL_TRASHBOX) != 0)
             {
                 SpawnerSnake spawnerSnake = trash.transform.parent.GetComponent<SpawnerSnake>();
-                if (spawnerSnake)
+                if (spawnerSnake != null)
                 {
                     spawnerSnake.waveEntities.Remove(trash);
                     spawnerSnake.currentWaveCount--;
@@ -114,6 +105,32 @@ public class PlayerControl : MonoBehaviour
 
                 if ((trash.GetComponent<BaseTrashTag>().trashTag & other.GetComponent<BaseTrashTag>().trashTag) != 0)
                     UpdatePlayerScore();
+
+                scoreAdd = 0;
+            }
+            else
+            {
+                if ((trashEntity.entityTag & Tags.EntityTags.FL_PICKUP) != 0)
+                {
+                    if (trash == null)
+                    {
+                        other.enabled = false;
+                        trash = other.gameObject;
+                        scoreAdd++;
+                    }
+                    else if ((trash.GetComponent<BaseTrashTag>().trashTag & other.GetComponent<BaseTrashTag>().trashTag) != 0)
+                    {
+                        SpawnerSnake spawnerSnake = other.transform.parent.GetComponent<SpawnerSnake>();
+                        if (spawnerSnake != null)
+                        {
+                            spawnerSnake.waveEntities.Remove(other.gameObject);
+                            spawnerSnake.currentWaveCount--;
+                        }
+
+                        Destroy(other.gameObject);
+                        scoreAdd++;
+                    }
+                }
             }
         }
     }
