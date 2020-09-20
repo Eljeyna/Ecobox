@@ -9,7 +9,6 @@ public class AudioDirector : MonoBehaviour
     {
         foreach (Sound s in sounds)
         {
-
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.loop = s.loop;
