@@ -43,7 +43,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 3bb97a278d02d524ea668f1d8f63d3ca, type: 3}
-    totalSpriteSurfaceArea: 7639466
+    totalSpriteSurfaceArea: 8688042
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -59,6 +59,7 @@ SpriteAtlas:
   - {fileID: 2264053799035749846, guid: af740db32f6188a4ea9fc3c67d299702, type: 3}
   - {fileID: 1451262103866372628, guid: af740db32f6188a4ea9fc3c67d299702, type: 3}
   - {fileID: 7888499698698142171, guid: af740db32f6188a4ea9fc3c67d299702, type: 3}
+  - {fileID: 21300000, guid: 96b366e35edc77b4a9996d51c8b7a0c4, type: 3}
   - {fileID: 21300000, guid: 453409f35ab56a54c86ad86e1231991c, type: 3}
   - {fileID: 21300000, guid: 949017c41cb5051438ad413393363fcd, type: 3}
   - {fileID: 21300000, guid: 20659da514943224d8b17c6a4066182f, type: 3}
@@ -106,6 +107,7 @@ SpriteAtlas:
   - 2D_Snake
   - 2D_Trash_Box
   - 2D_Apple
+  - Apple
   - Talk
   - HealthCircle
   - Logo
