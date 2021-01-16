@@ -221,6 +221,8 @@ public static class StaticGameVariables
 
     public static void HideInventory()
     {
+        if (slotSelected)
+            slotSelected.GetComponent<Image>().color = slotDefaultColor;
         itemSelected = null;
         itemInfoCanvas.enabled = false;
         inventoryCanvas.enabled = false;

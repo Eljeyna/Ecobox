@@ -1,4 +1,11 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+
+public enum State
+{
+    Normal = 0,
+    Stun = 1,
+}
 
 public class Player : MonoBehaviour
 {
@@ -6,13 +13,39 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public Inventory inventory;
 
-    [SerializeField] private InventoryUI inventoryUI;
-
     private NewInputSystem controls;
+
+    public float speed = 4f;
+    public float shakeForce = 2f;
+
+    [Space(10)]
+    [SerializeField] private InventoryUI inventoryUI;
+    public Animator animations;
+    public Rigidbody2D rb2d;
+    public Camera cam;
+    public BasePlayer thisPlayer;
+    //public Gun weapon;
+
+    [Space(10)]
+    public State state;
+
+    [HideInInspector] public Vector3 moving;
+    [HideInInspector] public Vector2 moveVelocity;
+    [HideInInspector] public Vector3 dashDirection;
+
+    private Vector2 mousePos;
+
+    private bool attack;
 
     private void Awake()
     {
         controls = new NewInputSystem();
+
+        controls.Player.Movement.performed += movementEvent => moving = movementEvent.ReadValue<Vector2>();
+        controls.Player.Movement.canceled += movementEvent => moving = Vector3.zero;
+
+        /*controls.Player.Attack.performed += attackEvent => attack = true;
+        controls.Player.Attack.canceled += attackEvent => attack = false;*/
     }
 
     private void Start()
@@ -28,18 +61,59 @@ public class Player : MonoBehaviour
         StaticGameVariables.Initialize();
     }
 
-    /*public void Update()
+    private void FixedUpdate()
     {
-        if (controls.Player.Hold.ReadValue<float>() > 0f)
+        if (state == State.Normal)
         {
-            if (progress < 1f)
+            if (moveVelocity != Vector2.zero)
             {
-                progress += Time.unscaledDeltaTime;
+                rb2d.MovePosition(rb2d.position + moveVelocity * Time.fixedDeltaTime);
             }
         }
-        else
+    }
+
+    private void Update()
+    {
+        switch (state)
         {
-            progress = 0f;
+            case State.Normal:
+                StateNormal();
+                break;
+            case State.Stun:
+                StateStun();
+                break;
+        }
+    }
+
+    private void StateNormal()
+    {
+        mousePos = cam.ScreenToWorldPoint(Pointer.current.position.ReadValue());
+
+        moveVelocity = moving.normalized * speed;
+
+        /*if (attack && weapon.nextAttack <= Time.time)
+        {
+            if (weapon.clip == 0)
+            {
+                weapon.fireWhenEmpty = true;
+            }
+
+            weapon.PrimaryAttack();
+            CinemachineShaker.Instance.enabled = true;
+            CinemachineShaker.Instance.ShakeSmooth(shakeForce, weapon.gunData.fireRatePrimary);
+        }*/
+    }
+
+    private void StateStun()
+    {
+        return;
+    }
+
+    /*private void OnReload()
+    {
+        if (!weapon.reloading)
+        {
+            weapon.Reload();
         }
     }*/
 
@@ -68,5 +142,18 @@ public class Player : MonoBehaviour
     private void OnDisable()
     {
         controls.Disable();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 30) // Items
+        {
+            ItemWorld itemWorld = collision.GetComponent<ItemWorld>();
+            if (itemWorld)
+            {
+                inventory.AddItem(itemWorld.item);
+                Destroy(collision.gameObject);
+            }
+        }
     }
 }
