@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Dialogues
+  m_EditorClassIdentifier: 
+  m_GroupName: Dialogues
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 0c28bc9e76b1cc74684e90f1985915c5
+  m_SerializeEntries:
+  - m_GUID: b4f87d1462cd85b45b9c4b8db36724d5
+    m_Address: Assets/ScriptableObjects/Dialogues
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: dc4424008b7fbcb43bbc0c654af1ef3e, type: 2}
+    - {fileID: 11400000, guid: 4d11a6c18558a0b43b77367c30213e9e, type: 2}

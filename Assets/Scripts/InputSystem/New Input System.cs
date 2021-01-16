@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/InputSystem/New Input System.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputSystem/New Input System.inputactions'
 
 using System;
 using System.Collections;
@@ -19,45 +19,39 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
             ""id"": ""66aeba14-8842-4049-b77d-1bd7676a955b"",
             ""actions"": [
                 {
-                    ""name"": ""Attack"",
-                    ""type"": ""Button"",
-                    ""id"": ""282ad3fc-936e-47fb-9591-b2bafaf525ae"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""3cba1f61-dbf5-4b52-9123-c36755485bda"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Hold"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2220b2f-6dfc-42eb-ab42-8e05bfe83892"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""11656985-d409-4da5-9733-a7cc20e977d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ChangeLanguage"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb25ca08-ef63-45ae-ac4a-2f036a65a2fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""0e8bdf2f-a1c7-4481-8194-b73a029b1e12"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9d7fd469-b5c2-4b1c-b13b-2c8f08bff94d"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""f3e6af11-cca2-4af5-b922-74b9caac455c"",
@@ -200,86 +194,59 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""2D Story"",
-            ""id"": ""31ce847e-8a39-4018-9241-8182298ed1a6"",
-            ""actions"": [
-                {
-                    ""name"": ""Attack"",
-                    ""type"": ""Button"",
-                    ""id"": ""4eca223b-0807-4412-8b67-0f3c374831bf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""e55ee5b5-3314-4c47-8858-68f134403e70"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6c2eeaa7-bc52-458a-8231-80e22b3acfeb"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""edef5d46-3b88-4ab1-a9a5-02ae7d0dacdb"",
-                    ""path"": ""<Touchscreen>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""861a86fb-68f1-4784-a2b1-d3c86741111c"",
-                    ""path"": ""<Pointer>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b3220d5f-3045-472c-a9c9-127aecbdfedb"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c800deed-0991-4030-a4a0-90d9bd9abf40"",
+                    ""id"": ""1732aebe-61e2-4486-b174-d52938893de1"",
                     ""path"": ""<Touchscreen>/primaryTouch/tap"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Touchscreen"",
-                    ""action"": ""Attack"",
+                    ""action"": ""Hold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""73939a8e-cc8e-45ce-89bb-5dafce005df1"",
+                    ""path"": ""<Pointer>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Hold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0bcbe71-1fb4-469c-9170-4583adf8b30a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Hold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e13fda5-f0b1-4617-925f-b5c74ca03687"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44372c8e-299e-430a-b403-f12427a3db88"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""ChangeLanguage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -329,11 +296,10 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        // 2D Story
-        m__2DStory = asset.FindActionMap("2D Story", throwIfNotFound: true);
-        m__2DStory_Attack = m__2DStory.FindAction("Attack", throwIfNotFound: true);
+        m_Player_Hold = m_Player.FindAction("Hold", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_ChangeLanguage = m_Player.FindAction("ChangeLanguage", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,14 +349,18 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_Hold;
+    private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_ChangeLanguage;
     public struct PlayerActions
     {
         private @NewInputSystem m_Wrapper;
         public PlayerActions(@NewInputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @Hold => m_Wrapper.m_Player_Hold;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @ChangeLanguage => m_Wrapper.m_Player_ChangeLanguage;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -400,59 +370,38 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
-                @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @Hold.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHold;
+                @Hold.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHold;
+                @Hold.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHold;
+                @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @ChangeLanguage.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeLanguage;
+                @ChangeLanguage.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeLanguage;
+                @ChangeLanguage.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeLanguage;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Attack.started += instance.OnAttack;
-                @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Hold.started += instance.OnHold;
+                @Hold.performed += instance.OnHold;
+                @Hold.canceled += instance.OnHold;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
+                @ChangeLanguage.started += instance.OnChangeLanguage;
+                @ChangeLanguage.performed += instance.OnChangeLanguage;
+                @ChangeLanguage.canceled += instance.OnChangeLanguage;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-
-    // 2D Story
-    private readonly InputActionMap m__2DStory;
-    private I_2DStoryActions m__2DStoryActionsCallbackInterface;
-    private readonly InputAction m__2DStory_Attack;
-    public struct _2DStoryActions
-    {
-        private @NewInputSystem m_Wrapper;
-        public _2DStoryActions(@NewInputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Attack => m_Wrapper.m__2DStory_Attack;
-        public InputActionMap Get() { return m_Wrapper.m__2DStory; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(_2DStoryActions set) { return set.Get(); }
-        public void SetCallbacks(I_2DStoryActions instance)
-        {
-            if (m_Wrapper.m__2DStoryActionsCallbackInterface != null)
-            {
-                @Attack.started -= m_Wrapper.m__2DStoryActionsCallbackInterface.OnAttack;
-                @Attack.performed -= m_Wrapper.m__2DStoryActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m__2DStoryActionsCallbackInterface.OnAttack;
-            }
-            m_Wrapper.m__2DStoryActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Attack.started += instance.OnAttack;
-                @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
-            }
-        }
-    }
-    public _2DStoryActions @_2DStory => new _2DStoryActions(this);
     private int m_KeyboardandmouseSchemeIndex = -1;
     public InputControlScheme KeyboardandmouseScheme
     {
@@ -482,11 +431,9 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnAttack(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
-    }
-    public interface I_2DStoryActions
-    {
-        void OnAttack(InputAction.CallbackContext context);
+        void OnHold(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
+        void OnChangeLanguage(InputAction.CallbackContext context);
     }
 }

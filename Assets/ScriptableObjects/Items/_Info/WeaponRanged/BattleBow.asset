@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63bdd3c555eb8ed498a9c7c692160bdd, type: 3}
+  m_Name: BattleBow
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 21300000, guid: f39c39542a6312745b87daa0232cbe47, type: 3}
+  itemName:
+  - "\u0411\u043E\u0435\u0432\u043E\u0439 \u043B\u0443\u043A"
+  - Battle bow
+  itemDescription:
+  - "\u041B\u0443\u043A"
+  - Bow
