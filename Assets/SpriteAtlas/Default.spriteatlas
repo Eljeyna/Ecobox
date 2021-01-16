@@ -195,38 +195,38 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - LeatherJacket
   - 2D Plastic
-  - Cleric_[Paint]
-  - HunterHelm_[Paint]
+  - Cleric
+  - HunterHelm
   - Health
   - ExpertHunterHat
   - HunterLightArmor
   - ScoutShortBow
-  - ClericHood_[Paint]
+  - ClericHood
   - LeatherRivetedArmor
   - LeatherLightArmor
   - WoodenMace
-  - EliteGuardArmor [Paint]
+  - EliteGuardArmor
   - LeatherJacket
-  - GuardArmor_[Paint]
+  - GuardArmor
   - WaterAdeptWand1
   - Slave
   - Hermit
   - WaterAdeptWand2
-  - Scout [Paint]
-  - SteelHelm_[Paint]
+  - Scout
+  - SteelHelm
   - Robe
   - HunterShortBow
-  - Cleric [Paint]
-  - BanditLightArmor [Paint]
-  - ArielDress_[Paint]
+  - Cleric
+  - BanditLightArmor
+  - ArielDress
   - HunterHat1
   - LeatherLightArmor
   - OldPoleaxe
   - BanditArmor
   - BroadSword
   - HunterBow
-  - BowmanHat_[Paint]
-  - IronArmor_[Paint]
+  - BowmanHat
+  - IronArmor
   - Deserter
   - 2D Apple
   - HunterHat2
@@ -234,45 +234,45 @@ SpriteAtlas:
   - BattleBow
   - Militiaman
   - BattleBow
-  - EliteGuardArmor_[Paint]
-  - HunterKnife_[Paint]
-  - EliteGuardArmor [Paint]
-  - CrusaderChainmail [Paint]
+  - EliteGuardArmor
+  - HunterKnife
+  - EliteGuardArmor
+  - CrusaderChainmail
   - RustySword
   - PeasantClothing
   - SlaveHeadband
   - HunterTunic
-  - Cleric [Paint]
-  - Machete_[Paint]
-  - ArielDress [Paint]
+  - Cleric
+  - Machete
+  - ArielDress
   - LeatherHelm
   - FireAdeptWand2
   - KnightArmor
   - Robe
-  - MagicSword_[Paint]
-  - BanditLightArmor_[Paint]
-  - GuardArmor [Paint]
+  - MagicSword
+  - BanditLightArmor
+  - GuardArmor
   - HermitLamp
   - LeatherLightArmor
   - HardwoodWand
-  - IronArmor [Paint]
-  - ArielDress [Paint]
-  - SlaveSword_[Paint]
+  - IronArmor
+  - ArielDress
+  - SlaveSword
   - Deserter
   - White
   - FalconLightArmor
   - WoodcutterPoleaxe
-  - CrusaderChainmail [Paint]
+  - CrusaderChainmail
   - HunterLightArmor
   - Slave
-  - MilitiamanHelmet1_[Paint]
+  - MilitiamanHelmet1
   - HunterTunic
-  - ChainmailLightArmor_[Paint]
-  - Scout [Paint]
+  - ChainmailLightArmor
+  - Scout
   - ScoutHelm
   - PeasantClothing
   - WarHammer
-  - GuardArmor [Paint]
+  - GuardArmor
   - LeatherRivetedArmor
   - ClericWand2
   - ClericWand1
@@ -287,7 +287,7 @@ SpriteAtlas:
   - WoodenSpikedClub
   - Dialogue_Button (W)
   - FalconLightArmor
-  - ShortIronKatana_[Paint]
+  - ShortIronKatana
   - SmallAxe
   - LeatherJacket
   - StrawHat
@@ -295,10 +295,10 @@ SpriteAtlas:
   - Hermit
   - WoodcutterAxe
   - Deserter
-  - ChainmailLightArmor [Paint]
+  - ChainmailLightArmor
   - HermitWand
-  - Scout_[Paint]
-  - ShortSword_[Paint]
+  - Scout
+  - ShortSword
   - KnightArmor
   - Hunter
   - FamilySword
@@ -313,28 +313,28 @@ SpriteAtlas:
   - WoodenBuckler
   - KnightArmor
   - ScoutShortBow
-  - MilitiamanShortSword_[Paint]
+  - MilitiamanShortSword
   - HermitHat
   - Black
-  - ChainmailLightArmor [Paint]
+  - ChainmailLightArmor
   - WoodenShield
   - Slave
   - Hermit
-  - ShortDagger_[Paint]
-  - TrainingSword_[Paint]
+  - ShortDagger
+  - TrainingSword
   - WaterAdept
   - 2D Paper
   - LeatherCap
-  - IronArmor [Paint]
+  - IronArmor
   - PeasantClothing
   - PeasantCap
   - FamilyBow
   - WaterAdept
   - FalconLightArmor
   - HunterBow
-  - MilitiamanHelmet2_[Paint]
+  - MilitiamanHelmet2
   - SteelTowerShield
-  - CrusaderChainmail_[Paint]
+  - CrusaderChainmail
   m_RenderDataMap: {}
   m_Tag: Default
   m_IsVariant: 0

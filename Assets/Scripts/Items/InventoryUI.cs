@@ -49,14 +49,17 @@ public class InventoryUI : MonoBehaviour
         int i = 0;
         foreach (ItemInstance item in inventory.itemList)
         {
-            i = (int)item.itemCopy.itemQuality;
+            if (item.itemCopy.itemType == StaticGameVariables.currentItemCategory)
+            {
+                i = (int)item.itemCopy.itemQuality;
 
-            RectTransform itemSlotRect = Instantiate(itemSlotPrefab, itemSlotContainer).GetComponent<RectTransform>();
-            itemSlotRect.gameObject.SetActive(true);
-            itemSlotRect.transform.GetChild(0).GetComponent<ItemInfoSelected>().item = item;
-            itemSlotRect.transform.GetChild(0).GetComponent<Image>().color = colorItems[i];
-            itemSlotRect.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.itemCopy.itemInfo.itemIcon;
-            itemSlotRect.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = (item.itemCopy.itemAmount).ToString();
+                RectTransform itemSlotRect = Instantiate(itemSlotPrefab, itemSlotContainer).GetComponent<RectTransform>();
+                itemSlotRect.gameObject.SetActive(true);
+                itemSlotRect.transform.GetChild(0).GetComponent<ItemInfoSelected>().item = item;
+                itemSlotRect.transform.GetChild(0).GetComponent<Image>().color = colorItems[i];
+                itemSlotRect.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.itemCopy.itemInfo.itemIcon;
+                itemSlotRect.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = (item.itemCopy.itemAmount).ToString();
+            }
         }
     }
 }

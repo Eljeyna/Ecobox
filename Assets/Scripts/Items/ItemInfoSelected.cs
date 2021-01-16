@@ -14,6 +14,14 @@ public class ItemInfoSelected : MonoBehaviour
 
     public void GetItemInfo()
     {
+        if (StaticGameVariables.slotSelected)
+        {
+            StaticGameVariables.slotSelected.GetComponent<Image>().color = StaticGameVariables.slotDefaultColor;
+        }
+
+        StaticGameVariables.slotSelected = transform.parent.gameObject;
+        StaticGameVariables.slotSelected.GetComponent<Image>().color = StaticGameVariables.slotColor;
+
         StaticGameVariables.itemSelected = item.itemCopy;
         StaticGameVariables.itemName.text = item.itemCopy.itemInfo.itemName[(int)StaticGameVariables.language];
         StaticGameVariables.itemDescription.text = item.itemCopy.itemInfo.itemDescription[(int)StaticGameVariables.language];

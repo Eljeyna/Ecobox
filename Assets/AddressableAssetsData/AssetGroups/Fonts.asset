@@ -16,23 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 871b8346227588e4586012bac258b3db
-  m_SerializeEntries:
-  - m_GUID: 82d11bca9f2ef2a4a9bf9becc39addd3
-    m_Address: Assets/Packs/Fonts
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Main Menu
-    - Prologue
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: f54d1bd14bd3ca042bd867b519fee8cc
-    m_Address: Assets/TextMesh Pro
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Prologue
-    - Main Menu
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

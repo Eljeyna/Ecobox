@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         controls.Player.Inventory.performed += OpenInventory_performed;
         controls.Player.ChangeLanguage.performed += ChangeLanguage_performed;
 
-        StaticGameVariables.GetAll();
+        StaticGameVariables.Initialize();
     }
 
     /*public void Update()
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void ChangeLanguage_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        StaticGameVariables.ChangeLanguage(1);
+        StaticGameVariables.ChangeLanguage(Random.Range(0, 2));
     }
 
     private void OpenInventory_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

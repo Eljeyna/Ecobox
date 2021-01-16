@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: f1c985f810d14f348a84b135fd39df0e
-  m_SerializeEntries:
-  - m_GUID: fc305c1c43aad9645b4c2fd6ba4091ff
-    m_Address: Assets/Sprite Atlas/Default.spriteatlas
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Main Menu
-    - Prologue
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

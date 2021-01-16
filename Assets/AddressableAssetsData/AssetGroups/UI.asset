@@ -16,20 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 381eb52e97b053946855d68d4c60311f
-  m_SerializeEntries:
-  - m_GUID: 2e3d6c96d64961e47a0eb9550a28a16c
-    m_Address: Assets/Sprite Atlas/UI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Prologue
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: e82ffd81825ec484da5387f10493d7a1
-    m_Address: Assets/Packs/Joystick Pack
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

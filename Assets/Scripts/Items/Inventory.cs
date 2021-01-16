@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Inventory
 {
@@ -88,9 +87,4 @@ public class Inventory
     {
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
-
-    /*public void AddItem(int id)
-    {
-
-    }*/
 }

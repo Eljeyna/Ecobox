@@ -18,9 +18,12 @@ public static class StaticGameVariables
 
     public static Language language;
     public static ActionType actionWithItem;
+    public static Item.ItemType currentItemCategory = Item.ItemType.WeaponMelee;
 
     public static GameObject player;
     public static GameObject slotSelected;
+    public static Color slotDefaultColor;
+    public static Color slotColor;
 
     public static Inventory inventory;
     public static Item itemSelected;
@@ -44,7 +47,7 @@ public static class StaticGameVariables
 
     public static float progress;
 
-    public static void GetAll()
+    public static void Initialize()
     {
         player = GameObject.Find("_PLAYER");
         GameObject inventoryObject = GameObject.Find("Inventory");
@@ -75,7 +78,24 @@ public static class StaticGameVariables
         buttonDisItem.interactable = false;
         yesNoCanvas.enabled = false;
 
+        slotDefaultColor = new Color(80f / 255f, 80f / 255f, 80f / 255f, 128f / 255f);
+        slotColor = new Color(1f, 1f, 1f, 0.5f);
+
         yesNoSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+    }
+
+    public static void ChangeCategoryItem(Item.ItemType itemCategory)
+    {
+        if (currentItemCategory == itemCategory)
+        {
+            return;
+        }
+
+        itemSelected = null;
+        currentItemCategory = itemCategory;
+        itemInfoCanvas.enabled = false;
+        DisableInventoryButtons();
+        inventory.CallUpdateInventory();
     }
 
     public static void UseItem()
@@ -237,6 +257,9 @@ public static class StaticGameVariables
             TMP_Text textUI = child.transform.GetChild(0).GetComponent<TMP_Text>();
             textUI.text = translation.languages[languageChange];
         }
+
+        PlayerPrefs.SetInt("Language", languageChange);
+        PlayerPrefs.Save();
     }
 
     public static void ValueChangeCheck()
