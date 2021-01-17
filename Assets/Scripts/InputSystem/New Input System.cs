@@ -49,6 +49,22 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c2091dd-8451-418c-aae2-fbe8c1aa1acd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""1938940c-a125-41c2-90c8-b1ab47d78e91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -249,6 +265,39 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""action"": ""ChangeLanguage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1719f731-3fb3-4c21-83c3-a705325915dc"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6dc83e9a-5d49-424b-b8b8-627f5e5a2768"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4779115c-6388-40e8-9c4a-18f9745be3e3"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -300,6 +349,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         m_Player_Hold = m_Player.FindAction("Hold", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_ChangeLanguage = m_Player.FindAction("ChangeLanguage", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -353,6 +404,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Hold;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_ChangeLanguage;
+    private readonly InputAction m_Player_Dash;
+    private readonly InputAction m_Player_Reload;
     public struct PlayerActions
     {
         private @NewInputSystem m_Wrapper;
@@ -361,6 +414,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         public InputAction @Hold => m_Wrapper.m_Player_Hold;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @ChangeLanguage => m_Wrapper.m_Player_ChangeLanguage;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -382,6 +437,12 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 @ChangeLanguage.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeLanguage;
                 @ChangeLanguage.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeLanguage;
                 @ChangeLanguage.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnChangeLanguage;
+                @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -398,6 +459,12 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 @ChangeLanguage.started += instance.OnChangeLanguage;
                 @ChangeLanguage.performed += instance.OnChangeLanguage;
                 @ChangeLanguage.canceled += instance.OnChangeLanguage;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -435,5 +502,7 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         void OnHold(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnChangeLanguage(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

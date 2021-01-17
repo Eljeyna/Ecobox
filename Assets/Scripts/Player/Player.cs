@@ -3,8 +3,9 @@ using UnityEngine.InputSystem;
 
 public enum State
 {
-    Normal = 0,
-    Stun = 1,
+    Normal  = 0,
+    Dash    = 1,
+    Stun    = 2,
 }
 
 public class Player : MonoBehaviour
@@ -20,11 +21,13 @@ public class Player : MonoBehaviour
 
     [Space(10)]
     [SerializeField] private InventoryUI inventoryUI;
+    public Dash dash;
     public Animator animations;
     public Rigidbody2D rb2d;
     public Camera cam;
     public BasePlayer thisPlayer;
-    //public Gun weapon;
+    public Stats stats;
+    public Gun weapon;
 
     [Space(10)]
     public State state;
@@ -39,6 +42,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         controls = new NewInputSystem();
 
         controls.Player.Movement.performed += movementEvent => moving = movementEvent.ReadValue<Vector2>();
@@ -46,19 +51,21 @@ public class Player : MonoBehaviour
 
         /*controls.Player.Attack.performed += attackEvent => attack = true;
         controls.Player.Attack.canceled += attackEvent => attack = false;*/
+
+        StaticGameVariables.InitializeAwake();
     }
 
-    private void Start()
+    private async void Start()
     {
-        Instance = this;
-
         inventory = new Inventory();
         inventoryUI.SetInventory(inventory);
 
-        controls.Player.Inventory.performed += OpenInventory_performed;
-        controls.Player.ChangeLanguage.performed += ChangeLanguage_performed;
-
         StaticGameVariables.Initialize();
+        
+        /* Test */
+        thisPlayer.TakeDamagePercent(0.5f, 0, null);
+
+        GameObject test = await Pool.Instance.GetFromPoolAsync(0);
     }
 
     private void FixedUpdate()
@@ -79,6 +86,9 @@ public class Player : MonoBehaviour
             case State.Normal:
                 StateNormal();
                 break;
+            case State.Dash:
+                StateDash();
+                break;
             case State.Stun:
                 StateStun();
                 break;
@@ -91,7 +101,7 @@ public class Player : MonoBehaviour
 
         moveVelocity = moving.normalized * speed;
 
-        /*if (attack && weapon.nextAttack <= Time.time)
+        if (weapon && attack && weapon.nextAttack <= Time.time)
         {
             if (weapon.clip == 0)
             {
@@ -99,9 +109,24 @@ public class Player : MonoBehaviour
             }
 
             weapon.PrimaryAttack();
-            CinemachineShaker.Instance.enabled = true;
-            CinemachineShaker.Instance.ShakeSmooth(shakeForce, weapon.gunData.fireRatePrimary);
-        }*/
+            /*CinemachineShaker.Instance.enabled = true;
+            CinemachineShaker.Instance.ShakeSmooth(shakeForce, weapon.gunData.fireRatePrimary);*/
+        }
+    }
+
+    private void StateDash()
+    {
+        if (dash.nextDash <= Time.time)
+        {
+            rb2d.velocity = Vector2.zero;
+            state = State.Normal;
+        }
+        else
+        {
+            float dashSpeed = dash.dashSpeed.Evaluate(dash.dashEvaluateTime);
+            rb2d.velocity = dashDirection * dashSpeed;
+            dash.dashEvaluateTime += Time.deltaTime;
+        }
     }
 
     private void StateStun()
@@ -109,20 +134,33 @@ public class Player : MonoBehaviour
         return;
     }
 
-    /*private void OnReload()
+    private void OnDash()
     {
-        if (!weapon.reloading)
+        if (stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        {
+            stats.stamina -= dash.staminaCost;
+            dash.dashEvaluateTime = 0f;
+            dashDirection = moving == Vector3.zero ? transform.up : moving.normalized;
+            dash.enabled = true;
+            dash.Use();
+            state = State.Dash;
+        }
+    }
+
+    private void OnReload()
+    {
+        if (weapon && !weapon.reloading)
         {
             weapon.Reload();
         }
-    }*/
+    }
 
-    private void ChangeLanguage_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void OnChangeLanguage()
     {
         StaticGameVariables.ChangeLanguage(Random.Range(0, 2));
     }
 
-    private void OpenInventory_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    private void OnInventory()
     {
         if (StaticGameVariables.inventoryCanvas.isActiveAndEnabled)
         {
@@ -132,16 +170,6 @@ public class Player : MonoBehaviour
         {
             StaticGameVariables.OpenInventory();
         }
-    }
-
-    private void OnEnable()
-    {
-        controls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Disable();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -155,5 +183,15 @@ public class Player : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 }

@@ -9,8 +9,6 @@ public class InventoryUI : MonoBehaviour
     private Transform itemSlotContainer;
     private Transform itemSlotPrefab;
 
-    public Color[] colorItems;
-
     public List<Item> testItems;
 
     private void Awake()
@@ -56,7 +54,7 @@ public class InventoryUI : MonoBehaviour
                 RectTransform itemSlotRect = Instantiate(itemSlotPrefab, itemSlotContainer).GetComponent<RectTransform>();
                 itemSlotRect.gameObject.SetActive(true);
                 itemSlotRect.transform.GetChild(0).GetComponent<ItemInfoSelected>().item = item;
-                itemSlotRect.transform.GetChild(0).GetComponent<Image>().color = colorItems[i];
+                itemSlotRect.transform.GetChild(0).GetComponent<Image>().color = StaticGameVariables.colorItems[i];
                 itemSlotRect.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.itemCopy.itemInfo.itemIcon;
                 itemSlotRect.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = (item.itemCopy.itemAmount).ToString();
             }

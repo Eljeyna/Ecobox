@@ -1,40 +1,49 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
-//using UnityEngine.AddressableAssets;
+using UnityEngine.AddressableAssets;
 
 public class Pool : MonoBehaviour
 {
-    //public List<AssetReference> bulletPrefabs;
-    public List<GameObject> bulletPrefabs;
+    public List<AssetReference> prefabs;
 
-    private Queue<GameObject>[] availableObjects = new Queue<GameObject>[3];
+    private Queue<GameObject>[] availableObjects;
 
     public static Pool Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+
+        availableObjects = new Queue<GameObject>[prefabs.Count];
         for (int i = 0; i < availableObjects.Length; i++)
         {
             availableObjects[i] = new Queue<GameObject>();
         }
     }
 
-    public GameObject GetFromPool(int index)
+    public async Task<GameObject> GetFromPoolAsync(int index)
     {
         if (availableObjects[index].Count == 0)
-            GrowPool(index);
+        {
+            await GrowPool(index);
+        }
 
         GameObject instance = availableObjects[index].Dequeue();
-        instance.SetActive(true);
         return instance;
     }
 
-    private void GrowPool(int index)
+    private async Task GrowPool(int index)
     {
-        //bulletPrefabs[index].InstantiateAsync(transform).Completed += handle => AddToPool(index, handle.Result);
-        GameObject instance = Instantiate(bulletPrefabs[index], transform);
-        AddToPool(index, instance);
+        var handle = Addressables.LoadAssetAsync<GameObject>(prefabs[index]);
+        handle.Completed += (operation) =>
+        {
+            prefabs[index].InstantiateAsync(transform).Completed += (operationHandle) =>
+            {
+                AddToPool(index, operationHandle.Result);
+            };
+        };
+        await handle.Task;
     }
 
     public void AddToPool(int index, GameObject instance)

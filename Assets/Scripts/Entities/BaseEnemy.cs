@@ -6,7 +6,7 @@
         healthPercent = health / maxHealth;
     }
 
-    public override void TakeDamage(float amount, BaseEntity attacker)
+    public override void TakeDamage(float amount, int attackType, BaseEntity attacker)
     {
         if (invinsibility)
             return;
@@ -33,7 +33,7 @@
         }
     }
 
-    public override void TakeDamagePercent(float amount, BaseEntity attacker)
+    public override void TakeDamagePercent(float amount, int attackType, BaseEntity attacker)
     {
         if (invinsibility)
             return;

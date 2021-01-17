@@ -10,7 +10,7 @@ public class BasePlayer : BaseEntity
         healthPercent = health / maxHealth;
     }
 
-    public override void TakeDamage(float amount, BaseEntity attacker)
+    public override void TakeDamage(float amount, int attackType, BaseEntity attacker)
     {
         if (invinsibility)
             return;
@@ -26,7 +26,7 @@ public class BasePlayer : BaseEntity
             Die();
         }
 
-        //OnHealthChanged(this, EventArgs.Empty);
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public override void TakeHealth(float amount, BaseEntity healer)
@@ -40,10 +40,10 @@ public class BasePlayer : BaseEntity
             healthPercent = 1f;
         }
 
-        //OnHealthChanged(this, EventArgs.Empty);
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public override void TakeDamagePercent(float amount, BaseEntity attacker)
+    public override void TakeDamagePercent(float amount, int attackType, BaseEntity attacker)
     {
         if (invinsibility)
             return;
@@ -59,7 +59,7 @@ public class BasePlayer : BaseEntity
             Die();
         }
 
-        //OnHealthChanged(this, EventArgs.Empty);
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public override void TakeHealthPercent(float amount, BaseEntity healer)
@@ -73,7 +73,7 @@ public class BasePlayer : BaseEntity
             healthPercent = 1f;
         }
 
-        //OnHealthChanged(this, EventArgs.Empty);
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public override void Die()

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public static class StaticGameVariables
 {
+    #region Variables
     public enum Language
     {
         Russian,
@@ -22,8 +23,10 @@ public static class StaticGameVariables
 
     public static GameObject player;
     public static GameObject slotSelected;
+
     public static Color slotDefaultColor;
     public static Color slotColor;
+    public static Color[] colorItems;
 
     public static Inventory inventory;
     public static Item itemSelected;
@@ -33,6 +36,8 @@ public static class StaticGameVariables
     public static Canvas inventoryCanvas;
     public static Canvas itemInfoCanvas;
     public static Canvas gameUI;
+    public static Canvas staticUI;
+    public static Canvas inGameUI;
     public static Canvas yesNoCanvas;
 
     public static Slider yesNoSlider;
@@ -47,20 +52,31 @@ public static class StaticGameVariables
 
     public static float progress;
 
-    public static void Initialize()
+    public static float defaultTimeScale;
+    public static float defaultFixedDeltaTime;
+    #endregion
+
+    #region Initialize
+    public static void InitializeAwake()
     {
+        language = (Language)PlayerPrefs.GetInt("Language", 0);
+        if (language != 0)
+        {
+            ChangeLanguage((int)language);
+        }
+
         player = GameObject.Find("_PLAYER");
         GameObject inventoryObject = GameObject.Find("Inventory");
         GameObject yesNoObject = GameObject.Find("YesNoMenu");
         GameObject listButtons = GameObject.Find("InventoryButtons");
-
-        inventory = player.GetComponent<Player>().inventory;
 
         inventoryGroup = inventoryObject.GetComponent<CanvasGroup>();
 
         inventoryCanvas = inventoryObject.GetComponent<Canvas>();
         itemInfoCanvas = GameObject.Find("ItemInfo").GetComponent<Canvas>();
         gameUI = GameObject.Find("DynamicUI").GetComponent<Canvas>();
+        staticUI = GameObject.Find("StaticUI").GetComponent<Canvas>();
+        inGameUI = GameObject.Find("InGameInterface").GetComponent<Canvas>();
         yesNoCanvas = yesNoObject.GetComponent<Canvas>();
 
         yesNoSlider = yesNoObject.transform.GetChild(0).GetChild(0).GetComponent<Slider>();
@@ -78,12 +94,30 @@ public static class StaticGameVariables
         buttonDisItem.interactable = false;
         yesNoCanvas.enabled = false;
 
-        slotDefaultColor = new Color(80f / 255f, 80f / 255f, 80f / 255f, 128f / 255f);
+        yesNoSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+
+        slotDefaultColor = new Color(80f / 255f, 80f / 255f, 80f / 255f, 0.5f);
         slotColor = new Color(1f, 1f, 1f, 0.5f);
 
-        yesNoSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        colorItems = new Color[6];
+        colorItems[0] = new Color(72f / 255f, 60f / 255f, 60f / 255f, 1f);
+        colorItems[1] = new Color(86f / 255f, 183f / 255f, 93f / 255f, 1f);
+        colorItems[2] = new Color(86f / 255f, 137f / 255f, 183f / 255f, 1f);
+        colorItems[3] = new Color(147f / 255f, 86f / 255f, 183f / 255f, 1f);
+        colorItems[4] = new Color(183f / 255f, 175f / 255f, 86f / 255f, 1f);
+        colorItems[5] = new Color(183f / 255f, 121f / 255f, 86f / 255f, 1f);
+
+        defaultTimeScale = Time.timeScale;
+        defaultFixedDeltaTime = Time.fixedDeltaTime;
     }
 
+    public static void Initialize()
+    {
+        inventory = player.GetComponent<Player>().inventory;
+    }
+    #endregion
+
+    #region Functions
     public static void ChangeCategoryItem(Item.ItemType itemCategory)
     {
         if (currentItemCategory == itemCategory)
@@ -216,6 +250,9 @@ public static class StaticGameVariables
 
     public static void OpenInventory()
     {
+        PauseGame();
+        HideInGameUI();
+        staticUI.enabled = true;
         inventoryCanvas.enabled = true;
     }
 
@@ -226,7 +263,20 @@ public static class StaticGameVariables
         itemSelected = null;
         itemInfoCanvas.enabled = false;
         inventoryCanvas.enabled = false;
+        staticUI.enabled = false;
         DisableInventoryButtons();
+        ShowInGameUI();
+        ContinueGame();
+    }
+
+    public static void ShowInGameUI()
+    {
+        inGameUI.enabled = true;
+    }
+
+    public static void HideInGameUI()
+    {
+        inGameUI.enabled = false;
     }
 
     public static void DisableInventoryButtons()
@@ -264,8 +314,21 @@ public static class StaticGameVariables
         PlayerPrefs.Save();
     }
 
+    public static void PauseGame()
+    {
+        Time.timeScale = 0f;
+        Time.fixedDeltaTime = 0f;
+    }
+
+    public static void ContinueGame()
+    {
+        Time.timeScale = defaultTimeScale;
+        Time.fixedDeltaTime = defaultFixedDeltaTime;
+    }
+
     public static void ValueChangeCheck()
     {
         yesNoAmount.text = yesNoSlider.value.ToString();
     }
+    #endregion
 }
