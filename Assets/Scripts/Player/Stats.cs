@@ -11,6 +11,8 @@ public class Stats : MonoBehaviour
     public int exp;
     public int talentPoints;
 
+    public float weight = 100f;
+
     [Space(10)]
     public int strength = 3;
     public int agility = 3;

@@ -38,7 +38,8 @@ public static class StaticGameVariables
     public static Canvas gameUI;
     public static Canvas staticUI;
     public static Canvas inGameUI;
-    public static Canvas yesNoCanvas;
+    public static Canvas quickUI;
+    public static Canvas inventoryYesNoCanvas;
 
     public static Slider yesNoSlider;
     public static TMP_Text yesNoAmount;
@@ -67,7 +68,7 @@ public static class StaticGameVariables
 
         player = GameObject.Find("_PLAYER");
         GameObject inventoryObject = GameObject.Find("Inventory");
-        GameObject yesNoObject = GameObject.Find("YesNoMenu");
+        GameObject yesNoObject = GameObject.Find("InventoryYesNoMenu");
         GameObject listButtons = GameObject.Find("InventoryButtons");
 
         inventoryGroup = inventoryObject.GetComponent<CanvasGroup>();
@@ -77,7 +78,9 @@ public static class StaticGameVariables
         gameUI = GameObject.Find("DynamicUI").GetComponent<Canvas>();
         staticUI = GameObject.Find("StaticUI").GetComponent<Canvas>();
         inGameUI = GameObject.Find("InGameInterface").GetComponent<Canvas>();
-        yesNoCanvas = yesNoObject.GetComponent<Canvas>();
+        quickUI = GameObject.Find("QuickMenu").GetComponent<Canvas>();
+
+        inventoryYesNoCanvas = yesNoObject.GetComponent<Canvas>();
 
         yesNoSlider = yesNoObject.transform.GetChild(0).GetChild(0).GetComponent<Slider>();
         yesNoAmount = GameObject.Find("YesNoMenuAmount").GetComponent<TMP_Text>();
@@ -92,7 +95,7 @@ public static class StaticGameVariables
         buttonUseItem.interactable = false;
         buttonDropItem.interactable = false;
         buttonDisItem.interactable = false;
-        yesNoCanvas.enabled = false;
+        inventoryYesNoCanvas.enabled = false;
 
         yesNoSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
 
@@ -236,7 +239,7 @@ public static class StaticGameVariables
         yesNoSlider.value = 1;
         yesNoSlider.maxValue = itemSelected.itemAmount;
         inventoryGroup.blocksRaycasts = false;
-        yesNoCanvas.enabled = true;
+        inventoryYesNoCanvas.enabled = true;
     }
 
     public static void HideConfirmMenu()
@@ -244,7 +247,7 @@ public static class StaticGameVariables
         DisableInventoryButtons();
 
         itemInfoCanvas.enabled = false;
-        yesNoCanvas.enabled = false;
+        inventoryYesNoCanvas.enabled = false;
         inventoryGroup.blocksRaycasts = true;
     }
 
@@ -266,7 +269,7 @@ public static class StaticGameVariables
         staticUI.enabled = false;
         DisableInventoryButtons();
         ShowInGameUI();
-        ContinueGame();
+        ResumeGame();
     }
 
     public static void ShowInGameUI()
@@ -277,6 +280,23 @@ public static class StaticGameVariables
     public static void HideInGameUI()
     {
         inGameUI.enabled = false;
+    }
+
+    public static void ShowQuickMenu()
+    {
+        PauseGame();
+        HideInGameUI();
+        staticUI.enabled = true;
+        quickUI.enabled = true;
+
+    }
+
+    public static void HideQuickMenu()
+    {
+        quickUI.enabled = false;
+        staticUI.enabled = false;
+        ShowInGameUI();
+        ResumeGame();
     }
 
     public static void DisableInventoryButtons()
@@ -306,7 +326,13 @@ public static class StaticGameVariables
         foreach (GameObject child in allUI)
         {
             TranslateUI translation = child.GetComponent<TranslateUI>();
-            TMP_Text textUI = child.transform.GetChild(0).GetComponent<TMP_Text>();
+            TMP_Text textUI = child.gameObject.GetComponent<TMP_Text>();
+
+            if (textUI == null)
+            {
+                textUI = child.transform.GetChild(0).GetComponent<TMP_Text>();
+            }
+
             textUI.text = translation.languages[languageChange];
         }
 
@@ -320,7 +346,7 @@ public static class StaticGameVariables
         Time.fixedDeltaTime = 0f;
     }
 
-    public static void ContinueGame()
+    public static void ResumeGame()
     {
         Time.timeScale = defaultTimeScale;
         Time.fixedDeltaTime = defaultFixedDeltaTime;

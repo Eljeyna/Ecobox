@@ -1,45 +1,36 @@
 ﻿using UnityEngine;
-using System;
 
 public class AudioDirector : MonoBehaviour
 {
-    public Sound[] sounds;
+    public AudioClip[] sounds;
+
+    [HideInInspector] public AudioSource[] sources;
 
     private void Awake()
     {
-        foreach (Sound s in sounds)
+        sources = new AudioSource[sounds.Length];
+        for (int i = 0; i < sounds.Length; i++)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-            s.source.loop = s.loop;
+            sources[i] = gameObject.AddComponent<AudioSource>();
+            sources[i].clip = sounds[i];
         }
     }
 
-    public void Play(string name)
+    private void Start()
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        foreach (AudioSource sound in sources)
         {
-            Debug.LogWarning("Sound: " + name + " is undefined!");
-            return;
+            sound.volume = 1f;
         }
-
-        if (s.source.isPlaying)
-            return;
-
-        s.source.volume = s.volume;
-        s.source.pitch = s.pitch;
-        s.source.Play();
     }
 
-    public void Stop(string name)
+    public void Play(int index)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + name + " is undefined!");
-            return;
-        }
-        s.source.Stop();
+        sources[index].Play();
+    }
+
+    public void Stop(int index)
+    {
+        sources[index].Stop();
     }
 }

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class StartGame : MonoBehaviour
+public class SwitchScene : MonoBehaviour
 {
     public SceneLoading sceneLoader;
     public Animator transition;
     public string level;
     public float waitTime;
-    public void StartNewGame()
+    public void Use()
     {
         sceneLoader.SwitchToScene(level, "Start");
     }

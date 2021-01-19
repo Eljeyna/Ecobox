@@ -10,8 +10,6 @@ public class Synthea01After : MonoBehaviour
     private void Start()
     {
         fade.enabled = true;
-        audioDirector.Stop("Piano");
-        audioDirector.Stop("ThrowGarbage");
         StartCoroutine(EndOfDialogue());
     }
 
@@ -28,7 +26,5 @@ public class Synthea01After : MonoBehaviour
         {
             audioDirector.Play("City2");
         }*/
-        audioDirector.Play("Men");
-        audioDirector.Play("AutoBackground");
     }
 }

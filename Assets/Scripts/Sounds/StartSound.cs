@@ -4,7 +4,7 @@ using UnityEngine;
 public class StartSound : MonoBehaviour
 {
     public AudioDirector audioDirector;
-    public string sound;
+    public int sound;
     public float time = 0.25f;
 
     private void Start()
