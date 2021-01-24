@@ -1,20 +1,20 @@
-﻿using System.Collections;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 
 public class StartSound : MonoBehaviour
 {
     public AudioDirector audioDirector;
     public int sound;
-    public float time = 0.25f;
+    public int timeMilliseconds = 2500;
 
-    private void Start()
+    private async Task Start()
     {
-        StartCoroutine(MusicPlay());
+        await MusicPlay();
     }
 
-    IEnumerator MusicPlay()
+    private async Task MusicPlay()
     {
-        yield return new WaitForSeconds(time);
+        await Task.Delay(timeMilliseconds);
         audioDirector.Play(sound);
     }
 }

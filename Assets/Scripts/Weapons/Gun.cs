@@ -1,5 +1,13 @@
 ﻿using UnityEngine;
 
+public enum WeaponDamageType
+{
+    Physical    = 0,   // Common Damage
+    Chemical    = 1,   // Poison
+    EMP         = 2,   // Electricity
+    Thermal     = 3,   // Cold and Hot
+}
+
 public abstract class Gun : MonoBehaviour
 {
     public GunData gunData;

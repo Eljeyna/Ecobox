@@ -23,7 +23,7 @@ public class BulletPistolSoldier : Bullet
             {
                 if (bulletData.radius > 0f)
                 {
-                    RadiusAttack.RadiusDamage(owner.gameObject, transform.position, bulletData.radius, bulletData.damage, 1 << gameObject.layer);
+                    RadiusAttack.RadiusDamage(owner.gameObject, transform.position, bulletData.radius, bulletData.damageType, bulletData.damage, 1 << gameObject.layer);
                 }
                 else
                 {

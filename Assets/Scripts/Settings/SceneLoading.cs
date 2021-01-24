@@ -1,22 +1,44 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+using System.Threading.Tasks;
 
 public class SceneLoading : MonoBehaviour
 {
-    public Image loadingProgressBar;
+    public static SceneLoading Instance { get; private set; }
 
-    private UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance> loadSceneAsync;
-    private static SceneLoading instance;
-    private static bool playAnim = false;
-    private Animator anim;
+    public Image loadingProgressBar;
+    public Animator anim;
+
+    private AsyncOperationHandle<SceneInstance> loadSceneAsync;
+    private bool playAnim = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        if (playAnim)
+        {
+            anim.SetTrigger("Start");
+        }
+    }
 
     public void SwitchToScene(string sceneName, string animId)
     {
-        instance.anim.SetTrigger(animId);
+        Instance.anim.SetTrigger(animId);
         _ = LoadLevel(sceneName);
+
     }
 
     public async Task LoadLevel(string sceneName)
@@ -25,16 +47,7 @@ public class SceneLoading : MonoBehaviour
         /*float progress = loadSceneAsync.PercentComplete;
         loadingProgressBar.fillAmount = progress;*/
         await loadSceneAsync.Task;
-    }
-
-    void Start()
-    {
-        instance = this;
-        anim = GetComponent<Animator>();
-
-        if (playAnim)
-        {
-            anim.SetTrigger("Start");
-        }
+        StaticGameVariables.ResumeGame();
+        anim.SetTrigger("End");
     }
 }

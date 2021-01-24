@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Hold",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "a2220b2f-6dfc-42eb-ab42-8e05bfe83892",
                     "expectedControlType": "Button",
@@ -25,14 +25,6 @@
                     "name": "Inventory",
                     "type": "Button",
                     "id": "11656985-d409-4da5-9733-a7cc20e977d2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "ChangeLanguage",
-                    "type": "Button",
-                    "id": "bb25ca08-ef63-45ae-ac4a-2f036a65a2fc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -50,6 +42,14 @@
                     "type": "Button",
                     "id": "1938940c-a125-41c2-90c8-b1ab47d78e91",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "882ad631-84e5-41ef-8ed6-0afcc0880108",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 }
@@ -200,23 +200,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1732aebe-61e2-4486-b174-d52938893de1",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Touchscreen",
-                    "action": "Hold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "73939a8e-cc8e-45ce-89bb-5dafce005df1",
                     "path": "<Pointer>/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and mouse",
-                    "action": "Hold",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -227,7 +216,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Hold",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -239,17 +228,6 @@
                     "processors": "",
                     "groups": "Keyboard and mouse",
                     "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "44372c8e-299e-430a-b403-f12427a3db88",
-                    "path": "<Keyboard>/l",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and mouse",
-                    "action": "ChangeLanguage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -283,6 +261,17 @@
                     "processors": "",
                     "groups": "Keyboard and mouse",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6b81a86-915e-4b47-8fc2-348ff3f57284",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
-    public Settings Instance { get; private set; }
+    public static Settings Instance { get; private set; }
 
     /*public TMP_Dropdown dropdownResolutions;
     public TMP_Dropdown dropdownFullscreenMode;*/
@@ -13,11 +13,21 @@ public class Settings : MonoBehaviour
     public Slider sliderMusicVolume;
     public Slider sliderGUIVolume;
 
+    public Slider sliderCameraZoom;
+
     public AudioMixer audioMixer;
+    public Canvas thisCanvas;
+    public Canvas defaultCanvas;
 
     public Color colorSlot;
 
+    [HideInInspector] public Image defaultSlot;
     [HideInInspector] public Image slotSelected;
+
+    private void Awake()
+    {
+        StaticGameVariables.InitializeLanguage();
+    }
 
     private void Start()
     {
@@ -79,6 +89,13 @@ public class Settings : MonoBehaviour
         sliderGUIVolume.value = PlayerPrefs.GetFloat("GUIVolume", 0f);
         audioMixer.SetFloat("guiVolume", PlayerPrefs.GetFloat("GUIVolume", 0f));
 
+        sliderCameraZoom.value = PlayerPrefs.GetFloat("ZoomAmount", 3f);
+        if (Player.Instance != null)
+        {
+            Player.Instance.zoomAmount = 0.2f + (0.2f * sliderCameraZoom.value);
+        }
+
+        defaultSlot = GameObject.Find("SoundCategory").GetComponent<Image>();
         slotSelected = GameObject.Find("SoundCategory").GetComponent<Image>();
         slotSelected.color = colorSlot;
     }
@@ -118,6 +135,16 @@ public class Settings : MonoBehaviour
     {
         audioMixer.SetFloat("guiVolume", volume);
         PlayerPrefs.SetFloat("GUIVolume", volume);
+    }
+
+    public void SetCameraZoom(float zoom)
+    {
+        PlayerPrefs.SetFloat("ZoomAmount", zoom);
+
+        if (Player.Instance != null)
+        {
+            Player.Instance.zoomAmount = 0.2f + (0.2f * zoom);
+        }
     }
 
     public void SetSlot(Image slot)

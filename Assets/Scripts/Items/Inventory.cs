@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class Inventory
 {
+    public float weight;
     public List<ItemInstance> itemList = new List<ItemInstance>();
 
     public event EventHandler OnItemListChanged;

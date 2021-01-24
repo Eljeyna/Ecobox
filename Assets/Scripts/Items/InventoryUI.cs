@@ -5,11 +5,13 @@ using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
+    public List<Item> testItems;
+
+    public TMP_Text weightText;
+
     private Inventory inventory;
     private Transform itemSlotContainer;
     private Transform itemSlotPrefab;
-
-    public List<Item> testItems;
 
     private void Awake()
     {
@@ -38,6 +40,7 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateInventoryItems()
     {
+        inventory.weight = 0f;
         foreach (Transform child in itemSlotContainer)
         {
             if (child == itemSlotPrefab) continue;
@@ -47,6 +50,8 @@ public class InventoryUI : MonoBehaviour
         int i = 0;
         foreach (ItemInstance item in inventory.itemList)
         {
+            inventory.weight += item.itemCopy.itemWeight * item.itemCopy.itemAmount;
+
             if (item.itemCopy.itemType == StaticGameVariables.currentItemCategory)
             {
                 i = (int)item.itemCopy.itemQuality;
@@ -59,5 +64,7 @@ public class InventoryUI : MonoBehaviour
                 itemSlotRect.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = (item.itemCopy.itemAmount).ToString();
             }
         }
+
+        weightText.text = ($"{Mathf.Round(inventory.weight)} / {Player.Instance.stats.weight}");
     }
 }

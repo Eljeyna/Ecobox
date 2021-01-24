@@ -3,8 +3,11 @@
 [CreateAssetMenu(fileName = "GunData", menuName = "ScriptableObjects/GunData")]
 public class GunData : ScriptableObject
 {
+    public WeaponDamageType damageType;
     public float damage;
+    public float radius;
     public float range;
+    public float delay;
     public float fireRatePrimary;
     public float fireRateSecondary;
     public float impactForce;

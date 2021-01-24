@@ -2,14 +2,15 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Pool : MonoBehaviour
 {
+    public static Pool Instance { get; private set; }
+
     public List<AssetReference> prefabs;
 
     private Queue<GameObject>[] availableObjects;
-
-    public static Pool Instance { get; private set; }
 
     private void Awake()
     {
@@ -35,13 +36,10 @@ public class Pool : MonoBehaviour
 
     private async Task GrowPool(int index)
     {
-        var handle = Addressables.LoadAssetAsync<GameObject>(prefabs[index]);
-        handle.Completed += (operation) =>
+        AsyncOperationHandle<GameObject> handle = prefabs[index].InstantiateAsync(transform);
+        handle.Completed += (operationHandle) =>
         {
-            prefabs[index].InstantiateAsync(transform).Completed += (operationHandle) =>
-            {
-                AddToPool(index, operationHandle.Result);
-            };
+            AddToPool(index, operationHandle.Result);
         };
         await handle.Task;
     }

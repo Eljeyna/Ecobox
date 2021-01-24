@@ -1,83 +1,41 @@
 ﻿using System;
 
-public class BasePlayer : BaseEntity
+public class BasePlayer : BaseCommon
 {
     public EventHandler OnHealthChanged;
 
-    public override void Awake()
-    {
-        health = maxHealth;
-        healthPercent = health / maxHealth;
-    }
-
     public override void TakeDamage(float amount, int attackType, BaseEntity attacker)
     {
-        if (invinsibility)
-            return;
-
-        health -= amount;
-        healthPercent = health / maxHealth;
-        this.attacker = attacker;
-
-        if (health <= 0)
-        {
-            health = 0;
-            healthPercent = 0f;
-            Die();
-        }
+        base.TakeDamage(amount, attackType, attacker);
 
         OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public override void TakeHealth(float amount, BaseEntity healer)
     {
-        health += amount;
-        healthPercent = health / maxHealth;
-
-        if (health > maxHealth)
-        {
-            health = maxHealth;
-            healthPercent = 1f;
-        }
+        base.TakeHealth(amount, healer);
 
         OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public override void TakeDamagePercent(float amount, int attackType, BaseEntity attacker)
     {
-        if (invinsibility)
-            return;
-
-        healthPercent -= amount;
-        health = healthPercent * maxHealth;
-        this.attacker = attacker;
-
-        if (health <= 0)
-        {
-            health = 0;
-            healthPercent = 0f;
-            Die();
-        }
+        base.TakeDamagePercent(amount, attackType, attacker);
 
         OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public override void TakeHealthPercent(float amount, BaseEntity healer)
     {
-        healthPercent += amount;
-        health = healthPercent * maxHealth;
-
-        if (health > maxHealth)
-        {
-            health = maxHealth;
-            healthPercent = 1f;
-        }
+        base.TakeHealthPercent(amount, healer);
 
         OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public override void Die()
+    public override void SetMaxHealth(float amount)
     {
-        flagDeath = true;
+        base.SetMaxHealth(amount);
+
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 }

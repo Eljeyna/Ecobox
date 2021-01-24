@@ -4,6 +4,7 @@
 public class BulletData : ScriptableObject
 {
     public int index;
+    public WeaponDamageType damageType;
     public float damage;
     public float speed;
     public float timeFade;

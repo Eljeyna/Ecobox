@@ -12,9 +12,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
   - Entities
+  - 
+  - 
   - 
   - 
   - 
@@ -37,7 +37,7 @@ TagManager:
   - 
   - Minimap
   - Items
-  - Wall
+  - Obstacles
   m_SortingLayers:
   - name: Default
     uniqueID: 0

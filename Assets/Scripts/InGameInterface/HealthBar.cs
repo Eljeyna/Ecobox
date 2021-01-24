@@ -15,6 +15,11 @@ public class HealthBar : MonoBehaviour
         basePlayer.OnHealthChanged += OnHealthChanged;
     }
 
+    private void Start()
+    {
+        UpdateHealthBar();
+    }
+
     public void OnHealthChanged(object sender, System.EventArgs e)
     {
         UpdateHealthBar();

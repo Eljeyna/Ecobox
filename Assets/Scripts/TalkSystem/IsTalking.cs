@@ -18,6 +18,8 @@ public class IsTalking : MonoBehaviour
         {
             if (!game.dialogue_box.isActiveAndEnabled)
             {
+                StaticGameVariables.PauseGame();
+                StaticGameVariables.HideInGameUI();
                 game.SetSpeaker(gameObject, null);
                 game.StartDialogue();
                 return;
@@ -81,7 +83,7 @@ public class IsTalking : MonoBehaviour
                         0,
                         Screen.width,
                         Screen.height),
-                        "",
+                        string.Empty,
                         game.invisibleButton)
                     )
                 {
@@ -120,6 +122,9 @@ public class IsTalking : MonoBehaviour
 
         game.SetControlAfter(controlAfter);
         game.StopDialogue();
+
+        StaticGameVariables.ShowInGameUI();
+        StaticGameVariables.ResumeGame();
     }
 
     public void SetDialogue(Dialogue dialogue)

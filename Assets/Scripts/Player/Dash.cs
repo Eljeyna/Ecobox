@@ -2,7 +2,7 @@
 
 public class Dash : MonoBehaviour
 {
-    public int staminaCost = 15;
+    public int staminaCost = 5;
     public float dashTime = 0.25f;
     public float dashReload = 0.5f;
     public AnimationCurve dashSpeed;

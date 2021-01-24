@@ -20,4 +20,4 @@ MonoBehaviour:
   itemType: 3
   itemQuality: 0
   itemInfo: {fileID: 11400000, guid: 0ab5569feee458a4794f9eeb4e1e82bb, type: 2}
-  heal: 0.25
+  heal: 0.2

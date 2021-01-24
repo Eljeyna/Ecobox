@@ -17,18 +17,18 @@ public static class StaticGameVariables
         DisassembleItem,
     }
 
+    public static bool isPause = false;
+
     public static Language language;
     public static ActionType actionWithItem;
     public static Item.ItemType currentItemCategory = Item.ItemType.WeaponMelee;
 
-    public static GameObject player;
     public static GameObject slotSelected;
 
     public static Color slotDefaultColor;
     public static Color slotColor;
     public static Color[] colorItems;
 
-    public static Inventory inventory;
     public static Item itemSelected;
 
     public static CanvasGroup inventoryGroup;
@@ -58,15 +58,17 @@ public static class StaticGameVariables
     #endregion
 
     #region Initialize
+    public static void InitializeLanguage()
+    {
+        int languageCheck = PlayerPrefs.GetInt("Language", 0);
+        if (languageCheck != 0)
+        {
+            ChangeLanguage(languageCheck);
+        }
+    }
+
     public static void InitializeAwake()
     {
-        language = (Language)PlayerPrefs.GetInt("Language", 0);
-        if (language != 0)
-        {
-            ChangeLanguage((int)language);
-        }
-
-        player = GameObject.Find("_PLAYER");
         GameObject inventoryObject = GameObject.Find("Inventory");
         GameObject yesNoObject = GameObject.Find("InventoryYesNoMenu");
         GameObject listButtons = GameObject.Find("InventoryButtons");
@@ -113,11 +115,6 @@ public static class StaticGameVariables
         defaultTimeScale = Time.timeScale;
         defaultFixedDeltaTime = Time.fixedDeltaTime;
     }
-
-    public static void Initialize()
-    {
-        inventory = player.GetComponent<Player>().inventory;
-    }
     #endregion
 
     #region Functions
@@ -132,7 +129,7 @@ public static class StaticGameVariables
         currentItemCategory = itemCategory;
         itemInfoCanvas.enabled = false;
         DisableInventoryButtons();
-        inventory.CallUpdateInventory();
+        Player.Instance.inventory.CallUpdateInventory();
     }
 
     public static void UseItem()
@@ -144,19 +141,19 @@ public static class StaticGameVariables
 
             if (itemSelected.itemAmount <= 0)
             {
-                inventory.RemoveItem(itemSelected);
+                Player.Instance.inventory.RemoveItem(itemSelected);
                 itemSelected = null;
             }
 
             if (itemSelected && itemSelected.itemAmount != amount)
             {
-                inventory.CallUpdateInventory();
+                Player.Instance.inventory.CallUpdateInventory();
             }
             else if (itemSelected == null)
             {
                 DisableInventoryButtons();
                 itemInfoCanvas.enabled = false;
-                inventory.CallUpdateInventory();
+                Player.Instance.inventory.CallUpdateInventory();
             }
         }
     }
@@ -181,11 +178,11 @@ public static class StaticGameVariables
         {
             DisableInventoryButtons();
             itemInfoCanvas.enabled = false;
-            inventory.RemoveItem(itemSelected);
+            Player.Instance.inventory.RemoveItem(itemSelected);
             itemSelected = null;
         }
 
-        inventory.CallUpdateInventory();
+        Player.Instance.inventory.CallUpdateInventory();
     }
 
     public static void DropItemMultiple()
@@ -194,11 +191,11 @@ public static class StaticGameVariables
 
         if (itemSelected && itemSelected.itemAmount <= 0)
         {
-            inventory.RemoveItem(itemSelected);
+            Player.Instance.inventory.RemoveItem(itemSelected);
             itemSelected = null;
         }
 
-        inventory.CallUpdateInventory();
+        Player.Instance.inventory.CallUpdateInventory();
     }
 
     public static void DisassembleItem()
@@ -213,11 +210,11 @@ public static class StaticGameVariables
         {
             DisableInventoryButtons();
             itemInfoCanvas.enabled = false;
-            inventory.RemoveItem(itemSelected);
+            Player.Instance.inventory.RemoveItem(itemSelected);
             itemSelected = null;
         }
 
-        inventory.CallUpdateInventory();
+        Player.Instance.inventory.CallUpdateInventory();
     }
 
     public static void DisassembleItemMultiple()
@@ -226,11 +223,11 @@ public static class StaticGameVariables
 
         if (itemSelected && itemSelected.itemAmount <= 0)
         {
-            inventory.RemoveItem(itemSelected);
+            Player.Instance.inventory.RemoveItem(itemSelected);
             itemSelected = null;
         }
 
-        inventory.CallUpdateInventory();
+        Player.Instance.inventory.CallUpdateInventory();
     }
 
     public static void OpenConfirmMenu()
@@ -315,11 +312,6 @@ public static class StaticGameVariables
 
     public static void ChangeLanguage(int languageChange)
     {
-        if ((int)language == languageChange)
-        {
-            return;
-        }
-
         language = (Language)languageChange;
 
         GameObject[] allUI = GameObject.FindGameObjectsWithTag("Translate");
@@ -342,6 +334,7 @@ public static class StaticGameVariables
 
     public static void PauseGame()
     {
+        isPause = true;
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
     }
@@ -350,11 +343,18 @@ public static class StaticGameVariables
     {
         Time.timeScale = defaultTimeScale;
         Time.fixedDeltaTime = defaultFixedDeltaTime;
+        isPause = false;
     }
 
     public static void ValueChangeCheck()
     {
         yesNoAmount.text = yesNoSlider.value.ToString();
+    }
+
+    public static float GetAngleBetweenPositions(Vector3 pos1, Vector3 pos2)
+    {
+        Vector3 direction = pos1 - pos2;
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
     #endregion
 }

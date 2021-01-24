@@ -4,7 +4,7 @@ public class TalkClickStarter : MonoBehaviour
 {
     public GameDirector game;
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
     private void Update()
     {
         if (!game.canControl)

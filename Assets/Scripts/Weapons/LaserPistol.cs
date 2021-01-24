@@ -22,7 +22,9 @@ public class LaserPistol : Gun
             fireWhenEmpty = false;
 
             if (gunData.autoreload)
+            {
                 Reload();
+            }
         }
     }
 
@@ -35,7 +37,9 @@ public class LaserPistol : Gun
         }
 
         if (clip != -1)
+        {
             clip--;
+        }
 
         BulletSetup(await Pool.Instance.GetFromPoolAsync(0));
 
@@ -57,7 +61,9 @@ public class LaserPistol : Gun
         int cl = Mathf.Min(gunData.maxClip - clip, ammo);
 
         if (cl <= 0)
+        {
             return false;
+        }
 
         nextAttack = Time.time + gunData.reloadTime;
         reloading = true;

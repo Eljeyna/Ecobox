@@ -66,7 +66,9 @@ public class Rifle : Gun
             fireWhenEmpty = false;
 
             if (gunData.autoreload)
+            {
                 Reload();
+            }
         }
     }
 
@@ -79,7 +81,9 @@ public class Rifle : Gun
         }
 
         if (clip != -1)
+        {
             clip--;
+        }
 
         RaycastHit2D hit = Physics2D.Raycast(lineStartPosition.position, transform.up, gunData.range);
         line.SetPosition(0, lineStartPosition.position);
