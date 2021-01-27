@@ -6,6 +6,8 @@ public class Settings : MonoBehaviour
 {
     public static Settings Instance { get; private set; }
 
+    public bool gameIsLoaded = false;
+
     /*public TMP_Dropdown dropdownResolutions;
     public TMP_Dropdown dropdownFullscreenMode;*/
     public Slider sliderMasterVolume;

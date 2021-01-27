@@ -17,6 +17,7 @@ MonoBehaviour:
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
   m_DisableCatalogUpdateOnStart: 0
+  m_IgnoreUnsupportedFilesInBuild: 0
   m_UniqueBundleIds: 0
   m_maxConcurrentWebRequests: 500
   m_ContiguousBundles: 0
@@ -29,15 +30,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3f9930a226b2f21408c4cd8b662212a7, type: 2}
   - {fileID: 11400000, guid: 121f7eb5f5085804d91a39c1b303fcc7, type: 2}
   - {fileID: 11400000, guid: 74f9e4266ec8367478f8bb10c2b2bc8e, type: 2}
-  - {fileID: 11400000, guid: cab77275833309a41bb3a47780efb824, type: 2}
-  - {fileID: 11400000, guid: 41d661fc03a2cac4a84b472987c9b67f, type: 2}
   - {fileID: 11400000, guid: 71c5f81d62d0ba549b0af323da5d4ff8, type: 2}
   - {fileID: 11400000, guid: 67850cc47e1beb74bad2d46958966a84, type: 2}
   - {fileID: 11400000, guid: 33d8f430c7ab0534caa63c49d1d72330, type: 2}
-  - {fileID: 11400000, guid: 6f99df67c72c37149afc4121159aef8b, type: 2}
-  - {fileID: 11400000, guid: 8a5aebd57f46e6741b4e1f3ce494decb, type: 2}
   - {fileID: 11400000, guid: a5935ee23b69f044da55cdceba6b80b2, type: 2}
   - {fileID: 11400000, guid: 72f60eacdbf92104b8c9c26df9ea14be, type: 2}
+  - {fileID: 11400000, guid: 426762842923c98429a9d9580593dd8f, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -79,6 +77,7 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - preload
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 87545b01322fbbf468c841c32d099ab2, type: 2}

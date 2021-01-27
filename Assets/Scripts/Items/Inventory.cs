@@ -1,24 +1,29 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using UnityEngine;
 
-public class Inventory
+public class Inventory : MonoBehaviour
 {
+    public ItemDatabase itemDatabase;
+
     public float weight;
-    public List<ItemInstance> itemList = new List<ItemInstance>();
+    public List<Item> itemList = new List<Item>();
 
     public event EventHandler OnItemListChanged;
 
     public void AddItem(Item item)
     {
         bool itemInInventory = false;
-        foreach (ItemInstance inventoryItem in itemList)
+        foreach (Item inventoryItem in itemList)
         {
-            if (inventoryItem.itemCopy.id == item.id)
+            if (inventoryItem.id == item.id)
             {
-                if (inventoryItem.itemCopy.itemAmount < 999)
+                if (inventoryItem.itemAmount < 999)
                 {
-                    inventoryItem.itemCopy.itemAmount++;
+                    inventoryItem.itemAmount++;
                 }
+
                 itemInInventory = true;
                 break;
             }
@@ -26,23 +31,24 @@ public class Inventory
 
         if (!itemInInventory)
         {
-            itemList.Add(new ItemInstance(item));
+            itemList.Add(Instantiate(item));
         }
 
         CallUpdateInventory();
     }
 
-    public void AddItem(ItemInstance item)
+    public void AddItem(Item item, int amount)
     {
         bool itemInInventory = false;
-        foreach (ItemInstance inventoryItem in itemList)
+        foreach (Item inventoryItem in itemList)
         {
-            if (inventoryItem.itemCopy.id == item.itemCopy.id)
+            if (inventoryItem.id == item.id)
             {
-                if (inventoryItem.itemCopy.itemAmount < 999)
+                if (inventoryItem.itemAmount < 999)
                 {
-                    inventoryItem.itemCopy.itemAmount++;
+                    inventoryItem.itemAmount += amount - 1;
                 }
+
                 itemInInventory = true;
                 break;
             }
@@ -50,7 +56,8 @@ public class Inventory
 
         if (!itemInInventory)
         {
-            itemList.Add(new ItemInstance(item.itemCopy));
+            itemList.Add(Instantiate(item));
+            itemList[itemList.Count - 1].itemAmount = amount;
         }
 
         CallUpdateInventory();
@@ -60,8 +67,10 @@ public class Inventory
     {
         for (int i = 0; i < itemList.Count; i++)
         {
-            if (itemList[i].itemCopy.id == item.id)
+            if (itemList[i].id == item.id)
             {
+                itemList[i].itemInfo.UnloadSprite();
+                Destroy(itemList[i]);
                 itemList.Remove(itemList[i]);
                 break;
             }
@@ -70,18 +79,30 @@ public class Inventory
         CallUpdateInventory();
     }
 
-    public void RemoveItem(ItemInstance item)
+    public async Task PreloadInventory()
     {
         for (int i = 0; i < itemList.Count; i++)
         {
-            if (itemList[i].itemCopy.id == item.itemCopy.id)
-            {
-                itemList.Remove(itemList[i]);
-                break;
-            }
+            await itemList[i].itemInfo.LoadSprite();
         }
+    }
 
-        CallUpdateInventory();
+    public void UnloadInventory()
+    {
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            itemList[i].itemInfo.UnloadSprite();
+        }
+    }
+
+    public void ClearInventory()
+    {
+        while (itemList.Count > 0)
+        {
+            itemList[itemList.Count - 1].itemInfo.UnloadSprite();
+            Destroy(itemList[itemList.Count - 1]);
+            itemList.Remove(itemList[itemList.Count - 1]);
+        }
     }
 
     public void CallUpdateInventory()

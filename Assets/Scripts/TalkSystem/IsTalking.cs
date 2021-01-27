@@ -12,7 +12,7 @@ public class IsTalking : MonoBehaviour
     public string speakerName;
     public MonoBehaviour scriptAfterDialogue;
 
-    void OnGUI()
+    /*void OnGUI()
     {
         if (dialogueStart)
         {
@@ -99,7 +99,7 @@ public class IsTalking : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     public void IsTalkingDone()
     {

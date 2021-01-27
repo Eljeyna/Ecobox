@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd3c555eb8ed498a9c7c692160bdd, type: 3}
   m_Name: Hat
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 21300000, guid: 3c541e838e96b9a46b747acf82d73d2f, type: 3}
+  itemIcon: {fileID: 0}
   itemName:
   - "\u0428\u0430\u043F\u043A\u0430"
   - Hat
   itemDescription:
   - '-'
   - '-'
+  atlasSprite:
+    m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
+    m_SubObjectName: UI Health
+    m_SubObjectType: 

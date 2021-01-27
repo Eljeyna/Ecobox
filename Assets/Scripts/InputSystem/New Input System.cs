@@ -65,6 +65,22 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""c20517cd-6e5a-459b-a3d2-ef1101c7ae66"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Load"",
+                    ""type"": ""Button"",
+                    ""id"": ""4dea7b42-1148-4f80-bb7b-bc5375ca3799"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -287,6 +303,28 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eff3e4af-bb6e-4021-9b92-daa922929c3e"",
+                    ""path"": ""<Keyboard>/f5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97059451-9c29-4409-95b4-deb3efaac05e"",
+                    ""path"": ""<Keyboard>/f9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Load"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -340,6 +378,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
+        m_Player_Save = m_Player.FindAction("Save", throwIfNotFound: true);
+        m_Player_Load = m_Player.FindAction("Load", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -395,6 +435,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Zoom;
+    private readonly InputAction m_Player_Save;
+    private readonly InputAction m_Player_Load;
     public struct PlayerActions
     {
         private @NewInputSystem m_Wrapper;
@@ -405,6 +447,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
+        public InputAction @Save => m_Wrapper.m_Player_Save;
+        public InputAction @Load => m_Wrapper.m_Player_Load;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -432,6 +476,12 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 @Zoom.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
+                @Save.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSave;
+                @Save.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSave;
+                @Save.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSave;
+                @Load.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLoad;
+                @Load.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLoad;
+                @Load.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLoad;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -454,6 +504,12 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
+                @Load.started += instance.OnLoad;
+                @Load.performed += instance.OnLoad;
+                @Load.canceled += instance.OnLoad;
             }
         }
     }
@@ -493,5 +549,7 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnSave(InputAction.CallbackContext context);
+        void OnLoad(InputAction.CallbackContext context);
     }
 }

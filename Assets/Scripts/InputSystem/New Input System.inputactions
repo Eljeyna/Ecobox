@@ -52,6 +52,22 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Save",
+                    "type": "Button",
+                    "id": "c20517cd-6e5a-459b-a3d2-ef1101c7ae66",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Load",
+                    "type": "Button",
+                    "id": "4dea7b42-1148-4f80-bb7b-bc5375ca3799",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -272,6 +288,28 @@
                     "processors": "",
                     "groups": "Keyboard and mouse",
                     "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eff3e4af-bb6e-4021-9b92-daa922929c3e",
+                    "path": "<Keyboard>/f5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Save",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97059451-9c29-4409-95b4-deb3efaac05e",
+                    "path": "<Keyboard>/f9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Load",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -16,7 +16,24 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: f1c985f810d14f348a84b135fd39df0e
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 300aee4dd2d2a7f4b96986988a31e1b3
+    m_Address: Assets/SpriteAtlas/UIAtlas.spriteatlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    m_MainAsset: {fileID: 4343727234628468602, guid: 300aee4dd2d2a7f4b96986988a31e1b3,
+      type: 2}
+    m_TargetAsset: {fileID: 4343727234628468602, guid: 300aee4dd2d2a7f4b96986988a31e1b3,
+      type: 2}
+  - m_GUID: fc305c1c43aad9645b4c2fd6ba4091ff
+    m_Address: Assets/SpriteAtlas/WorldAtlas.spriteatlas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 4343727234628468602, guid: fc305c1c43aad9645b4c2fd6ba4091ff,
+      type: 2}
+    m_TargetAsset: {fileID: 4343727234628468602, guid: fc305c1c43aad9645b4c2fd6ba4091ff,
+      type: 2}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

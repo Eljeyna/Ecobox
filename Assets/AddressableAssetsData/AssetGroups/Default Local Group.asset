@@ -17,38 +17,14 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c25a1af589aabd44c9b21ce09c067b87
   m_SerializeEntries:
-  - m_GUID: f54d1bd14bd3ca042bd867b519fee8cc
-    m_Address: Assets/_Packs/TextMesh Pro
+  - m_GUID: ddc82d0f2fa00ba49a67abce461b0d86
+    m_Address: Assets/ScriptableObjects
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: 54a3b8bf6951a7a46ab744277ae4c352
-    m_Address: Assets/ScriptableObjects/Items
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 599d964da1fcdb94285810da7be88591
-    m_Address: Assets/Scenes/Levels
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 3bb97a278d02d524ea668f1d8f63d3ca
-    m_Address: Assets/SpriteAtlas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: e82ffd81825ec484da5387f10493d7a1
-    m_Address: Assets/_Packs/Joystick Pack
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 82d11bca9f2ef2a4a9bf9becc39addd3
-    m_Address: Assets/_Packs/Fonts
+  - m_GUID: 87bf2495cefd9a749998daf212c75102
+    m_Address: Assets/SpriteAtlas/ItemsAtlas.spriteatlas
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

@@ -10,19 +10,10 @@ public class GameDirector : MonoBehaviour
     public TMP_Text dialogue_box_name;
     public Font dialogue_box_button_font;
 
-    public GUIStyle dialogueButton;
-    public GUIStyle invisibleButton;
-
     private GameObject speaker;
     private GameObject talk;
     private bool dialogue_started = false;
     private bool controlAfter = true;
-
-    private void Start()
-    {
-        dialogueButton.fontSize = Screen.height * 28 / 1080;
-        invisibleButton.fontSize = dialogueButton.fontSize;
-    }
 
     public void StartDialogue()
     {
@@ -58,6 +49,6 @@ public class GameDirector : MonoBehaviour
 
     public bool IsDialogueStarted()
     {
-        return this.dialogue_started;
+        return dialogue_started;
     }
 }

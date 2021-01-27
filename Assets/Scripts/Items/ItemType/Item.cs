@@ -26,8 +26,8 @@ public class Item : ScriptableObject
     public int id;
 
     public bool itemEnd = true;
-    public float itemWeight = 0.0f;
-    public int itemCost = 0;
+    public float itemWeight;
+    public int itemCost;
     public int itemAmount = 1;
     
     public ItemType itemType;
@@ -35,15 +35,4 @@ public class Item : ScriptableObject
     public ItemInfo itemInfo;
 
     public virtual void Use() {}
-}
-
-[System.Serializable]
-public class ItemInstance
-{
-    public Item itemCopy;
-
-    public ItemInstance(Item item)
-    {
-        this.itemCopy = item;
-    }
 }

@@ -1,7 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class Stats : MonoBehaviour
+public class Stats : MonoBehaviour, ISaveState
 {
     public int maxStamina = 40;
     public int stamina;
@@ -29,26 +33,13 @@ public class Stats : MonoBehaviour
 
     private float nextStaminaRegen;
 
-    [HideInInspector] public const int maxLevel = 60;
-    [HideInInspector] public const int maxBonus = 20;
-
-    /* Strength */
-    [HideInInspector] public const float healthBonus = 2f;
-    [HideInInspector] public const float weightBonus = 5f;
-
-    /* Agility */
-    [HideInInspector] public const float speedBonus = 0.1f;
-    [HideInInspector] public const int staminaBonus = 20;
-    [HideInInspector] public const int staminaRegenBonus = 1;
-
-    /* Intelligence */
-    [HideInInspector] public const int oratoryBonus = 1;
-
-    /* All */
-    [HideInInspector] public const float resistanceAll = 0.01f;
-
-    private void Awake()
+    private void Start()
     {
+        if (Settings.Instance.gameIsLoaded)
+        {
+            return;
+        }
+
         stamina = maxStamina;
 
         AddStrength(3);
@@ -74,7 +65,7 @@ public class Stats : MonoBehaviour
     
     public void LevelUp()
     {
-        if (level >= maxLevel)
+        if (level >= StaticGameVariables.maxLevel)
         {
             return;
         }
@@ -84,7 +75,7 @@ public class Stats : MonoBehaviour
 
     public void AddStrength(int amount)
     {
-        if (strength >= maxBonus)
+        if (strength >= StaticGameVariables.maxBonus)
         {
             return;
         }
@@ -95,7 +86,7 @@ public class Stats : MonoBehaviour
 
     public void AddAgility(int amount)
     {
-        if (agility >= maxBonus)
+        if (agility >= StaticGameVariables.maxBonus)
         {
             return;
         }
@@ -106,7 +97,7 @@ public class Stats : MonoBehaviour
 
     public void AddIntelligence(int amount)
     {
-        if (intelligence >= maxBonus)
+        if (intelligence >= StaticGameVariables.maxBonus)
         {
             return;
         }
@@ -118,27 +109,115 @@ public class Stats : MonoBehaviour
     public void AddStrengthBonus(int amount)
     {
         float heal = Player.Instance.thisPlayer.healthPercent;
-        weight += weightBonus * amount;
+        weight += StaticGameVariables.weightBonus * amount;
 
-        Player.Instance.thisPlayer.SetMaxHealth(Player.Instance.thisPlayer.maxHealth + (healthBonus * amount));
+        Player.Instance.thisPlayer.SetMaxHealth(Player.Instance.thisPlayer.maxHealth + (StaticGameVariables.healthBonus * amount));
         Player.Instance.thisPlayer.TakeHealthPercent(heal, null);
-        Player.Instance.thisPlayer.resistances[0] += resistanceAll * amount;
-        Player.Instance.thisPlayer.resistances[1] += resistanceAll * amount;
+        Player.Instance.thisPlayer.resistances[0] += StaticGameVariables.resistanceAll * amount;
+        Player.Instance.thisPlayer.resistances[1] += StaticGameVariables.resistanceAll * amount;
     }
 
     public void AddAgilityBonus(int amount)
     {
-        maxStamina += staminaBonus * amount;
-        staminaRegen += staminaRegenBonus * amount;
+        maxStamina += StaticGameVariables.staminaBonus * amount;
+        staminaRegen += StaticGameVariables.staminaRegenBonus * amount;
 
-        Player.Instance.speed += speedBonus * amount;
+        Player.Instance.speed += StaticGameVariables.speedBonus * amount;
     }
 
     public void AddIntelligenceBonus(int amount)
     {
-        oratory += oratoryBonus * amount;
+        oratory += StaticGameVariables.oratoryBonus * amount;
 
-        Player.Instance.thisPlayer.resistances[2] += resistanceAll * amount;
-        Player.Instance.thisPlayer.resistances[3] += resistanceAll * amount;
+        Player.Instance.thisPlayer.resistances[2] += StaticGameVariables.resistanceAll * amount;
+        Player.Instance.thisPlayer.resistances[3] += StaticGameVariables.resistanceAll * amount;
+    }
+
+    public string Save()
+    {
+        Saveable saveObject = new Saveable();
+
+        if (Player.Instance.inventory.itemList.Count > 0)
+        {
+            saveObject.itemsID = new List<int>();
+            saveObject.itemsAmount = new List<int>();
+            for (int i = 0; i < Player.Instance.inventory.itemList.Count; i++)
+            {
+                saveObject.itemsID.Add(Player.Instance.inventory.itemList[i].id);
+                saveObject.itemsAmount.Add(Player.Instance.inventory.itemList[i].itemAmount);
+            }
+        }
+
+        saveObject.maxStamina = maxStamina;
+        saveObject.stamina = stamina;
+        saveObject.staminaRegen = staminaRegen;
+        saveObject.staminaTimeRegen = staminaTimeRegen;
+        saveObject.level = level;
+        saveObject.exp = exp;
+        saveObject.talentPoints = talentPoints;
+        saveObject.weight = weight;
+        saveObject.strength = strength;
+        saveObject.agility = agility;
+        saveObject.intelligence = intelligence;
+        saveObject.oratory = oratory;
+        saveObject.money = money;
+
+        saveObject.maxHealth = Player.Instance.thisPlayer.maxHealth;
+        saveObject.health = Player.Instance.thisPlayer.health;
+        saveObject.healthPercent = Player.Instance.thisPlayer.healthPercent;
+        saveObject.resistances = Player.Instance.thisPlayer.resistances;
+        saveObject.invinsibility = Player.Instance.thisPlayer.invinsibility;
+
+        saveObject.weapon = Player.Instance.weapon;
+        saveObject.positionX = Player.Instance.rb.position.x;
+        saveObject.positionY = Player.Instance.rb.position.y;
+        string json = JsonUtility.ToJson(saveObject);
+
+        return json;
+    }
+
+    public void Load()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append(StaticGameVariables._SAVE_FOLDER + "/save0.json");
+
+        if (File.Exists(sb.ToString()))
+        {
+            Saveable saveObject = JsonUtility.FromJson<Saveable>(File.ReadAllText(sb.ToString()));
+
+            if (saveObject.itemsID.Count > 0)
+            {
+                Player.Instance.inventory.ClearInventory();
+                for (int i = 0; i < saveObject.itemsID.Count; i++)
+                {
+                    Player.Instance.inventory.AddItem(Player.Instance.inventory.itemDatabase.GetItem(saveObject.itemsID[i]), saveObject.itemsAmount[i]);
+                }
+            }
+
+            maxStamina = saveObject.maxStamina;
+            stamina = saveObject.stamina;
+            staminaRegen = saveObject.staminaRegen;
+            staminaTimeRegen = saveObject.staminaTimeRegen;
+            level = saveObject.level;
+            exp = saveObject.exp;
+            talentPoints = saveObject.talentPoints;
+            weight = saveObject.weight;
+            strength = saveObject.strength;
+            agility = saveObject.agility;
+            intelligence = saveObject.intelligence;
+            oratory = saveObject.oratory;
+            money = saveObject.money;
+
+            Player.Instance.thisPlayer.health = saveObject.health;
+            Player.Instance.thisPlayer.healthPercent = saveObject.healthPercent;
+            Player.Instance.thisPlayer.resistances = saveObject.resistances;
+            Player.Instance.thisPlayer.invinsibility = saveObject.invinsibility;
+            Player.Instance.thisPlayer.SetMaxHealth(saveObject.maxHealth);
+
+            Player.Instance.weapon = saveObject.weapon;
+            Player.Instance.rb.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
+
+            Player.Instance.inventory.CallUpdateInventory();
+        }
     }
 }

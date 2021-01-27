@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ItemInfoSelected : MonoBehaviour
 {
-    public ItemInstance item;
+    public Item item;
 
     public Image sprite;
 
@@ -22,9 +22,9 @@ public class ItemInfoSelected : MonoBehaviour
         StaticGameVariables.slotSelected = transform.parent.gameObject;
         StaticGameVariables.slotSelected.GetComponent<Image>().color = StaticGameVariables.slotColor;
 
-        StaticGameVariables.itemSelected = item.itemCopy;
-        StaticGameVariables.itemName.text = item.itemCopy.itemInfo.itemName[(int)StaticGameVariables.language];
-        StaticGameVariables.itemDescription.text = item.itemCopy.itemInfo.itemDescription[(int)StaticGameVariables.language];
+        StaticGameVariables.itemSelected = item;
+        StaticGameVariables.itemName.text = item.itemInfo.itemName[(int)StaticGameVariables.language];
+        StaticGameVariables.itemDescription.text = item.itemInfo.itemDescription[(int)StaticGameVariables.language];
 
         if (!StaticGameVariables.itemInfoCanvas.isActiveAndEnabled)
         {
@@ -33,12 +33,12 @@ public class ItemInfoSelected : MonoBehaviour
 
         StaticGameVariables.EnableInventoryButtons();
 
-        if (item.itemCopy.itemType == Item.ItemType.Quest)
+        if (item.itemType == Item.ItemType.Quest)
         {
             StaticGameVariables.buttonDisItem.interactable = false;
             StaticGameVariables.buttonDropItem.interactable = false;
         }
-        else if (item.itemCopy.itemType == Item.ItemType.Trash)
+        else if (item.itemType == Item.ItemType.Trash)
         {
             StaticGameVariables.buttonUseItem.interactable = false;
         }

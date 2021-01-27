@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using System.Threading.Tasks;
 
 public class SceneLoading : MonoBehaviour
 {
     public static SceneLoading Instance { get; private set; }
 
-    public Image loadingProgressBar;
     public Animator anim;
 
     private AsyncOperationHandle<SceneInstance> loadSceneAsync;
@@ -37,15 +34,18 @@ public class SceneLoading : MonoBehaviour
     public void SwitchToScene(string sceneName, string animId)
     {
         Instance.anim.SetTrigger(animId);
-        _ = LoadLevel(sceneName);
+        LoadLevel(sceneName);
 
     }
 
-    public async Task LoadLevel(string sceneName)
+    public async void LoadLevel(string sceneName)
     {
+        if (Player.Instance != null)
+        {
+            Player.Instance.inventory.ClearInventory();
+        }
+
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-        /*float progress = loadSceneAsync.PercentComplete;
-        loadingProgressBar.fillAmount = progress;*/
         await loadSceneAsync.Task;
         StaticGameVariables.ResumeGame();
         anim.SetTrigger("End");

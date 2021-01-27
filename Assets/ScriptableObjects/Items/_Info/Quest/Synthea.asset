@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd3c555eb8ed498a9c7c692160bdd, type: 3}
   m_Name: Synthea
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 21300000, guid: 45ca848e20a05274087342ab5b2850ea, type: 3}
+  itemIcon: {fileID: 0}
   itemName:
   - "\u0421\u0438\u043D\u0442\u0435\u0430"
   - Synthea
   itemDescription:
   - "\u0427\u0442\u043E \u044D\u0442\u043E..."
   - What is this...
+  atlasSprite:
+    m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
+    m_SubObjectName: UI Health
+    m_SubObjectType: 

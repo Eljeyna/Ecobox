@@ -20,17 +20,12 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
-    [HideInInspector] public Inventory inventory;
-
     public float speed = 8f;
     public float speedSlow;
-    public float shakeForce = 2f;
-
-    public float camMaxSize = 20f;
-    public float camMinSize = 8f;
 
     [Space(10)]
-    [SerializeField] private InventoryUI inventoryUI;
+    public Inventory inventory;
+    public InventoryUI inventoryUI;
     public Dash dash;
     public Animator animations;
     public Rigidbody2D rb;
@@ -58,6 +53,13 @@ public class Player : MonoBehaviour
     private float lastMultiTouchDistance;
 #endif
 
+#if UNITY_ANDROID || UNITY_IOS
+    public void Attack()
+    {
+        attack = true;
+    }
+#endif
+
     private void Awake()
     {
         Instance = this;
@@ -75,7 +77,6 @@ public class Player : MonoBehaviour
 
     private async void Start()
     {
-        inventory = new Inventory();
         inventoryUI.SetInventory(inventory);
 
         controls.Player.Movement.performed += Movement_performed;
@@ -153,6 +154,7 @@ public class Player : MonoBehaviour
     {
         //mousePos = Camera.main.ScreenToWorldPoint(Pointer.current.position.ReadValue());
 
+#if UNITY_ANDROID || UNITY_IOS
         if (moving.x == 0 && moving.y == 0)
         {
             moveVelocity = joystick.Direction.normalized * speed;
@@ -161,9 +163,16 @@ public class Player : MonoBehaviour
         {
             moveVelocity = moving.normalized * speed;
         }
+#else
+        moveVelocity = moving.normalized * speed;
+#endif
 
         if (weapon && attack && weapon.nextAttack <= Time.time)
         {
+#if UNITY_ANDROID || UNITY_IOS
+            attack = false;
+#endif
+
             if (weapon.clip == 0)
             {
                 weapon.fireWhenEmpty = true;
@@ -204,9 +213,9 @@ public class Player : MonoBehaviour
         return;
     }
 
-    void Zoom(bool zoomOut)
+    private void Zoom(bool zoomOut)
     {
-        cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize + (zoomOut ? zoomAmount : -zoomAmount), camMinSize, camMaxSize);
+        cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize + (zoomOut ? zoomAmount : -zoomAmount), StaticGameVariables.camMinSize, StaticGameVariables.camMaxSize);
     }
 
     private void OnDash()
@@ -236,6 +245,16 @@ public class Player : MonoBehaviour
         {
             StaticGameVariables.OpenInventory();
         }
+    }
+
+    private void OnSave()
+    {
+        SaveLoadSystem.Instance.Save();
+    }
+
+    private void OnLoad()
+    {
+        SaveLoadSystem.Instance.Load();
     }
 
     private void Attack_performed(InputAction.CallbackContext obj)

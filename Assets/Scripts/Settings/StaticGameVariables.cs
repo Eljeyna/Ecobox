@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Text;
 
 public static class StaticGameVariables
 {
@@ -55,12 +56,40 @@ public static class StaticGameVariables
 
     public static float defaultTimeScale;
     public static float defaultFixedDeltaTime;
+
+    /* Settings */
+
+    public static readonly float shakeForce = 2f;
+    public static readonly float camMaxSize = 20f;
+    public static readonly float camMinSize = 8f;
+
+    [HideInInspector] public const int maxLevel = 60;
+    [HideInInspector] public const int maxBonus = 20;
+
+    /* Strength */
+    [HideInInspector] public const float healthBonus = 2f;
+    [HideInInspector] public const float weightBonus = 5f;
+
+    /* Agility */
+    [HideInInspector] public const float speedBonus = 0.1f;
+    [HideInInspector] public const int staminaBonus = 20;
+    [HideInInspector] public const int staminaRegenBonus = 1;
+
+    /* Intelligence */
+    [HideInInspector] public const int oratoryBonus = 1;
+
+    /* All */
+    [HideInInspector] public const float resistanceAll = 0.01f;
+
+    public static string _SAVE_FOLDER = Application.dataPath + "/Saves/";
     #endregion
 
     #region Initialize
     public static void InitializeLanguage()
     {
-        int languageCheck = PlayerPrefs.GetInt("Language", 0);
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Language");
+        int languageCheck = PlayerPrefs.GetInt(sb.ToString(), 0);
         if (languageCheck != 0)
         {
             ChangeLanguage(languageCheck);
@@ -69,26 +98,49 @@ public static class StaticGameVariables
 
     public static void InitializeAwake()
     {
-        GameObject inventoryObject = GameObject.Find("Inventory");
-        GameObject yesNoObject = GameObject.Find("InventoryYesNoMenu");
-        GameObject listButtons = GameObject.Find("InventoryButtons");
+        StringBuilder sb = new StringBuilder();
+
+        sb.Append("Inventory");
+        GameObject inventoryObject = GameObject.Find(sb.ToString());
+        sb.Clear();
+        sb.Append("InventoryYesNoMenu");
+        GameObject yesNoObject = GameObject.Find(sb.ToString());
+        sb.Clear();
+        sb.Append("InventoryButtons");
+        GameObject listButtons = GameObject.Find(sb.ToString());
 
         inventoryGroup = inventoryObject.GetComponent<CanvasGroup>();
 
         inventoryCanvas = inventoryObject.GetComponent<Canvas>();
-        itemInfoCanvas = GameObject.Find("ItemInfo").GetComponent<Canvas>();
-        gameUI = GameObject.Find("DynamicUI").GetComponent<Canvas>();
-        staticUI = GameObject.Find("StaticUI").GetComponent<Canvas>();
-        inGameUI = GameObject.Find("InGameInterface").GetComponent<Canvas>();
-        quickUI = GameObject.Find("QuickMenu").GetComponent<Canvas>();
+        sb.Clear();
+        sb.Append("ItemInfo");
+        itemInfoCanvas = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
+        sb.Clear();
+        sb.Append("DynamicUI");
+        gameUI = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
+        sb.Clear();
+        sb.Append("StaticUI");
+        staticUI = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
+        sb.Clear();
+        sb.Append("InGameInterface");
+        inGameUI = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
+        sb.Clear();
+        sb.Append("QuickMenu");
+        quickUI = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
 
         inventoryYesNoCanvas = yesNoObject.GetComponent<Canvas>();
 
         yesNoSlider = yesNoObject.transform.GetChild(0).GetChild(0).GetComponent<Slider>();
-        yesNoAmount = GameObject.Find("YesNoMenuAmount").GetComponent<TMP_Text>();
+        sb.Clear();
+        sb.Append("YesNoMenuAmount");
+        yesNoAmount = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
 
-        itemName = GameObject.Find("ItemName").GetComponent<TMP_Text>();
-        itemDescription = GameObject.Find("ItemDescription").GetComponent<TMP_Text>();
+        sb.Clear();
+        sb.Append("ItemName");
+        itemName = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
+        sb.Clear();
+        sb.Append("ItemDescription");
+        itemDescription = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
 
         buttonUseItem = listButtons.transform.GetChild(0).GetComponent<Button>();
         buttonDropItem = listButtons.transform.GetChild(1).GetComponent<Button>();
@@ -248,8 +300,10 @@ public static class StaticGameVariables
         inventoryGroup.blocksRaycasts = true;
     }
 
-    public static void OpenInventory()
+    public async static void OpenInventory()
     {
+        await Player.Instance.inventory.PreloadInventory();
+
         PauseGame();
         HideInGameUI();
         staticUI.enabled = true;
@@ -258,6 +312,8 @@ public static class StaticGameVariables
 
     public static void HideInventory()
     {
+        Player.Instance.inventory.UnloadInventory();
+
         if (slotSelected)
             slotSelected.GetComponent<Image>().color = slotDefaultColor;
         itemSelected = null;
@@ -312,9 +368,11 @@ public static class StaticGameVariables
 
     public static void ChangeLanguage(int languageChange)
     {
+        StringBuilder sb = new StringBuilder();
         language = (Language)languageChange;
 
-        GameObject[] allUI = GameObject.FindGameObjectsWithTag("Translate");
+        sb.Append("Translate");
+        GameObject[] allUI = GameObject.FindGameObjectsWithTag(sb.ToString());
         foreach (GameObject child in allUI)
         {
             TranslateUI translation = child.GetComponent<TranslateUI>();
@@ -328,7 +386,9 @@ public static class StaticGameVariables
             textUI.text = translation.languages[languageChange];
         }
 
-        PlayerPrefs.SetInt("Language", languageChange);
+        sb.Clear();
+        sb.Append("Language");
+        PlayerPrefs.SetInt(sb.ToString(), languageChange);
         PlayerPrefs.Save();
     }
 
