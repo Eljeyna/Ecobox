@@ -61,7 +61,15 @@ public class InventoryUI : MonoBehaviour
 
                 RectTransform itemSlotRect = Instantiate(itemSlotPrefab, itemSlotContainer).GetComponent<RectTransform>();
                 itemSlotRect.gameObject.SetActive(true);
-                itemSlotRect.transform.GetChild(0).GetComponent<ItemInfoSelected>().item = item;
+
+                ItemInfoSelected itemInfo = itemSlotRect.transform.GetChild(0).GetComponent<ItemInfoSelected>();
+
+                itemInfo.item = item;
+                if (StaticGameVariables.itemSelected == item)
+                {
+                    itemInfo.GetItemInfo();
+                }
+
                 itemSlotRect.transform.GetChild(0).GetComponent<Image>().color = StaticGameVariables.colorItems[i];
                 itemSlotRect.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.itemInfo.itemIcon;
                 itemSlotRect.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = (item.itemAmount).ToString();

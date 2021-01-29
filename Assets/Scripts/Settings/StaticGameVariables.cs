@@ -303,6 +303,7 @@ public static class StaticGameVariables
     public async static void OpenInventory()
     {
         await Player.Instance.inventory.PreloadInventory();
+        Player.Instance.inventory.CallUpdateInventory();
 
         PauseGame();
         HideInGameUI();

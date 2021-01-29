@@ -1,5 +1,5 @@
 ﻿[System.Flags]
-public enum Tags : byte
+public enum Tags
 {
     FL_PLAYER = (1 << 0),
     FL_ENEMY = (1 << 1),

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b242e63b5e749488d810588a7ccfea, type: 3}
   m_Name: NoWeaponScavenger
   m_EditorClassIdentifier: 
+  damageType: 0
   damage: 2
   radius: 2.5
   range: 2
-  delay: 0.5
+  delay: 500
   fireRatePrimary: 1.5
   fireRateSecondary: 0
   impactForce: 0

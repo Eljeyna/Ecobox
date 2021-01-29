@@ -33,8 +33,6 @@ public class Inventory : MonoBehaviour
         {
             itemList.Add(Instantiate(item));
         }
-
-        CallUpdateInventory();
     }
 
     public void AddItem(Item item, int amount)
@@ -59,8 +57,6 @@ public class Inventory : MonoBehaviour
             itemList.Add(Instantiate(item));
             itemList[itemList.Count - 1].itemAmount = amount;
         }
-
-        CallUpdateInventory();
     }
 
     public void RemoveItem(Item item)
@@ -75,8 +71,6 @@ public class Inventory : MonoBehaviour
                 break;
             }
         }
-
-        CallUpdateInventory();
     }
 
     public async Task PreloadInventory()

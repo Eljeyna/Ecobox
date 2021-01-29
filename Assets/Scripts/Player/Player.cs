@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.EnhancedTouch;
 using Cinemachine;
 
 #if UNITY_ANDROID || UNITY_IOS
+using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 #endif
@@ -63,16 +63,16 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
         controls = new NewInputSystem();
 
         StaticGameVariables.InitializeLanguage();
-
         StaticGameVariables.InitializeAwake();
 
         state = EntityState.Normal;
 
         zoomAmount = PlayerPrefs.GetFloat("ZoomAmount", 0.6f);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private async void Start()

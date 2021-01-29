@@ -3,52 +3,53 @@ using UnityEngine;
 
 public class GameDirector : MonoBehaviour
 {
-    public bool canControl = true;
+    public static GameDirector Instance { get; private set; }
 
     public Canvas dialogue_box;
     public TMP_Text dialogue_box_text;
     public TMP_Text dialogue_box_name;
     public Font dialogue_box_button_font;
 
-    private GameObject speaker;
-    private GameObject talk;
-    private bool dialogue_started = false;
-    private bool controlAfter = true;
+    public bool controlAfter = true;
+
+    public IsTalking dialogue;
+
+    public DialogueButton[] dialogueButtons;
+    public InvisibleButton invisibleButton;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void StartDialogue()
     {
-        StaticGameVariables.inventoryCanvas.enabled = false;
-        canControl = false;
-        if (talk != null)
-            talk.SetActive(false);
-        speaker.GetComponent<IsTalking>().dialogueStart = true;
-        dialogue_started = true;
+        StaticGameVariables.PauseGame();
+
         dialogue_box.enabled = true;
     }
 
     public void StopDialogue()
     {
-        dialogue_started = false;
         dialogue_box.enabled = false;
-        if (talk != null)
-            talk.SetActive(true);
+
         if (controlAfter)
-            canControl = true;
+            StaticGameVariables.ResumeGame();
     }
 
-    public void SetSpeaker(GameObject speaker, GameObject talk)
+    public void ShowButtons()
     {
-        this.speaker = speaker;
-        this.talk = talk;
+        for (int i = 0; i < dialogueButtons.Length; i++)
+        {
+            dialogueButtons[i].gameObject.SetActive(true);
+        }
     }
 
-    public void SetControlAfter(bool controlAfter)
+    public void HideButtons()
     {
-        this.controlAfter = controlAfter;
-    }
-
-    public bool IsDialogueStarted()
-    {
-        return dialogue_started;
+        for (int i = 0; i < dialogueButtons.Length; i++)
+        {
+            dialogueButtons[i].gameObject.SetActive(false);
+        }
     }
 }

@@ -9,13 +9,11 @@ public class HealthBar : MonoBehaviour
     public TMP_Text healthAmount;
     public TMP_Text healthAmountMax;
 
-    public BasePlayer basePlayer;
-
     private StringBuilder sb = new StringBuilder();
 
     private void Awake()
     {
-        basePlayer.OnHealthChanged += OnHealthChanged;
+        Player.Instance.thisPlayer.OnHealthChanged += OnHealthChanged;
     }
 
     private void Start()
@@ -30,14 +28,14 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        bar.maxValue = basePlayer.maxHealth;
-        bar.value = basePlayer.health;
+        bar.maxValue = Player.Instance.thisPlayer.maxHealth;
+        bar.value = Player.Instance.thisPlayer.health;
 
-        sb.Append(basePlayer.health);
+        sb.Append(Player.Instance.thisPlayer.health);
         healthAmount.text = sb.ToString();
 
         sb.Clear();
-        sb.Append(basePlayer.maxHealth);
+        sb.Append(Player.Instance.thisPlayer.maxHealth);
         healthAmountMax.text = sb.ToString();
 
         sb.Clear();
