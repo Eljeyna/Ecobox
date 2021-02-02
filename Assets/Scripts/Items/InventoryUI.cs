@@ -44,11 +44,7 @@ public class InventoryUI : MonoBehaviour
     public void UpdateInventoryItems()
     {
         inventory.weight = 0f;
-        foreach (Transform child in itemSlotContainer)
-        {
-            if (child == itemSlotPrefab) continue;
-            Destroy(child.gameObject);
-        }
+        RemoveInventorySlots();
 
         int i = 0;
         foreach (Item item in inventory.itemList)
@@ -77,5 +73,14 @@ public class InventoryUI : MonoBehaviour
         }
 
         weightText.text = ($"{Mathf.Round(inventory.weight)} / {Player.Instance.stats.weight}");
+    }
+
+    public void RemoveInventorySlots()
+    {
+        foreach (Transform child in itemSlotContainer)
+        {
+            if (child == itemSlotPrefab) continue;
+            Destroy(child.gameObject);
+        }
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class Stats : MonoBehaviour, ISaveState
@@ -33,7 +32,7 @@ public class Stats : MonoBehaviour, ISaveState
 
     private float nextStaminaRegen;
 
-    private void Start()
+    public void Initialize()
     {
         if (Settings.Instance.gameIsLoaded)
         {

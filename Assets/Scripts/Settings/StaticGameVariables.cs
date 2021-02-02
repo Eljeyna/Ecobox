@@ -52,6 +52,9 @@ public static class StaticGameVariables
     public static Button buttonDropItem;
     public static Button buttonDisItem;
 
+    public static TMP_Text questName;
+    public static TMP_Text taskDescription;
+
     public static float progress;
 
     public static float defaultTimeScale;
@@ -85,8 +88,19 @@ public static class StaticGameVariables
     #endregion
 
     #region Initialize
+    public static void InitializeFirst()
+    {
+        defaultTimeScale = Time.timeScale;
+        defaultFixedDeltaTime = Time.fixedDeltaTime;
+    }
+
     public static void InitializeLanguage()
     {
+        if (defaultTimeScale == 0f)
+        {
+            InitializeFirst();
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.Append("Language");
         int languageCheck = PlayerPrefs.GetInt(sb.ToString(), 0);
@@ -142,6 +156,14 @@ public static class StaticGameVariables
         sb.Append("ItemDescription");
         itemDescription = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
 
+        sb.Clear();
+        sb.Append("QuestName");
+        questName = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
+
+        sb.Clear();
+        sb.Append("TaskDescription");
+        taskDescription = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
+
         buttonUseItem = listButtons.transform.GetChild(0).GetComponent<Button>();
         buttonDropItem = listButtons.transform.GetChild(1).GetComponent<Button>();
         buttonDisItem = listButtons.transform.GetChild(2).GetComponent<Button>();
@@ -163,9 +185,6 @@ public static class StaticGameVariables
         colorItems[3] = new Color(147f / 255f, 86f / 255f, 183f / 255f, 1f);
         colorItems[4] = new Color(183f / 255f, 175f / 255f, 86f / 255f, 1f);
         colorItems[5] = new Color(183f / 255f, 121f / 255f, 86f / 255f, 1f);
-
-        defaultTimeScale = Time.timeScale;
-        defaultFixedDeltaTime = Time.fixedDeltaTime;
     }
     #endregion
 
@@ -302,6 +321,8 @@ public static class StaticGameVariables
 
     public async static void OpenInventory()
     {
+        itemSelected = null;
+
         await Player.Instance.inventory.PreloadInventory();
         Player.Instance.inventory.CallUpdateInventory();
 
@@ -317,7 +338,6 @@ public static class StaticGameVariables
 
         if (slotSelected)
             slotSelected.GetComponent<Image>().color = slotDefaultColor;
-        itemSelected = null;
         itemInfoCanvas.enabled = false;
         inventoryCanvas.enabled = false;
         staticUI.enabled = false;
@@ -385,6 +405,14 @@ public static class StaticGameVariables
             }
 
             textUI.text = translation.languages[languageChange];
+        }
+
+        if (GameDirector.Instance != null)
+        {
+            if (GameDirector.Instance.activeQuest != null)
+            {
+                GameDirector.Instance.UpdateQuestDescription(GameDirector.Instance.activeQuest, GameDirector.Instance.activeQuest.currentTask);
+            }
         }
 
         sb.Clear();

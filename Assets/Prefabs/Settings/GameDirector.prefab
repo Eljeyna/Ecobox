@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2602534656751243912
+--- !u!1 &4359542564302590197
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2602534656751243918}
-  - component: {fileID: 2602534656751243919}
+  - component: {fileID: 4359542564302590195}
+  - component: {fileID: 4359542564302590194}
+  - component: {fileID: 4359542564001746688}
   m_Layer: 0
   m_Name: GameDirector
   m_TagString: Untagged
@@ -17,42 +18,61 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &2602534656751243918
+--- !u!4 &4359542564302590195
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2602534656751243912}
+  m_GameObject: {fileID: 4359542564302590197}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.959512, y: 2.2385397, z: -9922.969}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2602534656751243919
+--- !u!114 &4359542564302590194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2602534656751243912}
+  m_GameObject: {fileID: 4359542564302590197}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 421df94b0622f9148a869917c92e2287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue_box: {fileID: 0}
-  dialogue_box_text: {fileID: 0}
-  dialogue_box_name: {fileID: 0}
-  dialogue_box_button_font: {fileID: 12800000, guid: c6d0c8bebb99e0c4daf40508dba657db,
-    type: 3}
-  controlAfter: 1
+  tasks: {fileID: 11400000, guid: 5464e9a38a2e829448cbf34250e1c333, type: 2}
+  dialogues: {fileID: 0}
+  items: {fileID: 0}
+  gameUI:
+    m_AssetGUID: 1ebd7a337e3b4ef43bb465d131af6b5a
+    m_SubObjectName: 
+    m_SubObjectType: 
   dialogue: {fileID: 0}
-  dialogueButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  invisibleButton: {fileID: 0}
+  completedQuests: 
+  controlAfter: 1
+--- !u!114 &4359542564001746688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4359542564302590197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd52ca123ed53da47b0848e5830507cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - m_AssetGUID: c5520302e76f6584fb016564ea4ef4ab
+    m_SubObjectName: 
+    m_SubObjectType: 
+  - m_AssetGUID: 09c4d46eb4faa7942b19e87974f28f3d
+    m_SubObjectName: 
+    m_SubObjectType: 
+  - m_AssetGUID: 80e0859aa44e54342ba489f8f37d0865
+    m_SubObjectName: 
+    m_SubObjectType: 

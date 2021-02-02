@@ -19,18 +19,18 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
             ""id"": ""66aeba14-8842-4049-b77d-1bd7676a955b"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""3cba1f61-dbf5-4b52-9123-c36755485bda"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""Touch"",
+                    ""type"": ""Button"",
+                    ""id"": ""c71450a5-60ac-4c12-9cda-a399465611b6"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Attack"",
-                    ""type"": ""Button"",
-                    ""id"": ""a2220b2f-6dfc-42eb-ab42-8e05bfe83892"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""3cba1f61-dbf5-4b52-9123-c36755485bda"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -84,17 +84,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""f3e6af11-cca2-4af5-b922-74b9caac455c"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": ""Keyboard"",
                     ""id"": ""aded2d93-31f9-4e91-a55a-378b7958ddfa"",
@@ -206,17 +195,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""afdacc3b-fe85-408c-912d-923bd0b437c2"",
-                    ""path"": ""<Gamepad>/dpad"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""2D Vector"",
                     ""id"": ""6eab8b41-0f69-42cc-9d10-b43f04bd094b"",
                     ""path"": ""2DVector"",
@@ -225,28 +203,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""73939a8e-cc8e-45ce-89bb-5dafce005df1"",
-                    ""path"": ""<Pointer>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a0bcbe71-1fb4-469c-9170-4583adf8b30a"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
@@ -325,6 +281,17 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""action"": ""Load"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2fca73d9-dda7-4239-9682-2dc4f86e8d05"",
+                    ""path"": ""<Pointer>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Touch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -347,17 +314,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""Gamepad"",
-            ""bindingGroup"": ""Gamepad"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
-        },
-        {
             ""name"": ""Touchscreen"",
             ""bindingGroup"": ""Touchscreen"",
             ""devices"": [
@@ -372,8 +328,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
@@ -429,8 +385,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_Touch;
     private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Reload;
@@ -441,8 +397,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     {
         private @NewInputSystem m_Wrapper;
         public PlayerActions(@NewInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Touch => m_Wrapper.m_Player_Touch;
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
@@ -458,12 +414,12 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
+                @Touch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
+                @Touch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
+                @Touch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
                 @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
-                @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
-                @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
@@ -486,12 +442,12 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @Touch.started += instance.OnTouch;
+                @Touch.performed += instance.OnTouch;
+                @Touch.canceled += instance.OnTouch;
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Attack.started += instance.OnAttack;
-                @Attack.performed += instance.OnAttack;
-                @Attack.canceled += instance.OnAttack;
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
@@ -523,15 +479,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_KeyboardandmouseSchemeIndex];
         }
     }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
-    {
-        get
-        {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
-        }
-    }
     private int m_TouchscreenSchemeIndex = -1;
     public InputControlScheme TouchscreenScheme
     {
@@ -543,8 +490,8 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     }
     public interface IPlayerActions
     {
+        void OnTouch(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
-        void OnAttack(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);

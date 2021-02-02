@@ -35,7 +35,7 @@ public class SceneLoading : MonoBehaviour
 
     public void SwitchToScene(string sceneName, string animId)
     {
-        Instance.anim.SetTrigger(animId);
+        anim.SetTrigger(animId);
         LoadLevel(sceneName);
 
     }
@@ -49,8 +49,8 @@ public class SceneLoading : MonoBehaviour
         }
 
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-        await loadSceneAsync.Task;
         StaticGameVariables.ResumeGame();
+        await loadSceneAsync.Task;
         anim.SetTrigger("End");
     }
 }

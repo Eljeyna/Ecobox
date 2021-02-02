@@ -26,4 +26,15 @@ public class Addressables_Instantiate : MonoBehaviour
     {
         createdObjects.Add(Instantiate(obj.Result));
     }
+
+    private void OnDestroy()
+    {
+        for (int i = 0; i < prefabs.Count; i++)
+        {
+            if (prefabs[i].IsValid())
+            {
+                prefabs[i].ReleaseAsset();
+            }
+        }
+    }
 }

@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using Pathfinding;
 
 #if UNITY_ANDROID || UNITY_IOS
-using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
+using UnityEngine.InputSystem.EnhancedTouch;
 #endif
 
 public enum EntityState
@@ -20,8 +21,10 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
-    public float speed = 8f;
+    public float speed = 4f;
     public float speedSlow;
+    public bool touch = false;
+    public bool buttonTouch = false;
 
     [Space(10)]
     public Inventory inventory;
@@ -30,10 +33,14 @@ public class Player : MonoBehaviour
     public Animator animations;
     public Rigidbody2D rb;
     public CinemachineVirtualCamera cam;
+    public Camera mainCamera;
     public BasePlayer thisPlayer;
     public Stats stats;
     public Gun weapon;
-    public Joystick joystick;
+    public AIDestinationSetter aiEntity;
+    public AIPath aiPath;
+    public Transform target;
+    public BuffSystem buffSystem;
 
     [Space(10)]
     public EntityState state;
@@ -45,19 +52,11 @@ public class Player : MonoBehaviour
 
     private NewInputSystem controls;
 
-    //private Vector2 mousePos;
-
-    private bool attack;
+    private Collider2D[] entities = new Collider2D[1];
+    private LayerMask layer;
 
 #if UNITY_ANDROID || UNITY_IOS
     private float lastMultiTouchDistance;
-#endif
-
-#if UNITY_ANDROID || UNITY_IOS
-    public void Attack()
-    {
-        attack = true;
-    }
 #endif
 
     private void Awake()
@@ -65,25 +64,27 @@ public class Player : MonoBehaviour
         Instance = this;
         controls = new NewInputSystem();
 
-        StaticGameVariables.InitializeLanguage();
-        StaticGameVariables.InitializeAwake();
-
         state = EntityState.Normal;
+        layer = 1 << gameObject.layer;
 
         zoomAmount = PlayerPrefs.GetFloat("ZoomAmount", 0.6f);
 
         DontDestroyOnLoad(gameObject);
     }
 
-    private async void Start()
+    public async void Initialize()
     {
+        inventoryUI = GameObject.Find("ListSlots").GetComponent<InventoryUI>();
         inventoryUI.SetInventory(inventory);
+
+        stats.Initialize();
+
+#if (!UNITY_ANDROID && !UNITY_IOS) || UNITY_EDITOR
+        controls.Player.Touch.performed += Touch_performed;
+#endif
 
         controls.Player.Movement.performed += Movement_performed;
         controls.Player.Movement.canceled += Movement_canceled;
-
-        controls.Player.Attack.performed += Attack_performed;
-        controls.Player.Attack.canceled += Attack_canceled;
 
         controls.Player.Zoom.performed += Zoom_performed;
 
@@ -106,6 +107,37 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
+        if (!StaticGameVariables.isPause && !buttonTouch)
+        {
+            if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
+            {
+                touch = true;
+            }
+            else if (Touch.activeFingers.Count == 2)
+            {
+                touch = false;
+                ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
+            }
+        }
+#endif
+
+        if (touch && !buttonTouch)
+        {
+            touch = false;
+            target.position = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
+
+            int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entities, layer);
+            if (length > 0)
+            {
+                aiEntity.target = entities[0].transform;
+            }
+            else
+            {
+                aiEntity.target = target;
+            }
+        }
+        
         switch (state)
         {
             case EntityState.Normal:
@@ -120,15 +152,6 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
-#if UNITY_ANDROID || UNITY_IOS
-        if (!StaticGameVariables.isPause)
-        {
-            if (Touch.activeFingers.Count == 2 && joystick.Direction == Vector2.zero)
-            {
-                ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
-            }
-        }
-#endif
     }
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -152,42 +175,31 @@ public class Player : MonoBehaviour
 
     private void StateNormal()
     {
-        //mousePos = Camera.main.ScreenToWorldPoint(Pointer.current.position.ReadValue());
-
-#if UNITY_ANDROID || UNITY_IOS
-        if (moving.x == 0 && moving.y == 0)
+        if (!aiEntity.isActiveAndEnabled)
         {
-            moveVelocity = joystick.Direction.normalized * speed;
-        }
-        else
-        {
-            moveVelocity = moving.normalized * speed;
-        }
-#else
-        moveVelocity = moving.normalized * speed;
-#endif
-
-        if (weapon && attack && weapon.nextAttack <= Time.time)
-        {
-#if UNITY_ANDROID || UNITY_IOS
-            attack = false;
-#endif
-
-            if (weapon.clip == 0)
-            {
-                weapon.fireWhenEmpty = true;
-            }
-
-            weapon.PrimaryAttack();
-            /*CinemachineShaker.Instance.enabled = true;
-            CinemachineShaker.Instance.ShakeSmooth(shakeForce, weapon.gunData.fireRatePrimary);*/
+            aiEntity.enabled = true;
         }
 
-        if (moveVelocity.x > 0f)
+        if (aiEntity.target == null)
+        {
+            return;
+        }
+
+        float distance = Vector2.Distance(rb.position, aiEntity.target.position);
+
+        if (distance <= aiPath.endReachedDistance)
+        {
+            aiEntity.target = null;
+            return;
+        }
+
+        float angle = StaticGameVariables.GetAngleBetweenPositions(aiEntity.target.position, transform.position);
+
+        if (angle <= 90f && angle >= -90f)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
         }
-        else if (moveVelocity.x < 0f)
+        else
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
@@ -197,6 +209,8 @@ public class Player : MonoBehaviour
     {
         if (dash.nextDash <= Time.time)
         {
+            aiEntity.enabled = true;
+            aiPath.enabled = true;
             rb.velocity = Vector2.zero;
             state = EntityState.Normal;
         }
@@ -210,6 +224,11 @@ public class Player : MonoBehaviour
 
     private void StateStun()
     {
+        if (aiEntity.isActiveAndEnabled)
+        {
+            aiEntity.enabled = false;
+        }
+
         return;
     }
 
@@ -220,11 +239,15 @@ public class Player : MonoBehaviour
 
     private void OnDash()
     {
-        if (stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        if (aiEntity.target != null && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
+            aiEntity.enabled = false;
+            aiPath.enabled = false;
             stats.stamina -= dash.staminaCost;
             dash.dashEvaluateTime = 0f;
-            dashDirection = moving == Vector3.zero ? transform.up : moving.normalized;
+            //dashDirection = moving == Vector3.zero ? transform.up : moving.normalized;
+            moving = target.position - transform.position;
+            dashDirection = moving.normalized;
             dash.enabled = true;
             dash.Use();
             state = EntityState.Dash;
@@ -257,15 +280,15 @@ public class Player : MonoBehaviour
         SaveLoadSystem.Instance.Load();
     }
 
-    private void Attack_performed(InputAction.CallbackContext obj)
+#if (!UNITY_ANDROID && !UNITY_IOS) || UNITY_EDITOR
+    private void Touch_performed(InputAction.CallbackContext obj)
     {
-        attack = true;
+        if (!StaticGameVariables.isPause)
+        {
+            touch = true;
+        }
     }
-
-    private void Attack_canceled(InputAction.CallbackContext obj)
-    {
-        attack = false;
-    }
+#endif
 
     private void Movement_performed(InputAction.CallbackContext obj)
     {

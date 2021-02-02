@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d2355ab5ce86c42968b13d43b33d4f, type: 3}
+  m_Name: Battle Bow
+  m_EditorClassIdentifier: 
+  id: 7000
+  itemEnd: 0
+  itemWeight: 2.5
+  itemCost: 20
+  itemAmount: 1
+  itemType: 1
+  itemQuality: 0
+  itemInfo: {fileID: 11400000, guid: c47aae0baba5eaf458d539999836265b, type: 2}

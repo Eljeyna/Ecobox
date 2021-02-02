@@ -87,6 +87,8 @@ public class Inventory : MonoBehaviour
         {
             itemList[i].itemInfo.UnloadSprite();
         }
+
+        Player.Instance.inventoryUI.RemoveInventorySlots();
     }
 
     public void ClearInventory()

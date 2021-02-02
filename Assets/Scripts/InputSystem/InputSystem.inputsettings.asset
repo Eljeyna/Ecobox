@@ -16,7 +16,6 @@ MonoBehaviour:
   - Touchscreen
   - Pointer
   - Pen
-  - Gamepad
   - Keyboard
   m_UpdateMode: 1
   m_CompensateForScreenOrientation: 1

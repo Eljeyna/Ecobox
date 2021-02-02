@@ -7,8 +7,10 @@ public class DialogueButton : MonoBehaviour
 
     public TMP_Text text;
 
+    [HideInInspector] public int id;
+
     public void Use()
     {
-        GameDirector.Instance.dialogue.SetDialogue(line);
+        GameDirector.Instance.dialogue.SetDialogue(id, line);
     }
 }

@@ -1,37 +1,195 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.AddressableAssets;
+using System.Threading.Tasks;
 
 public class GameDirector : MonoBehaviour
 {
     public static GameDirector Instance { get; private set; }
 
-    public Canvas dialogue_box;
-    public TMP_Text dialogue_box_text;
-    public TMP_Text dialogue_box_name;
-    public Font dialogue_box_button_font;
+    public QuestTasksDatabase tasks;
+    public GameObject dialogues;
+    public GameObject items;
 
-    public bool controlAfter = true;
+    public AssetReference gameUI;
+    public TMP_Text debugFPS;
 
     public IsTalking dialogue;
+    public Quest activeQuest;
 
-    public DialogueButton[] dialogueButtons;
-    public InvisibleButton invisibleButton;
+    [HideInInspector] public List<Quest> quests = new List<Quest>();
+    [HideInInspector] public List<int> completedQuests = new List<int>();
+    [HideInInspector] public bool controlAfter = true;
 
     private void Awake()
     {
         Instance = this;
+
+        gameUI.InstantiateAsync();
+    }
+
+    private void Update()
+    {
+        debugFPS.text = $"{1f / Time.deltaTime}";
+    }
+
+    public void Initialize()
+    {
+        for (int i = 0; i < completedQuests.Count; i++)
+        {
+            if (completedQuests[i] == 0)
+            {
+                return;
+            }
+        }
+
+        activeQuest = new Quest(0, QuestState.Active);
+        quests.Add(activeQuest);
+        UpdateQuestDescription(activeQuest, activeQuest.currentTask);
+
+        dialogues.SetActive(true);
+        items.SetActive(true);
+
+        Player.Instance.Initialize();
+    }
+
+    public void AddNewQuest(int id)
+    {
+        quests.Add(new Quest(id));
+    }
+
+    public void AddNewQuest(int id, QuestState state)
+    {
+        quests.Add(new Quest(id, state));
+    }
+
+    public void AddNewQuest(int id, QuestState state, int currentTask)
+    {
+        quests.Add(new Quest(id, state, currentTask));
+    }
+
+    public void UpdateQuestDescription(Quest quest, int currentTask)
+    {
+        StaticGameVariables.questName.text = quest.tasks.nameQuest[(int)StaticGameVariables.language];
+        StaticGameVariables.taskDescription.text = StaticGameVariables.language == StaticGameVariables.Language.Russian ?
+            quest.tasks.tasks[currentTask].description[0] :
+            quest.tasks.english[currentTask].description[0];
+    }
+
+    public void UpdateQuest(int id)
+    {
+        Quest quest = GetQuest(id);
+
+        if (quest != null)
+        {
+            quest.currentTask += 1;
+        }
+
+        UpdateQuestDescription(quest, quest.currentTask);
+    }
+
+    public void UpdateQuest(int id, int task)
+    {
+        Quest quest = GetQuest(id);
+
+        if (quest != null)
+        {
+            quest.currentTask = task;
+        }
+
+        UpdateQuestDescription(quest, quest.currentTask);
+    }
+
+    public void UpdateQuest(Quest quest)
+    {
+        quest.currentTask += 1;
+
+        UpdateQuestDescription(quest, quest.currentTask);
+    }
+
+    public void UpdateQuest(Quest quest, int task)
+    {
+        quest.currentTask = task;
+
+        UpdateQuestDescription(quest, quest.currentTask);
+    }
+
+    public void CompleteQuest(int id)
+    {
+        for (int i = 0; i < quests.Count; i++)
+        {
+            if (quests[i].id == id)
+            {
+                completedQuests.Add(quests[i].id);
+                quests.RemoveAt(i);
+            }
+        }
+    }
+
+    public QuestTasks GetQuestTasks(int id)
+    {
+        for (int i = 0; i < tasks.questTasks.Length; i++)
+        {
+            if (tasks.questTasks[i].id == id)
+            {
+                return tasks.questTasks[i];
+            }
+        }
+
+        return null;
+    }
+
+    public Quest GetQuest(int id)
+    {
+        for (int i = 0; i < quests.Count; i++)
+        {
+            if (quests[i].id == id)
+            {
+                return quests[i];
+            }
+        }
+
+        return null;
+    }
+
+    public bool DialogueAction(DialogueAction dialogueAction, int parameter)
+    {
+        switch(dialogueAction)
+        {
+            case global::DialogueAction.AddExp:
+                break;
+            case global::DialogueAction.AddStrength:
+                break;
+            case global::DialogueAction.AddAgility:
+                break;
+            case global::DialogueAction.AddIntelligence:
+                break;
+            case global::DialogueAction.AddStamina:
+                break;
+            case global::DialogueAction.CheckStrength:
+                break;
+            case global::DialogueAction.CheckAgility:
+                break;
+            case global::DialogueAction.CheckIntelligence:
+                break;
+            default:
+                break;
+        }
+
+        return false;
     }
 
     public void StartDialogue()
     {
         StaticGameVariables.PauseGame();
 
-        dialogue_box.enabled = true;
+        GameUI.Instance.dialogue_box.enabled = true;
     }
 
     public void StopDialogue()
     {
-        dialogue_box.enabled = false;
+        GameUI.Instance.dialogue_box.enabled = false;
 
         if (controlAfter)
             StaticGameVariables.ResumeGame();
@@ -39,17 +197,17 @@ public class GameDirector : MonoBehaviour
 
     public void ShowButtons()
     {
-        for (int i = 0; i < dialogueButtons.Length; i++)
+        for (int i = 0; i < GameUI.Instance.dialogueButtons.Length; i++)
         {
-            dialogueButtons[i].gameObject.SetActive(true);
+            GameUI.Instance.dialogueButtons[i].gameObject.SetActive(true);
         }
     }
 
     public void HideButtons()
     {
-        for (int i = 0; i < dialogueButtons.Length; i++)
+        for (int i = 0; i < GameUI.Instance.dialogueButtons.Length; i++)
         {
-            dialogueButtons[i].gameObject.SetActive(false);
+            GameUI.Instance.dialogueButtons[i].gameObject.SetActive(false);
         }
     }
 }

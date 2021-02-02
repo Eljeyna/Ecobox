@@ -3,7 +3,7 @@ using Pathfinding;
 
 public class Enemy : MonoBehaviour
 {
-    public AIDestinationSetter aiEnemy;
+    public AIDestinationSetter aiEntity;
     public Rigidbody2D rb;
     public Gun weapon;
 
@@ -31,14 +31,19 @@ public class Enemy : MonoBehaviour
 
     private void StateNormal()
     {
-        if (!aiEnemy.isActiveAndEnabled)
+        if (!aiEntity.isActiveAndEnabled)
         {
-            aiEnemy.enabled = true;
+            aiEntity.enabled = true;
         }
 
-        if (aiEnemy.target != null && weapon != null)
+        if (aiEntity.target == null)
         {
-            float distance = Vector2.Distance(rb.position, aiEnemy.target.position);
+            return;
+        }
+
+        if (weapon != null)
+        {
+            float distance = Vector2.Distance(rb.position, aiEntity.target.position);
 
             if (distance <= weapon.gunData.range + weapon.gunData.radius)
             {
@@ -46,7 +51,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        float angle = StaticGameVariables.GetAngleBetweenPositions(aiEnemy.target.position, transform.position);
+        float angle = StaticGameVariables.GetAngleBetweenPositions(aiEntity.target.position, transform.position);
 
         if (angle <= 90f && angle >= -90f)
         {
@@ -60,10 +65,11 @@ public class Enemy : MonoBehaviour
 
     private void StateStun()
     {
-        if (aiEnemy.isActiveAndEnabled)
+        if (aiEntity.isActiveAndEnabled)
         {
-            aiEnemy.enabled = false;
+            aiEntity.enabled = false;
         }
+
         return;
     }
 
@@ -78,10 +84,5 @@ public class Enemy : MonoBehaviour
 
             weapon.PrimaryAttack();
         }
-    }
-
-    private void OnApplicationQuit()
-    {
-        state = EntityState.None;
     }
 }
