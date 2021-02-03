@@ -440,6 +440,11 @@ public static class StaticGameVariables
         yesNoAmount.text = yesNoSlider.value.ToString();
     }
 
+    public static float GetReachedDistance(CapsuleCollider2D collider)
+    {
+        return (collider.size.x + collider.size.y) / 2;
+    }
+
     public static float GetAngleBetweenPositions(Vector3 pos1, Vector3 pos2)
     {
         Vector3 direction = pos1 - pos2;

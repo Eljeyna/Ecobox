@@ -52,8 +52,9 @@ public class Player : MonoBehaviour
 
     private NewInputSystem controls;
 
-    private Collider2D[] entities = new Collider2D[1];
+    private Collider2D[] entity = new Collider2D[1];
     private LayerMask layer;
+    private float defaultEndReachedDistance;
 
 #if UNITY_ANDROID || UNITY_IOS
     private float lastMultiTouchDistance;
@@ -63,6 +64,8 @@ public class Player : MonoBehaviour
     {
         Instance = this;
         controls = new NewInputSystem();
+
+        defaultEndReachedDistance = aiPath.endReachedDistance;
 
         state = EntityState.Normal;
         layer = 1 << gameObject.layer;
@@ -127,14 +130,16 @@ public class Player : MonoBehaviour
             touch = false;
             target.position = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
 
-            int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entities, layer);
+            int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entity, layer);
             if (length > 0)
             {
-                aiEntity.target = entities[0].transform;
+                aiPath.endReachedDistance = GetEndReachedDistance();
             }
             else
             {
+                entity = null;
                 aiEntity.target = target;
+                aiPath.endReachedDistance = defaultEndReachedDistance;
             }
         }
         
@@ -186,11 +191,18 @@ public class Player : MonoBehaviour
         }
 
         float distance = Vector2.Distance(rb.position, aiEntity.target.position);
-
+        
         if (distance <= aiPath.endReachedDistance)
         {
-            aiEntity.target = null;
-            return;
+            if (entity != null)
+            {
+                Attack();
+            }
+            else
+            {
+                aiEntity.target = null;
+                return;
+            }
         }
 
         float angle = StaticGameVariables.GetAngleBetweenPositions(aiEntity.target.position, transform.position);
@@ -230,6 +242,19 @@ public class Player : MonoBehaviour
         }
 
         return;
+    }
+    
+    public void Attack()
+    {
+        if (weapon.nextAttack <= Time.time)
+        {
+            if (weapon.clip == 0)
+            {
+                weapon.fireWhenEmpty = true;
+            }
+
+            weapon.PrimaryAttack();
+        }
     }
 
     private void Zoom(bool zoomOut)
@@ -305,6 +330,20 @@ public class Player : MonoBehaviour
         if (!StaticGameVariables.isPause)
         {
             Zoom(obj.ReadValue<Vector2>().y < 0f);
+        }
+    }
+
+    private float GetEndReachedDistance()
+    {
+        aiEntity.target = entity[0].transform;
+        CapsuleCollider2D collider = entity[0].GetComponent<CapsuleCollider2D>();
+        if (collider != null)
+        {
+            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(collider);
+        }
+        else
+        {
+            return weapon.gunData.range;
         }
     }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MinimapWindow : MonoBehaviour
 {
-    private static MinimapWindow Instance;
+    public static MinimapWindow Instance;
 
     private void Awake()
     {

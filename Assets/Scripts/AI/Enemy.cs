@@ -3,15 +3,37 @@ using Pathfinding;
 
 public class Enemy : MonoBehaviour
 {
+    public BaseTag thisTag;
+    public AIPath aiPath;
     public AIDestinationSetter aiEntity;
     public Rigidbody2D rb;
     public Gun weapon;
 
     public EntityState state;
+    
+    private float defaultEndReachedDistance;
+
+    private void Awake()
+    {
+        defaultEndReachedDistance = aiPath.endReachedDistance;
+    }
 
     private void Start()
     {
         state = EntityState.Normal;
+
+        if (aiEntity.target != null)
+        {
+            BaseTag tag = aiEntity.target.GetComponent<BaseTag>();
+            if (tag != null && (tag.entityTag & thisTag.entityTag) == 0)
+            {
+                aiPath.endReachedDistance = GetEndReachedDistance();
+            }
+        }
+        else
+        {
+            aiPath.endReachedDistance = defaultEndReachedDistance;
+        }
     }
 
     private void Update()
@@ -45,7 +67,7 @@ public class Enemy : MonoBehaviour
         {
             float distance = Vector2.Distance(rb.position, aiEntity.target.position);
 
-            if (distance <= weapon.gunData.range + weapon.gunData.radius)
+            if (distance <= aiPath.endReachedDistance)
             {
                 Attack();
             }
@@ -83,6 +105,19 @@ public class Enemy : MonoBehaviour
             }
 
             weapon.PrimaryAttack();
+        }
+    }
+
+    public float GetEndReachedDistance()
+    {
+        CapsuleCollider2D collider = aiEntity.target.GetComponent<CapsuleCollider2D>();
+        if (collider != null)
+        {
+            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(collider);
+        }
+        else
+        {
+            return weapon.gunData.range;
         }
     }
 }

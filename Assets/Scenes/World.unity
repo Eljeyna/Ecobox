@@ -1198,9 +1198,9 @@ MonoBehaviour:
   nextAttack: 0
   reloading: 0
   fireWhenEmpty: 0
+  delay: 0
   clip: -1
   ammo: -1
-  delay: 0
   thisEntity: {fileID: 774642699}
   attackPoint: {fileID: 529325207}
 --- !u!114 &774642709
@@ -1576,6 +1576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260d9110ae557a745ae684551bb23f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisTag: {fileID: 1131860917}
+  aiPath: {fileID: 1131860919}
   aiEntity: {fileID: 1131860918}
   rb: {fileID: 1131860912}
   weapon: {fileID: 1131860920}
@@ -1677,7 +1679,7 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 1
   pickNextWaypointDist: 3
-  endReachedDistance: 3.5
+  endReachedDistance: 0.1
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -1698,9 +1700,9 @@ MonoBehaviour:
   nextAttack: 0
   reloading: 0
   fireWhenEmpty: 0
+  delay: 0
   clip: -1
   ammo: -1
-  delay: 0
   thisEntity: {fileID: 1131860916}
   attackPoint: {fileID: 260966552}
 --- !u!114 &1131860921
