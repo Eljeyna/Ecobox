@@ -8,7 +8,7 @@ public static class StaticGameVariables
     #region Variables
     public enum Language
     {
-        Russian,
+        Russian = 0,
         English,
     }
 
@@ -207,7 +207,7 @@ public static class StaticGameVariables
     {
         if (itemSelected)
         {
-            float amount = itemSelected.itemAmount;
+            int amount = itemSelected.itemAmount;
             itemSelected.Use();
 
             if (itemSelected.itemAmount <= 0)

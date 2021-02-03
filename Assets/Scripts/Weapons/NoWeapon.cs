@@ -1,10 +1,18 @@
-﻿using System.Threading.Tasks;
 using UnityEngine;
 
 public class NoWeapon : Gun
 {
     public BaseEntity thisEntity;
     public Transform attackPoint;
+
+    private void Update()
+    {
+        if (delay != 0f && delay <= Time.time)
+        {
+            delay = 0f;
+            RadiusAttack.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
+        }
+    }
 
     public override void PrimaryAttack()
     {
@@ -16,13 +24,8 @@ public class NoWeapon : Gun
         }
         else
         {
-            _ = PrimaryAttackDelay();
+            delay = Time.time + gunData.delay;
         }
-    }
-
-    public async Task PrimaryAttackDelay()
-    {
-        await RadiusAttack.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, gunData.delay, 1 << gameObject.layer);
     }
 
     public override void SecondaryAttack()

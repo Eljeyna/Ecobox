@@ -8,10 +8,17 @@ public class BuffSystem : MonoBehaviour
     void Update()
     {
         if (StaticGameVariables.isPause)
+        {
             return;
+        }
 
         foreach (var buff in _buffs.Values)
         {
+            if (buff.isPersist)
+            {
+                return;
+            }
+            
             buff.Tick(Time.deltaTime);
             if (buff.isFinished)
             {

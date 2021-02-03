@@ -16,6 +16,8 @@ public abstract class Gun : MonoBehaviour
     public bool reloading = false;
     public bool fireWhenEmpty = false;
 
+    public float delay;
+    
     public int clip;
     public int ammo;
 

@@ -168,8 +168,8 @@ public class Stats : MonoBehaviour, ISaveState
         saveObject.invinsibility = Player.Instance.thisPlayer.invinsibility;
 
         saveObject.weapon = Player.Instance.weapon;
-        saveObject.positionX = Player.Instance.rb.position.x;
-        saveObject.positionY = Player.Instance.rb.position.y;
+        saveObject.positionX = Player.Instance.transform.position.x;
+        saveObject.positionY = Player.Instance.transform.position.y;
         string json = JsonUtility.ToJson(saveObject);
 
         return json;
@@ -207,6 +207,7 @@ public class Stats : MonoBehaviour, ISaveState
             oratory = saveObject.oratory;
             money = saveObject.money;
 
+            Player.Instance.aiEntity.target = null;
             Player.Instance.thisPlayer.health = saveObject.health;
             Player.Instance.thisPlayer.healthPercent = saveObject.healthPercent;
             Player.Instance.thisPlayer.resistances = saveObject.resistances;
@@ -214,7 +215,7 @@ public class Stats : MonoBehaviour, ISaveState
             Player.Instance.thisPlayer.SetMaxHealth(saveObject.maxHealth);
 
             Player.Instance.weapon = saveObject.weapon;
-            Player.Instance.rb.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
+            Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
 
             Player.Instance.inventory.CallUpdateInventory();
         }
