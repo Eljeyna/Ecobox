@@ -28,7 +28,7 @@ public class LaserPistol : Gun
         }
     }
 
-    public override async void PrimaryAttack()
+    public override void PrimaryAttack()
     {
         if (clip == 0 && fireWhenEmpty)
         {
@@ -41,7 +41,7 @@ public class LaserPistol : Gun
             clip--;
         }
 
-        BulletSetup(await Pool.Instance.GetFromPoolAsync(0));
+        BulletSetup(Pool.Instance.GetFromPoolAsync(0));
 
         nextAttack = Time.time + gunData.fireRatePrimary;
     }

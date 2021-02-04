@@ -55,7 +55,7 @@ public class Player : AIEntity
         DontDestroyOnLoad(gameObject);
     }
 
-    public async void Initialize()
+    public void Initialize()
     {
         inventoryUI = GameObject.Find("ListSlots").GetComponent<InventoryUI>();
         inventoryUI.SetInventory(inventory);
@@ -74,7 +74,7 @@ public class Player : AIEntity
         /* Test */
         thisEntity.TakeDamagePercent(0.5f, -1, null);
 
-        GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
+        GameObject targetNew = Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
         target = targetNew.transform;
     }
 
@@ -307,7 +307,11 @@ public class Player : AIEntity
     {
         if (!StaticGameVariables.isPause)
         {
+#if UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
+            Zoom(obj.ReadValue<Vector2>().y > 0f);
+#else
             Zoom(obj.ReadValue<Vector2>().y < 0f);
+#endif
         }
     }
 

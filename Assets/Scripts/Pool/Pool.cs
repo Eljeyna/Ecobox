@@ -29,25 +29,26 @@ public class Pool : MonoBehaviour
         }
     }
 
-    public async Task<GameObject> GetFromPoolAsync(int index)
+    public GameObject GetFromPoolAsync(int index)
     {
         if (availableObjects[index].Count == 0)
         {
-            await GrowPool(index);
+            GrowPool(index);
         }
-
+        
         GameObject instance = availableObjects[index].Dequeue();
         return instance;
     }
 
-    private async Task GrowPool(int index)
+    private async void GrowPool(int index)
     {
         AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(prefabs[index]);
-        handle.Completed += (operationHandle) =>
-        {
-            AddToPool(index, Instantiate(operationHandle.Result, Vector3.zero, Quaternion.identity, transform.GetChild(index)));
-        };
         await handle.Task;
+        
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            AddToPool(index, Instantiate(handle.Result, Vector3.zero, Quaternion.identity, transform.GetChild(index)));
+        }
     }
 
     public void AddToPool(int index, GameObject instance)

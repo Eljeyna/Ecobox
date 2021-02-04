@@ -32,11 +32,11 @@ public class HealthBar : MonoBehaviour
         bar.maxValue = Player.Instance.thisEntity.maxHealth;
         bar.value = Player.Instance.thisEntity.health;
 
-        sb.Append(Player.Instance.thisEntity.health);
+        sb.Append((int)Player.Instance.thisEntity.health);
         healthAmount.text = sb.ToString();
 
         sb.Clear();
-        sb.Append(Player.Instance.thisEntity.maxHealth);
+        sb.Append((int)Player.Instance.thisEntity.maxHealth);
         healthAmountMax.text = sb.ToString();
 
         sb.Clear();

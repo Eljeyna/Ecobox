@@ -14,14 +14,15 @@ public class AgilityBuff : Buff
 
     protected override void ApplyEffect()
     {
-        AgilityBuffScriptable speedBuff = (AgilityBuffScriptable)buff;
-        stats.agility += speedBuff.parameter;
+        AgilityBuffScriptable appliedBuff = (AgilityBuffScriptable)buffData;
+        stats.agility += appliedBuff.parameter;
     }
 
     public override void End()
     {
-        AgilityBuffScriptable appliedBuff = (AgilityBuffScriptable)buff;
+        AgilityBuffScriptable appliedBuff = (AgilityBuffScriptable)buffData;
         stats.agility -= appliedBuff.parameter * stacks;
         stacks = 0;
+        isFinished = true;
     }
 }

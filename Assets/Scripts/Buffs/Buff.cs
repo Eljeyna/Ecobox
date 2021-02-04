@@ -6,14 +6,14 @@ public abstract class Buff
     protected float duration;
     public bool isPersist;
     public bool isFinished;
-    public ScriptableObjectBuff buff;
+    public ScriptableObjectBuff buffData;
     protected readonly GameObject obj;
 
     public abstract void End();
 
     public Buff(ScriptableObjectBuff buff, GameObject obj)
     {
-        this.buff = buff;
+        this.buffData = buff;
         this.obj = obj;
     }
 
@@ -28,13 +28,13 @@ public abstract class Buff
 
     public void Activate()
     {
-        if (buff.isStackable || duration <= 0)
+        if (buffData.isStackable || duration <= 0f)
         {
             ApplyEffect();
             stacks++;
         }
 
-        duration = buff.duration;
+        duration = buffData.duration;
     }
     protected abstract void ApplyEffect();
 }
