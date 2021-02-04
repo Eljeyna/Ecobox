@@ -1,57 +1,35 @@
 using UnityEngine;
-using Pathfinding;
 
-public class Enemy : MonoBehaviour
+public class Enemy : AIEntity
 {
-    public BaseTag thisTag;
-    public AIPath aiPath;
-    public AIDestinationSetter aiEntity;
-    public Rigidbody2D rb;
-    public Gun weapon;
-
-    public EntityState state;
-    
-    private float defaultEndReachedDistance;
-
     private void Awake()
     {
-        defaultEndReachedDistance = aiPath.endReachedDistance;
+        InitializeEntity();
     }
 
     private void Start()
     {
         state = EntityState.Normal;
 
-        if (aiEntity.target != null)
-        {
-            BaseTag tag = aiEntity.target.GetComponent<BaseTag>();
-            if (tag != null && (tag.entityTag & thisTag.entityTag) == 0)
-            {
-                aiPath.endReachedDistance = GetEndReachedDistance();
-            }
-        }
-        else
+        if (aiEntity.target == null)
         {
             aiPath.endReachedDistance = defaultEndReachedDistance;
+        }
+        else if (aiEntity.target.TryGetComponent(out BaseTag theTag))
+        {
+            if ((theTag.entityTag & thisTag.entityTag) == 0)
+            {
+                aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
+            }
         }
     }
 
     private void Update()
     {
-        switch (state)
-        {
-            case EntityState.Normal:
-                StateNormal();
-                break;
-            case EntityState.Stun:
-                StateStun();
-                break;
-            default:
-                break;
-        }
+        StatePerform();
     }
 
-    private void StateNormal()
+    public override void StateNormal()
     {
         if (!aiEntity.isActiveAndEnabled)
         {
@@ -85,7 +63,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void StateStun()
+    public override void StateStun()
     {
         if (aiEntity.isActiveAndEnabled)
         {
@@ -95,7 +73,22 @@ public class Enemy : MonoBehaviour
         return;
     }
 
-    public virtual void Attack()
+    public override void StateDash()
+    {
+        return;
+    }
+
+    public override void StateAttack()
+    {
+        return;
+    }
+
+    public override void StateCast()
+    {
+        return;
+    }
+
+    public override void Attack()
     {
         if (weapon.nextAttack <= Time.time)
         {
@@ -104,16 +97,16 @@ public class Enemy : MonoBehaviour
                 weapon.fireWhenEmpty = true;
             }
 
+            weapon.enabled = true;
             weapon.PrimaryAttack();
         }
     }
 
     public float GetEndReachedDistance()
     {
-        CapsuleCollider2D collider = aiEntity.target.GetComponent<CapsuleCollider2D>();
-        if (collider != null)
+        if (aiEntity.target.TryGetComponent(out CapsuleCollider2D entityCollider))
         {
-            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(collider);
+            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider);
         }
         else
         {

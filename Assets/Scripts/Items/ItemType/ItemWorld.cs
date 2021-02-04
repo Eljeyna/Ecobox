@@ -7,7 +7,10 @@ public class ItemWorld : MonoBehaviour
 
     private void Start()
     {
-        minimapSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        if (transform.GetChild(0).TryGetComponent(out SpriteRenderer spriteRenderer))
+        {
+            minimapSprite = spriteRenderer;
+        }
         minimapSprite.color = StaticGameVariables.colorItems[(int)item.itemQuality];
     }
 }

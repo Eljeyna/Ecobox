@@ -107,13 +107,13 @@ public class Stats : MonoBehaviour, ISaveState
 
     public void AddStrengthBonus(int amount)
     {
-        float heal = Player.Instance.thisPlayer.healthPercent;
+        float heal = Player.Instance.thisEntity.healthPercent;
         weight += StaticGameVariables.weightBonus * amount;
 
-        Player.Instance.thisPlayer.SetMaxHealth(Player.Instance.thisPlayer.maxHealth + (StaticGameVariables.healthBonus * amount));
-        Player.Instance.thisPlayer.TakeHealthPercent(heal, null);
-        Player.Instance.thisPlayer.resistances[0] += StaticGameVariables.resistanceAll * amount;
-        Player.Instance.thisPlayer.resistances[1] += StaticGameVariables.resistanceAll * amount;
+        Player.Instance.thisEntity.SetMaxHealth(Player.Instance.thisEntity.maxHealth + (StaticGameVariables.healthBonus * amount));
+        Player.Instance.thisEntity.TakeHealthPercent(heal, null);
+        Player.Instance.thisEntity.resistances[0] += StaticGameVariables.resistanceAll * amount;
+        Player.Instance.thisEntity.resistances[1] += StaticGameVariables.resistanceAll * amount;
     }
 
     public void AddAgilityBonus(int amount)
@@ -128,8 +128,8 @@ public class Stats : MonoBehaviour, ISaveState
     {
         oratory += StaticGameVariables.oratoryBonus * amount;
 
-        Player.Instance.thisPlayer.resistances[2] += StaticGameVariables.resistanceAll * amount;
-        Player.Instance.thisPlayer.resistances[3] += StaticGameVariables.resistanceAll * amount;
+        Player.Instance.thisEntity.resistances[2] += StaticGameVariables.resistanceAll * amount;
+        Player.Instance.thisEntity.resistances[3] += StaticGameVariables.resistanceAll * amount;
     }
 
     public string Save()
@@ -161,11 +161,11 @@ public class Stats : MonoBehaviour, ISaveState
         saveObject.oratory = oratory;
         saveObject.money = money;
 
-        saveObject.maxHealth = Player.Instance.thisPlayer.maxHealth;
-        saveObject.health = Player.Instance.thisPlayer.health;
-        saveObject.healthPercent = Player.Instance.thisPlayer.healthPercent;
-        saveObject.resistances = Player.Instance.thisPlayer.resistances;
-        saveObject.invinsibility = Player.Instance.thisPlayer.invinsibility;
+        saveObject.maxHealth = Player.Instance.thisEntity.maxHealth;
+        saveObject.health = Player.Instance.thisEntity.health;
+        saveObject.healthPercent = Player.Instance.thisEntity.healthPercent;
+        saveObject.resistances = Player.Instance.thisEntity.resistances;
+        saveObject.invinsibility = Player.Instance.thisEntity.invinsibility;
 
         saveObject.weapon = Player.Instance.weapon;
         saveObject.positionX = Player.Instance.transform.position.x;
@@ -208,11 +208,11 @@ public class Stats : MonoBehaviour, ISaveState
             money = saveObject.money;
 
             Player.Instance.aiEntity.target = null;
-            Player.Instance.thisPlayer.health = saveObject.health;
-            Player.Instance.thisPlayer.healthPercent = saveObject.healthPercent;
-            Player.Instance.thisPlayer.resistances = saveObject.resistances;
-            Player.Instance.thisPlayer.invinsibility = saveObject.invinsibility;
-            Player.Instance.thisPlayer.SetMaxHealth(saveObject.maxHealth);
+            Player.Instance.thisEntity.health = saveObject.health;
+            Player.Instance.thisEntity.healthPercent = saveObject.healthPercent;
+            Player.Instance.thisEntity.resistances = saveObject.resistances;
+            Player.Instance.thisEntity.invinsibility = saveObject.invinsibility;
+            Player.Instance.thisEntity.SetMaxHealth(saveObject.maxHealth);
 
             Player.Instance.weapon = saveObject.weapon;
             Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);

@@ -6,9 +6,9 @@ public class ItemHealthRestore : Item
     public float heal;
     public override void Use()
     {
-        if (Player.Instance.thisPlayer.healthPercent < 1f)
+        if (Player.Instance.thisEntity.healthPercent < 1f)
         {
-            Player.Instance.thisPlayer.TakeHealth(heal, null);
+            Player.Instance.thisEntity.TakeHealth(heal, null);
             itemAmount--;
         }
     }

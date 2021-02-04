@@ -18,17 +18,20 @@ public class BulletPistolSoldier : Bullet
     {
         if (collision.gameObject.layer == 8)
         {
-            Tags attackerTag = collision.collider.GetComponent<BaseTag>().entityTag;
-            if ((baseTag & attackerTag) == 0)
+            if (collision.collider.TryGetComponent(out BaseTag attackerTag))
             {
-                if (bulletData.radius > 0f)
+                if ((baseTag & attackerTag.entityTag) == 0)
                 {
-                    RadiusAttack.RadiusDamage(owner.gameObject, transform.position, bulletData.radius, bulletData.damageType, bulletData.damage, 1 << gameObject.layer);
-                }
-                else
-                {
-                    BaseEntity baseEntity = collision.gameObject.GetComponent<BaseEntity>();
-                    baseEntity.TakeDamage(bulletData.damage, 0, owner);
+                    if (bulletData.radius > 0f)
+                    {
+                        RadiusAttack.RadiusDamage(owner.gameObject, transform.position, bulletData.radius,
+                            bulletData.damageType, bulletData.damage, 1 << gameObject.layer);
+                    }
+                    else
+                    {
+                        BaseEntity baseEntity = collision.gameObject.GetComponent<BaseEntity>();
+                        baseEntity.TakeDamage(bulletData.damage, 0, owner);
+                    }
                 }
             }
         }

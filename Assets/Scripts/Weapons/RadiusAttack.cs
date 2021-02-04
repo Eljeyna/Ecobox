@@ -11,7 +11,6 @@ public class RadiusAttack : MonoBehaviour
 
         if (length > 1)
         {            
-            BaseEntity thisEntity = attacker.GetComponent<BaseEntity>();
             foreach (Collider2D enemy in targets)
             {
                 if (enemy == null)
@@ -19,14 +18,14 @@ public class RadiusAttack : MonoBehaviour
                     break;
                 }
 
-                Tags entityTag = enemy.GetComponent<BaseTag>().entityTag;
-                Tags attackerTag = attacker.GetComponent<BaseTag>().entityTag;
-                if ((entityTag & attackerTag) == 0)
+                if (enemy.TryGetComponent(out BaseTag enemyTag) && attacker.TryGetComponent(out BaseTag attackerTag))
                 {
-                    BaseEntity entity = enemy.GetComponent<BaseEntity>();
-                    if (entity != null && !entity.flagDeath)
+                    if ((enemyTag.entityTag & attackerTag.entityTag) == 0)
                     {
-                        entity.TakeDamage(amount, (int)damageType, thisEntity);
+                        if (enemy.TryGetComponent(out BaseEntity entity) && attacker.TryGetComponent(out BaseEntity thisEntity))
+                        {
+                            entity.TakeDamage(amount, (int) damageType, thisEntity);
+                        }
                     }
                 }
             }

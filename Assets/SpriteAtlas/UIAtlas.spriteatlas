@@ -48,7 +48,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 2e3d6c96d64961e47a0eb9550a28a16c, type: 3}
     - {fileID: 102900000, guid: cefcda2b71c16434aaefe0869bc62bbc, type: 3}
     - {fileID: 102900000, guid: 86d52392299c7d64a830cd8aae4090d0, type: 3}
-    totalSpriteSurfaceArea: 5235200
+    totalSpriteSurfaceArea: 5132800
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -73,7 +73,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3a74f678ee8f3bd49aacf3de1ae4bcaa, type: 3}
   - {fileID: 21300000, guid: 5eda94a9dcf71e445ad17e3c065d1460, type: 3}
   - {fileID: 21300000, guid: 3bf6d9f920f7458448a390f80318ebe6, type: 3}
-  - {fileID: 21300000, guid: fb70fa2a560a3194583d966415173f3f, type: 3}
   - {fileID: 21300000, guid: 2a1f3cba20f3e11498474a705db12fde, type: 3}
   - {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
   - {fileID: 21300000, guid: cd0a2c1b2c014ba4c80c1df786e150e9, type: 3}
@@ -101,7 +100,6 @@ SpriteAtlas:
   - Handle_Ridged
   - Handle_Outline_Arrows
   - Vertical_Plain_Arrows
-  - UI Dialogue_Button
   - AllAxis_Plain_Arrows
   - AllAxis_Outline
   - Horizontal_Outline

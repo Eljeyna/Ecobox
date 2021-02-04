@@ -58,7 +58,11 @@ public class InventoryUI : MonoBehaviour
                 RectTransform itemSlotRect = Instantiate(itemSlotPrefab, itemSlotContainer).GetComponent<RectTransform>();
                 itemSlotRect.gameObject.SetActive(true);
 
-                ItemInfoSelected itemInfo = itemSlotRect.transform.GetChild(0).GetComponent<ItemInfoSelected>();
+                ItemInfoSelected itemInfo = null;
+                if (itemSlotRect.transform.GetChild(0).TryGetComponent(out ItemInfoSelected newItemInfo))
+                {
+                    itemInfo = newItemInfo;
+                }
 
                 itemInfo.item = item;
                 if (StaticGameVariables.itemSelected == item)
@@ -66,9 +70,20 @@ public class InventoryUI : MonoBehaviour
                     itemInfo.GetItemInfo();
                 }
 
-                itemSlotRect.transform.GetChild(0).GetComponent<Image>().color = StaticGameVariables.colorItems[i];
-                itemSlotRect.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = item.itemInfo.itemIcon;
-                itemSlotRect.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = (item.itemAmount).ToString();
+                if (itemSlotRect.transform.GetChild(0).TryGetComponent(out Image newImage))
+                {
+                    newImage.color = StaticGameVariables.colorItems[i];
+                }
+
+                if (itemSlotRect.transform.GetChild(0).GetChild(0).TryGetComponent(out Image newSprite))
+                {
+                    newSprite.sprite = item.itemInfo.itemIcon;
+                }
+
+                if (itemSlotRect.transform.GetChild(0).GetChild(1).GetChild(0).TryGetComponent(out TMP_Text newText))
+                {
+                    newText.text = (item.itemAmount).ToString();
+                }
             }
         }
 

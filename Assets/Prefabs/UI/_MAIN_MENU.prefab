@@ -575,7 +575,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 5
 --- !u!114 &9037619935355225182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
-    m_SubObjectName: UI Dialogue_Button
+    m_SubObjectName: AllAxis_Plain
     m_SubObjectType: 
 --- !u!1 &9037619935422607848
 GameObject:
@@ -841,7 +841,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 5
 --- !u!114 &9037619935581540182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,7 +915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
-    m_SubObjectName: UI Dialogue_Button
+    m_SubObjectName: AllAxis_Plain
     m_SubObjectType: 
 --- !u!1 &9037619935627523440
 GameObject:
@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 5
 --- !u!114 &9037619935772153671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
-    m_SubObjectName: UI Dialogue_Button
+    m_SubObjectName: AllAxis_Plain
     m_SubObjectType: 
 --- !u!1 &9037619935796405530
 GameObject:
@@ -1711,7 +1711,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 5
 --- !u!114 &9037619936264658097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1822,7 +1822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
-    m_SubObjectName: UI Dialogue_Button
+    m_SubObjectName: AllAxis_Plain
     m_SubObjectType: 
 --- !u!1 &9037619936314049128
 GameObject:
@@ -2539,7 +2539,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 1
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 5
 --- !u!114 &9037619936722352729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2613,7 +2613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
-    m_SubObjectName: UI Dialogue_Button
+    m_SubObjectName: AllAxis_Plain
     m_SubObjectType: 
 --- !u!1 &9037619936736346736
 GameObject:

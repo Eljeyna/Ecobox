@@ -6,7 +6,10 @@ public class AgilityBuff : Buff
 
     public AgilityBuff(ScriptableObjectBuff buff, GameObject obj) : base(buff, obj)
     {
-        stats = obj.GetComponent<Stats>();
+        if (obj.TryGetComponent(out Stats newStats))
+        {
+            stats = newStats;
+        }
     }
 
     protected override void ApplyEffect()

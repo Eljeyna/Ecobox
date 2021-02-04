@@ -97,8 +97,15 @@ public class Settings : MonoBehaviour
             Player.Instance.zoomAmount = 0.2f + (0.2f * sliderCameraZoom.value);
         }
 
-        defaultSlot = GameObject.Find("SoundCategory").GetComponent<Image>();
-        slotSelected = GameObject.Find("SoundCategory").GetComponent<Image>();
+        if (GameObject.Find("SoundCategory").TryGetComponent(out Image newImageDefaultSlot))
+        {
+            defaultSlot = newImageDefaultSlot;
+        }
+
+        if (GameObject.Find("SoundCategory").TryGetComponent(out Image newImageSlotSelected))
+        {
+            slotSelected = newImageSlotSelected;
+        }
         slotSelected.color = colorSlot;
     }
 

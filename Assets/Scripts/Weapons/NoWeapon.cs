@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class NoWeapon : Gun
 {
-    public BaseEntity thisEntity;
+    public AIEntity entity;
     public Transform attackPoint;
 
     private void Update()
     {
-        if (delay != 0f && delay <= Time.time)
+        if (entity.state == EntityState.Attack)
+        {
+            if (delay <= Time.time)
+            {
+                RadiusAttack.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
+                entity.state = EntityState.Normal;
+                this.enabled = false;
+            }
+        }
+        else
         {
             delay = 0f;
-            RadiusAttack.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
+            this.enabled = false;
         }
     }
 
@@ -24,6 +33,7 @@ public class NoWeapon : Gun
         }
         else
         {
+            entity.state = EntityState.Attack;
             delay = Time.time + gunData.delay;
         }
     }

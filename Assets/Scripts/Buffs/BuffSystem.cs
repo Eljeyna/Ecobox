@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BuffSystem : MonoBehaviour
 {
-    private readonly Dictionary<ScriptableObjectBuff, Buff> _buffs = new Dictionary<ScriptableObjectBuff, Buff>();
+    public readonly Dictionary<ScriptableObjectBuff, Buff> buffs = new Dictionary<ScriptableObjectBuff, Buff>();
 
     void Update()
     {
@@ -12,7 +12,7 @@ public class BuffSystem : MonoBehaviour
             return;
         }
 
-        foreach (var buff in _buffs.Values)
+        foreach (var buff in buffs.Values)
         {
             if (buff.isPersist)
             {
@@ -22,20 +22,20 @@ public class BuffSystem : MonoBehaviour
             buff.Tick(Time.deltaTime);
             if (buff.isFinished)
             {
-                _buffs.Remove(buff.buff);
+                buffs.Remove(buff.buff);
             }
         }
     }
 
     public void AddBuff(Buff buff)
     {
-        if (_buffs.ContainsKey(buff.buff))
+        if (buffs.ContainsKey(buff.buff))
         {
-            _buffs[buff.buff].Activate();
+            buffs[buff.buff].Activate();
         }
         else
         {
-            _buffs.Add(buff.buff, buff);
+            buffs.Add(buff.buff, buff);
             buff.Activate();
         }
     }

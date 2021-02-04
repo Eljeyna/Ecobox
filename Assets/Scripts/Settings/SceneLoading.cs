@@ -18,7 +18,10 @@ public class SceneLoading : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            anim = transform.GetChild(0).GetComponent<Animator>();
+            if (transform.GetChild(0).TryGetComponent(out Animator animator))
+            {
+                anim = animator;
+            }
             DontDestroyOnLoad(gameObject);
         }
         else

@@ -4,11 +4,17 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
+public enum PoolID
+{
+    Target = 0,
+    
+}
+
 public class Pool : MonoBehaviour
 {
     public static Pool Instance { get; private set; }
 
-    public List<AssetReference> prefabs;
+    public AssetReference[] prefabs;
 
     private Queue<GameObject>[] availableObjects;
 
@@ -16,7 +22,7 @@ public class Pool : MonoBehaviour
     {
         Instance = this;
 
-        availableObjects = new Queue<GameObject>[prefabs.Count];
+        availableObjects = new Queue<GameObject>[prefabs.Length];
         for (int i = 0; i < availableObjects.Length; i++)
         {
             availableObjects[i] = new Queue<GameObject>();
@@ -36,10 +42,10 @@ public class Pool : MonoBehaviour
 
     private async Task GrowPool(int index)
     {
-        AsyncOperationHandle<GameObject> handle = prefabs[index].InstantiateAsync(transform);
+        AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(prefabs[index]);
         handle.Completed += (operationHandle) =>
         {
-            AddToPool(index, operationHandle.Result);
+            AddToPool(index, Instantiate(operationHandle.Result, Vector3.zero, Quaternion.identity, transform.GetChild(index)));
         };
         await handle.Task;
     }

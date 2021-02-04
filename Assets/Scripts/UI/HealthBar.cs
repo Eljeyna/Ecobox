@@ -13,7 +13,8 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     {
-        Player.Instance.thisPlayer.OnHealthChanged += OnHealthChanged;
+        BasePlayer basePlayer = (BasePlayer)Player.Instance.thisEntity;
+        basePlayer.OnHealthChanged += OnHealthChanged;
     }
 
     private void Start()
@@ -28,14 +29,14 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        bar.maxValue = Player.Instance.thisPlayer.maxHealth;
-        bar.value = Player.Instance.thisPlayer.health;
+        bar.maxValue = Player.Instance.thisEntity.maxHealth;
+        bar.value = Player.Instance.thisEntity.health;
 
-        sb.Append(Player.Instance.thisPlayer.health);
+        sb.Append(Player.Instance.thisEntity.health);
         healthAmount.text = sb.ToString();
 
         sb.Clear();
-        sb.Append(Player.Instance.thisPlayer.maxHealth);
+        sb.Append(Player.Instance.thisEntity.maxHealth);
         healthAmountMax.text = sb.ToString();
 
         sb.Clear();

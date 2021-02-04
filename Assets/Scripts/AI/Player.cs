@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
-using Pathfinding;
 
 #if UNITY_ANDROID || UNITY_IOS
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
@@ -9,20 +8,11 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using UnityEngine.InputSystem.EnhancedTouch;
 #endif
 
-public enum EntityState
-{
-    None    = 0,
-    Normal  = 1,
-    Dash    = 2,
-    Stun    = 3,
-}
-
-public class Player : MonoBehaviour
+public class Player : AIEntity
 {
     public static Player Instance { get; private set; }
-
-    public float speed = 4f;
-    public float speedSlow;
+    
+    [Space(10)]
     public bool touch = false;
     public bool buttonTouch = false;
 
@@ -31,19 +21,10 @@ public class Player : MonoBehaviour
     public InventoryUI inventoryUI;
     public Dash dash;
     public Animator animations;
-    public Rigidbody2D rb;
     public CinemachineVirtualCamera cam;
     public Camera mainCamera;
-    public BasePlayer thisPlayer;
     public Stats stats;
-    public Gun weapon;
-    public AIDestinationSetter aiEntity;
-    public AIPath aiPath;
-    public Transform target;
     public BuffSystem buffSystem;
-
-    [Space(10)]
-    public EntityState state;
 
     [HideInInspector] public Vector3 moving;
     [HideInInspector] public Vector2 moveVelocity;
@@ -54,7 +35,6 @@ public class Player : MonoBehaviour
 
     private Collider2D[] entity = new Collider2D[1];
     private LayerMask layer;
-    private float defaultEndReachedDistance;
 
 #if UNITY_ANDROID || UNITY_IOS
     private float lastMultiTouchDistance;
@@ -65,7 +45,7 @@ public class Player : MonoBehaviour
         Instance = this;
         controls = new NewInputSystem();
 
-        defaultEndReachedDistance = aiPath.endReachedDistance;
+        InitializeEntity();
 
         state = EntityState.Normal;
         layer = 1 << gameObject.layer;
@@ -92,9 +72,10 @@ public class Player : MonoBehaviour
         controls.Player.Zoom.performed += Zoom_performed;
 
         /* Test */
-        thisPlayer.TakeDamagePercent(0.5f, -1, null);
+        thisEntity.TakeDamagePercent(0.5f, -1, null);
 
-        GameObject test = await Pool.Instance.GetFromPoolAsync(0);
+        GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
+        target = targetNew.transform;
     }
 
     private void FixedUpdate()
@@ -133,30 +114,16 @@ public class Player : MonoBehaviour
             int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entity, layer);
             if (length > 0)
             {
-                aiPath.endReachedDistance = GetEndReachedDistance();
+                aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
             }
             else
             {
-                entity = null;
                 aiEntity.target = target;
                 aiPath.endReachedDistance = defaultEndReachedDistance;
             }
         }
-        
-        switch (state)
-        {
-            case EntityState.Normal:
-                StateNormal();
-                break;
-            case EntityState.Dash:
-                StateDash();
-                break;
-            case EntityState.Stun:
-                StateStun();
-                break;
-            default:
-                break;
-        }
+
+        StatePerform();
     }
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -178,7 +145,7 @@ public class Player : MonoBehaviour
     }
 #endif
 
-    private void StateNormal()
+    public override void StateNormal()
     {
         if (!aiEntity.isActiveAndEnabled)
         {
@@ -217,7 +184,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void StateDash()
+    public override void StateDash()
     {
         if (dash.nextDash <= Time.time)
         {
@@ -234,7 +201,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void StateStun()
+    public override void StateStun()
     {
         if (aiEntity.isActiveAndEnabled)
         {
@@ -243,8 +210,18 @@ public class Player : MonoBehaviour
 
         return;
     }
+
+    public override void StateAttack()
+    {
+        return;
+    }
     
-    public void Attack()
+    public override void StateCast()
+    {
+        return;
+    }
+
+    public override void Attack()
     {
         if (weapon.nextAttack <= Time.time)
         {
@@ -253,6 +230,7 @@ public class Player : MonoBehaviour
                 weapon.fireWhenEmpty = true;
             }
 
+            weapon.enabled = true;
             weapon.PrimaryAttack();
         }
     }
@@ -336,10 +314,9 @@ public class Player : MonoBehaviour
     private float GetEndReachedDistance()
     {
         aiEntity.target = entity[0].transform;
-        CapsuleCollider2D collider = entity[0].GetComponent<CapsuleCollider2D>();
-        if (collider != null)
+        if (entity[0].TryGetComponent(out CapsuleCollider2D entityCollider))
         {
-            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(collider);
+            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider);
         }
         else
         {
@@ -351,8 +328,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.layer == 30) // Items
         {
-            ItemWorld itemWorld = collision.GetComponent<ItemWorld>();
-            if (itemWorld)
+            if (collision.TryGetComponent(out ItemWorld itemWorld))
             {
                 inventory.AddItem(itemWorld.item);
                 Destroy(collision.gameObject);
