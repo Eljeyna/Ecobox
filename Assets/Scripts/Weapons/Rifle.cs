@@ -97,16 +97,12 @@ public class Rifle : Gun
                 line.enabled = true;
 
             }
-            BaseEntity entity = hit.collider.GetComponent<BaseEntity>();
-            if (entity != null)
+            if (hit.collider.TryGetComponent(out BaseEntity entity))
             {
-                entity.TakeDamage(gunData.damage, 0, thisEntity);
+                entity?.TakeDamage(gunData.damage, 0, thisEntity);
             }
 
-            if (hit.rigidbody != null)
-            {
-                hit.rigidbody.AddForce(-hit.normal * gunData.impactForce, ForceMode2D.Impulse);
-            }
+            hit.rigidbody?.AddForce(-hit.normal * gunData.impactForce, ForceMode2D.Impulse);
         }
         else
         {

@@ -12,7 +12,7 @@ public class SaveLoadSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (ReferenceEquals(Instance, null))
         {
             Instance = this;
         }

@@ -15,7 +15,7 @@ public class SceneLoading : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (ReferenceEquals(Instance, null))
         {
             Instance = this;
             if (transform.GetChild(0).TryGetComponent(out Animator animator))

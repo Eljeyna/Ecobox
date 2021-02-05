@@ -25,18 +25,14 @@ public class Addressables_LoadImage : MonoBehaviour
             case AsyncOperationStatus.Succeeded:
                 image.sprite = asyncOperationHandle.Result;
                 break;
-            default:
-                break;
         }
     }
 
     private void OnDestroy()
     {
-        if (!atlasSprite.IsValid())
+        if (atlasSprite.IsValid())
         {
-            return;
+            atlasSprite.ReleaseAsset();
         }
-
-        atlasSprite.ReleaseAsset();
     }
 }

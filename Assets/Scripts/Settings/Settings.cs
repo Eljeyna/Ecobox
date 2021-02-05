@@ -33,7 +33,7 @@ public class Settings : MonoBehaviour
 
     private void Start()
     {
-        if (Instance == null)
+        if (ReferenceEquals(Instance, null))
         {
             Instance = this;
         }

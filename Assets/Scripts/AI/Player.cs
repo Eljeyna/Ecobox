@@ -90,8 +90,6 @@ public class Player : AIEntity
                 case AsyncOperationStatus.Succeeded:
                     newSpriteRenderer.sprite = asyncOperationHandle.Result;
                     break;
-                default:
-                    break;
             }
         }
         
@@ -174,7 +172,7 @@ public class Player : AIEntity
             aiEntity.enabled = true;
         }
 
-        if (aiEntity.target == null)
+        if (ReferenceEquals(aiEntity.target, null))
         {
             return;
         }
@@ -183,14 +181,14 @@ public class Player : AIEntity
         
         if (distance <= aiPath.endReachedDistance)
         {
-            if (entity != null)
-            {
-                Attack();
-            }
-            else
+            if (ReferenceEquals(entity, null))
             {
                 aiEntity.target = null;
                 return;
+            }
+            else
+            {
+                Attack();
             }
         }
 
@@ -264,7 +262,7 @@ public class Player : AIEntity
 
     private void OnDash()
     {
-        if (aiEntity.target != null && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        if (!ReferenceEquals(aiEntity.target, null) && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
             aiEntity.enabled = false;
             aiPath.enabled = false;
@@ -340,7 +338,7 @@ public class Player : AIEntity
     private float GetEndReachedDistance()
     {
         aiEntity.target = entity[0].transform;
-        if (entity[0].TryGetComponent(out CapsuleCollider2D entityCollider))
+        if (aiEntity.target.TryGetComponent(out CapsuleCollider2D entityCollider))
         {
             return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider);
         }
@@ -362,6 +360,14 @@ public class Player : AIEntity
         }
     }
 
+    private void OnDestroy()
+    {
+        if (atlasSprite.IsValid())
+        {
+            atlasSprite.ReleaseAsset();
+        }
+    }
+
     private void OnEnable()
     {
         controls.Enable();
@@ -379,7 +385,7 @@ public class Player : AIEntity
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         if ((weapon as NoWeapon).attackPoint == null)
         {
@@ -387,6 +393,6 @@ public class Player : AIEntity
         }
 
         Gizmos.DrawWireSphere((weapon as NoWeapon).attackPoint.position, weapon.gunData.radius);
-    }
+    }*/
 #endif
 }

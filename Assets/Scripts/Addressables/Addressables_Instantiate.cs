@@ -5,7 +5,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Addressables_Instantiate : MonoBehaviour
 {
-    public List<AssetReference> prefabs;
+    public AssetReference[] prefabs;
 
     private List<GameObject> createdObjects = new List<GameObject>();
 
@@ -16,7 +16,7 @@ public class Addressables_Instantiate : MonoBehaviour
 
     private void AddressablesInstantiate()
     {
-        for (int i = 0; i < prefabs.Count; i++)
+        for (int i = 0; i < prefabs.Length; i++)
         {
             Addressables.LoadAssetAsync<GameObject>(prefabs[i]).Completed += PrefabLoaded;
         }
@@ -29,7 +29,7 @@ public class Addressables_Instantiate : MonoBehaviour
 
     private void OnDestroy()
     {
-        for (int i = 0; i < prefabs.Count; i++)
+        for (int i = 0; i < prefabs.Length; i++)
         {
             if (prefabs[i].IsValid())
             {

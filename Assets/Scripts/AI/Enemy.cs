@@ -11,7 +11,7 @@ public class Enemy : AIEntity
     {
         state = EntityState.Normal;
 
-        if (aiEntity.target == null)
+        if (ReferenceEquals(aiEntity.target, null))
         {
             aiPath.endReachedDistance = defaultEndReachedDistance;
         }
@@ -36,12 +36,12 @@ public class Enemy : AIEntity
             aiEntity.enabled = true;
         }
 
-        if (aiEntity.target == null)
+        if (ReferenceEquals(aiEntity.target, null))
         {
             return;
         }
 
-        if (weapon != null)
+        if (!ReferenceEquals(weapon, null))
         {
             float distance = Vector2.Distance(rb.position, aiEntity.target.position);
 

@@ -29,18 +29,14 @@ public class ItemInfo : ScriptableObject
             case AsyncOperationStatus.Succeeded:
                 itemIcon = asyncOperationHandle.Result;
                 break;
-            default:
-                break;
         }
     }
 
     public void UnloadSprite()
     {
-        if (!atlasSprite.IsValid())
+        if (atlasSprite.IsValid())
         {
-            return;
+            atlasSprite.ReleaseAsset();
         }
-
-        atlasSprite.ReleaseAsset();
     }
 }

@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 using Pathfinding;
 
 public enum EntityState
 {
-    None    = 0,
+    None = 0,
     Normal,
     Dash,
     Stun,
@@ -30,8 +29,13 @@ public abstract class AIEntity : MonoBehaviour
 
     public void InitializeEntity()
     {
+        target = null;
         aiPath.maxSpeed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
+        if (aiEntity.target == null) // It's not a joke, just test this with ReferenceEquals(objA, objB)
+        {
+            aiEntity.target = null;
+        }
     }
 
     public void StatePerform()
@@ -53,14 +57,12 @@ public abstract class AIEntity : MonoBehaviour
             case EntityState.Cast:
                 StateStun();
                 break;
-            default:
-                break;
         }
     }
 
     private void OnDestroy()
     {
-        if (target != null)
+        if (!ReferenceEquals(target, null))
         {
             Pool.Instance.AddToPool((int)PoolID.Target, target.gameObject);
         }

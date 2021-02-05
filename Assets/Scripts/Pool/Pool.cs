@@ -35,7 +35,7 @@ public class Pool : MonoBehaviour
         {
             AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(prefabs[index]);
             await handle.Task;
-            AddToPool(index, Instantiate(handle.Result, Vector3.zero, Quaternion.identity, transform.GetChild(index)));
+            AddToPool(index, Instantiate(handle.Result));
         }
         
         GameObject instance = availableObjects[index].Dequeue();
@@ -45,6 +45,7 @@ public class Pool : MonoBehaviour
 
     public void AddToPool(int index, GameObject instance)
     {
+        instance.transform.SetParent(transform.GetChild(index));
         instance.SetActive(false);
         availableObjects[index].Enqueue(instance);
     }

@@ -205,7 +205,7 @@ public static class StaticGameVariables
 
     public static void UseItem()
     {
-        if (itemSelected)
+        if (!ReferenceEquals(itemSelected, null))
         {
             int amount = itemSelected.itemAmount;
             itemSelected.Use();
@@ -231,8 +231,15 @@ public static class StaticGameVariables
 
     public static void ConfirmApply()
     {
-        if (actionWithItem == ActionType.DropItem) DropItemMultiple();
-        else if (actionWithItem == ActionType.DisassembleItem) DisassembleItemMultiple();
+        switch (actionWithItem)
+        {
+            case ActionType.DropItem:
+                DropItemMultiple();
+                break;
+            case ActionType.DisassembleItem:
+                DisassembleItemMultiple();
+                break;
+        }
 
         HideConfirmMenu();
     }
@@ -319,7 +326,7 @@ public static class StaticGameVariables
         inventoryGroup.blocksRaycasts = true;
     }
 
-    public async static void OpenInventory()
+    public static async void OpenInventory()
     {
         itemSelected = null;
 
@@ -399,7 +406,7 @@ public static class StaticGameVariables
             TranslateUI translation = child.GetComponent<TranslateUI>();
             TMP_Text textUI = child.gameObject.GetComponent<TMP_Text>();
 
-            if (textUI == null)
+            if (ReferenceEquals(textUI, null))
             {
                 textUI = child.transform.GetChild(0).GetComponent<TMP_Text>();
             }
@@ -407,9 +414,9 @@ public static class StaticGameVariables
             textUI.text = translation.languages[languageChange];
         }
 
-        if (GameDirector.Instance != null)
+        if (!ReferenceEquals(GameDirector.Instance, null))
         {
-            if (GameDirector.Instance.activeQuest != null)
+            if (!ReferenceEquals(GameDirector.Instance.activeQuest, null))
             {
                 GameDirector.Instance.UpdateQuestDescription(GameDirector.Instance.activeQuest, GameDirector.Instance.activeQuest.currentTask);
             }
@@ -442,7 +449,8 @@ public static class StaticGameVariables
 
     public static float GetReachedDistance(CapsuleCollider2D collider)
     {
-        return (collider.size.x + collider.size.y) / 2;
+        var size = collider.size;
+        return (size.x + size.y) / 2;
     }
 
     public static float GetAngleBetweenPositions(Vector3 pos1, Vector3 pos2)

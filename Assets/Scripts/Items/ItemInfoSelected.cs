@@ -9,7 +9,10 @@ public class ItemInfoSelected : MonoBehaviour
 
     private void Awake()
     {
-        sprite = GetComponent<Image>();
+        if (TryGetComponent(out Image newSprite))
+        {
+            sprite = newSprite;
+        }
     }
 
     public void GetItemInfo()

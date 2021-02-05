@@ -13,7 +13,7 @@ public class RadiusAttack : MonoBehaviour
         {            
             foreach (Collider2D enemy in targets)
             {
-                if (enemy == null)
+                if (ReferenceEquals(enemy, null))
                 {
                     break;
                 }
