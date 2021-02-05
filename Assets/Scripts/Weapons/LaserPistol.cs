@@ -41,7 +41,7 @@ public class LaserPistol : Gun
             clip--;
         }
 
-        BulletSetup(Pool.Instance.GetFromPoolAsync(0));
+        BulletSetup(Pool.Instance.GetFromPoolAsync(0).Result);
 
         nextAttack = Time.time + gunData.fireRatePrimary;
     }

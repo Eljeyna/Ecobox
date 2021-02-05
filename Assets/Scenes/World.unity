@@ -984,6 +984,7 @@ MonoBehaviour:
   speed: 5
   speedSlow: 0
   rb: {fileID: 774642703}
+  thisCollider: {fileID: 774642704}
   state: 0
   thisTag: {fileID: 774642700}
   thisEntity: {fileID: 774642699}
@@ -1582,6 +1583,7 @@ MonoBehaviour:
   speed: 3.5
   speedSlow: 0
   rb: {fileID: 1131860912}
+  thisCollider: {fileID: 1131860915}
   state: 0
   thisTag: {fileID: 1131860917}
   thisEntity: {fileID: 1131860916}

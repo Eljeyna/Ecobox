@@ -55,7 +55,7 @@ public class Player : AIEntity
         DontDestroyOnLoad(gameObject);
     }
 
-    public void Initialize()
+    public async void Initialize()
     {
         inventoryUI = GameObject.Find("ListSlots").GetComponent<InventoryUI>();
         inventoryUI.SetInventory(inventory);
@@ -74,7 +74,7 @@ public class Player : AIEntity
         /* Test */
         thisEntity.TakeDamagePercent(0.5f, -1, null);
 
-        GameObject targetNew = Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
+        GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
         target = targetNew.transform;
     }
 
@@ -112,7 +112,7 @@ public class Player : AIEntity
             target.position = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
 
             int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entity, layer);
-            if (length > 0)
+            if (length > 0 && entity[0] != thisCollider)
             {
                 aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
             }

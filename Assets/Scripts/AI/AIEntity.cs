@@ -17,6 +17,7 @@ public abstract class AIEntity : MonoBehaviour
     public float speed;
     public float speedSlow;
     public Rigidbody2D rb;
+    public CapsuleCollider2D thisCollider;
     public EntityState state;
     public BaseTag thisTag;
     public BaseEntity thisEntity;
