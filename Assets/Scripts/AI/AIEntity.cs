@@ -22,6 +22,7 @@ public abstract class AIEntity : MonoBehaviour
     public BaseTag thisTag;
     public BaseEntity thisEntity;
     public Transform target;
+    public Vector3 targetPosition;
     public AIPath aiPath;
     public AIDestinationSetter aiEntity;
     public float defaultEndReachedDistance;

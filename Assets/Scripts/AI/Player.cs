@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
-
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.U2D;
 #if UNITY_ANDROID || UNITY_IOS
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
@@ -25,6 +27,8 @@ public class Player : AIEntity
     public Camera mainCamera;
     public Stats stats;
     public BuffSystem buffSystem;
+    
+    [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
 
     [HideInInspector] public Vector3 moving;
     [HideInInspector] public Vector2 moveVelocity;
@@ -75,9 +79,25 @@ public class Player : AIEntity
         thisEntity.TakeDamagePercent(0.5f, -1, null);
 
         GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
+        targetNew.AddComponent(typeof(SpriteRenderer));
+        AsyncOperationHandle<Sprite> asyncOperationHandle = atlasSprite.LoadAssetAsync<Sprite>();
+        await asyncOperationHandle.Task;
+        if (targetNew.TryGetComponent(out SpriteRenderer newSpriteRenderer))
+        {
+            newSpriteRenderer.color = new Color(1f, 1f, 1f, 64f / 255f);
+            switch (asyncOperationHandle.Status)
+            {
+                case AsyncOperationStatus.Succeeded:
+                    newSpriteRenderer.sprite = asyncOperationHandle.Result;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
         target = targetNew.transform;
     }
-
+    
     private void FixedUpdate()
     {
         if (state == EntityState.Normal)
@@ -109,7 +129,9 @@ public class Player : AIEntity
         if (touch && !buttonTouch)
         {
             touch = false;
-            target.position = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
+            targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
+            targetPosition.z = 0f;
+            target.position = targetPosition;
 
             int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entity, layer);
             if (length > 0 && entity[0] != thisCollider)

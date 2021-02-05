@@ -39,6 +39,7 @@ public class Pool : MonoBehaviour
         }
         
         GameObject instance = availableObjects[index].Dequeue();
+        instance.SetActive(true);
         return instance;
     }
 

@@ -73,10 +73,12 @@ public class LaserPistol : Gun
 
     public void BulletSetup(GameObject bullet)
     {
-        Bullet bulletPistol = bullet.GetComponent<Bullet>();
-        bulletPistol.owner = thisEntity;
-        bulletPistol.baseTag = baseTag.entityTag;
-        bullet.transform.position = laserStartPosition.position;
-        bullet.transform.rotation = transform.rotation;
+        if (bullet.TryGetComponent(out Bullet bulletPistol))
+        {
+            bulletPistol.owner = thisEntity;
+            bulletPistol.baseTag = baseTag.entityTag;
+            bullet.transform.position = laserStartPosition.position;
+            bullet.transform.rotation = transform.rotation;
+        }
     }
 }

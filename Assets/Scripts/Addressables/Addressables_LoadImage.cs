@@ -10,8 +10,12 @@ public class Addressables_LoadImage : MonoBehaviour
 
     private async Task Awake()
     {
+        if (atlasSprite == null)
+        {
+            return;
+        }
+        
         var image = GetComponent<Image>();
-
         AsyncOperationHandle<Sprite> asyncOperationHandle = atlasSprite.LoadAssetAsync<Sprite>();
 
         await asyncOperationHandle.Task;
