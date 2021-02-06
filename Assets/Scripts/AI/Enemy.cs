@@ -90,16 +90,18 @@ public class Enemy : AIEntity
 
     public override void Attack()
     {
-        if (weapon.nextAttack <= Time.time)
+        if (weapon.nextAttack > Time.time)
         {
-            if (weapon.clip == 0)
-            {
-                weapon.fireWhenEmpty = true;
-            }
-
-            weapon.enabled = true;
-            weapon.PrimaryAttack();
+            return;
         }
+
+        if (weapon.clip == 0)
+        {
+            weapon.fireWhenEmpty = true;
+        }
+
+        weapon.enabled = true;
+        weapon.PrimaryAttack();
     }
 
     public float GetEndReachedDistance()

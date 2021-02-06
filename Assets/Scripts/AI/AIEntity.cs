@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Pathfinding;
 
@@ -29,9 +30,9 @@ public abstract class AIEntity : MonoBehaviour
 
     public void InitializeEntity()
     {
-        target = null;
         aiPath.maxSpeed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
+        target = null;
         if (aiEntity.target == null) // It's not a joke, just test this with ReferenceEquals(objA, objB)
         {
             aiEntity.target = null;
@@ -42,6 +43,8 @@ public abstract class AIEntity : MonoBehaviour
     {
         switch (state)
         {
+            case EntityState.None:
+                break;
             case EntityState.Normal:
                 StateNormal();
                 break;
@@ -52,10 +55,10 @@ public abstract class AIEntity : MonoBehaviour
                 StateStun();
                 break;
             case EntityState.Attack:
-                StateStun();
+                StateAttack();
                 break;
             case EntityState.Cast:
-                StateStun();
+                StateCast();
                 break;
         }
     }

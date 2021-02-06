@@ -243,16 +243,18 @@ public class Player : AIEntity
 
     public override void Attack()
     {
-        if (weapon.nextAttack <= Time.time)
+        if (weapon.nextAttack > Time.time)
         {
-            if (weapon.clip == 0)
-            {
-                weapon.fireWhenEmpty = true;
-            }
-
-            weapon.enabled = true;
-            weapon.PrimaryAttack();
+            return;
         }
+
+        if (weapon.clip == 0)
+        {
+            weapon.fireWhenEmpty = true;
+        }
+
+        weapon.enabled = true;
+        weapon.PrimaryAttack();
     }
 
     private void Zoom(bool zoomOut)
