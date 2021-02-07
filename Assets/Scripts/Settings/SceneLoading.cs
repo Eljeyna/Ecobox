@@ -22,6 +22,7 @@ public class SceneLoading : MonoBehaviour
             {
                 anim = animator;
             }
+            
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -40,7 +41,6 @@ public class SceneLoading : MonoBehaviour
     {
         anim.SetTrigger(animId);
         LoadLevel(sceneName);
-
     }
 
     public async void LoadLevel(string sceneName)
@@ -52,7 +52,6 @@ public class SceneLoading : MonoBehaviour
         }
 
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-        StaticGameVariables.ResumeGame();
         await loadSceneAsync.Task;
         anim.SetTrigger("End");
     }

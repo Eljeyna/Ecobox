@@ -26,7 +26,6 @@ public class Player : AIEntity
     public CinemachineVirtualCamera cam;
     public Camera mainCamera;
     public Stats stats;
-    public BuffSystem buffSystem;
     
     [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
 
@@ -85,11 +84,10 @@ public class Player : AIEntity
         if (targetNew.TryGetComponent(out SpriteRenderer newSpriteRenderer))
         {
             newSpriteRenderer.color = new Color(1f, 1f, 1f, 64f / 255f);
-            switch (asyncOperationHandle.Status)
+            
+            if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
             {
-                case AsyncOperationStatus.Succeeded:
-                    newSpriteRenderer.sprite = asyncOperationHandle.Result;
-                    break;
+                newSpriteRenderer.sprite = asyncOperationHandle.Result;
             }
         }
         
@@ -110,7 +108,7 @@ public class Player : AIEntity
     private void Update()
     {
 #if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
-        if (!buttonTouch)
+        if (!StaticGameVariables.isPause && !buttonTouch)
         {
             if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
             {
@@ -325,11 +323,14 @@ public class Player : AIEntity
 
     private void Zoom_performed(InputAction.CallbackContext obj)
     {
+        if (!StaticGameVariables.isPause)
+        {
 #if UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
         Zoom(obj.ReadValue<Vector2>().y > 0f);
 #else
-        Zoom(obj.ReadValue<Vector2>().y < 0f);
+            Zoom(obj.ReadValue<Vector2>().y < 0f);
 #endif
+        }
     }
 
     private float GetEndReachedDistance()
@@ -367,6 +368,7 @@ public class Player : AIEntity
 
     private void OnEnable()
     {
+        StaticGameVariables.OnPauseGame += OnPause;
         controls.Enable();
 #if UNITY_ANDROID || UNITY_IOS
         EnhancedTouchSupport.Enable();
@@ -375,6 +377,7 @@ public class Player : AIEntity
 
     private void OnDisable()
     {
+        StaticGameVariables.OnPauseGame -= OnPause;
         controls.Disable();
 #if UNITY_ANDROID || UNITY_IOS
         EnhancedTouchSupport.Disable();

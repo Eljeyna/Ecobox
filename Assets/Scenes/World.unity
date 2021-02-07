@@ -992,6 +992,7 @@ MonoBehaviour:
   aiEntity: {fileID: 774642713}
   defaultEndReachedDistance: 0
   weapon: {fileID: 774642708}
+  buffSystem: {fileID: 774642714}
   touch: 0
   buttonTouch: 0
   inventory: {fileID: 774642709}
@@ -1001,7 +1002,6 @@ MonoBehaviour:
   cam: {fileID: 856908555}
   mainCamera: {fileID: 519420031}
   stats: {fileID: 774642705}
-  buffSystem: {fileID: 774642714}
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
     m_SubObjectName: AllAxis_Plain
@@ -1441,6 +1441,7 @@ GameObject:
   - component: {fileID: 1131860913}
   - component: {fileID: 1131860917}
   - component: {fileID: 1131860916}
+  - component: {fileID: 1131860922}
   - component: {fileID: 1131860911}
   - component: {fileID: 1131860915}
   - component: {fileID: 1131860914}
@@ -1596,6 +1597,7 @@ MonoBehaviour:
   aiEntity: {fileID: 1131860918}
   defaultEndReachedDistance: 0
   weapon: {fileID: 1131860920}
+  buffSystem: {fileID: 0}
 --- !u!70 &1131860915
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1735,6 +1737,18 @@ MonoBehaviour:
     m_AssetGUID: fc305c1c43aad9645b4c2fd6ba4091ff
     m_SubObjectName: player_cheer2
     m_SubObjectType: 
+--- !u!114 &1131860922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131860909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac840e9c0f4be7d46ace6a8617d1a837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1157679360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2860060068697847226, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,

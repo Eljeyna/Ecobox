@@ -12,6 +12,7 @@ public enum EntityState
     Cast,
 }
 
+[RequireComponent(typeof(BuffSystem))]
 public abstract class AIEntity : MonoBehaviour
 {
     public float speed;
@@ -27,11 +28,10 @@ public abstract class AIEntity : MonoBehaviour
     public AIDestinationSetter aiEntity;
     public float defaultEndReachedDistance;
     public Gun weapon;
+    public BuffSystem buffSystem;
 
     public void InitializeEntity()
-    {
-        StaticGameVariables.OnPauseGame += OnPause;
-        
+    {        
         aiPath.maxSpeed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
         target = null;
@@ -72,7 +72,6 @@ public abstract class AIEntity : MonoBehaviour
 
     private void OnDestroy()
     {
-        StaticGameVariables.OnPauseGame -= OnPause;
         aiEntity.target = null;
         if (!ReferenceEquals(target, null))
         {
@@ -80,9 +79,19 @@ public abstract class AIEntity : MonoBehaviour
         }
     }
 
-    private void OnPause(object sender, EventArgs e)
+    public void OnPause(object sender, EventArgs e)
     {
         aiPath.enabled = !StaticGameVariables.isPause;
+    }
+    
+    private void OnEnable()
+    {
+        StaticGameVariables.OnPauseGame += OnPause;
+    }
+    
+    private void OnDisable()
+    {
+        StaticGameVariables.OnPauseGame -= OnPause;
     }
 
     public abstract void StateNormal();

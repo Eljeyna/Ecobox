@@ -119,7 +119,6 @@ public class Stats : MonoBehaviour, ISaveState
     public void AddAgilityBonus(int amount)
     {
         maxStamina += StaticGameVariables.staminaBonus * amount;
-        staminaRegen += StaticGameVariables.staminaRegenBonus * amount;
 
         Player.Instance.speed += StaticGameVariables.speedBonus * amount;
     }
