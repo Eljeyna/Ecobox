@@ -65,7 +65,7 @@ public class Player : AIEntity
 
         stats.Initialize();
 
-#if (!UNITY_ANDROID && !UNITY_IOS) || UNITY_EDITOR
+#if UNITY_ANDROID || UNITY_IOS
         controls.Player.Touch.performed += Touch_performed;
 #endif
 
@@ -107,12 +107,16 @@ public class Player : AIEntity
 
     private void Update()
     {
-#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
+#if UNITY_ANDROID || UNITY_IOS
         if (!StaticGameVariables.isPause && !buttonTouch)
         {
             if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
             {
                 touch = true;
+            }
+            else if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Moved)
+            {
+                OnDash();
             }
             else if (Touch.activeFingers.Count == 2)
             {
@@ -301,7 +305,7 @@ public class Player : AIEntity
         SaveLoadSystem.Instance.Load();
     }
 
-#if (!UNITY_ANDROID && !UNITY_IOS) || UNITY_EDITOR
+#if UNITY_ANDROID || UNITY_IOS
     private void Touch_performed(InputAction.CallbackContext obj)
     {
         if (!StaticGameVariables.isPause)

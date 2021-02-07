@@ -40,7 +40,6 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 0
-    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: e82ffd81825ec484da5387f10493d7a1, type: 3}
@@ -48,10 +47,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 2e3d6c96d64961e47a0eb9550a28a16c, type: 3}
     - {fileID: 102900000, guid: cefcda2b71c16434aaefe0869bc62bbc, type: 3}
     - {fileID: 102900000, guid: 86d52392299c7d64a830cd8aae4090d0, type: 3}
-    totalSpriteSurfaceArea: 5132800
     bindAsDefault: 1
-    isAtlasV2: 0
-    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: c0915840024ac4b4cbc050fedc972f45, type: 3}
@@ -107,6 +103,5 @@ SpriteAtlas:
   - Handle_Plain_Arrows
   - Vertical_Outline
   - AllAxis_Ridged
-  m_RenderDataMap: {}
   m_Tag: UIAtlas
   m_IsVariant: 0

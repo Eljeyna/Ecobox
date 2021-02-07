@@ -17,24 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c847c6a4209dd864087f8f1bc2e1a2e7
   m_SerializeEntries:
-  - m_GUID: a97c105638bdf8b4a8650670310a4cd3
-    m_Address: Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Lit-Default.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: a674720496c1ed248a5b7ea3e22a11fd
-    m_Address: Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Textures/UIFoldoutOpened.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: e260cfa7296ee7642b167f1eb5be5023
-    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/2D/Sprite-Lit-Default.shader
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: ca9f5fa95ffab41fb9a615ab714db018
     m_Address: Packages/com.unity.inputsystem/InputSystem/Plugins/PlayerInput/DefaultInputActions.inputactions
     m_ReadOnly: 0

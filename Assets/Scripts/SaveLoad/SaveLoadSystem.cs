@@ -1,8 +1,6 @@
-using System.Linq;
 using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 public class SaveLoadSystem : MonoBehaviour
 {
@@ -33,9 +31,12 @@ public class SaveLoadSystem : MonoBehaviour
     public void Save()
     {
         json = string.Empty;
-        foreach (var persist in FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveState>())
+        foreach (var monoBehaviour in FindObjectsOfType<MonoBehaviour>())
         {
-            json += persist.Save();
+            if (monoBehaviour is ISaveState persist)
+            {
+                json += persist.Save();
+            }
         }
 
         File.WriteAllText(StaticGameVariables._SAVE_FOLDER + "/save0.json", json);
@@ -43,9 +44,12 @@ public class SaveLoadSystem : MonoBehaviour
 
     public void Load()
     {
-        foreach (var persist in FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveState>())
+        foreach (var monoBehaviour in FindObjectsOfType<MonoBehaviour>())
         {
-            persist.Load();
+            if (monoBehaviour is ISaveState persist)
+            {
+                persist.Load();
+            }
         }
     }
 }

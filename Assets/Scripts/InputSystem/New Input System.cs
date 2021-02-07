@@ -44,11 +44,11 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""Dash"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""4c2091dd-8451-418c-aae2-fbe8c1aa1acd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""MultiTap""
                 },
                 {
                     ""name"": ""Reload"",
@@ -234,6 +234,17 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae214cf7-cfed-4df4-9312-d0704350260a"",
+                    ""path"": ""<Touchscreen>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touchscreen"",
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
