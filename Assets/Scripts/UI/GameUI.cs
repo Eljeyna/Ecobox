@@ -1,13 +1,14 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class GameUI : MonoBehaviour
 {
     public static GameUI Instance { get; private set; }
 
-    public Canvas dialogue_box;
-    public TMP_Text dialogue_box_text;
-    public TMP_Text dialogue_box_name;
+    public Canvas dialogueBox;
+    public TMP_Text dialogueBoxText;
+    public TMP_Text dialogueBoxName;
     public DialogueButton[] dialogueButtons;
     public InvisibleButton invisibleButton;
     public GameObject circleRepeat;
@@ -18,8 +19,6 @@ public class GameUI : MonoBehaviour
 
         StaticGameVariables.InitializeLanguage();
         StaticGameVariables.InitializeAwake();
-
-        GameDirector.Instance.Initialize();
         
         if (transform.GetChild(1).TryGetComponent(out Canvas canvas))
         {

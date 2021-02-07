@@ -6,8 +6,8 @@
 /// </summary>
 public class CameraConstantWidth : MonoBehaviour
 {
-    public Vector2 DefaultResolution = new Vector2(720, 1280);
-    [Range(0f, 1f)] public float WidthOrHeight = 0;
+    public Vector2 defaultResolution = new Vector2(720, 1280);
+    [Range(0f, 1f)] public float widthOrHeight = 0;
 
     private Camera componentCamera;
 
@@ -22,7 +22,7 @@ public class CameraConstantWidth : MonoBehaviour
         componentCamera = GetComponent<Camera>();
         initialSize = componentCamera.orthographicSize;
 
-        targetAspect = DefaultResolution.x / DefaultResolution.y;
+        targetAspect = defaultResolution.x / defaultResolution.y;
 
         initialFov = componentCamera.fieldOfView;
         horizontalFov = CalcVerticalFov(initialFov, 1 / targetAspect);
@@ -33,12 +33,12 @@ public class CameraConstantWidth : MonoBehaviour
         if (componentCamera.orthographic)
         {
             float constantWidthSize = initialSize * (targetAspect / componentCamera.aspect);
-            componentCamera.orthographicSize = Mathf.Lerp(constantWidthSize, initialSize, WidthOrHeight);
+            componentCamera.orthographicSize = Mathf.Lerp(constantWidthSize, initialSize, widthOrHeight);
         }
         else
         {
             float constantWidthFov = CalcVerticalFov(horizontalFov, componentCamera.aspect);
-            componentCamera.fieldOfView = Mathf.Lerp(constantWidthFov, initialFov, WidthOrHeight);
+            componentCamera.fieldOfView = Mathf.Lerp(constantWidthFov, initialFov, widthOrHeight);
         }
     }
 

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -8,23 +7,25 @@ public class Addressables_LoadImage : MonoBehaviour
 {
     public AssetReferenceAtlasedSprite atlasSprite;
 
-    private async Task Awake()
+    private void Awake()
     {
-        if (atlasSprite == null)
+        if (atlasSprite == null || atlasSprite.IsValid())
         {
             return;
         }
-        
-        var image = GetComponent<Image>();
+
+        GetImage();
+    }
+
+    private async void GetImage()
+    {
         AsyncOperationHandle<Sprite> asyncOperationHandle = atlasSprite.LoadAssetAsync<Sprite>();
 
         await asyncOperationHandle.Task;
 
-        switch (asyncOperationHandle.Status)
+        if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded && TryGetComponent(out Image image))
         {
-            case AsyncOperationStatus.Succeeded:
-                image.sprite = asyncOperationHandle.Result;
-                break;
+            image.sprite = asyncOperationHandle.Result;
         }
     }
 

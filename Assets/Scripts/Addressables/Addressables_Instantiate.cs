@@ -7,8 +7,6 @@ public class Addressables_Instantiate : MonoBehaviour
 {
     public AssetReference[] prefabs;
 
-    private List<GameObject> createdObjects = new List<GameObject>();
-
     private void Awake()
     {
         AddressablesInstantiate();
@@ -24,7 +22,7 @@ public class Addressables_Instantiate : MonoBehaviour
 
     private void PrefabLoaded(AsyncOperationHandle<GameObject> obj)
     {
-        createdObjects.Add(Instantiate(obj.Result));
+        Instantiate(obj.Result);
     }
 
     private void OnDestroy()

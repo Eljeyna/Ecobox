@@ -21,7 +21,7 @@ public class IsTalking : MonoBehaviour
 
     public void StartTalk()
     {
-        if (!GameUI.Instance.dialogue_box.isActiveAndEnabled)
+        if (!GameUI.Instance.dialogueBox.isActiveAndEnabled)
         {
             StaticGameVariables.PauseGame();
             StaticGameVariables.HideInGameUI();
@@ -90,13 +90,13 @@ public class IsTalking : MonoBehaviour
     {
         if (StaticGameVariables.language == StaticGameVariables.Language.Russian)
         {
-            GameUI.Instance.dialogue_box_name.text = dialogue.dialogues[_currentLine].name;
-            GameUI.Instance.dialogue_box_text.text = dialogue.dialogues[_currentLine].text;
+            GameUI.Instance.dialogueBoxName.text = dialogue.dialogues[_currentLine].name;
+            GameUI.Instance.dialogueBoxText.text = dialogue.dialogues[_currentLine].text;
         }
         else
         {
-            GameUI.Instance.dialogue_box_name.text = dialogue.english[_currentLine].name;
-            GameUI.Instance.dialogue_box_text.text = dialogue.english[_currentLine].text;
+            GameUI.Instance.dialogueBoxName.text = dialogue.english[_currentLine].name;
+            GameUI.Instance.dialogueBoxText.text = dialogue.english[_currentLine].text;
         }
 
         if (dialogue.dialogues[_currentLine].answers.Length > 0)

@@ -4,7 +4,7 @@ public class BulletPistolSoldier : Bullet
 {
     private void Update()
     {
-        transform.position += transform.up * bulletData.speed * Time.deltaTime;
+        transform.position += transform.up * (bulletData.speed * Time.deltaTime);
         nextFade += Time.deltaTime;
 
         if (nextFade >= bulletData.timeFade)

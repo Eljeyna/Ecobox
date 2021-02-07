@@ -85,8 +85,25 @@ public static class StaticGameVariables
     [HideInInspector] public const float resistanceAll = 0.01f;
     
     public static event System.EventHandler OnPauseGame;
+    
+#if UNITY_ANDROID && !UNITY_EDITOR
+    public static string _APPLICATION_FOLDER = "jar:file://" + Application.dataPath;
+#else
+    public static string _APPLICATION_FOLDER = Application.dataPath;
+#endif
+    
+#if UNITY_ANDROID && !UNITY_EDITOR
+    public static string _ASSETS_FOLDER = _APPLICATION_FOLDER + "!/assets";
+#endif
+    
+#if UNITY_IOS
+    public static string _ASSETS_FOLDER = _APPLICATION_FOLDER + "/Raw";
+#endif
 
-    public static string _SAVE_FOLDER = Application.dataPath + "/Saves/";
+#if (!UNITY_ANDROID && !UNITY_IOS) || UNITY_EDITOR
+    public static string _ASSETS_FOLDER = _APPLICATION_FOLDER + "/StreamingAssets";
+#endif
+    public static string _SAVE_FOLDER = _APPLICATION_FOLDER + "/Saves/";
     #endregion
 
     #region Initialize
@@ -184,6 +201,8 @@ public static class StaticGameVariables
         colorItems[3] = new Color(147f / 255f, 86f / 255f, 183f / 255f, 1f);
         colorItems[4] = new Color(183f / 255f, 175f / 255f, 86f / 255f, 1f);
         colorItems[5] = new Color(183f / 255f, 121f / 255f, 86f / 255f, 1f);
+        
+        GameDirector.Instance.Initialize();
     }
     #endregion
 

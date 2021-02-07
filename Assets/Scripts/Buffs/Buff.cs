@@ -3,11 +3,11 @@ using UnityEngine;
 public abstract class Buff
 {
     protected int stacks;
-    protected float duration;
-    public bool isPersist;
+    public float duration;
+    public readonly bool isPersist;
     public bool isFinished;
-    public ScriptableObjectBuff buffData;
-    protected readonly GameObject obj;
+    public readonly ScriptableObjectBuff buffData;
+    private readonly GameObject obj;
 
     public abstract void End();
 

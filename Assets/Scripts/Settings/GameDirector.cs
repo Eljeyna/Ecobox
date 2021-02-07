@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AddressableAssets;
@@ -29,6 +30,18 @@ public class GameDirector : MonoBehaviour
         Instance = this;
 
         gameUI.InstantiateAsync();
+
+        TestStruct test = new TestStruct();
+        test.translation = new Dictionary<string, string>();
+        test.translation.Add("UI NEW GAME", "Новая игра");
+        test.translation.Add("UI LOAD GAME", "Загрузить");
+        string json = JsonUtility.ToJson(test);
+        File.WriteAllText(StaticGameVariables._ASSETS_FOLDER + "/Localization/Russian/localization.json", json);
+    }
+
+    public struct TestStruct
+    {
+        public Dictionary<string, string> translation;
     }
 
     private void Update()
@@ -191,13 +204,13 @@ public class GameDirector : MonoBehaviour
         StaticGameVariables.PauseGame();
         Player.Instance.cam.m_Lens.OrthographicSize = 15f;
 
-        GameUI.Instance.dialogue_box.enabled = true;
+        GameUI.Instance.dialogueBox.enabled = true;
         GameUI.Instance.circleRepeat.SetActive(true);
     }
 
     public void StopDialogue()
     {
-        GameUI.Instance.dialogue_box.enabled = false;
+        GameUI.Instance.dialogueBox.enabled = false;
         GameUI.Instance.circleRepeat.SetActive(false);
 
         if (controlAfter)

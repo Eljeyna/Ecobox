@@ -28,11 +28,6 @@ public class Settings : MonoBehaviour
 
     private void Awake()
     {
-        StaticGameVariables.InitializeLanguage();
-    }
-
-    private void Start()
-    {
         if (ReferenceEquals(Instance, null))
         {
             Instance = this;
@@ -47,7 +42,12 @@ public class Settings : MonoBehaviour
 
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
+        
+        StaticGameVariables.InitializeLanguage();
+    }
 
+    private void Start()
+    {
         /*dropdownResolutions.ClearOptions();
         dropdownFullscreenMode.ClearOptions();
 

@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.U2D;
 #if UNITY_ANDROID || UNITY_IOS
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
@@ -39,7 +37,7 @@ public class Player : AIEntity
 
     private NewInputSystem controls;
 
-    private Collider2D[] entity = new Collider2D[1];
+    private readonly Collider2D[] entity = new Collider2D[1];
     private LayerMask layer;
 
 #if UNITY_ANDROID || UNITY_IOS
