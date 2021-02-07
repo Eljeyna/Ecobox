@@ -5,7 +5,6 @@ public class IsTalking : MonoBehaviour
     public Dialogue dialogue;
     public int _currentLine;
     public int _defaultLine;
-    public bool isTalking = true;
     public bool dialogueStart = false;
     public bool controlAfter = true;
 

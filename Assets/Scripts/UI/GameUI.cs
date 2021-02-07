@@ -8,9 +8,9 @@ public class GameUI : MonoBehaviour
     public Canvas dialogue_box;
     public TMP_Text dialogue_box_text;
     public TMP_Text dialogue_box_name;
-    public Font dialogue_box_button_font;
     public DialogueButton[] dialogueButtons;
     public InvisibleButton invisibleButton;
+    public GameObject circleRepeat;
 
     private void Awake()
     {
@@ -20,5 +20,10 @@ public class GameUI : MonoBehaviour
         StaticGameVariables.InitializeAwake();
 
         GameDirector.Instance.Initialize();
+        
+        if (transform.GetChild(1).TryGetComponent(out Canvas canvas))
+        {
+            canvas.worldCamera = Player.Instance.mainCamera;
+        }
     }
 }

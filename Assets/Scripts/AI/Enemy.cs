@@ -31,9 +31,9 @@ public class Enemy : AIEntity
 
     public override void StateNormal()
     {
-        if (!aiEntity.isActiveAndEnabled)
+        if (!aiPath.isActiveAndEnabled)
         {
-            aiEntity.enabled = true;
+            aiPath.enabled = true;
         }
 
         if (ReferenceEquals(aiEntity.target, null))
@@ -65,12 +65,10 @@ public class Enemy : AIEntity
 
     public override void StateStun()
     {
-        if (aiEntity.isActiveAndEnabled)
+        if (aiPath.isActiveAndEnabled)
         {
-            aiEntity.enabled = false;
+            aiPath.enabled = false;
         }
-
-        return;
     }
 
     public override void StateDash()

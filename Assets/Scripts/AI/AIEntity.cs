@@ -30,6 +30,8 @@ public abstract class AIEntity : MonoBehaviour
 
     public void InitializeEntity()
     {
+        StaticGameVariables.OnPauseGame += OnPause;
+        
         aiPath.maxSpeed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
         target = null;
@@ -41,6 +43,11 @@ public abstract class AIEntity : MonoBehaviour
 
     public void StatePerform()
     {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+        
         switch (state)
         {
             case EntityState.None:
@@ -65,10 +72,17 @@ public abstract class AIEntity : MonoBehaviour
 
     private void OnDestroy()
     {
+        StaticGameVariables.OnPauseGame -= OnPause;
+        aiEntity.target = null;
         if (!ReferenceEquals(target, null))
         {
             Pool.Instance.AddToPool((int)PoolID.Target, target.gameObject);
         }
+    }
+
+    private void OnPause(object sender, EventArgs e)
+    {
+        aiPath.enabled = !StaticGameVariables.isPause;
     }
 
     public abstract void StateNormal();

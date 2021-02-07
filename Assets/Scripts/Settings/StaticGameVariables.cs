@@ -57,9 +57,6 @@ public static class StaticGameVariables
 
     public static float progress;
 
-    public static float defaultTimeScale;
-    public static float defaultFixedDeltaTime;
-
     /* Settings */
 
     public static readonly float shakeForce = 2f;
@@ -83,24 +80,15 @@ public static class StaticGameVariables
 
     /* All */
     [HideInInspector] public const float resistanceAll = 0.01f;
+    
+    public static event System.EventHandler OnPauseGame;
 
     public static string _SAVE_FOLDER = Application.dataPath + "/Saves/";
     #endregion
 
     #region Initialize
-    public static void InitializeFirst()
-    {
-        defaultTimeScale = Time.timeScale;
-        defaultFixedDeltaTime = Time.fixedDeltaTime;
-    }
-
     public static void InitializeLanguage()
     {
-        if (defaultTimeScale == 0f)
-        {
-            InitializeFirst();
-        }
-
         StringBuilder sb = new StringBuilder();
         sb.Append("Language");
         int languageCheck = PlayerPrefs.GetInt(sb.ToString(), 0);
@@ -431,15 +419,13 @@ public static class StaticGameVariables
     public static void PauseGame()
     {
         isPause = true;
-        Time.timeScale = 0f;
-        Time.fixedDeltaTime = 0f;
+        OnPauseGame?.Invoke(GameDirector.Instance, System.EventArgs.Empty);
     }
 
     public static void ResumeGame()
     {
-        Time.timeScale = defaultTimeScale;
-        Time.fixedDeltaTime = defaultFixedDeltaTime;
         isPause = false;
+        OnPauseGame?.Invoke(GameDirector.Instance, System.EventArgs.Empty);
     }
 
     public static void ValueChangeCheck()

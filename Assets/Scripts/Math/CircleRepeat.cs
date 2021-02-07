@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LoadingInfinity : MonoBehaviour
+public class CircleRepeat : MonoBehaviour
 {
     public float speed;
     public float radius;
@@ -22,7 +22,7 @@ public class LoadingInfinity : MonoBehaviour
     {
         evaluateTime += Time.unscaledDeltaTime * speed;
 
-        newPosition.x = Mathf.Cos(evaluateTime / 2f) * radius * 2f;
+        newPosition.x = Mathf.Cos(evaluateTime) * radius;
         newPosition.y = Mathf.Sin(evaluateTime) * radius;
         
         rectTransform.localPosition = newPosition;

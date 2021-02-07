@@ -110,7 +110,7 @@ public class Player : AIEntity
     private void Update()
     {
 #if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
-        if (!StaticGameVariables.isPause && !buttonTouch)
+        if (!buttonTouch)
         {
             if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
             {
@@ -167,9 +167,9 @@ public class Player : AIEntity
 
     public override void StateNormal()
     {
-        if (!aiEntity.isActiveAndEnabled)
+        if (!aiPath.isActiveAndEnabled)
         {
-            aiEntity.enabled = true;
+            aiPath.enabled = true;
         }
 
         if (ReferenceEquals(aiEntity.target, null))
@@ -223,12 +223,10 @@ public class Player : AIEntity
 
     public override void StateStun()
     {
-        if (aiEntity.isActiveAndEnabled)
+        if (aiPath.isActiveAndEnabled)
         {
-            aiEntity.enabled = false;
+            aiPath.enabled = false;
         }
-
-        return;
     }
 
     public override void StateAttack()
@@ -327,14 +325,11 @@ public class Player : AIEntity
 
     private void Zoom_performed(InputAction.CallbackContext obj)
     {
-        if (!StaticGameVariables.isPause)
-        {
 #if UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
-            Zoom(obj.ReadValue<Vector2>().y > 0f);
+        Zoom(obj.ReadValue<Vector2>().y > 0f);
 #else
-            Zoom(obj.ReadValue<Vector2>().y < 0f);
+        Zoom(obj.ReadValue<Vector2>().y < 0f);
 #endif
-        }
     }
 
     private float GetEndReachedDistance()

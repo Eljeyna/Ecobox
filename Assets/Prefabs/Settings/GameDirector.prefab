@@ -48,9 +48,10 @@ MonoBehaviour:
   dialogues: {fileID: 0}
   items: {fileID: 0}
   gameUI:
-    m_AssetGUID: 1ebd7a337e3b4ef43bb465d131af6b5a
+    m_AssetGUID: 7fe507d3507859273af5485ea4e9df47
     m_SubObjectName: 
     m_SubObjectType: 
+  debugFPS: {fileID: 0}
   dialogue: {fileID: 0}
   completedQuests: 
   controlAfter: 1

@@ -2,7 +2,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.AddressableAssets;
-using System.Threading.Tasks;
 
 public class GameDirector : MonoBehaviour
 {
@@ -22,6 +21,9 @@ public class GameDirector : MonoBehaviour
     [HideInInspector] public List<int> completedQuests = new List<int>();
     [HideInInspector] public bool controlAfter = true;
 
+    private bool DEBUG = true;
+    private float timeToUpdate;
+
     private void Awake()
     {
         Instance = this;
@@ -31,7 +33,13 @@ public class GameDirector : MonoBehaviour
 
     private void Update()
     {
-        debugFPS.text = $"{1f / Time.deltaTime}";
+        if (!DEBUG || timeToUpdate > Time.time)
+        {
+            return;
+        }
+        
+        debugFPS.text = $"{(int)(1f / Time.unscaledDeltaTime)}";
+        timeToUpdate = Time.time + 1f;
     }
 
     public void Initialize()
@@ -173,8 +181,6 @@ public class GameDirector : MonoBehaviour
                 break;
             case global::DialogueAction.CheckIntelligence:
                 break;
-            default:
-                break;
         }
 
         return false;
@@ -183,13 +189,16 @@ public class GameDirector : MonoBehaviour
     public void StartDialogue()
     {
         StaticGameVariables.PauseGame();
+        Player.Instance.cam.m_Lens.OrthographicSize = 15f;
 
         GameUI.Instance.dialogue_box.enabled = true;
+        GameUI.Instance.circleRepeat.SetActive(true);
     }
 
     public void StopDialogue()
     {
         GameUI.Instance.dialogue_box.enabled = false;
+        GameUI.Instance.circleRepeat.SetActive(false);
 
         if (controlAfter)
             StaticGameVariables.ResumeGame();
@@ -209,5 +218,10 @@ public class GameDirector : MonoBehaviour
         {
             GameUI.Instance.dialogueButtons[i].gameObject.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        DEBUG = false;
     }
 }
