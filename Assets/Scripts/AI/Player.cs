@@ -114,10 +114,6 @@ public class Player : AIEntity
             {
                 touch = true;
             }
-            else if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Moved)
-            {
-                OnDash();
-            }
             else if (Touch.activeFingers.Count == 2)
             {
                 touch = false;
