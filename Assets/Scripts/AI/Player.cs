@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
@@ -33,6 +34,8 @@ public class Player : AIEntity
     [HideInInspector] public Vector2 moveVelocity;
     [HideInInspector] public Vector3 dashDirection;
     [HideInInspector] public float zoomAmount;
+
+    private ItemWorld itemForPickup;
 
     private NewInputSystem controls;
 
@@ -237,20 +240,15 @@ public class Player : AIEntity
         return;
     }
 
-    public override void Attack()
+    public void PickUpItem()
     {
-        if (weapon.nextAttack > Time.time)
+        if (ReferenceEquals(itemForPickup, null))
         {
             return;
         }
-
-        if (weapon.clip == 0)
-        {
-            weapon.fireWhenEmpty = true;
-        }
-
-        weapon.enabled = true;
-        weapon.PrimaryAttack();
+        
+        inventory.AddItem(itemForPickup.item);
+        Destroy(itemForPickup.gameObject);
     }
 
     private void Zoom(bool zoomOut)
@@ -266,7 +264,6 @@ public class Player : AIEntity
             aiPath.enabled = false;
             stats.stamina -= dash.staminaCost;
             dash.dashEvaluateTime = 0f;
-            //dashDirection = moving == Vector3.zero ? transform.up : moving.normalized;
             moving = target.position - transform.position;
             dashDirection = moving.normalized;
             dash.enabled = true;
@@ -326,24 +323,17 @@ public class Player : AIEntity
         if (!StaticGameVariables.isPause)
         {
 #if UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
-        Zoom(obj.ReadValue<Vector2>().y > 0f);
+            Zoom(obj.ReadValue<Vector2>().y > 0f);
 #else
             Zoom(obj.ReadValue<Vector2>().y < 0f);
 #endif
         }
     }
 
-    private float GetEndReachedDistance()
+    private new float GetEndReachedDistance()
     {
         aiEntity.target = entity[0].transform;
-        if (aiEntity.target.TryGetComponent(out CapsuleCollider2D entityCollider))
-        {
-            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider);
-        }
-        else
-        {
-            return weapon.gunData.range;
-        }
+        return base.GetEndReachedDistance();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -352,8 +342,28 @@ public class Player : AIEntity
         {
             if (collision.TryGetComponent(out ItemWorld itemWorld))
             {
-                inventory.AddItem(itemWorld.item);
-                Destroy(collision.gameObject);
+                itemForPickup = itemWorld;
+                
+                if (StaticGameVariables.itemPickupCanvas.isActiveAndEnabled)
+                {
+                    StaticGameVariables.UpdateItemPickableInfo(itemWorld);
+                }
+                else
+                {
+                    StaticGameVariables.ShowItemPickableInfo(itemWorld);
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 30) // Items
+        {
+            if (collision.TryGetComponent(out ItemWorld itemWorld) && ReferenceEquals(itemForPickup, itemWorld))
+            {
+                itemForPickup = null;
+                StaticGameVariables.HideItemPickableInfo();
             }
         }
     }

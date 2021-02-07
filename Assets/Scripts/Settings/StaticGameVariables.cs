@@ -55,6 +55,9 @@ public static class StaticGameVariables
     public static TMP_Text questName;
     public static TMP_Text taskDescription;
 
+    public static Canvas itemPickupCanvas;
+    public static TMP_Text itemPickupName;
+
     public static float progress;
 
     /* Settings */
@@ -151,6 +154,14 @@ public static class StaticGameVariables
         sb.Clear();
         sb.Append("TaskDescription");
         taskDescription = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
+        
+        sb.Clear();
+        sb.Append("ItemPickableCanvas");
+        itemPickupCanvas = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
+        
+        sb.Clear();
+        sb.Append("ItemPickableNameOfItem");
+        itemPickupName = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
 
         buttonUseItem = listButtons.transform.GetChild(0).GetComponent<Button>();
         buttonDropItem = listButtons.transform.GetChild(1).GetComponent<Button>();
@@ -380,6 +391,22 @@ public static class StaticGameVariables
         buttonUseItem.interactable = true;
         buttonDropItem.interactable = true;
         buttonDisItem.interactable = true;
+    }
+
+    public static void UpdateItemPickableInfo(ItemWorld itemWorld)
+    {
+        itemPickupName.text = itemWorld.item.itemInfo.itemName[(int)language];
+    }
+
+    public static void ShowItemPickableInfo(ItemWorld itemWorld)
+    {
+        UpdateItemPickableInfo(itemWorld);
+        itemPickupCanvas.enabled = true;
+    }
+    
+    public static void HideItemPickableInfo()
+    {
+        itemPickupCanvas.enabled = false;
     }
 
     public static void ChangeLanguage(int languageChange)

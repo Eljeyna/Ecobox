@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
   itemName:
-  - "\u0421\u0438\u043D\u0442\u0435\u0430"
-  - Synthea
+  - "\u0417\u0435\u043B\u0435\u043D\u0430\u044F \u043A\u043E\u0440\u043E\u0431\u043A\u0430"
+  - Green box
   itemDescription:
   - "\u0427\u0442\u043E \u044D\u0442\u043E..."
   - What is this...

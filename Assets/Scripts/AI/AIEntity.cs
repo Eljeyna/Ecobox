@@ -69,13 +69,32 @@ public abstract class AIEntity : MonoBehaviour
                 break;
         }
     }
-
-    private void OnDestroy()
+    
+    public void Attack()
     {
-        aiEntity.target = null;
-        if (!ReferenceEquals(target, null))
+        if (weapon.nextAttack > Time.time)
         {
-            Pool.Instance.AddToPool((int)PoolID.Target, target.gameObject);
+            return;
+        }
+
+        if (weapon.clip == 0)
+        {
+            weapon.fireWhenEmpty = true;
+        }
+
+        weapon.enabled = true;
+        weapon.PrimaryAttack();
+    }
+    
+    public float GetEndReachedDistance()
+    {
+        if (aiEntity.target.TryGetComponent(out CapsuleCollider2D entityCollider))
+        {
+            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider) - defaultEndReachedDistance * 2;
+        }
+        else
+        {
+            return weapon.gunData.range;
         }
     }
 
@@ -93,11 +112,19 @@ public abstract class AIEntity : MonoBehaviour
     {
         StaticGameVariables.OnPauseGame -= OnPause;
     }
+    
+    private void OnDestroy()
+    {
+        aiEntity.target = null;
+        if (!ReferenceEquals(target, null))
+        {
+            Pool.Instance.AddToPool((int)PoolID.Target, target.gameObject);
+        }
+    }
 
     public abstract void StateNormal();
     public abstract void StateDash();
     public abstract void StateStun();
     public abstract void StateAttack();
     public abstract void StateCast();
-    public abstract void Attack();
 }

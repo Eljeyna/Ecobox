@@ -85,32 +85,4 @@ public class Enemy : AIEntity
     {
         return;
     }
-
-    public override void Attack()
-    {
-        if (weapon.nextAttack > Time.time)
-        {
-            return;
-        }
-
-        if (weapon.clip == 0)
-        {
-            weapon.fireWhenEmpty = true;
-        }
-
-        weapon.enabled = true;
-        weapon.PrimaryAttack();
-    }
-
-    public float GetEndReachedDistance()
-    {
-        if (aiEntity.target.TryGetComponent(out CapsuleCollider2D entityCollider))
-        {
-            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider);
-        }
-        else
-        {
-            return weapon.gunData.range;
-        }
-    }
 }
