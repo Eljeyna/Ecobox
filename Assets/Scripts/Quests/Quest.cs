@@ -17,7 +17,7 @@ public class Quest
         this.id = id;
         this.state = QuestState.Received;
         this.currentTask = 0;
-        this.tasks = GameDirector.Instance.GetQuestTasks(id);
+        this.tasks = QuestTasksDatabase.GetTask(id);
     }
 
     public Quest(int id, QuestState state)
@@ -25,7 +25,7 @@ public class Quest
         this.id = id;
         this.state = state;
         this.currentTask = 0;
-        this.tasks = GameDirector.Instance.GetQuestTasks(id);
+        this.tasks = QuestTasksDatabase.GetTask(id);
     }
 
     public Quest(int id, QuestState state, int currentTask)
@@ -33,6 +33,6 @@ public class Quest
         this.id = id;
         this.state = state;
         this.currentTask = currentTask;
-        this.tasks = GameDirector.Instance.GetQuestTasks(id);
+        this.tasks = QuestTasksDatabase.GetTask(id);
     }
 }

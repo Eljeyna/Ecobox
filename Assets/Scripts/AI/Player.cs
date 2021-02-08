@@ -9,7 +9,7 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using UnityEngine.InputSystem.EnhancedTouch;
 #endif
 
-public class Player : AIEntity
+public class Player : AIEntity, ITranslate
 {
     public static Player Instance { get; private set; }
     
@@ -74,9 +74,6 @@ public class Player : AIEntity
         controls.Player.Movement.canceled += Movement_canceled;
 
         controls.Player.Zoom.performed += Zoom_performed;
-
-        /* Test */
-        thisEntity.TakeDamagePercent(0.5f, -1, null);
 
         GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
         targetNew.AddComponent(typeof(SpriteRenderer));
@@ -247,6 +244,19 @@ public class Player : AIEntity
         
         inventory.AddItem(itemForPickup.item);
         Destroy(itemForPickup.gameObject);
+    }
+    
+    public void GetTranslate()
+    {
+        if (ReferenceEquals(itemForPickup, null))
+        {
+            return;
+        }
+        
+        if (StaticGameVariables.itemPickupCanvas.isActiveAndEnabled)
+        {
+            StaticGameVariables.UpdateItemPickableInfo(itemForPickup);
+        }
     }
 
     private void Zoom(bool zoomOut)

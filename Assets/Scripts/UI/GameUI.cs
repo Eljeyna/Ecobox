@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class GameUI : MonoBehaviour
 {

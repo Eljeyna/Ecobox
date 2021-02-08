@@ -1,0 +1,43 @@
+{
+  "dialogues":
+  [
+    {
+      "name":"Synthea",
+      "text":"This text will be completely test in order to identify all problems in the dialogue, as well as to identify the optimal text settings.",
+      "answers":
+      [
+        {
+          "answer_text":"Go another one."
+        },
+        {
+          "answer_text":"I see."
+        },
+        {
+          "answer_text":"Back to menu.."
+        },
+        {
+          "answer_text":"Just do something."
+        }
+      ]
+    },
+    
+    {
+      "name":"Synthea",
+      "text":"Nope :*",
+      "answers":
+      [
+        {
+          "answer_text":"What the!"
+        },
+        {
+          "answer_text":"Hey!"
+        }
+      ]
+    },
+    {
+      "name":"Synthea",
+      "text":"This dialogue is needed to test the functionality without answers.",
+      "answers":[]
+    }
+  ]
+}

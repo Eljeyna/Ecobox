@@ -32,8 +32,9 @@ public class ItemInfoSelected : MonoBehaviour
         }
 
         StaticGameVariables.itemSelected = item;
-        StaticGameVariables.itemName.text = item.itemInfo.itemName[(int)StaticGameVariables.language];
-        StaticGameVariables.itemDescription.text = item.itemInfo.itemDescription[(int)StaticGameVariables.language];
+        StaticGameVariables.itemSelected.itemInfo.GetTranslate();
+        StaticGameVariables.itemName.text = item.itemInfo.itemName;
+        StaticGameVariables.itemDescription.text = item.itemInfo.itemDescription;
 
         if (!StaticGameVariables.itemInfoCanvas.isActiveAndEnabled)
         {

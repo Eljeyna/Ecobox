@@ -1,16 +1,20 @@
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using static StaticGameVariables;
 
 [CreateAssetMenu(fileName = "ItemInfo", menuName = "ScriptableObjects/Items/ItemInfo")]
-public class ItemInfo : ScriptableObject
+public class ItemInfo : ScriptableObject, ITranslate
 {
     public Sprite itemIcon;
-    public string[] itemName;
-    public string[] itemDescription;
-
     [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
+
+    public string itemName;
+    public string itemDescription;
 
     public async Task LoadSprite()
     {
@@ -24,11 +28,9 @@ public class ItemInfo : ScriptableObject
 
         await asyncOperationHandle.Task;
 
-        switch (asyncOperationHandle.Status)
+        if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
         {
-            case AsyncOperationStatus.Succeeded:
-                itemIcon = asyncOperationHandle.Result;
-                break;
+            itemIcon = asyncOperationHandle.Result;
         }
     }
 
@@ -38,5 +40,31 @@ public class ItemInfo : ScriptableObject
         {
             atlasSprite.ReleaseAsset();
         }
+    }
+
+    public void GetTranslate()
+    {
+        StringBuilder sb = new StringBuilder(Application.streamingAssetsPath + $"/Localization/{languageKeys[(int)language]}/Items/{name}.json");
+        
+#if UNITY_ANDROID
+        if (!WaitAssetLoad(sb.ToString()))
+        {
+            return;
+        }
+#endif
+
+        if (File.Exists(sb.ToString()))
+        {
+            ItemStruct json = JsonConvert.DeserializeObject<ItemStruct>(File.ReadAllText(sb.ToString()));
+
+            itemName = json.itemName;
+            itemDescription = json.itemDescription;
+        }
+    }
+
+    public struct ItemStruct
+    {
+        public string itemName;
+        public string itemDescription;
     }
 }

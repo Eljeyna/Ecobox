@@ -1,0 +1,10 @@
+{
+  "dialogues":
+  [
+    {
+      "name":"Synthea",
+      "text":"Oeee!",
+      "answers":[]
+    }
+  ]
+}

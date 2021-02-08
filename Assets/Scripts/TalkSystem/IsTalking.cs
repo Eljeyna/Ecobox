@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+[RequireComponent(typeof(Dialogue))]
 public class IsTalking : MonoBehaviour
 {
     public Dialogue dialogue;
@@ -8,8 +10,15 @@ public class IsTalking : MonoBehaviour
     public bool dialogueStart = false;
     public bool controlAfter = true;
 
-    public DialogueAction actionAfterDialogue;
-    public int parameterAfterDialogue;
+    public DialogueScript scriptAfterDialogue;
+
+    private void Awake()
+    {
+        if (TryGetComponent(out Dialogue newDialogue))
+        {
+            dialogue = newDialogue;
+        }
+    }
 
     private void Start()
     {
@@ -38,9 +47,9 @@ public class IsTalking : MonoBehaviour
         _currentLine = _defaultLine;
         dialogueStart = false;
 
-        if (actionAfterDialogue != 0)
+        if (scriptAfterDialogue != null)
         {
-            GameDirector.Instance.DialogueAction(actionAfterDialogue, parameterAfterDialogue);
+            scriptAfterDialogue.Use();
             return;
         }
 
@@ -78,9 +87,9 @@ public class IsTalking : MonoBehaviour
 
     public void SetDialogue(int id, int dialogueLine)
     {
-        if (dialogue.dialogues[_currentLine].answers[id].action != 0)
+        if (dialogue.dialogues[_currentLine].answers[id].script != null)
         {
-            GameDirector.Instance.DialogueAction(dialogue.dialogues[_currentLine].answers[id].action, dialogue.dialogues[_currentLine].answers[id].parameter);
+            dialogue.dialogues[_currentLine].answers[id].script.Use();
         }
 
         SetDialogue(dialogueLine);
@@ -88,16 +97,8 @@ public class IsTalking : MonoBehaviour
 
     public void UpdateDialogue()
     {
-        if (StaticGameVariables.language == StaticGameVariables.Language.Russian)
-        {
-            GameUI.Instance.dialogueBoxName.text = dialogue.dialogues[_currentLine].name;
-            GameUI.Instance.dialogueBoxText.text = dialogue.dialogues[_currentLine].text;
-        }
-        else
-        {
-            GameUI.Instance.dialogueBoxName.text = dialogue.english[_currentLine].name;
-            GameUI.Instance.dialogueBoxText.text = dialogue.english[_currentLine].text;
-        }
+        GameUI.Instance.dialogueBoxName.text = dialogue.dialogues[_currentLine].name;
+        GameUI.Instance.dialogueBoxText.text = dialogue.dialogues[_currentLine].text;
 
         if (dialogue.dialogues[_currentLine].answers.Length > 0)
         {
@@ -112,9 +113,7 @@ public class IsTalking : MonoBehaviour
 
             for (int i = 0; i < dialogue.dialogues[_currentLine].answers.Length; i++)
             {
-                GameUI.Instance.dialogueButtons[i + length].text.text = StaticGameVariables.language == StaticGameVariables.Language.Russian ?
-                                dialogue.dialogues[_currentLine].answers[i].answer_text :
-                                dialogue.english[_currentLine].answers[i].answer_text;
+                GameUI.Instance.dialogueButtons[i + length].text.text = dialogue.dialogues[_currentLine].answers[i].answer_text;
                 GameUI.Instance.dialogueButtons[i + length].line = dialogue.dialogues[_currentLine].answers[i].goto_line;
             }
         }

@@ -42,8 +42,6 @@ public class Settings : MonoBehaviour
 
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
-        
-        StaticGameVariables.InitializeLanguage();
     }
 
     private void Start()

@@ -11,6 +11,8 @@ public class SyntheaGreenBox : Item
         GameDirector.Instance.UpdateQuest(0);
 
         StaticGameVariables.HideInventory();
-        GameObject.Find(talkID).GetComponent<IsTalking>().StartTalk();
+        IsTalking syntheaTalk = GameObject.Find(talkID).GetComponent<IsTalking>();
+        syntheaTalk.enabled = true;
+        syntheaTalk.StartTalk();
     }
 }

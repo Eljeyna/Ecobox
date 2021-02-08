@@ -16,19 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: c25a1af589aabd44c9b21ce09c067b87
-  m_SerializeEntries:
-  - m_GUID: ddc82d0f2fa00ba49a67abce461b0d86
-    m_Address: Assets/ScriptableObjects
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 87bf2495cefd9a749998daf212c75102
-    m_Address: Assets/SpriteAtlas/ItemsAtlas.spriteatlas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

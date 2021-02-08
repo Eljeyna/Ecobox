@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class Stats : MonoBehaviour, ISaveState
@@ -169,7 +170,7 @@ public class Stats : MonoBehaviour, ISaveState
         saveObject.weapon = Player.Instance.weapon;
         saveObject.positionX = Player.Instance.transform.position.x;
         saveObject.positionY = Player.Instance.transform.position.y;
-        string json = JsonUtility.ToJson(saveObject);
+        string json = JsonConvert.SerializeObject(saveObject);
 
         return json;
     }
@@ -178,17 +179,24 @@ public class Stats : MonoBehaviour, ISaveState
     {
         StringBuilder sb = new StringBuilder();
         sb.Append(StaticGameVariables._SAVE_FOLDER + "/save0.json");
+        
+#if UNITY_ANDROID
+        if (!StaticGameVariables.WaitAssetLoad(sb.ToString()))
+        {
+            return;
+        }
+#endif
 
         if (File.Exists(sb.ToString()))
         {
-            Saveable saveObject = JsonUtility.FromJson<Saveable>(File.ReadAllText(sb.ToString()));
+            Saveable saveObject = JsonConvert.DeserializeObject<Saveable>(File.ReadAllText(sb.ToString()));
 
             if (saveObject.itemsID.Count > 0)
             {
                 Player.Instance.inventory.ClearInventory();
                 for (int i = 0; i < saveObject.itemsID.Count; i++)
                 {
-                    Player.Instance.inventory.AddItem(Player.Instance.inventory.itemDatabase.GetItem(saveObject.itemsID[i]), saveObject.itemsAmount[i]);
+                    Player.Instance.inventory.AddItem(ItemDatabase.GetItem(saveObject.itemsID[i]), saveObject.itemsAmount[i]);
                 }
             }
 

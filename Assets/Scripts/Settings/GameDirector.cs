@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AddressableAssets;
@@ -28,20 +27,6 @@ public class GameDirector : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-        gameUI.InstantiateAsync();
-
-        TestStruct test = new TestStruct();
-        test.translation = new Dictionary<string, string>();
-        test.translation.Add("UI NEW GAME", "Новая игра");
-        test.translation.Add("UI LOAD GAME", "Загрузить");
-        string json = JsonUtility.ToJson(test);
-        File.WriteAllText(StaticGameVariables._ASSETS_FOLDER + "/Localization/Russian/localization.json", json);
-    }
-
-    public struct TestStruct
-    {
-        public Dictionary<string, string> translation;
     }
 
     private void Update()
@@ -53,6 +38,11 @@ public class GameDirector : MonoBehaviour
         
         debugFPS.text = $"{(int)(1f / Time.unscaledDeltaTime)}";
         timeToUpdate = Time.time + 1f;
+    }
+
+    public void Preload()
+    {
+        gameUI.InstantiateAsync();
     }
 
     public void Initialize()
@@ -148,19 +138,6 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public QuestTasks GetQuestTasks(int id)
-    {
-        for (int i = 0; i < tasks.questTasks.Length; i++)
-        {
-            if (tasks.questTasks[i].id == id)
-            {
-                return tasks.questTasks[i];
-            }
-        }
-
-        return null;
-    }
-
     public Quest GetQuest(int id)
     {
         for (int i = 0; i < quests.Count; i++)
@@ -172,31 +149,6 @@ public class GameDirector : MonoBehaviour
         }
 
         return null;
-    }
-
-    public bool DialogueAction(DialogueAction dialogueAction, int parameter)
-    {
-        switch(dialogueAction)
-        {
-            case global::DialogueAction.AddExp:
-                break;
-            case global::DialogueAction.AddStrength:
-                break;
-            case global::DialogueAction.AddAgility:
-                break;
-            case global::DialogueAction.AddIntelligence:
-                break;
-            case global::DialogueAction.AddStamina:
-                break;
-            case global::DialogueAction.CheckStrength:
-                break;
-            case global::DialogueAction.CheckAgility:
-                break;
-            case global::DialogueAction.CheckIntelligence:
-                break;
-        }
-
-        return false;
     }
 
     public void StartDialogue()

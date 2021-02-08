@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public ItemDatabase itemDatabase;
-
     public float weight;
     public List<Item> itemList = new List<Item>();
 

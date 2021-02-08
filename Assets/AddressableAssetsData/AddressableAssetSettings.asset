@@ -36,6 +36,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5935ee23b69f044da55cdceba6b80b2, type: 2}
   - {fileID: 11400000, guid: 72f60eacdbf92104b8c9c26df9ea14be, type: 2}
   - {fileID: 11400000, guid: 426762842923c98429a9d9580593dd8f, type: 2}
+  - {fileID: 11400000, guid: 109ca1a8f05068e4cb30dccb3bf3ba6e, type: 2}
+  - {fileID: 11400000, guid: 9fbbdadcaa24eca479b32a73f32aa4ec, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -78,6 +80,8 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - preload
+    - items
+    - questTasks
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 87545b01322fbbf468c841c32d099ab2, type: 2}

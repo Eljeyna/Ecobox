@@ -1,19 +1,39 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
-[CreateAssetMenu(fileName = "ItemDatabase", menuName = "ScriptableObjects/Items/ItemDatabase")]
-public class ItemDatabase : ScriptableObject
+public static class ItemDatabase
 {
-    public List<Item> allItems;
+    public static Dictionary<int, Item> allItems = new Dictionary<int, Item>();
+    public static AsyncOperationHandle<IList<Item>> handle;
 
-    public Item GetItem(int id)
+    public static async Task Initialize()
     {
-        foreach (Item item in allItems)
+        handle = Addressables.LoadAssetsAsync<Item>("items", null);
+        await handle.Task;
+    }
+
+    public static void OnLoad()
+    {
+        if (handle.Status != AsyncOperationStatus.Succeeded)
         {
-            if (item.id == id)
-            {
-                return item;
-            }
+            Debug.LogError("Items not loaded!");
+            return;
+        }
+        
+        foreach (var item in handle.Result)
+        {
+            allItems.Add(item.id, item);
+        }
+    }
+
+    public static Item GetItem(int id)
+    {
+        if (allItems.TryGetValue(id, out Item value))
+        {
+            return value;
         }
 
         return null;

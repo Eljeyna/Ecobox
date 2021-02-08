@@ -373,6 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 448283140}
   - component: {fileID: 448283142}
+  - component: {fileID: 448283141}
   - component: {fileID: 448283139}
   m_Layer: 0
   m_Name: Synthea Test
@@ -393,13 +394,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f4b7566e6bb6247b51d5a06ff3d3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: {fileID: 11400000, guid: 1b182437629cff044a37cc3fea9ece94, type: 2}
+  dialogue: {fileID: 0}
   _currentLine: 0
   _defaultLine: 0
   dialogueStart: 1
   controlAfter: 1
-  actionAfterDialogue: 0
-  parameterAfterDialogue: 0
+  scriptAfterDialogue: {fileID: 0}
 --- !u!4 &448283140
 Transform:
   m_ObjectHideFlags: 0
@@ -414,6 +414,46 @@ Transform:
   m_Father: {fileID: 769164591}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448283141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448283138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94012724f52eb4449093ca792ee7e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: 
+    text: 
+    answers:
+    - answer_text: 
+      goto_line: 2
+      script: {fileID: 0}
+    - answer_text: 
+      goto_line: 0
+      script: {fileID: 0}
+    - answer_text: 
+      goto_line: 1
+      script: {fileID: 0}
+    - answer_text: 
+      goto_line: 0
+      script: {fileID: 0}
+  - name: 
+    text: 
+    answers:
+    - answer_text: 
+      goto_line: 0
+      script: {fileID: 0}
+    - answer_text: 
+      goto_line: 0
+      script: {fileID: 0}
+  - name: 
+    text: 
+    answers: []
 --- !u!114 &448283142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,6 +660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 670950389}
   - component: {fileID: 670950391}
+  - component: {fileID: 670950392}
   - component: {fileID: 670950390}
   m_Layer: 0
   m_Name: Synthea 01
@@ -649,18 +690,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670950388}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65f4b7566e6bb6247b51d5a06ff3d3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: {fileID: 11400000, guid: e807e5e4e4e33084c844c0f89844c083, type: 2}
+  dialogue: {fileID: 0}
   _currentLine: 0
   _defaultLine: 0
   dialogueStart: 0
   controlAfter: 1
-  actionAfterDialogue: 0
-  parameterAfterDialogue: 0
+  scriptAfterDialogue: {fileID: 0}
 --- !u!114 &670950391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,6 +716,22 @@ MonoBehaviour:
   audioDirector: {fileID: 2069124158901168172}
   sound: 0
   timeMilliseconds: 2500
+--- !u!114 &670950392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670950388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e94012724f52eb4449093ca792ee7e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - name: 
+    text: 
+    answers: []
 --- !u!1 &703219288
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Scriptable Objects
+  m_EditorClassIdentifier: 
+  m_GroupName: Scriptable Objects
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 490e1fe6e980b9e4c81c1f76c8a8734f
+  m_SerializeEntries:
+  - m_GUID: 235511707aaff5f47b30d97581184f13
+    m_Address: Assets/ScriptableObjects/Buffs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 102900000, guid: 235511707aaff5f47b30d97581184f13, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: 235511707aaff5f47b30d97581184f13, type: 3}
+  - m_GUID: 628e88a211954b14b92985f70012a77f
+    m_Address: Assets/ScriptableObjects/Bullets
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 102900000, guid: 628e88a211954b14b92985f70012a77f, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: 628e88a211954b14b92985f70012a77f, type: 3}
+  - m_GUID: 54a3b8bf6951a7a46ab744277ae4c352
+    m_Address: Assets/ScriptableObjects/Items
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - items
+    m_MainAsset: {fileID: 102900000, guid: 54a3b8bf6951a7a46ab744277ae4c352, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: 54a3b8bf6951a7a46ab744277ae4c352, type: 3}
+  - m_GUID: b7c33d03737165e46861372058be8c2b
+    m_Address: Assets/ScriptableObjects/Quests
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - questTasks
+    m_MainAsset: {fileID: 102900000, guid: b7c33d03737165e46861372058be8c2b, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: b7c33d03737165e46861372058be8c2b, type: 3}
+  - m_GUID: de48e17a410f39749856f0a0455646d8
+    m_Address: Assets/ScriptableObjects/Weapons
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 102900000, guid: de48e17a410f39749856f0a0455646d8, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: de48e17a410f39749856f0a0455646d8, type: 3}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0d551a9caf3f069478a57ddf45c32977, type: 2}
+    - {fileID: 11400000, guid: 3b20bcdc0b9b06141b45b07e7a1ef142, type: 2}

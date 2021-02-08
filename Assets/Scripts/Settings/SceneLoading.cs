@@ -12,9 +12,14 @@ public class SceneLoading : MonoBehaviour
     private AsyncOperationHandle<SceneInstance> loadSceneAsync;
 
     private bool playAnim = false;
+    
+    private static readonly int Start = Animator.StringToHash("Start");
+    private static readonly int End = Animator.StringToHash("End");
 
     private void Awake()
     {
+        StaticGameVariables.PauseGame();
+        
         if (ReferenceEquals(Instance, null))
         {
             Instance = this;
@@ -33,8 +38,10 @@ public class SceneLoading : MonoBehaviour
 
         if (playAnim)
         {
-            anim.SetTrigger("Start");
+            anim.SetTrigger(Start);
         }
+
+        StaticGameVariables.InitializeDatabases();
     }
 
     public void SwitchToScene(string sceneName, string animId)
@@ -45,6 +52,8 @@ public class SceneLoading : MonoBehaviour
 
     public async void LoadLevel(string sceneName)
     {
+        StaticGameVariables.PauseGame();
+        
         if (Player.Instance != null)
         {
             Player.Instance.inventory.ClearInventory();
@@ -53,6 +62,13 @@ public class SceneLoading : MonoBehaviour
 
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         await loadSceneAsync.Task;
-        anim.SetTrigger("End");
+        
+        anim.SetTrigger(End);
+        Translate.Instance.GetTranslate();
+        
+        if (GameDirector.Instance != null)
+        {
+            GameDirector.Instance.Preload();
+        }
     }
 }

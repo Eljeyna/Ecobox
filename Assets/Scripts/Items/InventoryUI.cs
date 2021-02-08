@@ -1,19 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
-    public List<Item> testItems;
-
     public TMP_Text weightText;
 
     private Inventory inventory;
     private Transform itemSlotContainer;
     private Transform itemSlotPrefab;
-
-    private bool DEBUG = true;
 
     private void Awake()
     {
@@ -26,14 +21,6 @@ public class InventoryUI : MonoBehaviour
         this.inventory = inventory;
 
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
-
-        if (DEBUG)
-        {
-            for (int i = 0; i < testItems.Count; i++)
-            {
-                inventory.AddItem(testItems[i]);
-            }
-        }
     }
 
     private void Inventory_OnItemListChanged(object sender, System.EventArgs e)

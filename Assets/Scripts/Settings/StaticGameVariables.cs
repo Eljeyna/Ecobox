@@ -2,6 +2,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Text;
+#if UNITY_ANDROID
+using UnityEngine.Networking;
+#endif
 
 public static class StaticGameVariables
 {
@@ -12,13 +15,19 @@ public static class StaticGameVariables
         English,
     }
 
+    public static string[] languageKeys = new string[]
+    {
+        "Russian",
+        "English"
+    };
+
     public enum ActionType
     {
         DropItem,
         DisassembleItem,
     }
 
-    public static bool isPause = false;
+    public static bool isPause = true;
 
     public static Language language;
     public static ActionType actionWithItem;
@@ -86,36 +95,31 @@ public static class StaticGameVariables
     
     public static event System.EventHandler OnPauseGame;
     
-#if UNITY_ANDROID && !UNITY_EDITOR
-    public static string _APPLICATION_FOLDER = "jar:file://" + Application.dataPath;
-#else
-    public static string _APPLICATION_FOLDER = Application.dataPath;
-#endif
-    
-#if UNITY_ANDROID && !UNITY_EDITOR
-    public static string _ASSETS_FOLDER = _APPLICATION_FOLDER + "!/assets";
-#endif
-    
-#if UNITY_IOS
-    public static string _ASSETS_FOLDER = _APPLICATION_FOLDER + "/Raw";
-#endif
-
-#if (!UNITY_ANDROID && !UNITY_IOS) || UNITY_EDITOR
-    public static string _ASSETS_FOLDER = _APPLICATION_FOLDER + "/StreamingAssets";
-#endif
-    public static string _SAVE_FOLDER = _APPLICATION_FOLDER + "/Saves/";
+    public static string _SAVE_FOLDER = Application.dataPath + "/Saves/";
     #endregion
 
     #region Initialize
+
+    public static async void InitializeDatabases()
+    {
+        await ItemDatabase.Initialize();
+        ItemDatabase.OnLoad();
+
+        await QuestTasksDatabase.Initialize();
+        QuestTasksDatabase.OnLoad();
+        
+        if (GameDirector.Instance != null)
+        {
+            GameDirector.Instance.Preload();
+        }
+    }
+    
     public static void InitializeLanguage()
     {
         StringBuilder sb = new StringBuilder();
         sb.Append("Language");
         int languageCheck = PlayerPrefs.GetInt(sb.ToString(), 0);
-        if (languageCheck != 0)
-        {
-            ChangeLanguage(languageCheck);
-        }
+        ChangeLanguage(languageCheck);
     }
 
     public static void InitializeAwake()
@@ -414,7 +418,8 @@ public static class StaticGameVariables
 
     public static void UpdateItemPickableInfo(ItemWorld itemWorld)
     {
-        itemPickupName.text = itemWorld.item.itemInfo.itemName[(int)language];
+        itemWorld.item.itemInfo.GetTranslate();
+        itemPickupName.text = itemWorld.item.itemInfo.itemName;
     }
 
     public static void ShowItemPickableInfo(ItemWorld itemWorld)
@@ -432,31 +437,8 @@ public static class StaticGameVariables
     {
         StringBuilder sb = new StringBuilder();
         language = (Language)languageChange;
-
-        sb.Append("Translate");
-        GameObject[] allUI = GameObject.FindGameObjectsWithTag(sb.ToString());
-        foreach (GameObject child in allUI)
-        {
-            TranslateUI translation = child.GetComponent<TranslateUI>();
-            TMP_Text textUI = child.gameObject.GetComponent<TMP_Text>();
-
-            if (ReferenceEquals(textUI, null))
-            {
-                textUI = child.transform.GetChild(0).GetComponent<TMP_Text>();
-            }
-
-            textUI.text = translation.languages[languageChange];
-        }
-
-        if (!ReferenceEquals(GameDirector.Instance, null))
-        {
-            if (!ReferenceEquals(GameDirector.Instance.activeQuest, null))
-            {
-                GameDirector.Instance.UpdateQuestDescription(GameDirector.Instance.activeQuest, GameDirector.Instance.activeQuest.currentTask);
-            }
-        }
-
-        sb.Clear();
+        Translate.Instance.GetTranslate();
+        
         sb.Append("Language");
         PlayerPrefs.SetInt(sb.ToString(), languageChange);
         PlayerPrefs.Save();
@@ -490,5 +472,21 @@ public static class StaticGameVariables
         Vector3 direction = pos1 - pos2;
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
+    
+#if UNITY_ANDROID
+    public static bool WaitAssetLoad(string path)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(path);
+        www.SendWebRequest();
+        while (!www.isDone) {}
+
+        if (www.isNetworkError)
+        {
+            return false;
+        }
+
+        return true;
+    }
+#endif
     #endregion
 }
