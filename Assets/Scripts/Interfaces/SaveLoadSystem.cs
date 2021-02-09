@@ -22,13 +22,6 @@ public class SaveLoadSystem : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-        
-#if UNITY_ANDROID
-        if (!StaticGameVariables.WaitAssetLoad(StaticGameVariables._SAVE_FOLDER))
-        {
-            return;
-        }
-#endif
 
         if (!Directory.Exists(StaticGameVariables._SAVE_FOLDER))
         {
@@ -38,7 +31,7 @@ public class SaveLoadSystem : MonoBehaviour
 
     public void Save()
     {
-        StringBuilder sb = new StringBuilder(StaticGameVariables._SAVE_FOLDER + "/save0.json");
+        StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
         
         json = string.Empty;
         foreach (var monoBehaviour in FindObjectsOfType<MonoBehaviour>())
@@ -49,13 +42,6 @@ public class SaveLoadSystem : MonoBehaviour
             }
         }
         
-#if UNITY_ANDROID
-        if (!StaticGameVariables.WaitAssetLoad(sb.ToString()))
-        {
-            return;
-        }
-#endif
-
         File.WriteAllText(sb.ToString(), json);
     }
 

@@ -15,28 +15,31 @@ public class Dialogue : MonoBehaviour, ITranslate
 
     public void GetTranslate()
     {
-        StringBuilder sb = new StringBuilder(Application.streamingAssetsPath + $"/Localization/{languageKeys[(int)language]}/Dialogues/{gameObject.name}.json");
-        
+        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Dialogues", $"{gameObject.name}.json")));
+
 #if UNITY_ANDROID
-        if (!WaitAssetLoad(sb.ToString()))
+        if (sb.ToString() == string.Empty)
         {
             return;
         }
-#endif
-
-        if (File.Exists(sb.ToString()))
+        
+        DialogueFile json = JsonConvert.DeserializeObject<DialogueFile>(sb.ToString());
+#else
+        if (!File.Exists(sb.ToString()))
         {
-            DialogueFile json = JsonConvert.DeserializeObject<DialogueFile>(File.ReadAllText(sb.ToString()));
+            return;
+        }
 
-            for (int i = 0; i < json.dialogues.Length; i++)
-            {
-                dialogues[i].name = json.dialogues[i].name;
-                dialogues[i].text = json.dialogues[i].text;
+        DialogueFile json = JsonConvert.DeserializeObject<DialogueFile>(File.ReadAllText(sb.ToString()));
+#endif
+        for (int i = 0; i < json.dialogues.Length; i++)
+        {
+            dialogues[i].name = json.dialogues[i].name;
+            dialogues[i].text = json.dialogues[i].text;
             
-                for (int j = 0; j < json.dialogues[i].answers.Length; j++)
-                {
-                    dialogues[i].answers[j].answer_text = json.dialogues[i].answers[j].answer_text;
-                }
+            for (int j = 0; j < json.dialogues[i].answers.Length; j++)
+            {
+                dialogues[i].answers[j].answer_text = json.dialogues[i].answers[j].answer_text;
             }
         }
     }

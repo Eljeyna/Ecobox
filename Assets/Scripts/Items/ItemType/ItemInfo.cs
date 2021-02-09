@@ -44,22 +44,25 @@ public class ItemInfo : ScriptableObject, ITranslate
 
     public void GetTranslate()
     {
-        StringBuilder sb = new StringBuilder(Application.streamingAssetsPath + $"/Localization/{languageKeys[(int)language]}/Items/{name}.json");
-        
+        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Items", $"{name}.json")));
+
 #if UNITY_ANDROID
-        if (!WaitAssetLoad(sb.ToString()))
+        if (sb.ToString() == string.Empty)
         {
             return;
         }
-#endif
-
-        if (File.Exists(sb.ToString()))
+        
+        ItemStruct json = JsonConvert.DeserializeObject<ItemStruct>(sb.ToString());
+#else
+        if (!File.Exists(sb.ToString()))
         {
-            ItemStruct json = JsonConvert.DeserializeObject<ItemStruct>(File.ReadAllText(sb.ToString()));
-
-            itemName = json.itemName;
-            itemDescription = json.itemDescription;
+            return;
         }
+
+        ItemStruct json = JsonConvert.DeserializeObject<ItemStruct>(File.ReadAllText(sb.ToString()));
+#endif
+        itemName = json.itemName;
+        itemDescription = json.itemDescription;
     }
 
     public struct ItemStruct

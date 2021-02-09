@@ -49,6 +49,12 @@ public class Stats : MonoBehaviour, ISaveState
 
     private void Update()
     {
+        if (StaticGameVariables.isPause)
+        {
+            nextStaminaRegen += Time.time - (Time.time + nextStaminaRegen);
+            return;
+        }
+        
         if (stamina <= maxStamina && nextStaminaRegen <= Time.time)
         {
             stamina += staminaRegen;
@@ -170,26 +176,18 @@ public class Stats : MonoBehaviour, ISaveState
         saveObject.weapon = Player.Instance.weapon;
         saveObject.positionX = Player.Instance.transform.position.x;
         saveObject.positionY = Player.Instance.transform.position.y;
-        string json = JsonConvert.SerializeObject(saveObject);
+        string json = JsonUtility.ToJson(saveObject);
 
         return json;
     }
 
     public void Load()
     {
-        StringBuilder sb = new StringBuilder();
-        sb.Append(StaticGameVariables._SAVE_FOLDER + "/save0.json");
-        
-#if UNITY_ANDROID
-        if (!StaticGameVariables.WaitAssetLoad(sb.ToString()))
-        {
-            return;
-        }
-#endif
+        StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
 
         if (File.Exists(sb.ToString()))
         {
-            Saveable saveObject = JsonConvert.DeserializeObject<Saveable>(File.ReadAllText(sb.ToString()));
+            Saveable saveObject = JsonUtility.FromJson<Saveable>(File.ReadAllText(sb.ToString()));
 
             if (saveObject.itemsID.Count > 0)
             {

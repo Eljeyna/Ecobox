@@ -2,9 +2,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Text;
-#if UNITY_ANDROID
 using UnityEngine.Networking;
-#endif
+using System.Collections;
+using System.IO;
 
 public static class StaticGameVariables
 {
@@ -95,7 +95,7 @@ public static class StaticGameVariables
     
     public static event System.EventHandler OnPauseGame;
     
-    public static string _SAVE_FOLDER = Application.dataPath + "/Saves/";
+    public static string _SAVE_FOLDER = Path.Combine(Application.persistentDataPath, "Saves");
     #endregion
 
     #region Initialize
@@ -473,19 +473,32 @@ public static class StaticGameVariables
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
     
-#if UNITY_ANDROID
-    public static bool WaitAssetLoad(string path)
+    public static string GetAsset(string path)
     {
-        UnityWebRequest www = UnityWebRequest.Get(path);
-        www.SendWebRequest();
-        while (!www.isDone) {}
+#if UNITY_ANDROID
+        return GetRequest(Path.Combine(Application.streamingAssetsPath, path));
+#else
+        return new StringBuilder(Path.Combine(Application.streamingAssetsPath, path)).ToString();
+#endif
+    }
 
-        if (www.isNetworkError)
+#if UNITY_ANDROID
+    static string GetRequest(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
-            return false;
-        }
+            webRequest.SendWebRequest();
 
-        return true;
+            while (!webRequest.isDone) {}
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.LogError(webRequest.error);
+                return string.Empty;
+            }
+
+            return webRequest.downloadHandler.text;
+        }
     }
 #endif
     #endregion

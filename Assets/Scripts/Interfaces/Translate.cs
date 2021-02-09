@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
@@ -37,30 +38,33 @@ public class Translate : MonoBehaviour
             language = (int)StaticGameVariables.language;
         }
         
-        StringBuilder sb = new StringBuilder(Application.streamingAssetsPath + $"/Localization/{languageKeys[language]}/UI.json");
-        
+        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[language], "UI.json")));
+
 #if UNITY_ANDROID
-        if (!WaitAssetLoad(sb.ToString()))
+        if (sb.ToString() == string.Empty)
         {
             return;
         }
-#endif
-
-        if (File.Exists(sb.ToString()))
-        {
-            translationUI = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(sb.ToString()));
-            
-            if (translationUI == null)
-            {
-                return;
-            }
         
-            foreach (var monoBehaviour in FindObjectsOfType<MonoBehaviour>())
+        translationUI = JsonConvert.DeserializeObject<Dictionary<string, string>>(sb.ToString());
+#else
+        if (!File.Exists(sb.ToString()))
+        {
+            return;
+        }
+        
+        translationUI = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(sb.ToString()));
+#endif
+        if (translationUI == null)
+        {
+            return;
+        }
+    
+        foreach (var monoBehaviour in FindObjectsOfType<MonoBehaviour>())
+        {
+            if (monoBehaviour is ITranslate persist)
             {
-                if (monoBehaviour is ITranslate persist)
-                {
-                    persist.GetTranslate();
-                }
+                persist.GetTranslate();
             }
         }
     }
