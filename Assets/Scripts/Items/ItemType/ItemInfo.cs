@@ -65,6 +65,15 @@ public class ItemInfo : ScriptableObject, ITranslate
         itemDescription = json.itemDescription;
     }
 
+#if UNITY_EDITOR
+    private void OnEnable()
+    {
+        itemIcon = null;
+        itemName = string.Empty;
+        itemDescription = string.Empty;
+    }
+#endif
+
     public struct ItemStruct
     {
         public string itemName;

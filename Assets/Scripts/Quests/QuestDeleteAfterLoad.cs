@@ -11,7 +11,7 @@ public class QuestDeleteAfterLoad : MonoBehaviour, IAfterSaveState
         {
             if (TryGetComponent(out QuestUpdateOnDestroy script))
             {
-                gameObject.SetActive(false);
+                script.dontUpdate = true;
             }
             
             Destroy(gameObject);

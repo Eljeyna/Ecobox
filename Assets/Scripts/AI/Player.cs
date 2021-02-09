@@ -92,17 +92,6 @@ public class Player : AIEntity, ITranslate
         
         target = targetNew.transform;
     }
-    
-    private void FixedUpdate()
-    {
-        if (state == EntityState.Normal)
-        {
-            if (moveVelocity != Vector2.zero)
-            {
-                rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
-            }
-        }
-    }
 
     private void Update()
     {

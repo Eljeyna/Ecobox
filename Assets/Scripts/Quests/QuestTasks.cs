@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
@@ -9,8 +10,8 @@ public class QuestTasks : ScriptableObject, ITranslate
 {
     [SerializeField] public int id;
     [SerializeField] public string nameQuest;
-    [SerializeField, TextArea] public string fullDescription;
-    [SerializeField] public QuestTask[] tasks;
+    [SerializeField] public string fullDescription;
+    [SerializeField] public QuestTask[] tasksDescriptions;
 
     public void GetTranslate()
     {
@@ -33,19 +34,28 @@ public class QuestTasks : ScriptableObject, ITranslate
 #endif
         nameQuest = json.nameQuest;
         fullDescription = json.fullDescription;
-        tasks = json.tasks;
+        tasksDescriptions = json.tasksDescriptions;
     }
+
+#if UNITY_EDITOR
+    private void OnEnable()
+    {
+        nameQuest = string.Empty;
+        fullDescription = string.Empty;
+        tasksDescriptions = new QuestTask[0];
+    }
+#endif
 }
 
-[System.Serializable]
+[Serializable]
 public struct QuestTask
 {
-    [TextArea] public string[] description;
+    public string[] description;
 }
 
 public struct QuestsTasksStruct
 {
     public string nameQuest;
     public string fullDescription;
-    public QuestTask[] tasks;
+    public QuestTask[] tasksDescriptions;
 }

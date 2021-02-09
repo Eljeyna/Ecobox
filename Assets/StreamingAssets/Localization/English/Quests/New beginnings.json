@@ -1,7 +1,7 @@
 {
   "nameQuest" : "New beginnings",
   "fullDescription" : "We all start somewhere at some point...",
-  "tasks" : 
+  "tasksDescriptions" : 
   [
     {
       "description" :

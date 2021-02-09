@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AddressableAssets;
@@ -74,9 +75,16 @@ public class GameDirector : MonoBehaviour
 
     public void UpdateQuestDescription()
     {
+        StringBuilder sb = new StringBuilder();
         activeQuest.tasks.GetTranslate();
         StaticGameVariables.questName.text = activeQuest.tasks.nameQuest;
-        StaticGameVariables.taskDescription.text = activeQuest.tasks.tasks[activeQuest.currentTask].description[0];
+        
+        for (int i = 0; i < activeQuest.tasks.tasksDescriptions[activeQuest.currentTask].description.Length; i++)
+        {
+            sb.Append(activeQuest.tasks.tasksDescriptions[activeQuest.currentTask].description[i]);
+        }
+        
+        StaticGameVariables.taskDescription.text = sb.ToString();
     }
 
     public void UpdateQuest(int id)

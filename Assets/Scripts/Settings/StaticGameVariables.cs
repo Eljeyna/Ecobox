@@ -458,6 +458,11 @@ public static class StaticGameVariables
         OnPauseGame?.Invoke(GameDirector.Instance, System.EventArgs.Empty);
     }
 
+    public static float WaitInPause(float value)
+    {
+        return value += Time.time - (Time.time + value);
+    }
+
     public static void ValueChangeCheck()
     {
         yesNoAmount.text = yesNoSlider.value.ToString();

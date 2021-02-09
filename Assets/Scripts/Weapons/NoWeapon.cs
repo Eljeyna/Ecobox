@@ -7,6 +7,12 @@ public class NoWeapon : Gun
 
     private void Update()
     {
+        if (StaticGameVariables.isPause && delay != 0f)
+        {
+            delay = StaticGameVariables.WaitInPause(delay);
+            return;
+        }
+    
         if (entity.state == EntityState.Attack)
         {
             if (delay <= Time.time)

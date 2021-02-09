@@ -1,8 +1,9 @@
 public class QuestUpdateOnDestroy : QuestUpdateCommon
 {
+    public bool dontUpdate = false;
     private void OnDestroy()
     {
-        if (!this.isActiveAndEnabled)
+        if (dontUpdate)
         {
             return;
         }
