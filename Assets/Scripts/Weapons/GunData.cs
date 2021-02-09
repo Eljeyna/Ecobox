@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "GunData", menuName = "ScriptableObjects/GunData")]
+[CreateAssetMenu(menuName = "ScriptableObjects/GunData/New Gun Data")]
 public class GunData : ScriptableObject
 {
     public WeaponDamageType damageType;

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -208,13 +208,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 288080532}
+  - component: {fileID: 288080533}
   m_Layer: 0
   m_Name: _ITEMS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &288080532
 Transform:
   m_ObjectHideFlags: 0
@@ -230,6 +231,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &288080533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288080531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771400c76d32c01489610d15328b6c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &370522371
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +388,7 @@ GameObject:
   - component: {fileID: 448283142}
   - component: {fileID: 448283141}
   - component: {fileID: 448283139}
+  - component: {fileID: 448283143}
   m_Layer: 0
   m_Name: Synthea Test
   m_TagString: Untagged
@@ -389,7 +403,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448283138}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65f4b7566e6bb6247b51d5a06ff3d3a6, type: 3}
   m_Name: 
@@ -469,6 +483,20 @@ MonoBehaviour:
   audioDirector: {fileID: 2069124158901168172}
   sound: 0
   timeMilliseconds: 2500
+--- !u!114 &448283143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448283138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5207190637e1fc549aea54afdaf60b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questID: 0
+  task: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,9 +687,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 670950389}
-  - component: {fileID: 670950391}
   - component: {fileID: 670950392}
   - component: {fileID: 670950390}
+  - component: {fileID: 670950393}
   m_Layer: 0
   m_Name: Synthea 01
   m_TagString: Untagged
@@ -701,21 +729,6 @@ MonoBehaviour:
   dialogueStart: 0
   controlAfter: 1
   scriptAfterDialogue: {fileID: 0}
---- !u!114 &670950391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670950388}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e989ce7414cbb4bab056d22389d38b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioDirector: {fileID: 2069124158901168172}
-  sound: 0
-  timeMilliseconds: 2500
 --- !u!114 &670950392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +745,20 @@ MonoBehaviour:
   - name: 
     text: 
     answers: []
+--- !u!114 &670950393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670950388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5207190637e1fc549aea54afdaf60b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questID: 0
+  task: 1
 --- !u!1 &703219288
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,13 +886,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 769164591}
+  - component: {fileID: 769164592}
   m_Layer: 0
   m_Name: _DIALOGUES
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &769164591
 Transform:
   m_ObjectHideFlags: 0
@@ -882,6 +910,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &769164592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769164590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 071a6547e85f1be48ab4467c4863e3e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &774642696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34b5b26ece10ab48ad884b3077d9a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDatabase: {fileID: 11400000, guid: 66f7a850c71a68f40b3b8fe2d686a32d, type: 2}
   weight: 0
   itemList: []
 --- !u!114 &774642710
@@ -2797,6 +2836,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestItem
       objectReference: {fileID: 0}
+    - target: {fileID: 2860060068697846853, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2860060068697847226, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,
         type: 3}
       propertyPath: m_RootOrder
@@ -2852,6 +2896,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2860060068697847227, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8, type: 3}
 --- !u!1001 &4359542564001746686
@@ -2865,7 +2914,7 @@ PrefabInstance:
         type: 3}
       propertyPath: items
       value: 
-      objectReference: {fileID: 288080531}
+      objectReference: {fileID: 288080533}
     - target: {fileID: 4359542564302590194, guid: dc0df316942e7404e8fbc2e7e73bc6d0,
         type: 3}
       propertyPath: debugFPS
@@ -2875,7 +2924,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogues
       value: 
-      objectReference: {fileID: 769164590}
+      objectReference: {fileID: 769164592}
     - target: {fileID: 4359542564302590195, guid: dc0df316942e7404e8fbc2e7e73bc6d0,
         type: 3}
       propertyPath: m_RootOrder

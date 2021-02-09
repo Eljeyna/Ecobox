@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Buffs/Agility Buff")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Buffs/New Agility Buff")]
 public class AgilityBuffScriptable : ScriptableObjectBuff
 {
     public int parameter;

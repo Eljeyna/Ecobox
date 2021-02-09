@@ -22,7 +22,7 @@ public class Addressables_LoadSprite : MonoBehaviour
         
         await asyncOperationHandle.Task;
 
-        if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded && TryGetComponent(out SpriteRenderer image))
+        if (asyncOperationHandle.IsValid() && asyncOperationHandle.Status == AsyncOperationStatus.Succeeded && TryGetComponent(out SpriteRenderer image))
         {
             image.sprite = asyncOperationHandle.Result;
         }

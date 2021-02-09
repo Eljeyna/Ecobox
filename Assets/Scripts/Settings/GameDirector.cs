@@ -8,8 +8,8 @@ public class GameDirector : MonoBehaviour
     public static GameDirector Instance { get; private set; }
 
     public QuestTasksDatabase tasks;
-    public GameObject dialogues;
-    public GameObject items;
+    public DialoguesLoad dialogues;
+    public ItemsLoad items;
 
     public AssetReference gameUI;
     public TMP_Text debugFPS;
@@ -17,8 +17,8 @@ public class GameDirector : MonoBehaviour
     public IsTalking dialogue;
     public Quest activeQuest;
 
-    [HideInInspector] public List<Quest> quests = new List<Quest>();
-    [HideInInspector] public List<int> completedQuests = new List<int>();
+    public Dictionary<int, Quest> quests = new Dictionary<int, Quest>();
+    [HideInInspector] public List<int> completedQuestsID = new List<int>();
     [HideInInspector] public bool controlAfter = true;
 
     private bool DEBUG = true;
@@ -47,105 +47,86 @@ public class GameDirector : MonoBehaviour
 
     public void Initialize()
     {
-        for (int i = 0; i < completedQuests.Count; i++)
-        {
-            if (completedQuests[i] == 0)
-            {
-                return;
-            }
-        }
-
         activeQuest = new Quest(0, QuestState.Active);
-        quests.Add(activeQuest);
-        UpdateQuestDescription(activeQuest, activeQuest.currentTask);
-
-        dialogues.SetActive(true);
-        items.SetActive(true);
-
+        quests.Add(activeQuest.id, activeQuest);
+        UpdateQuestDescription();
+        
         Player.Instance.Initialize();
+
+        dialogues.Initialize();
+        items.Initialize();
     }
 
     public void AddNewQuest(int id)
     {
-        quests.Add(new Quest(id));
+        quests.Add(id, new Quest(id));
     }
 
     public void AddNewQuest(int id, QuestState state)
     {
-        quests.Add(new Quest(id, state));
+        quests.Add(id, new Quest(id, state));
     }
 
     public void AddNewQuest(int id, QuestState state, int currentTask)
     {
-        quests.Add(new Quest(id, state, currentTask));
+        quests.Add(id, new Quest(id, state, currentTask));
     }
 
-    public void UpdateQuestDescription(Quest quest, int currentTask)
+    public void UpdateQuestDescription()
     {
-        StaticGameVariables.questName.text = quest.tasks.nameQuest[(int)StaticGameVariables.language];
-        StaticGameVariables.taskDescription.text = StaticGameVariables.language == StaticGameVariables.Language.Russian ?
-            quest.tasks.tasks[currentTask].description[0] :
-            quest.tasks.english[currentTask].description[0];
+        activeQuest.tasks.GetTranslate();
+        StaticGameVariables.questName.text = activeQuest.tasks.nameQuest;
+        StaticGameVariables.taskDescription.text = activeQuest.tasks.tasks[activeQuest.currentTask].description[0];
     }
 
     public void UpdateQuest(int id)
     {
         Quest quest = GetQuest(id);
 
-        if (quest != null)
+        if (quest == null)
         {
-            quest.currentTask += 1;
+            return;
         }
+        
+        quest.currentTask += 1;
 
-        UpdateQuestDescription(quest, quest.currentTask);
+        if (quest.id == activeQuest.id)
+        {
+            UpdateQuestDescription();
+        }
     }
 
     public void UpdateQuest(int id, int task)
     {
         Quest quest = GetQuest(id);
 
-        if (quest != null)
+        if (quest == null)
         {
-            quest.currentTask = task;
+            return;
         }
-
-        UpdateQuestDescription(quest, quest.currentTask);
-    }
-
-    public void UpdateQuest(Quest quest)
-    {
-        quest.currentTask += 1;
-
-        UpdateQuestDescription(quest, quest.currentTask);
-    }
-
-    public void UpdateQuest(Quest quest, int task)
-    {
+        
         quest.currentTask = task;
 
-        UpdateQuestDescription(quest, quest.currentTask);
+        if (quest.id == activeQuest.id)
+        {
+            UpdateQuestDescription();
+        }
     }
 
     public void CompleteQuest(int id)
     {
-        for (int i = 0; i < quests.Count; i++)
+        if (quests.TryGetValue(id, out Quest value))
         {
-            if (quests[i].id == id)
-            {
-                completedQuests.Add(quests[i].id);
-                quests.RemoveAt(i);
-            }
+            completedQuestsID.Add(id);
+            quests.Remove(id);
         }
     }
 
     public Quest GetQuest(int id)
     {
-        for (int i = 0; i < quests.Count; i++)
+        if (quests.TryGetValue(id, out Quest value))
         {
-            if (quests[i].id == id)
-            {
-                return quests[i];
-            }
+            return value;
         }
 
         return null;

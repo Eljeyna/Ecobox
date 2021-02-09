@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bdd3c555eb8ed498a9c7c692160bdd, type: 3}
   m_Name: Synthea (Green Box)
   m_EditorClassIdentifier: 
-  key: Synthea (Green Box)
   itemIcon: {fileID: 0}
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3

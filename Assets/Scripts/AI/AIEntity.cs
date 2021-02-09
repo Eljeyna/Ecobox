@@ -72,7 +72,7 @@ public abstract class AIEntity : MonoBehaviour
     
     public void Attack()
     {
-        if (weapon.nextAttack > Time.time)
+        if (ReferenceEquals(weapon, null) || weapon.nextAttack > Time.time)
         {
             return;
         }

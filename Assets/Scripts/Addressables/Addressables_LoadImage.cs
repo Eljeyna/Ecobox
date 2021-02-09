@@ -23,7 +23,7 @@ public class Addressables_LoadImage : MonoBehaviour
 
         await asyncOperationHandle.Task;
 
-        if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded && TryGetComponent(out Image image))
+        if (asyncOperationHandle.IsValid() && asyncOperationHandle.Status == AsyncOperationStatus.Succeeded && TryGetComponent(out Image image))
         {
             image.sprite = asyncOperationHandle.Result;
         }

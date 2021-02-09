@@ -1,0 +1,25 @@
+{
+  "nameQuest" : "New beginnings",
+  "fullDescription" : "We all start somewhere at some point...",
+  "tasks" : 
+  [
+    {
+      "description" :
+      [
+        "Find green box"
+      ]
+    },
+    {
+      "description" :
+      [
+        "Open green box" 
+      ]
+    },
+    {
+      "description" :
+      [
+        "Follow Synthea" 
+      ]
+    }
+  ]
+}

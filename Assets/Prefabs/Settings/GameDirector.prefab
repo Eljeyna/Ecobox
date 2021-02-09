@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421df94b0622f9148a869917c92e2287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tasks: {fileID: 11400000, guid: 5464e9a38a2e829448cbf34250e1c333, type: 2}
   dialogues: {fileID: 0}
   items: {fileID: 0}
   gameUI:
@@ -53,7 +52,7 @@ MonoBehaviour:
     m_SubObjectType: 
   debugFPS: {fileID: 0}
   dialogue: {fileID: 0}
-  completedQuests: 
+  completedQuestsID: 
   controlAfter: 1
 --- !u!114 &4359542564001746688
 MonoBehaviour:

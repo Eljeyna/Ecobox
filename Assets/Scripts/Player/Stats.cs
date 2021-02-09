@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class Stats : MonoBehaviour, ISaveState
@@ -141,7 +140,7 @@ public class Stats : MonoBehaviour, ISaveState
     public string Save()
     {
         Saveable saveObject = new Saveable();
-
+        
         if (Player.Instance.inventory.itemList.Count > 0)
         {
             saveObject.itemsID = new List<int>();
@@ -152,7 +151,38 @@ public class Stats : MonoBehaviour, ISaveState
                 saveObject.itemsAmount.Add(Player.Instance.inventory.itemList[i].itemAmount);
             }
         }
-
+        
+        if (GameDirector.Instance.quests.Count > 0)
+        {
+            saveObject.questID = new List<int>();
+            saveObject.questStates = new List<QuestState>();
+            saveObject.questTask = new List<int>();
+            foreach (int key in GameDirector.Instance.quests.Keys)
+            {
+                saveObject.questID.Add(GameDirector.Instance.quests[key].id);
+                saveObject.questStates.Add(GameDirector.Instance.quests[key].state);
+                saveObject.questTask.Add(GameDirector.Instance.quests[key].currentTask);
+            }
+        }
+        
+        if (GameDirector.Instance.completedQuestsID.Count > 0)
+        {
+            saveObject.completedQuestID = new List<int>();
+            for (int i = 0; i < GameDirector.Instance.completedQuestsID.Count; i++)
+            {
+                saveObject.completedQuestID.Add(GameDirector.Instance.completedQuestsID[i]);
+            }
+        }
+        
+        if (GameDirector.Instance.activeQuest != null)
+        {
+            saveObject.activeQuestID = GameDirector.Instance.activeQuest.id;
+        }
+        else
+        {
+            saveObject.activeQuestID = -1;
+        }
+        
         saveObject.maxStamina = maxStamina;
         saveObject.stamina = stamina;
         saveObject.staminaRegen = staminaRegen;
@@ -177,7 +207,7 @@ public class Stats : MonoBehaviour, ISaveState
         saveObject.positionX = Player.Instance.transform.position.x;
         saveObject.positionY = Player.Instance.transform.position.y;
         string json = JsonUtility.ToJson(saveObject);
-
+        
         return json;
     }
 
@@ -196,6 +226,21 @@ public class Stats : MonoBehaviour, ISaveState
                 {
                     Player.Instance.inventory.AddItem(ItemDatabase.GetItem(saveObject.itemsID[i]), saveObject.itemsAmount[i]);
                 }
+            }
+
+            if (saveObject.questID.Count > 0)
+            {
+                GameDirector.Instance.quests.Clear();
+                for (int i = 0; i < saveObject.questID.Count; i++)
+                {
+                    GameDirector.Instance.quests.Add(saveObject.questID[i], new Quest(saveObject.questID[i], saveObject.questStates[i], saveObject.questTask[i]));
+                }
+            }
+            
+            if (saveObject.activeQuestID != -1)
+            {
+                GameDirector.Instance.activeQuest = GameDirector.Instance.quests[saveObject.activeQuestID];
+                GameDirector.Instance.UpdateQuestDescription();
             }
 
             maxStamina = saveObject.maxStamina;

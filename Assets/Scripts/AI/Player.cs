@@ -63,6 +63,7 @@ public class Player : AIEntity, ITranslate
     {
         inventoryUI = GameObject.Find("ListSlots").GetComponent<InventoryUI>();
         inventoryUI.SetInventory(inventory);
+        inventoryUI.Initialize();
 
         stats.Initialize();
 

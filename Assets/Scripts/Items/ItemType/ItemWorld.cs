@@ -11,6 +11,7 @@ public class ItemWorld : MonoBehaviour
         {
             minimapSprite = spriteRenderer;
         }
+        
         minimapSprite.color = StaticGameVariables.colorItems[(int)item.itemQuality];
     }
 }

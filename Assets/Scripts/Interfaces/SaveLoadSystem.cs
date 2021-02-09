@@ -54,11 +54,19 @@ public class SaveLoadSystem : MonoBehaviour
                 persist.Load();
             }
         }
+        
+        AfterLoadSystem.Instance.Load();
     }
 }
 
 public struct Saveable
 {
+    public List<int> questID;
+    public List<int> questTask;
+    public List<QuestState> questStates;
+    public List<int> completedQuestID;
+    public int activeQuestID;
+    
     public List<int> itemsID;
     public List<int> itemsAmount;
 

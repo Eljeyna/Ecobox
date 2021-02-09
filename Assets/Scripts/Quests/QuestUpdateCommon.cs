@@ -2,27 +2,11 @@ public class QuestUpdateCommon : QuestUpdate
 {
     public override void UpdateQuest()
     {
-        if (quest == null)
-        {
-            quest = GameDirector.Instance.GetQuest(id);
-        }
-
-        if (quest != null)
-        {
-            GameDirector.Instance.UpdateQuest(quest);
-        }
+        GameDirector.Instance.UpdateQuest(id);
     }
 
     public override void UpdateQuest(int nextTask)
     {
-        if (quest == null)
-        {
-            quest = GameDirector.Instance.GetQuest(id);
-        }
-
-        if (quest != null)
-        {
-            GameDirector.Instance.UpdateQuest(quest, nextTask);
-        }
+        GameDirector.Instance.UpdateQuest(id, nextTask);
     }
 }

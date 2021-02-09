@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine.UI;
 using System.Text;
 using UnityEngine.Networking;
-using System.Collections;
 using System.IO;
 
 public static class StaticGameVariables
@@ -11,14 +10,14 @@ public static class StaticGameVariables
     #region Variables
     public enum Language
     {
-        Russian = 0,
-        English,
+        English = 0,
+        Russian,
     }
 
-    public static string[] languageKeys = new string[]
+    public static readonly string[] languageKeys =
     {
-        "Russian",
-        "English"
+        "English",
+        "Russian"
     };
 
     public enum ActionType
@@ -96,6 +95,7 @@ public static class StaticGameVariables
     public static event System.EventHandler OnPauseGame;
     
     public static string _SAVE_FOLDER = Path.Combine(Application.persistentDataPath, "Saves");
+    public static string defaultValueAmount = "1";
     #endregion
 
     #region Initialize
@@ -108,7 +108,7 @@ public static class StaticGameVariables
         await QuestTasksDatabase.Initialize();
         QuestTasksDatabase.OnLoad();
         
-        if (GameDirector.Instance != null)
+        if (!ReferenceEquals(GameDirector.Instance, null))
         {
             GameDirector.Instance.Preload();
         }
@@ -116,8 +116,7 @@ public static class StaticGameVariables
     
     public static void InitializeLanguage()
     {
-        StringBuilder sb = new StringBuilder();
-        sb.Append("Language");
+        StringBuilder sb = new StringBuilder("Language");
         int languageCheck = PlayerPrefs.GetInt(sb.ToString(), 0);
         ChangeLanguage(languageCheck);
     }
@@ -205,8 +204,6 @@ public static class StaticGameVariables
         colorItems[3] = new Color(147f / 255f, 86f / 255f, 183f / 255f, 1f);
         colorItems[4] = new Color(183f / 255f, 175f / 255f, 86f / 255f, 1f);
         colorItems[5] = new Color(183f / 255f, 121f / 255f, 86f / 255f, 1f);
-        
-        GameDirector.Instance.Initialize();
     }
     #endregion
 
@@ -332,7 +329,7 @@ public static class StaticGameVariables
 
     public static void OpenConfirmMenu()
     {
-        yesNoAmount.text = "1";
+        yesNoAmount.text = defaultValueAmount;
         yesNoSlider.value = 1;
         yesNoSlider.maxValue = itemSelected.itemAmount;
         inventoryGroup.blocksRaycasts = false;
@@ -442,6 +439,11 @@ public static class StaticGameVariables
         sb.Append("Language");
         PlayerPrefs.SetInt(sb.ToString(), languageChange);
         PlayerPrefs.Save();
+        
+        if (!ReferenceEquals(GameDirector.Instance, null) && !ReferenceEquals(GameDirector.Instance.activeQuest, null))
+        {
+            GameDirector.Instance.UpdateQuestDescription();
+        }
     }
 
     public static void PauseGame()
@@ -493,7 +495,7 @@ public static class StaticGameVariables
 
             if (webRequest.isNetworkError)
             {
-                Debug.LogError(webRequest.error);
+                //Debug.LogError(webRequest.error);
                 return string.Empty;
             }
 

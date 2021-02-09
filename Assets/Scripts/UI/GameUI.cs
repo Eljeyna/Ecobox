@@ -23,5 +23,25 @@ public class GameUI : MonoBehaviour
         {
             canvas.worldCamera = Player.Instance.mainCamera;
         }
+
+        if (Settings.Instance.gameIsLoaded)
+        {
+            circleRepeat.SetActive(false);
+            
+            Player.Instance.Initialize();
+            
+            GameDirector.Instance.dialogues.Initialize();
+            GameDirector.Instance.items.Initialize();
+            
+            SaveLoadSystem.Instance.Load();
+            
+            Settings.Instance.gameIsLoaded = false;
+            
+            StaticGameVariables.ResumeGame();
+        }
+        else
+        {
+            GameDirector.Instance.Initialize();
+        }
     }
 }

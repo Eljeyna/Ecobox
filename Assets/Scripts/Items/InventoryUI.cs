@@ -10,7 +10,7 @@ public class InventoryUI : MonoBehaviour
     private Transform itemSlotContainer;
     private Transform itemSlotPrefab;
 
-    private void Awake()
+    public void Initialize()
     {
         itemSlotContainer = gameObject.transform;
         itemSlotPrefab = itemSlotContainer.transform.GetChild(0);
@@ -79,10 +79,13 @@ public class InventoryUI : MonoBehaviour
 
     public void RemoveInventorySlots()
     {
-        foreach (Transform child in itemSlotContainer)
+        if (itemSlotContainer.transform.childCount > 0)
         {
-            if (child == itemSlotPrefab) continue;
-            Destroy(child.gameObject);
+            foreach (Transform child in itemSlotContainer)
+            {
+                if (child == itemSlotPrefab) continue;
+                Destroy(child.gameObject);
+            }
         }
     }
 }

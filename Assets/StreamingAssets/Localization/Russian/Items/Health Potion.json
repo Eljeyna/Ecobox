@@ -1,1 +1,4 @@
-{"itemName":null,"itemDescription":null}
+{
+  "itemName" : "Зелье здоровья",
+  "itemDescription" : "Восстанавливает 20% здоровья."
+}

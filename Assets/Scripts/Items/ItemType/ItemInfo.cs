@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using static StaticGameVariables;
 
-[CreateAssetMenu(fileName = "ItemInfo", menuName = "ScriptableObjects/Items/ItemInfo")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Items/New Item Info")]
 public class ItemInfo : ScriptableObject, ITranslate
 {
     public Sprite itemIcon;
