@@ -3853,7 +3853,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <error while text is loading>
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a379f58f339a1fb408624ee6c249d975, type: 2}
   m_sharedMaterial: {fileID: -6709994687122458685, guid: a379f58f339a1fb408624ee6c249d975,
@@ -5134,7 +5134,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <error while text is loading>
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a379f58f339a1fb408624ee6c249d975, type: 2}
   m_sharedMaterial: {fileID: -6709994687122458685, guid: a379f58f339a1fb408624ee6c249d975,
@@ -10962,7 +10962,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <error while text is loading>
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a379f58f339a1fb408624ee6c249d975, type: 2}
   m_sharedMaterial: {fileID: -6709994687122458685, guid: a379f58f339a1fb408624ee6c249d975,
@@ -12411,7 +12411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <error while text is loading>
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a379f58f339a1fb408624ee6c249d975, type: 2}
   m_sharedMaterial: {fileID: -6709994687122458685, guid: a379f58f339a1fb408624ee6c249d975,
@@ -13212,6 +13212,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5975335090834243016}
     m_Modifications:
+    - target: {fileID: 4831841471197654079, guid: e2f67f491e9c84a4297df851c92cdf09,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4831841471947859106, guid: e2f67f491e9c84a4297df851c92cdf09,
         type: 3}
       propertyPath: m_Pivot.x

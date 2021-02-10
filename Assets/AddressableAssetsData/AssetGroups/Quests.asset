@@ -10,28 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Scriptable Objects
+  m_Name: Quests
   m_EditorClassIdentifier: 
-  m_GroupName: Scriptable Objects
+  m_GroupName: Quests
   m_Data:
     m_SerializedData: []
-  m_GUID: 490e1fe6e980b9e4c81c1f76c8a8734f
+  m_GUID: 6b57c3d6d17f861458b12e62c5c9bf27
   m_SerializeEntries:
-  - m_GUID: 628e88a211954b14b92985f70012a77f
-    m_Address: Assets/ScriptableObjects/Bullets
+  - m_GUID: b7c33d03737165e46861372058be8c2b
+    m_Address: Assets/ScriptableObjects/Quests
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: de48e17a410f39749856f0a0455646d8
-    m_Address: Assets/ScriptableObjects/Weapons
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - questTasks
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 0d551a9caf3f069478a57ddf45c32977, type: 2}
-    - {fileID: 11400000, guid: 3b20bcdc0b9b06141b45b07e7a1ef142, type: 2}
+    - {fileID: 11400000, guid: 998624e71be04f842b26274196233285, type: 2}
+    - {fileID: 11400000, guid: 6bb58340ccea1444595b707f5195c487, type: 2}

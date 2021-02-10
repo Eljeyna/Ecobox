@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4359542564302590195}
   - component: {fileID: 4359542564302590194}
-  - component: {fileID: 4359542564001746688}
   m_Layer: 0
   m_Name: GameDirector
   m_TagString: Untagged
@@ -44,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421df94b0622f9148a869917c92e2287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogues: {fileID: 0}
   items: {fileID: 0}
   gameUI:
     m_AssetGUID: 7fe507d3507859273af5485ea4e9df47
@@ -52,24 +50,9 @@ MonoBehaviour:
     m_SubObjectType: 
   debugFPS: {fileID: 0}
   dialogue: {fileID: 0}
+  testDialogue:
+    m_AssetGUID: 9d6cf73f8d9f8114bbc80a3dab313664
+    m_SubObjectName: 
+    m_SubObjectType: 
   completedQuestsID: 
   controlAfter: 1
---- !u!114 &4359542564001746688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4359542564302590197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd52ca123ed53da47b0848e5830507cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabs:
-  - m_AssetGUID: c5520302e76f6584fb016564ea4ef4ab
-    m_SubObjectName: 
-    m_SubObjectType: 
-  - m_AssetGUID: 09c4d46eb4faa7942b19e87974f28f3d
-    m_SubObjectName: 
-    m_SubObjectType: 

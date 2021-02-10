@@ -44,7 +44,6 @@ public static class StaticGameVariables
 
     public static Canvas inventoryCanvas;
     public static Canvas itemInfoCanvas;
-    public static Canvas gameUI;
     public static Canvas staticUI;
     public static Canvas inGameUI;
     public static Canvas quickUI;
@@ -65,6 +64,8 @@ public static class StaticGameVariables
 
     public static Canvas itemPickupCanvas;
     public static TMP_Text itemPickupName;
+
+    public static Transform _DIALOGUES;
 
     public static float progress;
 
@@ -97,6 +98,18 @@ public static class StaticGameVariables
     public static string _SAVE_FOLDER = Path.Combine(Application.persistentDataPath, "Saves");
     public static string defaultValueAmount = "1";
     #endregion
+    
+    #region Addressables_Paths
+
+    public static string addressablesAnimations = Path.Combine("Assets", "Animations");
+    public static string addressablesBuffs = Path.Combine("Assets", "ScriptableObjects", "Buffs");
+    public static string addressablesDialogues = Path.Combine("Assets", "Prefabs", "Dialogues");
+    public static string addressablesItems = Path.Combine("Assets", "ScriptableObjects", "Items");
+    public static string addressablesMusic = Path.Combine("Assets", "Music");
+    public static string addressablesSounds = Path.Combine("Assets", "Sounds");
+    public static string addressablesSpriteAtlas = Path.Combine("Assets", "SpriteAtlas");
+
+    #endregion
 
     #region Initialize
 
@@ -107,7 +120,7 @@ public static class StaticGameVariables
 
         await QuestTasksDatabase.Initialize();
         QuestTasksDatabase.OnLoad();
-        
+
         if (!ReferenceEquals(GameDirector.Instance, null))
         {
             GameDirector.Instance.Preload();
@@ -140,9 +153,6 @@ public static class StaticGameVariables
         sb.Clear();
         sb.Append("ItemInfo");
         itemInfoCanvas = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
-        sb.Clear();
-        sb.Append("DynamicUI");
-        gameUI = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
         sb.Clear();
         sb.Append("StaticUI");
         staticUI = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
@@ -182,6 +192,10 @@ public static class StaticGameVariables
         sb.Clear();
         sb.Append("ItemPickableNameOfItem");
         itemPickupName = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
+        
+        sb.Clear();
+        sb.Append("_DIALOGUES");
+        _DIALOGUES = GameObject.Find(sb.ToString()).transform;
 
         buttonUseItem = listButtons.transform.GetChild(0).GetComponent<Button>();
         buttonDropItem = listButtons.transform.GetChild(1).GetComponent<Button>();
@@ -479,7 +493,7 @@ public static class StaticGameVariables
         Vector3 direction = pos1 - pos2;
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
-    
+
     public static string GetAsset(string path)
     {
 #if UNITY_ANDROID

@@ -10,28 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Scriptable Objects
+  m_Name: Items
   m_EditorClassIdentifier: 
-  m_GroupName: Scriptable Objects
+  m_GroupName: Items
   m_Data:
     m_SerializedData: []
-  m_GUID: 490e1fe6e980b9e4c81c1f76c8a8734f
+  m_GUID: 6176a22262232934f8fc4120c1c9f650
   m_SerializeEntries:
-  - m_GUID: 628e88a211954b14b92985f70012a77f
-    m_Address: Assets/ScriptableObjects/Bullets
+  - m_GUID: 54a3b8bf6951a7a46ab744277ae4c352
+    m_Address: Assets/ScriptableObjects/Items
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: de48e17a410f39749856f0a0455646d8
-    m_Address: Assets/ScriptableObjects/Weapons
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - items
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 0d551a9caf3f069478a57ddf45c32977, type: 2}
-    - {fileID: 11400000, guid: 3b20bcdc0b9b06141b45b07e7a1ef142, type: 2}
+    - {fileID: 11400000, guid: d786ca21558cbf54aa554e2d43078e06, type: 2}
+    - {fileID: 11400000, guid: c9edd1f22fddd5042b4eb36a3fade200, type: 2}

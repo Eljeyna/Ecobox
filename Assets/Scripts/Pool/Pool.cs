@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 public enum PoolID
 {
@@ -33,9 +33,7 @@ public class Pool : MonoBehaviour
     {
         if (availableObjects[index].Count == 0)
         {
-            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(prefabs[index]);
-            await handle.Task;
-            AddToPool(index, Instantiate(handle.Result));
+            AddToPool(index, await Addressables.InstantiateAsync(prefabs[index]).Task);
         }
         
         GameObject instance = availableObjects[index].Dequeue();

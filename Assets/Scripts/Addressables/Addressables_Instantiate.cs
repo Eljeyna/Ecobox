@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -6,32 +5,31 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class Addressables_Instantiate : MonoBehaviour
 {
     public AssetReference[] prefabs;
+    public bool parent = false;
 
+    private AsyncOperationHandle<GameObject>[] createdObjects;
+    
     private void Awake()
     {
         AddressablesInstantiate();
     }
 
-    private void AddressablesInstantiate()
+    public void AddressablesInstantiate()
     {
-        for (int i = 0; i < prefabs.Length; i++)
-        {
-            Addressables.LoadAssetAsync<GameObject>(prefabs[i]).Completed += PrefabLoaded;
-        }
-    }
+        createdObjects = new AsyncOperationHandle<GameObject>[prefabs.Length];
 
-    private void PrefabLoaded(AsyncOperationHandle<GameObject> obj)
-    {
-        Instantiate(obj.Result);
-    }
-
-    private void OnDestroy()
-    {
-        for (int i = 0; i < prefabs.Length; i++)
+        if (parent)
         {
-            if (prefabs[i].IsValid())
+            for (int i = 0; i < prefabs.Length; i++)
             {
-                prefabs[i].ReleaseAsset();
+                createdObjects[i] = Addressables.InstantiateAsync(prefabs[i], transform, true);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < prefabs.Length; i++)
+            {
+                createdObjects[i] = Addressables.InstantiateAsync(prefabs[i]);
             }
         }
     }

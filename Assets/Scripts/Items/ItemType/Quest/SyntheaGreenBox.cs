@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-[CreateAssetMenu(fileName = "Quest", menuName = "ScriptableObjects/Items/Synthea (Quest Item)")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Items/Synthea (Quest Item)")]
 public class SyntheaGreenBox : Item
 {
-    [SerializeField] public string talkID;
+    [SerializeField] public AssetReference talkID;
     public override void Use()
     {
         itemAmount--;
@@ -11,8 +13,6 @@ public class SyntheaGreenBox : Item
         GameDirector.Instance.UpdateQuest(0);
 
         StaticGameVariables.HideInventory();
-        IsTalking syntheaTalk = GameObject.Find(talkID).GetComponent<IsTalking>();
-        syntheaTalk.enabled = true;
-        syntheaTalk.StartTalk();
+        GameDirector.Instance.InitializeDialogue(talkID);
     }
 }

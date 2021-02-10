@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -19,7 +18,6 @@ public static class ItemDatabase
     {
         if (handle.Status != AsyncOperationStatus.Succeeded)
         {
-            Debug.LogError("Items not loaded!");
             return;
         }
         

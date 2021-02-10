@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.AddressableAssets;
 
 public enum EntityState
 {
@@ -12,7 +13,20 @@ public enum EntityState
     Cast,
 }
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BaseTag))]
+[RequireComponent(typeof(BaseEntity))]
+[RequireComponent(typeof(Inventory))]
+[RequireComponent(typeof(Seeker))]
+[RequireComponent(typeof(Addressables_LoadSprite))]
+
 [RequireComponent(typeof(BuffSystem))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(AIPath))]
+[RequireComponent(typeof(AIDestinationSetter))]
+[RequireComponent(typeof(Gun))]
 public abstract class AIEntity : MonoBehaviour
 {
     public float speed;
@@ -31,7 +45,7 @@ public abstract class AIEntity : MonoBehaviour
     public BuffSystem buffSystem;
 
     public void InitializeEntity()
-    {        
+    {
         aiPath.maxSpeed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
         target = null;
@@ -118,8 +132,10 @@ public abstract class AIEntity : MonoBehaviour
         aiEntity.target = null;
         if (!ReferenceEquals(target, null))
         {
-            Pool.Instance.AddToPool((int)PoolID.Target, target.gameObject);
+            Addressables.ReleaseInstance(target.gameObject);
         }
+        
+        Addressables.ReleaseInstance(gameObject);
     }
 
     public abstract void StateNormal();

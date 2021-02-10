@@ -372,6 +372,13 @@ public class Player : AIEntity, ITranslate
         {
             atlasSprite.ReleaseAsset();
         }
+        
+        if (!ReferenceEquals(target, null))
+        {
+            Addressables.ReleaseInstance(target.gameObject);
+        }
+        
+        aiEntity.target = null;
     }
 
     private void OnEnable()

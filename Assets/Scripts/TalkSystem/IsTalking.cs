@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Dialogue))]
 public class IsTalking : MonoBehaviour
@@ -7,25 +7,14 @@ public class IsTalking : MonoBehaviour
     public Dialogue dialogue;
     public int _currentLine;
     public int _defaultLine;
-    public bool dialogueStart = false;
     public bool controlAfter = true;
 
     public DialogueScript scriptAfterDialogue;
 
     private void Awake()
     {
-        if (TryGetComponent(out Dialogue newDialogue))
-        {
-            dialogue = newDialogue;
-        }
-    }
-
-    private void Start()
-    {
-        if (dialogueStart)
-        {
-            StartTalk();
-        }
+        dialogue.GetTranslate();
+        StartTalk();
     }
 
     public void StartTalk()
@@ -45,7 +34,6 @@ public class IsTalking : MonoBehaviour
     public void IsTalkingDone()
     {
         _currentLine = _defaultLine;
-        dialogueStart = false;
 
         if (scriptAfterDialogue != null)
         {
@@ -55,9 +43,6 @@ public class IsTalking : MonoBehaviour
 
         GameDirector.Instance.controlAfter = controlAfter;
         GameDirector.Instance.StopDialogue();
-
-        StaticGameVariables.ShowInGameUI();
-        StaticGameVariables.ResumeGame();
     }
 
     public void SetDialogue(int dialogueLine)
@@ -87,9 +72,9 @@ public class IsTalking : MonoBehaviour
 
     public void SetDialogue(int id, int dialogueLine)
     {
-        if (dialogue.dialogues[_currentLine].answers[id].script != null)
+        if (dialogue.answersArray[_currentLine].answers[id].script != null)
         {
-            dialogue.dialogues[_currentLine].answers[id].script.Use();
+            dialogue.answersArray[_currentLine].answers[id].script.Use();
         }
 
         SetDialogue(dialogueLine);
@@ -114,7 +99,34 @@ public class IsTalking : MonoBehaviour
             for (int i = 0; i < dialogue.dialogues[_currentLine].answers.Length; i++)
             {
                 GameUI.Instance.dialogueButtons[i + length].text.text = dialogue.dialogues[_currentLine].answers[i].answer_text;
-                GameUI.Instance.dialogueButtons[i + length].line = dialogue.dialogues[_currentLine].answers[i].goto_line;
+                GameUI.Instance.dialogueButtons[i + length].line = dialogue.answersArray[_currentLine].answers[i].goto_line;
+
+                if (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.None)
+                {
+                    if (GameUI.Instance.dialogueButtons[i + length].TryGetComponent(out Button button))
+                    {
+                        button.interactable = true;
+                    }
+                    
+                    continue;
+                }
+
+                if (
+                    (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.Strength
+                    && dialogue.answersArray[_currentLine].answers[i].checkParameter > Player.Instance.stats.strength)
+                    ||
+                    (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.Agility
+                    && dialogue.answersArray[_currentLine].answers[i].checkParameter > Player.Instance.stats.agility)
+                    ||
+                    (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.Intelligence
+                    && dialogue.answersArray[_currentLine].answers[i].checkParameter > Player.Instance.stats.intelligence)
+                    )
+                {
+                    if (GameUI.Instance.dialogueButtons[i + length].TryGetComponent(out Button button))
+                    {
+                        button.interactable = false;
+                    }
+                }
             }
         }
         else

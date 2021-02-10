@@ -29,6 +29,7 @@ public class Item : ScriptableObject
     public float itemWeight;
     public int itemCost;
     public int itemAmount = 1;
+    public float chanceDrop;
     
     public ItemType itemType;
     public ItemQuality itemQuality;

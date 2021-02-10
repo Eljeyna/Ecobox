@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class GameDirector : MonoBehaviour
 {
     public static GameDirector Instance { get; private set; }
 
-    public QuestTasksDatabase tasks;
-    public DialoguesLoad dialogues;
     public ItemsLoad items;
 
     public AssetReference gameUI;
@@ -18,12 +18,17 @@ public class GameDirector : MonoBehaviour
     public IsTalking dialogue;
     public Quest activeQuest;
 
+    public AssetReference testDialogue;
+
     public Dictionary<int, Quest> quests = new Dictionary<int, Quest>();
     [HideInInspector] public List<int> completedQuestsID = new List<int>();
     [HideInInspector] public bool controlAfter = true;
 
     private bool DEBUG = true;
     private float timeToUpdate;
+
+    private AsyncOperationHandle<GameObject> dialogueHandle;
+    private AssetReference dialogueReference;
 
     private void Awake()
     {
@@ -54,8 +59,9 @@ public class GameDirector : MonoBehaviour
         
         Player.Instance.Initialize();
 
-        dialogues.Initialize();
         items.Initialize();
+
+        InitializeDialogue(testDialogue);
     }
 
     public void AddNewQuest(int id)
@@ -142,7 +148,6 @@ public class GameDirector : MonoBehaviour
 
     public void StartDialogue()
     {
-        StaticGameVariables.PauseGame();
         Player.Instance.cam.m_Lens.OrthographicSize = 15f;
 
         GameUI.Instance.dialogueBox.enabled = true;
@@ -151,19 +156,38 @@ public class GameDirector : MonoBehaviour
 
     public void StopDialogue()
     {
+        if (!ReferenceEquals(dialogueReference, null) && dialogueReference.IsValid())
+        {
+            dialogueReference.ReleaseAsset();
+        }
+        
+        Addressables.ReleaseInstance(dialogue.gameObject);
+
         GameUI.Instance.dialogueBox.enabled = false;
         GameUI.Instance.circleRepeat.SetActive(false);
 
         if (controlAfter)
+        {
             StaticGameVariables.ResumeGame();
+            StaticGameVariables.ShowInGameUI();
+        }
     }
 
-    public void ShowButtons()
+    public async void InitializeDialogue(AssetReference dialogueReference)
     {
-        for (int i = 0; i < GameUI.Instance.dialogueButtons.Length; i++)
+        if (!ReferenceEquals(this.dialogueReference, null) && this.dialogueReference.IsValid())
         {
-            GameUI.Instance.dialogueButtons[i].gameObject.SetActive(true);
+            this.dialogueReference.ReleaseAsset();
         }
+        
+        this.dialogueReference = dialogueReference;
+        await LoadDialogue();
+    }
+    
+    public async Task LoadDialogue()
+    {
+        dialogueHandle = Addressables.InstantiateAsync(dialogueReference);
+        await dialogueHandle.Task;
     }
 
     public void HideButtons()
@@ -176,6 +200,16 @@ public class GameDirector : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (gameUI.IsValid())
+        {
+            Addressables.ReleaseInstance(GameUI.Instance.gameObject);
+        }
+        
+        if (!ReferenceEquals(dialogueReference, null) && dialogueReference.IsValid())
+        {
+            dialogueReference.ReleaseAsset();
+        }
+        
         DEBUG = false;
     }
 }

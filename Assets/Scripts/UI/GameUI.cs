@@ -26,17 +26,11 @@ public class GameUI : MonoBehaviour
 
         if (Settings.Instance.gameIsLoaded)
         {
-            circleRepeat.SetActive(false);
-            
             Player.Instance.Initialize();
-            
-            GameDirector.Instance.dialogues.Initialize();
             GameDirector.Instance.items.Initialize();
             
             SaveLoadSystem.Instance.Load();
-            
             Settings.Instance.gameIsLoaded = false;
-            
             StaticGameVariables.ResumeGame();
         }
         else

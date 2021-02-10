@@ -1,21 +1,27 @@
+using System;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 using static StaticGameVariables;
 
+public enum DialogueCheckRequirements
+{
+    None = 0,
+    Strength,
+    Agility,
+    Intelligence
+}
+
 public class Dialogue : MonoBehaviour, ITranslate
 {
+    [SerializeField] public string key;
     [SerializeField] public Sentences[] dialogues;
-
-    private void Awake()
-    {
-        GetTranslate();
-    }
+    [SerializeField] public AnswersArray[] answersArray;
 
     public void GetTranslate()
     {
-        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Dialogues", $"{gameObject.name}.json")));
+        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Dialogues", $"{key}.json")));
 
 #if UNITY_ANDROID
         if (sb.ToString() == string.Empty)
@@ -23,25 +29,16 @@ public class Dialogue : MonoBehaviour, ITranslate
             return;
         }
         
-        DialogueFile json = JsonConvert.DeserializeObject<DialogueFile>(sb.ToString());
+        Sentences[] json = JsonConvert.DeserializeObject<Sentences[]>(sb.ToString());
 #else
         if (!File.Exists(sb.ToString()))
         {
             return;
         }
 
-        DialogueFile json = JsonConvert.DeserializeObject<DialogueFile>(File.ReadAllText(sb.ToString()));
+        Sentences[] json = JsonConvert.DeserializeObject<Sentences[]>(File.ReadAllText(sb.ToString()));
 #endif
-        for (int i = 0; i < json.dialogues.Length; i++)
-        {
-            dialogues[i].name = json.dialogues[i].name;
-            dialogues[i].text = json.dialogues[i].text;
-            
-            for (int j = 0; j < json.dialogues[i].answers.Length; j++)
-            {
-                dialogues[i].answers[j].answer_text = json.dialogues[i].answers[j].answer_text;
-            }
-        }
+        dialogues = json;
     }
 }
 
@@ -50,27 +47,22 @@ public struct Sentences
 {
     public string name;
     [TextArea] public string text;
+    public AnswersFile[] answers;
+}
+
+[System.Serializable]
+public struct AnswersArray
+{
     public Answers[] answers;
 }
 
 [System.Serializable]
 public struct Answers
 {
-    [TextArea] public string answer_text;
     public int goto_line;
     public DialogueScript script;
-}
-
-public struct DialogueFile
-{
-    public SentencesFile[] dialogues;
-}
-
-public struct SentencesFile
-{
-    public string name;
-    public string text;
-    public AnswersFile[] answers;
+    public DialogueCheckRequirements check;
+    public int checkParameter;
 }
 
 public struct AnswersFile

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,6 +74,14 @@ public class ItemInfo : ScriptableObject, ITranslate
         itemDescription = string.Empty;
     }
 #endif
+
+    private void OnDisable()
+    {
+        if (atlasSprite.IsValid())
+        {
+            atlasSprite.ReleaseAsset();
+        }
+    }
 
     public struct ItemStruct
     {
