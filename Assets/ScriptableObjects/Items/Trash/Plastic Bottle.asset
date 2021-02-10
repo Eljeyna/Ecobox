@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Plastic Bottle
   m_EditorClassIdentifier: 
   id: 5000
+  idReference:
+    m_AssetGUID: 415aa3390d9c45b45bab21db4ad5984b
+    m_SubObjectName: 
+    m_SubObjectType: 
   itemEnd: 0
   itemWeight: 0.1
   itemCost: 1
   itemAmount: 1
+  chanceDrop: 0
   itemType: 4
   itemQuality: 0
   itemInfo: {fileID: 11400000, guid: ff4fa4d20a13f2e4e841d05d7c0a3242, type: 2}

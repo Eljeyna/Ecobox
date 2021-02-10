@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -10,7 +9,7 @@ public class SyntheaGreenBox : Item
     {
         itemAmount--;
 
-        GameDirector.Instance.UpdateQuest(0);
+        GameDirector.Instance.UpdateQuest("New beginnings");
 
         StaticGameVariables.HideInventory();
         GameDirector.Instance.InitializeDialogue(talkID);

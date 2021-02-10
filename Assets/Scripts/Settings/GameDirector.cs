@@ -20,8 +20,8 @@ public class GameDirector : MonoBehaviour
 
     public AssetReference testDialogue;
 
-    public Dictionary<int, Quest> quests = new Dictionary<int, Quest>();
-    [HideInInspector] public List<int> completedQuestsID = new List<int>();
+    public Dictionary<string, Quest> quests = new Dictionary<string, Quest>();
+    [HideInInspector] public List<string> completedQuestsID = new List<string>();
     [HideInInspector] public bool controlAfter = true;
 
     private bool DEBUG = true;
@@ -51,10 +51,10 @@ public class GameDirector : MonoBehaviour
         gameUI.InstantiateAsync();
     }
 
-    public void Initialize()
+    public async void Initialize()
     {
-        activeQuest = new Quest(0, QuestState.Active);
-        quests.Add(activeQuest.id, activeQuest);
+        await LoadQuest(QuestsID.GetQuestID("New beginnings"));
+
         UpdateQuestDescription();
         
         Player.Instance.Initialize();
@@ -63,18 +63,25 @@ public class GameDirector : MonoBehaviour
 
         InitializeDialogue(testDialogue);
     }
+    
+    public async Task LoadQuest(string id)
+    {
+        activeQuest = new Quest(id, QuestState.Active);
+        quests.Add(activeQuest.id, activeQuest);
+        await activeQuest.Initialize();
+    }
 
-    public void AddNewQuest(int id)
+    public void AddNewQuest(string id)
     {
         quests.Add(id, new Quest(id));
     }
 
-    public void AddNewQuest(int id, QuestState state)
+    public void AddNewQuest(string id, QuestState state)
     {
         quests.Add(id, new Quest(id, state));
     }
 
-    public void AddNewQuest(int id, QuestState state, int currentTask)
+    public void AddNewQuest(string id, QuestState state, int currentTask)
     {
         quests.Add(id, new Quest(id, state, currentTask));
     }
@@ -93,7 +100,7 @@ public class GameDirector : MonoBehaviour
         StaticGameVariables.taskDescription.text = sb.ToString();
     }
 
-    public void UpdateQuest(int id)
+    public void UpdateQuest(string id)
     {
         Quest quest = GetQuest(id);
 
@@ -110,7 +117,7 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public void UpdateQuest(int id, int task)
+    public void UpdateQuest(string id, int task)
     {
         Quest quest = GetQuest(id);
 
@@ -127,7 +134,7 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public void CompleteQuest(int id)
+    public void CompleteQuest(string id)
     {
         if (quests.TryGetValue(id, out Quest value))
         {
@@ -136,9 +143,9 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public Quest GetQuest(int id)
+    public Quest GetQuest(string id)
     {
-        if (quests.TryGetValue(id, out Quest value))
+        if (quests.TryGetValue(QuestsID.GetQuestID(id), out Quest value))
         {
             return value;
         }

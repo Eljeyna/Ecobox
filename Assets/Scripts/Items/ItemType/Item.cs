@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Items/New Item")]
 public class Item : ScriptableObject
@@ -24,6 +25,7 @@ public class Item : ScriptableObject
     }
 
     public int id;
+    public AssetReference idReference;
 
     public bool itemEnd = true;
     public float itemWeight;
@@ -36,4 +38,12 @@ public class Item : ScriptableObject
     public ItemInfo itemInfo;
 
     public virtual void Use() {}
+
+    private void OnDestroy()
+    {
+        if (idReference.IsValid())
+        {
+            Addressables.Release(idReference);
+        }
+    }
 }

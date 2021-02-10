@@ -2,7 +2,7 @@
 
 public class QuestDeleteAfterLoad : MonoBehaviour, IAfterSaveState
 {
-    public int questID;
+    public string questID;
     public int task;
     
     public void Load()

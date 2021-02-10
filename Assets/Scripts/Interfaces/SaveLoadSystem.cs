@@ -2,6 +2,7 @@ using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 public class SaveLoadSystem : MonoBehaviour
 {
@@ -45,29 +46,34 @@ public class SaveLoadSystem : MonoBehaviour
         File.WriteAllText(sb.ToString(), json);
     }
 
-    public void Load()
+    public async void Load()
+    {
+        await Preload();
+        
+        AfterLoadSystem.Instance.Load();
+    }
+
+    public async Task Preload()
     {
         foreach (var monoBehaviour in FindObjectsOfType<MonoBehaviour>())
         {
             if (monoBehaviour is ISaveState persist)
             {
-                persist.Load();
+                await persist.Load();
             }
         }
-        
-        AfterLoadSystem.Instance.Load();
     }
 }
 
 public struct Saveable
 {
-    public List<int> questID;
+    public List<string> questID;
     public List<int> questTask;
     public List<QuestState> questStates;
-    public List<int> completedQuestID;
-    public int activeQuestID;
+    public List<string> completedQuestID;
+    public string activeQuestID;
     
-    public List<int> itemsID;
+    public List<string> itemsID;
     public List<int> itemsAmount;
 
     public int maxStamina;
@@ -98,5 +104,5 @@ public struct Saveable
 internal interface ISaveState
 {
     string Save();
-    void Load();
+    Task Load();
 }

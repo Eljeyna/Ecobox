@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class Stats : MonoBehaviour, ISaveState
 {
@@ -143,21 +145,21 @@ public class Stats : MonoBehaviour, ISaveState
         
         if (Player.Instance.inventory.itemList.Count > 0)
         {
-            saveObject.itemsID = new List<int>();
+            saveObject.itemsID = new List<string>();
             saveObject.itemsAmount = new List<int>();
             for (int i = 0; i < Player.Instance.inventory.itemList.Count; i++)
             {
-                saveObject.itemsID.Add(Player.Instance.inventory.itemList[i].id);
+                saveObject.itemsID.Add(Player.Instance.inventory.itemList[i].idReference.AssetGUID);
                 saveObject.itemsAmount.Add(Player.Instance.inventory.itemList[i].itemAmount);
             }
         }
         
         if (GameDirector.Instance.quests.Count > 0)
         {
-            saveObject.questID = new List<int>();
+            saveObject.questID = new List<string>();
             saveObject.questStates = new List<QuestState>();
             saveObject.questTask = new List<int>();
-            foreach (int key in GameDirector.Instance.quests.Keys)
+            foreach (string key in GameDirector.Instance.quests.Keys)
             {
                 saveObject.questID.Add(GameDirector.Instance.quests[key].id);
                 saveObject.questStates.Add(GameDirector.Instance.quests[key].state);
@@ -167,7 +169,7 @@ public class Stats : MonoBehaviour, ISaveState
         
         if (GameDirector.Instance.completedQuestsID.Count > 0)
         {
-            saveObject.completedQuestID = new List<int>();
+            saveObject.completedQuestID = new List<string>();
             for (int i = 0; i < GameDirector.Instance.completedQuestsID.Count; i++)
             {
                 saveObject.completedQuestID.Add(GameDirector.Instance.completedQuestsID[i]);
@@ -180,7 +182,7 @@ public class Stats : MonoBehaviour, ISaveState
         }
         else
         {
-            saveObject.activeQuestID = -1;
+            saveObject.activeQuestID = string.Empty;
         }
         
         saveObject.maxStamina = maxStamina;
@@ -211,7 +213,7 @@ public class Stats : MonoBehaviour, ISaveState
         return json;
     }
 
-    public void Load()
+    public async Task Load()
     {
         StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
 
@@ -224,7 +226,8 @@ public class Stats : MonoBehaviour, ISaveState
                 Player.Instance.inventory.ClearInventory();
                 for (int i = 0; i < saveObject.itemsID.Count; i++)
                 {
-                    Player.Instance.inventory.AddItem(ItemDatabase.GetItem(saveObject.itemsID[i]), saveObject.itemsAmount[i]);
+                    Item item = await Database.GetItem<Item>(saveObject.itemsID[i]);
+                    Player.Instance.inventory.AddItem(item, saveObject.itemsAmount[i]);
                 }
             }
 
@@ -234,10 +237,11 @@ public class Stats : MonoBehaviour, ISaveState
                 for (int i = 0; i < saveObject.questID.Count; i++)
                 {
                     GameDirector.Instance.quests.Add(saveObject.questID[i], new Quest(saveObject.questID[i], saveObject.questStates[i], saveObject.questTask[i]));
+                    await GameDirector.Instance.quests[saveObject.questID[i]].Initialize();
                 }
             }
             
-            if (saveObject.activeQuestID != -1)
+            if (saveObject.activeQuestID != string.Empty)
             {
                 GameDirector.Instance.activeQuest = GameDirector.Instance.quests[saveObject.activeQuestID];
                 GameDirector.Instance.UpdateQuestDescription();

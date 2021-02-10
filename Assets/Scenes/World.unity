@@ -2250,12 +2250,7 @@ PrefabInstance:
     - target: {fileID: 2860060068697846853, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,
         type: 3}
       propertyPath: m_Name
-      value: TestItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 2860060068697846853, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: Synthea (Green Box)
       objectReference: {fileID: 0}
     - target: {fileID: 2860060068697847226, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,
         type: 3}
@@ -2310,11 +2305,6 @@ PrefabInstance:
     - target: {fileID: 2860060068697847226, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2860060068697847227, guid: e9ba0c80bfa6b4e42ab8dc6362131bc8,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

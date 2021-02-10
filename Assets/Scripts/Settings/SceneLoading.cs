@@ -40,8 +40,13 @@ public class SceneLoading : MonoBehaviour
         {
             anim.SetTrigger(Start);
         }
-
-        StaticGameVariables.InitializeDatabases();
+        
+        Translate.Instance.GetTranslate();
+        
+        if (GameDirector.Instance != null)
+        {
+            GameDirector.Instance.Preload();
+        }
     }
 
     public void SwitchToScene(string sceneName, string animId)

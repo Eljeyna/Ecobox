@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 public enum QuestState
 {
     Received = 0,
@@ -6,33 +8,35 @@ public enum QuestState
 
 public class Quest
 {
-    public int id;
+    public string id;
     public QuestState state;
     public int currentTask;
 
     public QuestTasks tasks;
 
-    public Quest(int id)
+    public Quest(string id)
     {
         this.id = id;
         this.state = QuestState.Received;
         this.currentTask = 0;
-        this.tasks = QuestTasksDatabase.GetTask(id);
     }
 
-    public Quest(int id, QuestState state)
+    public Quest(string id, QuestState state)
     {
         this.id = id;
         this.state = state;
         this.currentTask = 0;
-        this.tasks = QuestTasksDatabase.GetTask(id);
     }
 
-    public Quest(int id, QuestState state, int currentTask)
+    public Quest(string id, QuestState state, int currentTask)
     {
         this.id = id;
         this.state = state;
         this.currentTask = currentTask;
-        this.tasks = QuestTasksDatabase.GetTask(id);
+    }
+
+    public async Task Initialize()
+    {
+        this.tasks = await Database.GetItem<QuestTasks>(id);
     }
 }

@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Synthea (Green Box)
   m_EditorClassIdentifier: 
   id: 4000
+  idReference:
+    m_AssetGUID: 20f23a82d8b6ea04b8445d908f2e0287
+    m_SubObjectName: 
+    m_SubObjectType: 
   itemEnd: 0
   itemWeight: 0
   itemCost: 0

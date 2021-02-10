@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Health Potion
   m_EditorClassIdentifier: 
   id: 3000
+  idReference:
+    m_AssetGUID: 97a7c3fd967810341b5fc6179587c6bd
+    m_SubObjectName: 
+    m_SubObjectType: 
   itemEnd: 1
   itemWeight: 0
   itemCost: 25
   itemAmount: 1
+  chanceDrop: 0
   itemType: 3
   itemQuality: 0
   itemInfo: {fileID: 11400000, guid: 0ab5569feee458a4794f9eeb4e1e82bb, type: 2}

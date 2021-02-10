@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Text;
 using UnityEngine.Networking;
 using System.IO;
+using System.Threading.Tasks;
 
 public static class StaticGameVariables
 {
@@ -113,20 +114,6 @@ public static class StaticGameVariables
 
     #region Initialize
 
-    public static async void InitializeDatabases()
-    {
-        await ItemDatabase.Initialize();
-        ItemDatabase.OnLoad();
-
-        await QuestTasksDatabase.Initialize();
-        QuestTasksDatabase.OnLoad();
-
-        if (!ReferenceEquals(GameDirector.Instance, null))
-        {
-            GameDirector.Instance.Preload();
-        }
-    }
-    
     public static void InitializeLanguage()
     {
         StringBuilder sb = new StringBuilder("Language");
