@@ -251,7 +251,7 @@ public class Stats : MonoBehaviour, ISaveState
         {
             Saveable saveObject = JsonConvert.DeserializeObject<Saveable>(File.ReadAllText(sb.ToString()));
 
-            if (saveObject.itemsID.Count > 0)
+            if (!ReferenceEquals(saveObject.itemsID, null) && saveObject.itemsID.Count > 0)
             {
                 Player.Instance.inventory.ClearInventory();
                 for (int i = 0; i < saveObject.itemsID.Count; i++)
@@ -261,7 +261,7 @@ public class Stats : MonoBehaviour, ISaveState
                 }
             }
 
-            if (saveObject.questID.Count > 0)
+            if (!ReferenceEquals(saveObject.questID, null) && saveObject.questID.Count > 0)
             {
                 GameDirector.Instance.quests.Clear();
                 for (int i = 0; i < saveObject.questID.Count; i++)
