@@ -70,13 +70,7 @@ public class Player : AIEntity, ITranslate
 
         stats.Initialize();
 
-#if UNITY_ANDROID || UNITY_IOS
         controls.Player.Touch.performed += Touch_performed;
-#endif
-
-        controls.Player.Movement.performed += Movement_performed;
-        controls.Player.Movement.canceled += Movement_canceled;
-
         controls.Player.Zoom.performed += Zoom_performed;
 
         GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
@@ -118,6 +112,12 @@ public class Player : AIEntity, ITranslate
             touch = false;
             targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
             targetPosition.z = 0f;
+
+            if (ReferenceEquals(target, null))
+            {
+                return;
+            }
+            
             target.position = targetPosition;
 
             int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entity, layer);
@@ -299,24 +299,12 @@ public class Player : AIEntity, ITranslate
         SaveLoadSystem.Instance.Load();
     }
 
-#if UNITY_ANDROID || UNITY_IOS
     private void Touch_performed(InputAction.CallbackContext obj)
     {
         if (!StaticGameVariables.isPause)
         {
             touch = true;
         }
-    }
-#endif
-
-    private void Movement_performed(InputAction.CallbackContext obj)
-    {
-        moving = obj.ReadValue<Vector2>();
-    }
-
-    private void Movement_canceled(InputAction.CallbackContext obj)
-    {
-        moving = Vector3.zero;
     }
 
     private void Zoom_performed(InputAction.CallbackContext obj)

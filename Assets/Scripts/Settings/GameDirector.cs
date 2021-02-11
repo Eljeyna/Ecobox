@@ -154,7 +154,11 @@ public class GameDirector : MonoBehaviour
                 cplQ = new CompletedQuestsID {completedQuestsID = new Dictionary<string, int>()};
             }
 
-            cplQ.completedQuestsID.Add(id, 0);
+            if (!cplQ.completedQuestsID.TryGetValue(id, out int unused))
+            {
+                cplQ.completedQuestsID.Add(id, 0);
+            }
+            
             File.WriteAllText(sb.ToString(), JsonConvert.SerializeObject(cplQ));
         }
     }
