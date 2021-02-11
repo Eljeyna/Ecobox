@@ -926,6 +926,7 @@ MonoBehaviour:
   cam: {fileID: 856908555}
   mainCamera: {fileID: 519420031}
   stats: {fileID: 774642705}
+  gender: 0
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
     m_SubObjectName: AllAxis_Plain

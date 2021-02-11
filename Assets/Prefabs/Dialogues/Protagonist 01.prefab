@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1618419712651941632}
-  - component: {fileID: 1618419712651941634}
   - component: {fileID: 1618419712651941633}
   - component: {fileID: 1618419712651941639}
   - component: {fileID: 1618419712651941635}
   m_Layer: 0
-  m_Name: Synthea Test
+  m_Name: Protagonist 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,21 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1618419712651941634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618419712651941638}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e989ce7414cbb4bab056d22389d38b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioDirector: {fileID: 0}
-  sound: 0
-  timeMilliseconds: 2500
 --- !u!114 &1618419712651941633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,35 +45,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94012724f52eb4449093ca792ee7e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: Synthea Test
+  key: Protagonist 01
   dialogues: []
   answersArray:
+  - answers: []
+  - answers: []
+  - answers: []
+  - answers: []
+  - answers: []
+  - answers: []
   - answers:
-    - goto_line: 2
-      script: {fileID: 0}
-      check: 1
-      checkParameter: 10
-    - goto_line: 0
+    - goto_line: 7
       script: {fileID: 0}
       check: 0
       checkParameter: 0
-    - goto_line: 1
+    - goto_line: 7
       script: {fileID: 0}
       check: 0
       checkParameter: 0
-    - goto_line: 0
+    - goto_line: 7
       script: {fileID: 0}
       check: 0
       checkParameter: 0
-  - answers:
-    - goto_line: 0
-      script: {fileID: 0}
-      check: 0
-      checkParameter: 0
-    - goto_line: 0
-      script: {fileID: 0}
-      check: 0
-      checkParameter: 0
+  - answers: []
+  - answers: []
+  - answers: []
+  - answers: []
+  - answers: []
+  - answers: []
   - answers: []
 --- !u!114 &1618419712651941639
 MonoBehaviour:

@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 using UnityEngine.UI;
+using static StaticGameVariables;
 
 [RequireComponent(typeof(Dialogue))]
 public class IsTalking : MonoBehaviour
@@ -21,8 +23,8 @@ public class IsTalking : MonoBehaviour
     {
         if (!GameUI.Instance.dialogueBox.isActiveAndEnabled)
         {
-            StaticGameVariables.PauseGame();
-            StaticGameVariables.HideInGameUI();
+            PauseGame();
+            HideInGameUI();
 
             UpdateDialogue();
 
@@ -83,22 +85,24 @@ public class IsTalking : MonoBehaviour
     public void UpdateDialogue()
     {
         GameUI.Instance.dialogueBoxName.text = dialogue.dialogues[_currentLine].name;
-        GameUI.Instance.dialogueBoxText.text = dialogue.dialogues[_currentLine].text;
+        GameUI.Instance.dialogueBoxText.text = GetStringByGender(dialogue.dialogues[_currentLine].text);
 
         if (dialogue.dialogues[_currentLine].answers.Length > 0)
         {
             GameUI.Instance.invisibleButton.gameObject.SetActive(false);
 
-            int length = GameUI.Instance.dialogueButtons.Length - dialogue.dialogues[_currentLine].answers.Length;
+            int length = GameUI.Instance.dialogueButtons.Length - dialogue.answersArray[_currentLine].answers.Length;
 
             for (int i = 0; i < length; i++)
             {
                 GameUI.Instance.dialogueButtons[i].gameObject.SetActive(false);
             }
 
-            for (int i = 0; i < dialogue.dialogues[_currentLine].answers.Length; i++)
+            for (int i = 0; i < dialogue.answersArray[_currentLine].answers.Length; i++)
             {
-                GameUI.Instance.dialogueButtons[i + length].text.text = dialogue.dialogues[_currentLine].answers[i].answer_text;
+                GameUI.Instance.dialogueButtons[i + length].gameObject.SetActive(true);
+                
+                GameUI.Instance.dialogueButtons[i + length].text.text = GetStringByGender(dialogue.dialogues[_currentLine].answers[i].answer_text);
                 GameUI.Instance.dialogueButtons[i + length].line = dialogue.answersArray[_currentLine].answers[i].goto_line;
 
                 if (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.None)
@@ -111,16 +115,7 @@ public class IsTalking : MonoBehaviour
                     continue;
                 }
 
-                if (
-                    (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.Strength
-                    && dialogue.answersArray[_currentLine].answers[i].checkParameter > Player.Instance.stats.strength)
-                    ||
-                    (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.Agility
-                    && dialogue.answersArray[_currentLine].answers[i].checkParameter > Player.Instance.stats.agility)
-                    ||
-                    (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.Intelligence
-                    && dialogue.answersArray[_currentLine].answers[i].checkParameter > Player.Instance.stats.intelligence)
-                    )
+                if (GetCheckRequirements(i))
                 {
                     if (GameUI.Instance.dialogueButtons[i + length].TryGetComponent(out Button button))
                     {
@@ -134,5 +129,49 @@ public class IsTalking : MonoBehaviour
             GameDirector.Instance.HideButtons();
             GameUI.Instance.invisibleButton.gameObject.SetActive(true);
         }
+    }
+    
+    public string GetStringByGender(string text)
+    {
+        int index = text.IndexOf(genderSymbol);
+        
+        if (index == -1)
+        {
+            return text;
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        int indexSplit;
+        int indexLast = -1;
+
+        while (index != -1)
+        {
+            sb.Append(text.Substring(indexLast + 1, index - indexLast - 1));
+            
+            indexSplit = text.IndexOf(splitSymbol, index + 1);
+            indexLast = text.IndexOf(genderSymbol, indexSplit + 1);
+
+            sb.Append(Player.Instance.gender
+                ? text.Substring(index + 1, indexSplit - index - 1)
+                : text.Substring(indexSplit + 1, indexLast - indexSplit - 1));
+
+            index = text.IndexOf(genderSymbol, indexLast + 1);
+        }
+        
+        sb.Append(text.Substring(indexLast + 1, text.Length - indexLast - 1));
+        
+        return sb.ToString();
+    }
+
+    public bool GetCheckRequirements(int index)
+    {
+        return dialogue.answersArray[_currentLine].answers[index].check == DialogueCheckRequirements.Strength
+               && dialogue.answersArray[_currentLine].answers[index].checkParameter > Player.Instance.stats.strength
+               ||
+               dialogue.answersArray[_currentLine].answers[index].check == DialogueCheckRequirements.Agility
+               && dialogue.answersArray[_currentLine].answers[index].checkParameter > Player.Instance.stats.agility
+               ||
+               dialogue.answersArray[_currentLine].answers[index].check == DialogueCheckRequirements.Intelligence
+               && dialogue.answersArray[_currentLine].answers[index].checkParameter > Player.Instance.stats.intelligence;
     }
 }

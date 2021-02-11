@@ -28,7 +28,7 @@ public class InventoryUI : MonoBehaviour
         UpdateInventoryItems();
     }
 
-    public void UpdateInventoryItems()
+    public async void UpdateInventoryItems()
     {
         inventory.weight = 0f;
         RemoveInventorySlots();
@@ -64,12 +64,12 @@ public class InventoryUI : MonoBehaviour
 
                 if (itemSlotRect.transform.GetChild(0).GetChild(0).TryGetComponent(out Image newSprite))
                 {
-                    newSprite.sprite = item.itemInfo.itemIcon;
+                    newSprite.sprite = await item.LoadSprite();
                 }
 
                 if (itemSlotRect.transform.GetChild(0).GetChild(1).GetChild(0).TryGetComponent(out TMP_Text newText))
                 {
-                    newText.text = (item.itemAmount).ToString();
+                    newText.text = item.itemAmount.ToString();
                 }
             }
         }

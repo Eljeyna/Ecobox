@@ -69,8 +69,7 @@ public struct Saveable
 {
     public List<string> questID;
     public List<int> questTask;
-    public List<QuestState> questStates;
-    public List<string> completedQuestID;
+    public Dictionary<string, int> completedQuestsID;
     public string activeQuestID;
     
     public List<string> itemsID;
@@ -96,9 +95,14 @@ public struct Saveable
     public float[] resistances;
     public bool invinsibility;
 
-    public Gun weapon;
+    //public Gun weapon;
     public float positionX;
     public float positionY;
+}
+
+public struct CompletedQuestsID
+{
+    public Dictionary<string, int> completedQuestsID;
 }
 
 internal interface ISaveState

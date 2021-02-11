@@ -2,20 +2,23 @@ using System;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
-using UnityEngine;
 using static StaticGameVariables;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Quests/New Quest Task")]
-public class QuestTasks : ScriptableObject, ITranslate
+public class QuestTasks : ITranslate
 {
-    [SerializeField] public int id;
-    [SerializeField] public string nameQuest;
-    [SerializeField] public string fullDescription;
-    [SerializeField] public QuestTask[] tasksDescriptions;
+    public string id;
+    public string nameQuest;
+    public string fullDescription;
+    public QuestTask[] tasksDescriptions;
+
+    public QuestTasks(string id)
+    {
+        this.id = id;
+    }
 
     public void GetTranslate()
     {
-        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Quests", $"{name}.json")));
+        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Quests", $"{id}.json")));
 
 #if UNITY_ANDROID
         if (sb.ToString() == string.Empty)
@@ -36,15 +39,6 @@ public class QuestTasks : ScriptableObject, ITranslate
         fullDescription = json.fullDescription;
         tasksDescriptions = json.tasksDescriptions;
     }
-
-#if UNITY_EDITOR
-    private void OnEnable()
-    {
-        nameQuest = string.Empty;
-        fullDescription = string.Empty;
-        tasksDescriptions = new QuestTask[0];
-    }
-#endif
 }
 
 [Serializable]

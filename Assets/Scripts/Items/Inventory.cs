@@ -63,7 +63,7 @@ public class Inventory : MonoBehaviour
         {
             if (itemList[i].id == item.id)
             {
-                itemList[i].itemInfo.UnloadSprite();
+                itemList[i].UnloadSprite();
                 Destroy(itemList[i]);
                 itemList.Remove(itemList[i]);
                 break;
@@ -75,7 +75,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < itemList.Count; i++)
         {
-            await itemList[i].itemInfo.LoadSprite();
+            await itemList[i].LoadSprite();
         }
     }
 
@@ -83,7 +83,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < itemList.Count; i++)
         {
-            itemList[i].itemInfo.UnloadSprite();
+            itemList[i].UnloadSprite();
         }
 
         Player.Instance.inventoryUI.RemoveInventorySlots();
@@ -93,7 +93,7 @@ public class Inventory : MonoBehaviour
     {
         while (itemList.Count > 0)
         {
-            itemList[itemList.Count - 1].itemInfo.UnloadSprite();
+            itemList[itemList.Count - 1].UnloadSprite();
             Destroy(itemList[itemList.Count - 1]);
             itemList.Remove(itemList[itemList.Count - 1]);
         }

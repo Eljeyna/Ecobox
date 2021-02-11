@@ -25,6 +25,9 @@ public class Player : AIEntity, ITranslate
     public CinemachineVirtualCamera cam;
     public Camera mainCamera;
     public Stats stats;
+
+    [Space(10)]
+    public bool gender = true;
     
     [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
 

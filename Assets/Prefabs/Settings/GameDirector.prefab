@@ -50,9 +50,8 @@ MonoBehaviour:
     m_SubObjectType: 
   debugFPS: {fileID: 0}
   dialogue: {fileID: 0}
-  testDialogue:
-    m_AssetGUID: 9d6cf73f8d9f8114bbc80a3dab313664
+  startDialogue:
+    m_AssetGUID: 656f390425f07404babe6d53d0c2612d
     m_SubObjectName: 
     m_SubObjectType: 
-  completedQuestsID: 
   controlAfter: 1

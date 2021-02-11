@@ -21,6 +21,8 @@ public static class StaticGameVariables
         "Russian"
     };
 
+    public static string[] translationString = new string[2];
+
     public enum ActionType
     {
         DropItem,
@@ -110,6 +112,11 @@ public static class StaticGameVariables
     public static string addressablesSounds = Path.Combine("Assets", "Sounds");
     public static string addressablesSpriteAtlas = Path.Combine("Assets", "SpriteAtlas");
 
+    #endregion
+    
+    #region
+    public static readonly char genderSymbol = '$';
+    public static readonly char splitSymbol  = '|';
     #endregion
 
     #region Initialize
@@ -416,8 +423,8 @@ public static class StaticGameVariables
 
     public static void UpdateItemPickableInfo(ItemWorld itemWorld)
     {
-        itemWorld.item.itemInfo.GetTranslate();
-        itemPickupName.text = itemWorld.item.itemInfo.itemName;
+        itemWorld.item.GetTranslate();
+        itemPickupName.text = translationString[0];
     }
 
     public static void ShowItemPickableInfo(ItemWorld itemWorld)

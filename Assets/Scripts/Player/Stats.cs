@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class Stats : MonoBehaviour, ISaveState
 {
@@ -142,7 +142,7 @@ public class Stats : MonoBehaviour, ISaveState
     public string Save()
     {
         Saveable saveObject = new Saveable();
-        
+
         if (Player.Instance.inventory.itemList.Count > 0)
         {
             saveObject.itemsID = new List<string>();
@@ -153,29 +153,60 @@ public class Stats : MonoBehaviour, ISaveState
                 saveObject.itemsAmount.Add(Player.Instance.inventory.itemList[i].itemAmount);
             }
         }
-        
+
         if (GameDirector.Instance.quests.Count > 0)
         {
             saveObject.questID = new List<string>();
-            saveObject.questStates = new List<QuestState>();
             saveObject.questTask = new List<int>();
             foreach (string key in GameDirector.Instance.quests.Keys)
             {
                 saveObject.questID.Add(GameDirector.Instance.quests[key].id);
-                saveObject.questStates.Add(GameDirector.Instance.quests[key].state);
                 saveObject.questTask.Add(GameDirector.Instance.quests[key].currentTask);
             }
         }
-        
-        if (GameDirector.Instance.completedQuestsID.Count > 0)
+
+        StringBuilder saveBuilder = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json")); 
+        StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "cplQ.json")); // file with Completed Quests (temporary)
+
+        if (File.Exists(saveBuilder.ToString()))
         {
-            saveObject.completedQuestID = new List<string>();
-            for (int i = 0; i < GameDirector.Instance.completedQuestsID.Count; i++)
+            saveObject.completedQuestsID = JsonConvert.DeserializeObject<CompletedQuestsID>(File.ReadAllText(saveBuilder.ToString())).completedQuestsID;
+            if (File.Exists(sb.ToString()))
             {
-                saveObject.completedQuestID.Add(GameDirector.Instance.completedQuestsID[i]);
+                CompletedQuestsID jsonQuests = JsonConvert.DeserializeObject<CompletedQuestsID>(File.ReadAllText(sb.ToString()));
+
+                if (jsonQuests.completedQuestsID.Count > 0)
+                {
+                    foreach (string key in jsonQuests.completedQuestsID.Keys)
+                    {
+                        if (!saveObject.completedQuestsID.TryGetValue(key, out int value))
+                        {
+                            saveObject.completedQuestsID.Add(key, 0);
+                        }
+                    }
+
+                    CompletedQuestsID zeroing = new CompletedQuestsID {completedQuestsID = new Dictionary<string, int>()};
+                    File.WriteAllText(sb.ToString(), JsonConvert.SerializeObject(zeroing));
+                }
             }
         }
-        
+        else if (File.Exists(sb.ToString()))
+        {
+            CompletedQuestsID jsonQuests = JsonConvert.DeserializeObject<CompletedQuestsID>(File.ReadAllText(sb.ToString()));
+
+            if (jsonQuests.completedQuestsID.Count > 0)
+            {
+                saveObject.completedQuestsID = new Dictionary<string, int>();
+                foreach (string key in jsonQuests.completedQuestsID.Keys)
+                {
+                    saveObject.completedQuestsID.Add(key, 0);
+                }
+
+                CompletedQuestsID zeroing = new CompletedQuestsID {completedQuestsID = new Dictionary<string, int>()};
+                File.WriteAllText(sb.ToString(), JsonConvert.SerializeObject(zeroing));
+            }
+        }
+
         if (GameDirector.Instance.activeQuest != null)
         {
             saveObject.activeQuestID = GameDirector.Instance.activeQuest.id;
@@ -205,12 +236,11 @@ public class Stats : MonoBehaviour, ISaveState
         saveObject.resistances = Player.Instance.thisEntity.resistances;
         saveObject.invinsibility = Player.Instance.thisEntity.invinsibility;
 
-        saveObject.weapon = Player.Instance.weapon;
+        //saveObject.weapon = Player.Instance.weapon;
         saveObject.positionX = Player.Instance.transform.position.x;
         saveObject.positionY = Player.Instance.transform.position.y;
-        string json = JsonUtility.ToJson(saveObject);
-        
-        return json;
+
+        return JsonConvert.SerializeObject(saveObject);
     }
 
     public async Task Load()
@@ -219,7 +249,7 @@ public class Stats : MonoBehaviour, ISaveState
 
         if (File.Exists(sb.ToString()))
         {
-            Saveable saveObject = JsonUtility.FromJson<Saveable>(File.ReadAllText(sb.ToString()));
+            Saveable saveObject = JsonConvert.DeserializeObject<Saveable>(File.ReadAllText(sb.ToString()));
 
             if (saveObject.itemsID.Count > 0)
             {
@@ -236,8 +266,7 @@ public class Stats : MonoBehaviour, ISaveState
                 GameDirector.Instance.quests.Clear();
                 for (int i = 0; i < saveObject.questID.Count; i++)
                 {
-                    GameDirector.Instance.quests.Add(saveObject.questID[i], new Quest(saveObject.questID[i], saveObject.questStates[i], saveObject.questTask[i]));
-                    await GameDirector.Instance.quests[saveObject.questID[i]].Initialize();
+                    GameDirector.Instance.quests.Add(saveObject.questID[i], new Quest(saveObject.questID[i], saveObject.questTask[i]));
                 }
             }
             
@@ -268,7 +297,7 @@ public class Stats : MonoBehaviour, ISaveState
             Player.Instance.thisEntity.invinsibility = saveObject.invinsibility;
             Player.Instance.thisEntity.SetMaxHealth(saveObject.maxHealth);
 
-            Player.Instance.weapon = saveObject.weapon;
+            //Player.Instance.weapon = saveObject.weapon;
             Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
 
             Player.Instance.inventory.CallUpdateInventory();

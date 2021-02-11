@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AddressableAssets;
@@ -18,10 +21,9 @@ public class GameDirector : MonoBehaviour
     public IsTalking dialogue;
     public Quest activeQuest;
 
-    public AssetReference testDialogue;
+    public AssetReference startDialogue;
 
     public Dictionary<string, Quest> quests = new Dictionary<string, Quest>();
-    [HideInInspector] public List<string> completedQuestsID = new List<string>();
     [HideInInspector] public bool controlAfter = true;
 
     private bool DEBUG = true;
@@ -51,39 +53,39 @@ public class GameDirector : MonoBehaviour
         gameUI.InstantiateAsync();
     }
 
-    public async void Initialize()
+    public void Initialize()
     {
-        await LoadQuest(QuestsID.GetQuestID("New beginnings"));
-
+        AddNewQuest("New beginnings");
+        AddNewQuest("Test");
+        CompleteQuest("Test");
+        
         UpdateQuestDescription();
         
         Player.Instance.Initialize();
 
         items.Initialize();
 
-        InitializeDialogue(testDialogue);
-    }
-    
-    public async Task LoadQuest(string id)
-    {
-        activeQuest = new Quest(id, QuestState.Active);
-        quests.Add(activeQuest.id, activeQuest);
-        await activeQuest.Initialize();
+        InitializeDialogue(startDialogue);
     }
 
     public void AddNewQuest(string id)
     {
         quests.Add(id, new Quest(id));
+        CheckActiveQuest(id);
     }
 
-    public void AddNewQuest(string id, QuestState state)
+    public void AddNewQuest(string id, int currentTask)
     {
-        quests.Add(id, new Quest(id, state));
+        quests.Add(id, new Quest(id, currentTask));
+        CheckActiveQuest(id);
     }
 
-    public void AddNewQuest(string id, QuestState state, int currentTask)
+    public void CheckActiveQuest(string id)
     {
-        quests.Add(id, new Quest(id, state, currentTask));
+        if (ReferenceEquals(activeQuest, null))
+        {
+            activeQuest = quests[id];
+        }
     }
 
     public void UpdateQuestDescription()
@@ -138,14 +140,28 @@ public class GameDirector : MonoBehaviour
     {
         if (quests.TryGetValue(id, out Quest value))
         {
-            completedQuestsID.Add(id);
             quests.Remove(id);
+            
+            StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "cplQ.json"));
+            CompletedQuestsID cplQ;
+
+            if (File.Exists(sb.ToString()))
+            {
+                cplQ = JsonConvert.DeserializeObject<CompletedQuestsID>(File.ReadAllText(sb.ToString()));
+            }
+            else
+            {
+                cplQ = new CompletedQuestsID {completedQuestsID = new Dictionary<string, int>()};
+            }
+
+            cplQ.completedQuestsID.Add(id, 0);
+            File.WriteAllText(sb.ToString(), JsonConvert.SerializeObject(cplQ));
         }
     }
 
     public Quest GetQuest(string id)
     {
-        if (quests.TryGetValue(QuestsID.GetQuestID(id), out Quest value))
+        if (quests.TryGetValue(id, out Quest value))
         {
             return value;
         }
@@ -218,5 +234,18 @@ public class GameDirector : MonoBehaviour
         }
         
         DEBUG = false;
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (Directory.Exists(StaticGameVariables._SAVE_FOLDER))
+        {
+            StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "cplQ.json"));
+
+            if (File.Exists(sb.ToString()))
+            {
+                File.Delete(sb.ToString());
+            }
+        }
     }
 }

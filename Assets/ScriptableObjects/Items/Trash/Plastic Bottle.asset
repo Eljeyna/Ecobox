@@ -21,7 +21,10 @@ MonoBehaviour:
   itemWeight: 0.1
   itemCost: 1
   itemAmount: 1
-  chanceDrop: 0
+  chanceDrop: 0.9
   itemType: 4
   itemQuality: 0
-  itemInfo: {fileID: 11400000, guid: ff4fa4d20a13f2e4e841d05d7c0a3242, type: 2}
+  atlasSprite:
+    m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
+    m_SubObjectName: UI Health
+    m_SubObjectType: 
