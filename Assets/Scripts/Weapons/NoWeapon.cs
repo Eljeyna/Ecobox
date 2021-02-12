@@ -13,11 +13,30 @@ public class NoWeapon : Gun
             return;
         }
     
-        if (entity.state == EntityState.Attack)
+        if (entity.state == EntityState.Swing)
         {
             if (delay <= Time.time)
             {
-                RadiusAttack.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
+                Damage.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
+
+                if (gunData.lateDelay > 0f)
+                {
+                    delay = Time.time + gunData.lateDelay;
+                    entity.state = EntityState.Attack;
+                }
+                else
+                {
+                    delay = 0f;
+                    entity.state = EntityState.Normal;
+                    this.enabled = false;
+                }
+            }
+        }
+        else if (entity.state == EntityState.Attack)
+        {
+            if (delay <= Time.time)
+            {
+                delay = 0f;
                 entity.state = EntityState.Normal;
                 this.enabled = false;
             }
@@ -35,11 +54,17 @@ public class NoWeapon : Gun
 
         if (gunData.delay == 0f)
         {
-            RadiusAttack.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
+            entity.state = EntityState.Attack;
+            Damage.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
+
+            if (gunData.lateDelay > 0f)
+            {
+                delay = Time.time + gunData.lateDelay;
+            }
         }
         else
         {
-            entity.state = EntityState.Attack;
+            entity.state = EntityState.Swing;
             delay = Time.time + gunData.delay;
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Addressables_Instantiate))]

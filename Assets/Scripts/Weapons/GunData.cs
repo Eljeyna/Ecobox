@@ -8,6 +8,7 @@ public class GunData : ScriptableObject
     public float radius;
     public float range;
     public float delay;
+    public float lateDelay;
     public float fireRatePrimary;
     public float fireRateSecondary;
     public float impactForce;

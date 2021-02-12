@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Buffs
   m_Data:
     m_SerializedData: []
-  m_GUID: 4d9c303d598b65047a10b71e209a5bc6
+  m_GUID: a85264f53365aee4bbea9f67186c558c
   m_SerializeEntries:
   - m_GUID: 235511707aaff5f47b30d97581184f13
     m_Address: Assets/ScriptableObjects/Buffs
@@ -27,5 +27,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: a99988675684f144a9ee7e71817d685c, type: 2}
-    - {fileID: 11400000, guid: 95aa74be5c0da374a9fab8f4f2fa1332, type: 2}
+    - {fileID: 11400000, guid: 4da977144edc46d40a1efb90171892c6, type: 2}
+    - {fileID: 11400000, guid: f506e7180df92744fb412b3622770ea9, type: 2}

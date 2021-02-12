@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
   m_Name: Buffs_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: c1e1ef649610e4343a9f084a92a12efe, type: 2}
+  m_Group: {fileID: 11400000, guid: e719a93542dd27946985d726923aaac8, type: 2}
   m_StaticContent: 0

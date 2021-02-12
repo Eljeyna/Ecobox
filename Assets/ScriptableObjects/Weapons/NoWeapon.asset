@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b242e63b5e749488d810588a7ccfea, type: 3}
   m_Name: NoWeapon
   m_EditorClassIdentifier: 
+  damageType: 0
   damage: 1
   radius: 2.5
   range: 2
   delay: 0
+  lateDelay: 0.25
   fireRatePrimary: 1.25
   fireRateSecondary: 0
   impactForce: 0

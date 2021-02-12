@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using System.Text;
 using UnityEngine.Networking;
 using System.IO;
-using System.Threading.Tasks;
 
 public static class StaticGameVariables
 {
@@ -72,7 +71,7 @@ public static class StaticGameVariables
 
     public static float progress;
 
-    /* Settings */
+    #region Settings
 
     public static readonly float shakeForce = 2f;
     public static readonly float camMaxSize = 20f;
@@ -95,6 +94,13 @@ public static class StaticGameVariables
 
     /* All */
     [HideInInspector] public const float resistanceAll = 0.01f;
+    #endregion
+    
+    #region Animations
+
+    public static readonly int animationKeyID = Animator.StringToHash("Animation");
+    public static readonly int animationMoveKeyID = Animator.StringToHash("IsMove");
+    #endregion
     
     public static event System.EventHandler OnPauseGame;
     
@@ -114,7 +120,7 @@ public static class StaticGameVariables
 
     #endregion
     
-    #region
+    #region SpecialSymbols
     public static readonly char genderSymbol = '$';
     public static readonly char splitSymbol  = '|';
     #endregion

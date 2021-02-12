@@ -5,13 +5,17 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class Addressables_Instantiate : MonoBehaviour
 {
     public AssetReference[] prefabs;
+    public bool instantiateAwake = false;
     public bool parent = false;
 
     private AsyncOperationHandle<GameObject>[] createdObjects;
     
     private void Awake()
     {
-        AddressablesInstantiate();
+        if (instantiateAwake)
+        {
+            AddressablesInstantiate();
+        }
     }
 
     public void AddressablesInstantiate()

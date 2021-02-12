@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class RadiusAttack : MonoBehaviour
+public class Damage : MonoBehaviour
 {
     private static Collider2D[] targets = new Collider2D[10];
 
@@ -20,7 +19,7 @@ public class RadiusAttack : MonoBehaviour
 
                 if (enemy.TryGetComponent(out BaseTag enemyTag) && attacker.TryGetComponent(out BaseTag attackerTag))
                 {
-                    if ((enemyTag.entityTag & attackerTag.entityTag) == 0)
+                    if (IsEnemy(enemyTag ,attackerTag))
                     {
                         if (enemy.TryGetComponent(out BaseEntity entity) && attacker.TryGetComponent(out BaseEntity thisEntity))
                         {
@@ -30,5 +29,15 @@ public class RadiusAttack : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static bool IsEnemy(BaseTag tagA, BaseTag tagB)
+    {
+        return (tagA.entityTag & tagB.entityTag) == 0;
+    }
+    
+    public static bool IsAlly(BaseTag tagA, BaseTag tagB)
+    {
+        return (tagA.entityTag & tagB.entityTag) != 0;
     }
 }

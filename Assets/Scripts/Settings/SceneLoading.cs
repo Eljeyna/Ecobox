@@ -13,10 +13,10 @@ public class SceneLoading : MonoBehaviour
 
     private bool playAnim = false;
     
-    private static readonly int Start = Animator.StringToHash("Start");
-    private static readonly int End = Animator.StringToHash("End");
+    private static readonly int startAnimationID = Animator.StringToHash("Start");
+    private static readonly int endAnimationID = Animator.StringToHash("End");
 
-    private void Awake()
+    private void Start()
     {
         StaticGameVariables.PauseGame();
         
@@ -38,7 +38,7 @@ public class SceneLoading : MonoBehaviour
 
         if (playAnim)
         {
-            anim.SetTrigger(Start);
+            anim.SetTrigger(startAnimationID);
         }
         
         Translate.Instance.GetTranslate();
@@ -68,7 +68,7 @@ public class SceneLoading : MonoBehaviour
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         await loadSceneAsync.Task;
         
-        anim.SetTrigger(End);
+        anim.SetTrigger(endAnimationID);
         Translate.Instance.GetTranslate();
         
         if (GameDirector.Instance != null)

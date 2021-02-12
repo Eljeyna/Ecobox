@@ -18,10 +18,8 @@ public class Player : AIEntity, ITranslate
     public bool buttonTouch = false;
 
     [Space(10)]
-    public Inventory inventory;
     public InventoryUI inventoryUI;
     public Dash dash;
-    public Animator animations;
     public CinemachineVirtualCamera cam;
     public Camera mainCamera;
     public Stats stats;
@@ -40,7 +38,6 @@ public class Player : AIEntity, ITranslate
 
     private NewInputSystem controls;
 
-    private readonly Collider2D[] entity = new Collider2D[1];
     private LayerMask layer;
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -54,7 +51,6 @@ public class Player : AIEntity, ITranslate
 
         InitializeEntity();
 
-        state = EntityState.Normal;
         layer = 1 << gameObject.layer;
 
         zoomAmount = PlayerPrefs.GetFloat("ZoomAmount", 0.6f);
@@ -107,14 +103,15 @@ public class Player : AIEntity, ITranslate
         }
 #endif
 
-        if (touch && !buttonTouch)
+        if (touch && !buttonTouch && state != EntityState.Attack)
         {
             touch = false;
             targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
             targetPosition.z = 0f;
 
-            if (ReferenceEquals(target, null))
+            if (!target)
             {
+                isEnemy = false;
                 return;
             }
             
@@ -124,9 +121,19 @@ public class Player : AIEntity, ITranslate
             if (length > 0 && entity[0] != thisCollider)
             {
                 aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
+                
+                if (entity[0].TryGetComponent(out BaseTag anotherEntityTag) && Damage.IsEnemy(thisTag, anotherEntityTag))
+                {
+                    isEnemy = true;
+                }
+                else
+                {
+                    isEnemy = false;
+                }
             }
             else
             {
+                isEnemy = false;
                 aiEntity.target = target;
                 aiPath.endReachedDistance = defaultEndReachedDistance;
             }
@@ -154,45 +161,6 @@ public class Player : AIEntity, ITranslate
     }
 #endif
 
-    public override void StateNormal()
-    {
-        if (!aiPath.isActiveAndEnabled)
-        {
-            aiPath.enabled = true;
-        }
-
-        if (ReferenceEquals(aiEntity.target, null))
-        {
-            return;
-        }
-
-        float distance = Vector2.Distance(rb.position, aiEntity.target.position);
-        
-        if (distance <= aiPath.endReachedDistance)
-        {
-            if (ReferenceEquals(entity, null))
-            {
-                aiEntity.target = null;
-                return;
-            }
-            else
-            {
-                Attack();
-            }
-        }
-
-        float angle = StaticGameVariables.GetAngleBetweenPositions(aiEntity.target.position, transform.position);
-
-        if (angle <= 90f && angle >= -90f)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
-        }
-    }
-
     public override void StateDash()
     {
         if (dash.nextDash <= Time.time)
@@ -216,6 +184,11 @@ public class Player : AIEntity, ITranslate
         {
             aiPath.enabled = false;
         }
+    }
+
+    public override void StateSwing()
+    {
+        return;
     }
 
     public override void StateAttack()

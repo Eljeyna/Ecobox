@@ -47,13 +47,16 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 2e3d6c96d64961e47a0eb9550a28a16c, type: 3}
     - {fileID: 102900000, guid: cefcda2b71c16434aaefe0869bc62bbc, type: 3}
     - {fileID: 102900000, guid: 86d52392299c7d64a830cd8aae4090d0, type: 3}
+    - {fileID: 102900000, guid: 5098902bf7e64440990dc246c2e2953f, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: c0915840024ac4b4cbc050fedc972f45, type: 3}
   - {fileID: 21300000, guid: 6304ad603f150b649b764d29bbc2a87b, type: 3}
   - {fileID: 21300000, guid: 085185b08a40a924985bc0e4176edea6, type: 3}
+  - {fileID: 21300000, guid: c12930c043cf541e18d1b05db83e2be0, type: 3}
   - {fileID: 21300000, guid: 4d7f26e0e57e9f0409884a5ba708b87f, type: 3}
+  - {fileID: 21300000, guid: 9243298161ed747c6b64ce48c4f6a8fa, type: 3}
   - {fileID: 21300000, guid: 7927b9032dc11e841af3f9a1353d7ecd, type: 3}
   - {fileID: 21300000, guid: ab6db91373811284caeba2e9472fa9c2, type: 3}
   - {fileID: 21300000, guid: 010a6e5305fa7004f89c5d317b7b47d4, type: 3}
@@ -69,6 +72,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3a74f678ee8f3bd49aacf3de1ae4bcaa, type: 3}
   - {fileID: 21300000, guid: 5eda94a9dcf71e445ad17e3c065d1460, type: 3}
   - {fileID: 21300000, guid: 3bf6d9f920f7458448a390f80318ebe6, type: 3}
+  - {fileID: 21300000, guid: 3e8b155a1647e4ccf9868ceecacbbfa3, type: 3}
   - {fileID: 21300000, guid: 2a1f3cba20f3e11498474a705db12fde, type: 3}
   - {fileID: 21300000, guid: 5b56d9fa0e8bd6e409ed188db38a692c, type: 3}
   - {fileID: 21300000, guid: cd0a2c1b2c014ba4c80c1df786e150e9, type: 3}
@@ -80,7 +84,9 @@ SpriteAtlas:
   - UI Health
   - Horizontal_Ridged
   - Handle_Outline
+  - MinimapMask_3
   - UI MenuIcon
+  - MinimapMask_2
   - Horizontal_Outline_Arrows
   - Vertical_Plain
   - Handle_Plain
@@ -96,6 +102,7 @@ SpriteAtlas:
   - Handle_Ridged
   - Handle_Outline_Arrows
   - Vertical_Plain_Arrows
+  - MiniMapMask_1
   - AllAxis_Plain_Arrows
   - AllAxis_Outline
   - Horizontal_Outline
