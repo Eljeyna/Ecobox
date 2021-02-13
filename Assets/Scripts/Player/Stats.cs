@@ -299,8 +299,6 @@ public class Stats : MonoBehaviour, ISaveState
 
             //Player.Instance.weapon = saveObject.weapon;
             Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
-
-            Player.Instance.inventory.CallUpdateInventory();
         }
     }
 }

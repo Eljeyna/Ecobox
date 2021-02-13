@@ -7,8 +7,8 @@ public class SaveOrLoad : MonoBehaviour
         SaveLoadSystem.Instance.Save();
     }
 
-    public void Load()
+    public async void Load()
     {
-        SaveLoadSystem.Instance.Load();
+        await SaveLoadSystem.Instance.Load();
     }
 }

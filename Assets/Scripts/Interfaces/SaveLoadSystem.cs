@@ -46,10 +46,9 @@ public class SaveLoadSystem : MonoBehaviour
         File.WriteAllText(sb.ToString(), json);
     }
 
-    public async void Load()
+    public async Task Load()
     {
         await Preload();
-        
         AfterLoadSystem.Instance.Load();
     }
 

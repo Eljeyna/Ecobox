@@ -17,6 +17,7 @@ MonoBehaviour:
     m_AssetGUID: 20f23a82d8b6ea04b8445d908f2e0287
     m_SubObjectName: 
     m_SubObjectType: 
+  itemName: Synthea (Green Box)
   itemEnd: 0
   itemWeight: 0
   itemCost: 0
@@ -32,3 +33,4 @@ MonoBehaviour:
     m_AssetGUID: dc7b1eff0250b614d9bc5df6ac060970
     m_SubObjectName: 
     m_SubObjectType: 
+  taskID: 2

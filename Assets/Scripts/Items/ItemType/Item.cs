@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +38,7 @@ public class Item : ScriptableObject
     public float itemWeight;
     public int itemCost;
     public int itemAmount = 1;
-    public float chanceDrop;
+    [Range(0f, 1f)] public float chanceDrop;
     
     public ItemType itemType;
     public ItemQuality itemQuality;

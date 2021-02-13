@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Music
+  m_Name: Animations
   m_EditorClassIdentifier: 
-  m_GroupName: Music
+  m_GroupName: Animations
   m_Data:
     m_SerializedData: []
-  m_GUID: 82ef10c637098254d9f852be45e430aa
+  m_GUID: fd1048f9174f2be4fa6d68d35aea44b4
   m_SerializeEntries:
-  - m_GUID: 4ce48748d499d914b8596f29d60211b5
-    m_Address: Assets/Music
+  - m_GUID: 7e55143582542bf49989b37d85f84f2d
+    m_Address: Assets/Animations
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
+    m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: d46e60920b71ffa4a88aea6c0e3a4079, type: 2}
-    - {fileID: 11400000, guid: 7a1796101ee0a2b42a5e20648090369a, type: 2}
+    - {fileID: 11400000, guid: 11b189323282bd24b8331e23291cdbdc, type: 2}
+    - {fileID: 11400000, guid: 977a417a38935e2429166a3498daba41, type: 2}

@@ -68,6 +68,7 @@ public static class StaticGameVariables
     public static TMP_Text itemPickupName;
 
     public static Transform _DIALOGUES;
+    public static Transform _ITEMS;
 
     public static float progress;
 
@@ -195,6 +196,10 @@ public static class StaticGameVariables
         
         sb.Clear();
         sb.Append("_DIALOGUES");
+        _DIALOGUES = GameObject.Find(sb.ToString()).transform;
+        
+        sb.Clear();
+        sb.Append("_ITEMS");
         _DIALOGUES = GameObject.Find(sb.ToString()).transform;
 
         buttonUseItem = listButtons.transform.GetChild(0).GetComponent<Button>();

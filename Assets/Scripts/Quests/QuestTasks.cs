@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
@@ -10,10 +11,42 @@ public class QuestTasks : ITranslate
     public string nameQuest;
     public string fullDescription;
     public QuestTask[] tasksDescriptions;
+    public QuestInitialize questInitialize;
 
-    public QuestTasks(string id)
+    public QuestTasks(string id, int taskID)
     {
         this.id = id;
+        Initialize(taskID);
+    }
+
+    public async void Initialize(int taskID)
+    {
+        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Quests", "QuestsID.json")));
+
+#if UNITY_ANDROID
+        if (sb.ToString() == string.Empty)
+        {
+            return;
+        }
+        
+        Dictionary<string, string> json = JsonConvert.DeserializeObject<Dictionary<string, string>>(sb.ToString());
+#else
+        if (!File.Exists(sb.ToString()))
+        {
+            return;
+        }
+
+        Dictionary<string, string> json = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(sb.ToString()));
+#endif
+        if (json.TryGetValue(id, out string assetGUID))
+        {
+            questInitialize = await Database.GetItem<QuestInitialize>(assetGUID);
+            
+            if (questInitialize)
+            {
+                questInitialize.Initialize(taskID);
+            }
+        }
     }
 
     public void GetTranslate()

@@ -1,3 +1,5 @@
+using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
@@ -14,12 +16,11 @@ public class Player : AIEntity, ITranslate
     public static Player Instance { get; private set; }
     
     [Space(10)]
-    public bool touch = false;
-    public bool buttonTouch = false;
+    public bool touch;
+    public bool buttonTouch;
 
     [Space(10)]
     public InventoryUI inventoryUI;
-    public Dash dash;
     public CinemachineVirtualCamera cam;
     public Camera mainCamera;
     public Stats stats;
@@ -30,14 +31,10 @@ public class Player : AIEntity, ITranslate
     [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
 
     [HideInInspector] public Vector3 moving;
-    [HideInInspector] public Vector2 moveVelocity;
-    [HideInInspector] public Vector3 dashDirection;
     [HideInInspector] public float zoomAmount;
 
     private ItemWorld itemForPickup;
-
     private NewInputSystem controls;
-
     private LayerMask layer;
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -161,46 +158,6 @@ public class Player : AIEntity, ITranslate
     }
 #endif
 
-    public override void StateDash()
-    {
-        if (dash.nextDash <= Time.time)
-        {
-            aiEntity.enabled = true;
-            aiPath.enabled = true;
-            rb.velocity = Vector2.zero;
-            state = EntityState.Normal;
-        }
-        else
-        {
-            float dashSpeed = dash.dashSpeed.Evaluate(dash.dashEvaluateTime);
-            rb.velocity = dashDirection * dashSpeed;
-            dash.dashEvaluateTime += Time.deltaTime;
-        }
-    }
-
-    public override void StateStun()
-    {
-        if (aiPath.isActiveAndEnabled)
-        {
-            aiPath.enabled = false;
-        }
-    }
-
-    public override void StateSwing()
-    {
-        return;
-    }
-
-    public override void StateAttack()
-    {
-        return;
-    }
-    
-    public override void StateCast()
-    {
-        return;
-    }
-
     public void PickUpItem()
     {
         if (ReferenceEquals(itemForPickup, null))
@@ -209,7 +166,7 @@ public class Player : AIEntity, ITranslate
         }
         
         inventory.AddItem(itemForPickup.item);
-        Destroy(itemForPickup.gameObject);
+        Addressables.ReleaseInstance(itemForPickup.gameObject);
     }
     
     public void GetTranslate()
@@ -262,14 +219,21 @@ public class Player : AIEntity, ITranslate
         }
     }
 
-    private void OnSave()
+    public void OnSave()
     {
         SaveLoadSystem.Instance.Save();
     }
 
-    private void OnLoad()
+    public void OnLoad()
     {
-        SaveLoadSystem.Instance.Load();
+        StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
+
+        if (File.Exists(sb.ToString()))
+        {
+            Settings.Instance.gameIsLoaded = true;
+        }
+        
+        SceneLoading.Instance.LoadLevel("World");
     }
 
     private void Touch_performed(InputAction.CallbackContext obj)
@@ -300,6 +264,17 @@ public class Player : AIEntity, ITranslate
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.layer == 20) // Spawners
+        {
+            if (collision.TryGetComponent(out EntityMaker entityMaker))
+            {
+                entityMaker.isTrigger = true;
+                entityMaker.enabled = true;
+            }
+            
+            return;
+        }
+        
         if (collision.gameObject.layer == 30) // Items
         {
             if (collision.TryGetComponent(out ItemWorld itemWorld))
@@ -329,33 +304,35 @@ public class Player : AIEntity, ITranslate
             }
         }
     }
-
-    private void OnDestroy()
+    public override void EventEnable()
     {
-        if (atlasSprite.IsValid())
-        {
-            atlasSprite.ReleaseAsset();
-        }
-
-        aiEntity.target = null;
-    }
-
-    private void OnEnable()
-    {
-        StaticGameVariables.OnPauseGame += OnPause;
+        base.EventEnable();
         controls.Enable();
 #if UNITY_ANDROID || UNITY_IOS
         EnhancedTouchSupport.Enable();
 #endif
     }
 
-    private void OnDisable()
+    public override void EventDisable()
     {
-        StaticGameVariables.OnPauseGame -= OnPause;
+        base.EventDisable();
         controls.Disable();
 #if UNITY_ANDROID || UNITY_IOS
         EnhancedTouchSupport.Disable();
 #endif
+    }
+    
+    public override void EventDestroy()
+    {
+        base.EventDestroy();
+        controls.Disable();
+#if UNITY_ANDROID || UNITY_IOS
+        EnhancedTouchSupport.Disable();
+#endif
+        if (atlasSprite.IsValid())
+        {
+            atlasSprite.ReleaseAsset();
+        }
     }
 
 #if UNITY_EDITOR

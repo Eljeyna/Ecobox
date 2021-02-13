@@ -5,11 +5,13 @@ using UnityEngine.AddressableAssets;
 public class SyntheaGreenBox : Item
 {
     [SerializeField] public AssetReference talkID;
+    public int taskID;
+    
     public override void Use()
     {
         itemAmount--;
 
-        GameDirector.Instance.UpdateQuest("New beginnings");
+        GameDirector.Instance.UpdateQuest("New beginnings", taskID);
 
         StaticGameVariables.HideInventory();
         GameDirector.Instance.InitializeDialogue(talkID);

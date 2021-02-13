@@ -5,21 +5,26 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class Addressables_Instantiate : MonoBehaviour
 {
     public AssetReference[] prefabs;
-    public bool instantiateAwake = false;
-    public bool parent = false;
+    public bool instantiateAwake;
+    public bool parent;
 
-    private AsyncOperationHandle<GameObject>[] createdObjects;
+    public AsyncOperationHandle<GameObject>[] createdObjects;
     
     private void Awake()
     {
         if (instantiateAwake)
         {
-            AddressablesInstantiate();
+            SpawnEntities();
         }
     }
 
-    public void AddressablesInstantiate()
+    public void SpawnEntities()
     {
+        if (!ReferenceEquals(createdObjects, null) && createdObjects.Length > 0)
+        {
+            DeleteEntities();
+        }
+        
         createdObjects = new AsyncOperationHandle<GameObject>[prefabs.Length];
 
         if (parent)
@@ -34,6 +39,17 @@ public class Addressables_Instantiate : MonoBehaviour
             for (int i = 0; i < prefabs.Length; i++)
             {
                 createdObjects[i] = Addressables.InstantiateAsync(prefabs[i]);
+            }
+        }
+    }
+
+    public void DeleteEntities()
+    {
+        if (createdObjects.Length > 0)
+        {
+            for (int i = 0; i < createdObjects.Length; i++)
+            {
+                Addressables.ReleaseInstance(createdObjects[i]);
             }
         }
     }

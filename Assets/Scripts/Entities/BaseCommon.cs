@@ -1,5 +1,9 @@
-﻿public class BaseCommon : BaseEntity
+﻿using System;
+
+public class BaseCommon : BaseEntity
 {
+    public EventHandler OnDie;
+    
     public override void Awake()
     {
         health = maxHealth;
@@ -8,7 +12,7 @@
 
     public override void TakeDamage(float amount, int attackType, BaseEntity attacker)
     {
-        if (invinsibility)
+        if (invinsibility || flagDeath)
         {
             return;
         }
@@ -25,9 +29,9 @@
         healthPercent = health / maxHealth;
         this.attacker = attacker;
 
-        if (health <= 0)
+        if (health <= 0f)
         {
-            health = 0;
+            health = 0f;
             healthPercent = 0f;
             Die();
         }
@@ -35,6 +39,11 @@
 
     public override void TakeHealth(float amount, BaseEntity healer)
     {
+        if (flagDeath)
+        {
+            return;
+        }
+        
         health += amount;
         healthPercent = health / maxHealth;
 
@@ -47,7 +56,7 @@
 
     public override void TakeDamagePercent(float amount, int attackType, BaseEntity attacker)
     {
-        if (invinsibility)
+        if (invinsibility || flagDeath)
         {
             return;
         }
@@ -63,9 +72,9 @@
         health = healthPercent * maxHealth;
         this.attacker = attacker;
 
-        if (health <= 0)
+        if (health <= 0f)
         {
-            health = 0;
+            health = 0f;
             healthPercent = 0f;
             Die();
         }
@@ -73,6 +82,11 @@
 
     public override void TakeHealthPercent(float amount, BaseEntity healer)
     {
+        if (flagDeath)
+        {
+            return;
+        }
+        
         healthPercent += amount;
         health = healthPercent * maxHealth;
 
@@ -92,5 +106,6 @@
     public override void Die()
     {
         flagDeath = true;
+        OnDie?.Invoke(this, EventArgs.Empty);
     }
 }

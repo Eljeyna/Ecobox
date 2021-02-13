@@ -7,51 +7,33 @@ public class Enemy : AIEntity
 
     private void Start()
     {
+        if (transform.parent)
+        {
+            if (transform.parent.TryGetComponent(out EntityMaker entityMaker))
+            {
+                aiEntity.target = entityMaker.target;
+            }
+        }
+        
         if (!aiEntity.target)
         {
             aiPath.endReachedDistance = defaultEndReachedDistance;
             return;
         }
         
-        if (aiEntity.target.TryGetComponent(out BaseTag theTag))
+        if (aiEntity.target.TryGetComponent(out BaseTag theTag) && Damage.IsEnemy(thisTag, theTag))
         {
-            if (Damage.IsEnemy(thisTag, theTag))
-            {
-                aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
-            }
+            isEnemy = true;
+            aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
+        }
+        else
+        {
+            isEnemy = false;
         }
     }
 
     private void Update()
     {
         StatePerform();
-    }
-
-    public override void StateStun()
-    {
-        if (aiPath.isActiveAndEnabled)
-        {
-            aiPath.enabled = false;
-        }
-    }
-
-    public override void StateDash()
-    {
-        return;
-    }
-
-    public override void StateSwing()
-    {
-        return;
-    }
-
-    public override void StateAttack()
-    {
-        return;
-    }
-
-    public override void StateCast()
-    {
-        return;
     }
 }

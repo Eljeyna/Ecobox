@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +11,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class GameDirector : MonoBehaviour
 {
     public static GameDirector Instance { get; private set; }
-
-    public ItemsLoad items;
 
     public AssetReference gameUI;
     public TMP_Text debugFPS;
@@ -56,14 +53,10 @@ public class GameDirector : MonoBehaviour
     public void Initialize()
     {
         AddNewQuest("New beginnings");
-        AddNewQuest("Test");
-        CompleteQuest("Test");
         
         UpdateQuestDescription();
         
         Player.Instance.Initialize();
-
-        items.Initialize();
 
         InitializeDialogue(startDialogue);
     }
@@ -102,23 +95,6 @@ public class GameDirector : MonoBehaviour
         StaticGameVariables.taskDescription.text = sb.ToString();
     }
 
-    public void UpdateQuest(string id)
-    {
-        Quest quest = GetQuest(id);
-
-        if (quest == null)
-        {
-            return;
-        }
-        
-        quest.currentTask += 1;
-
-        if (quest.id == activeQuest.id)
-        {
-            UpdateQuestDescription();
-        }
-    }
-
     public void UpdateQuest(string id, int task)
     {
         Quest quest = GetQuest(id);
@@ -140,6 +116,7 @@ public class GameDirector : MonoBehaviour
     {
         if (quests.TryGetValue(id, out Quest value))
         {
+            value.Complete();
             quests.Remove(id);
             
             StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "cplQ.json"));
@@ -227,6 +204,14 @@ public class GameDirector : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (quests.Count > 0)
+        {
+            foreach (string key in quests.Keys)
+            {
+                quests[key].Complete();
+            }
+        }
+        
         if (gameUI.IsValid())
         {
             Addressables.ReleaseInstance(GameUI.Instance.gameObject);

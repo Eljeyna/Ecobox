@@ -178,7 +178,7 @@ public class MiniMapController : MonoBehaviour
 		
 		curMO.SetMiniMapEntityValues(this, mme,owner, mapCamera, miniMapPanel);
 		ownerIconMap.Add(owner, curMGO);
-		return owner.GetComponent<MapObject>();
+		return curMO;
 	}
 
 	//Unregister's minimap objects here

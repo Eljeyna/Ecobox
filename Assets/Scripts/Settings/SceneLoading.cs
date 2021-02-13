@@ -43,7 +43,7 @@ public class SceneLoading : MonoBehaviour
         
         Translate.Instance.GetTranslate();
         
-        if (GameDirector.Instance != null)
+        if (GameDirector.Instance)
         {
             GameDirector.Instance.Preload();
         }
@@ -59,7 +59,7 @@ public class SceneLoading : MonoBehaviour
     {
         StaticGameVariables.PauseGame();
         
-        if (Player.Instance != null)
+        if (Player.Instance)
         {
             Player.Instance.inventory.ClearInventory();
             Destroy(Player.Instance.gameObject);
@@ -71,7 +71,7 @@ public class SceneLoading : MonoBehaviour
         anim.SetTrigger(endAnimationID);
         Translate.Instance.GetTranslate();
         
-        if (GameDirector.Instance != null)
+        if (GameDirector.Instance)
         {
             GameDirector.Instance.Preload();
         }

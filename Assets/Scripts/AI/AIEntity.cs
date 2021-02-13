@@ -1,17 +1,22 @@
 using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using Pathfinding;
 using UnityEngine.AddressableAssets;
+using Path = System.IO.Path;
 
 public enum EntityState
 {
-    None   = 0,     // Death
+    None   = 0,
     Normal = 1,     // Idle animation
     Dash   = 2,
     Stun   = 3,
     Swing  = 4,
     Attack = 5,
-    Cast   = 6
+    Cast   = 6,
+    Death  = 7
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -27,15 +32,17 @@ public enum EntityState
 [RequireComponent(typeof(AIPath))]
 [RequireComponent(typeof(AIDestinationSetter))]
 [RequireComponent(typeof(Gun))]
+[RequireComponent(typeof(Dash))]
 public abstract class AIEntity : MonoBehaviour
 {
     public float speed;
     public float speedSlow;
+    public float defaultEndReachedDistance;
     public Rigidbody2D rb;
     public CapsuleCollider2D thisCollider;
     public EntityState state;
     public BaseTag thisTag;
-    public BaseEntity thisEntity;
+    public BaseCommon thisEntity;
     public Inventory inventory;
     public Transform target;
     public Vector3 targetPosition;
@@ -43,15 +50,19 @@ public abstract class AIEntity : MonoBehaviour
     public Animator animations;
     public AIPath aiPath;
     public AIDestinationSetter aiEntity;
-    public float defaultEndReachedDistance;
     public Gun weapon;
+    public Dash dash;
 
     [HideInInspector] public Collider2D[] entity = new Collider2D[1];
     [HideInInspector] public bool isEnemy = false;
+    [HideInInspector] public Vector3 dashDirection;
+
+    private float deathTime = 0f;
 
     public void InitializeEntity()
     {
         state = EntityState.Normal;
+        aiEntity.target = transform;
         aiPath.maxSpeed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
     }
@@ -85,9 +96,37 @@ public abstract class AIEntity : MonoBehaviour
             case EntityState.Cast:
                 StateCast();
                 break;
+            case EntityState.Death:
+                StateDeath();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
         
         SetAnimation();
+    }
+
+    public void StateDeath()
+    {
+        aiPath.enabled = false;
+
+        if (deathTime > Time.time)
+        {
+            return;
+        }
+
+        if (!gameObject)
+        {
+            return;
+        }
+
+        if (gameObject != Player.Instance.gameObject)
+        {
+            Addressables.ReleaseInstance(gameObject);
+            return;
+        }
+
+        Player.Instance.OnLoad();
     }
 
     public void StateNormal()
@@ -129,6 +168,46 @@ public abstract class AIEntity : MonoBehaviour
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
     }
+    
+    public void StateDash()
+    {
+        if (dash.nextDash <= Time.time)
+        {
+            aiEntity.enabled = true;
+            aiPath.enabled = true;
+            rb.velocity = Vector2.zero;
+            state = EntityState.Normal;
+        }
+        else
+        {
+            float dashSpeed = dash.dashSpeed.Evaluate(dash.dashEvaluateTime);
+            rb.velocity = dashDirection * dashSpeed;
+            dash.dashEvaluateTime += Time.deltaTime;
+        }
+    }
+    
+    public void StateStun()
+    {
+        if (aiPath.isActiveAndEnabled)
+        {
+            aiPath.enabled = false;
+        }
+    }
+
+    public void StateSwing()
+    {
+        return;
+    }
+
+    public void StateAttack()
+    {
+        return;
+    }
+
+    public void StateCast()
+    {
+        return;
+    }
 
     public void SetAnimation()
     {
@@ -157,6 +236,22 @@ public abstract class AIEntity : MonoBehaviour
         weapon.enabled = true;
         weapon.PrimaryAttack();
     }
+
+    public void UpdateTarget(Transform newTarget)
+    {
+        aiEntity.target = newTarget;
+        
+        if (aiEntity.target.TryGetComponent(out BaseTag theTag) && Damage.IsEnemy(thisTag, theTag))
+        {
+            isEnemy = true;
+            aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
+        }
+        else
+        {
+            aiPath.endReachedDistance = defaultEndReachedDistance;
+            isEnemy = false;
+        }
+    }
     
     public float GetEndReachedDistance()
     {
@@ -173,20 +268,30 @@ public abstract class AIEntity : MonoBehaviour
         aiPath.enabled = !StaticGameVariables.isPause;
         animations.speed = StaticGameVariables.isPause ? 0f : 1f;
     }
-    
-    private void OnEnable()
+
+    public void OnDie(object sender, EventArgs e)
+    {
+        state = EntityState.Death;
+        deathTime = Time.time + 3f;
+    }
+
+    public virtual void EventEnable()
     {
         StaticGameVariables.OnPauseGame += OnPause;
+        thisEntity.OnDie += OnDie;
     }
     
-    private void OnDisable()
+    public virtual void EventDisable()
     {
         StaticGameVariables.OnPauseGame -= OnPause;
+        thisEntity.OnDie -= OnDie;
     }
     
-    private void OnDestroy()
+    public virtual void EventDestroy()
     {
-        aiEntity.target = null;
+        StaticGameVariables.OnPauseGame -= OnPause;
+        thisEntity.OnDie -= OnDie;
+        
         if (target)
         {
             Addressables.ReleaseInstance(target.gameObject);
@@ -195,9 +300,18 @@ public abstract class AIEntity : MonoBehaviour
         Addressables.ReleaseInstance(gameObject);
     }
 
-    public abstract void StateDash();
-    public abstract void StateStun();
-    public abstract void StateSwing();
-    public abstract void StateAttack();
-    public abstract void StateCast();
+    private void OnEnable()
+    {
+        EventEnable();
+    }
+
+    private void OnDisable()
+    {
+        EventDisable();
+    }
+
+    private void OnDestroy()
+    {
+        EventDestroy();
+    }
 }

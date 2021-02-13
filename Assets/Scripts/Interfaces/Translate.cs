@@ -1,10 +1,8 @@
-using System;
 using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using UnityEngine.Networking;
 using static StaticGameVariables;
 
 public class Translate : MonoBehaviour

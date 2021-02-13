@@ -12,7 +12,7 @@ public class GameUI : MonoBehaviour
     public InvisibleButton invisibleButton;
     public GameObject circleRepeat;
 
-    private void Awake()
+    private async void Awake()
     {
         Instance = this;
 
@@ -27,9 +27,9 @@ public class GameUI : MonoBehaviour
         if (Settings.Instance.gameIsLoaded)
         {
             Player.Instance.Initialize();
-            GameDirector.Instance.items.Initialize();
             
-            SaveLoadSystem.Instance.Load();
+            await SaveLoadSystem.Instance.Load();
+            
             Settings.Instance.gameIsLoaded = false;
             StaticGameVariables.ResumeGame();
         }

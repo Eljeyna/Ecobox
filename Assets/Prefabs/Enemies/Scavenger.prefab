@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 6753366706675599891}
   - component: {fileID: 6753366706675599897}
   - component: {fileID: 3457025894024740812}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Scavenger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,6 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3.5
   speedSlow: 0
+  defaultEndReachedDistance: 0
   rb: {fileID: 6753366706675599899}
   thisCollider: {fileID: 6753366706675599896}
   state: 0
@@ -356,8 +357,12 @@ MonoBehaviour:
   animations: {fileID: -5682101602445208287}
   aiPath: {fileID: 6753366706675599900}
   aiEntity: {fileID: 6753366706675599901}
-  defaultEndReachedDistance: 0
   weapon: {fileID: 6753366706675599891}
+  dash: {fileID: 0}
+  entity:
+  - {fileID: 0}
+  isEnemy: 0
+  dashDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &3457025894024740812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,11 +377,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   size: {x: 20, y: 20}
-  rotateWithObject: 0
-  upAxis: {x: 0, y: 1, z: 0}
-  initialIconRotation: 0
-  clampIconInBorder: 1
-  clampDistance: 100
 --- !u!1 &6753366707821187388
 GameObject:
   m_ObjectHideFlags: 0
