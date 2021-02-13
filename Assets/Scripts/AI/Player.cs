@@ -189,7 +189,7 @@ public class Player : AIEntity, ITranslate
 
     private void OnDash()
     {
-        if (!ReferenceEquals(aiEntity.target, null) && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        if (!StaticGameVariables.isPause && !ReferenceEquals(aiEntity.target, null) && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
             aiEntity.enabled = false;
             aiPath.enabled = false;
@@ -205,7 +205,7 @@ public class Player : AIEntity, ITranslate
 
     private void OnReload()
     {
-        if (weapon && !weapon.reloading)
+        if (!StaticGameVariables.isPause &&weapon && !weapon.reloading)
         {
             weapon.Reload();
         }
@@ -221,11 +221,21 @@ public class Player : AIEntity, ITranslate
 
     public void OnSave()
     {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+        
         SaveLoadSystem.Instance.Save();
     }
 
     public void OnLoad()
     {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+        
         StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
 
         if (File.Exists(sb.ToString()))

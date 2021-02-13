@@ -200,7 +200,7 @@ public static class StaticGameVariables
         
         sb.Clear();
         sb.Append("_ITEMS");
-        _DIALOGUES = GameObject.Find(sb.ToString()).transform;
+        _ITEMS = GameObject.Find(sb.ToString()).transform;
 
         buttonUseItem = listButtons.transform.GetChild(0).GetComponent<Button>();
         buttonDropItem = listButtons.transform.GetChild(1).GetComponent<Button>();

@@ -190,7 +190,7 @@ public class GameDirector : MonoBehaviour
     
     public async Task LoadDialogue()
     {
-        dialogueHandle = Addressables.InstantiateAsync(dialogueReference);
+        dialogueHandle = Addressables.InstantiateAsync(dialogueReference, StaticGameVariables._DIALOGUES);
         await dialogueHandle.Task;
     }
 
