@@ -29,6 +29,7 @@ public static class StaticGameVariables
     }
 
     public static bool isPause = true;
+    public static float random;
 
     public static Language language;
     public static ActionType actionWithItem;
@@ -216,13 +217,12 @@ public static class StaticGameVariables
         slotDefaultColor = new Color(80f / 255f, 80f / 255f, 80f / 255f, 0.5f);
         slotColor = new Color(1f, 1f, 1f, 0.5f);
 
-        colorItems = new Color[6];
+        colorItems = new Color[5];
         colorItems[0] = new Color(72f / 255f, 60f / 255f, 60f / 255f, 1f);
         colorItems[1] = new Color(86f / 255f, 183f / 255f, 93f / 255f, 1f);
         colorItems[2] = new Color(86f / 255f, 137f / 255f, 183f / 255f, 1f);
         colorItems[3] = new Color(147f / 255f, 86f / 255f, 183f / 255f, 1f);
         colorItems[4] = new Color(183f / 255f, 175f / 255f, 86f / 255f, 1f);
-        colorItems[5] = new Color(183f / 255f, 121f / 255f, 86f / 255f, 1f);
     }
     #endregion
 
@@ -485,6 +485,16 @@ public static class StaticGameVariables
     public static void ValueChangeCheck()
     {
         yesNoAmount.text = yesNoSlider.value.ToString();
+    }
+
+    public static void GetRandom()
+    {
+        random = Random.Range(0f, 1f);
+    }
+
+    public static bool InRandom(float value)
+    {
+        return random <= value;
     }
 
     public static float GetReachedDistance(CapsuleCollider2D collider)

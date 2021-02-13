@@ -20,12 +20,10 @@ public class Addressables_Instantiate : MonoBehaviour
 
     public void SpawnEntities()
     {
-        if (!ReferenceEquals(createdObjects, null) && createdObjects.Length > 0)
+        if (ReferenceEquals(createdObjects, null))
         {
-            DeleteEntities();
+            createdObjects = new AsyncOperationHandle<GameObject>[prefabs.Length];
         }
-        
-        createdObjects = new AsyncOperationHandle<GameObject>[prefabs.Length];
 
         if (parent)
         {
@@ -49,7 +47,10 @@ public class Addressables_Instantiate : MonoBehaviour
         {
             for (int i = 0; i < createdObjects.Length; i++)
             {
-                Addressables.ReleaseInstance(createdObjects[i]);
+                if (createdObjects[i].IsValid())
+                {
+                    Addressables.ReleaseInstance(createdObjects[i]);
+                }
             }
         }
     }

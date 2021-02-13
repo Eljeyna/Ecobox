@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b974d350f9eaee04c9cce343b45b0fcf, type: 3}
-  m_Name: Agility+1
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: NPC_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  duration: 5
-  isStackable: 0
-  parameter: 1
+  m_Group: {fileID: 11400000, guid: 118585c6daed25e4d8131394ecce0dd7, type: 2}
+  m_StaticContent: 0

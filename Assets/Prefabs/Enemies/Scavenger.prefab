@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6753366706675599899}
   - component: {fileID: 6753366706675599902}
   - component: {fileID: 6753366706675599903}
-  - component: {fileID: 3150552408887273977}
   - component: {fileID: 6753366706675599898}
+  - component: {fileID: 8023196567392388234}
   - component: {fileID: -7746920673815902821}
   - component: {fileID: 6753366706675599889}
   - component: {fileID: -5682101602445208287}
@@ -103,21 +103,6 @@ MonoBehaviour:
   invinsibility: 0
   flagDeath: 0
   attacker: {fileID: 0}
---- !u!114 &3150552408887273977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753366706675599878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e34b5b26ece10ab48ad884b3077d9a9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weight: 0
-  itemList:
-  - {fileID: 11400000, guid: 415aa3390d9c45b45bab21db4ad5984b, type: 2}
 --- !u!114 &6753366706675599898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +131,32 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &8023196567392388234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753366706675599878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f9030ffb76ea042afe1a4800d35c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsForDrop:
+  - m_AssetGUID: b6368a8a9afe35c4b8fd63d315484385
+    m_SubObjectName: 
+    m_SubObjectType: 
+  - m_AssetGUID: 449506d650d22364dac04252686aeb2d
+    m_SubObjectName: 
+    m_SubObjectType: 
+  - m_AssetGUID: c85be42de7862db429da7e719bb5064d
+    m_SubObjectName: 
+    m_SubObjectType: 
+  chanceDrop:
+  - 0.9
+  - 0.25
+  - 1
 --- !u!114 &-7746920673815902821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +361,6 @@ MonoBehaviour:
   state: 0
   thisTag: {fileID: 6753366706675599902}
   thisEntity: {fileID: 6753366706675599903}
-  inventory: {fileID: 0}
   target: {fileID: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   buffSystem: {fileID: 6753366706675599889}
@@ -363,6 +373,7 @@ MonoBehaviour:
   - {fileID: 0}
   isEnemy: 0
   dashDirection: {x: 0, y: 0, z: 0}
+  inventory: {fileID: 8023196567392388234}
 --- !u!114 &3457025894024740812
 MonoBehaviour:
   m_ObjectHideFlags: 0

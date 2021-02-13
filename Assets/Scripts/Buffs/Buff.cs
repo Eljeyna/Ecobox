@@ -4,7 +4,6 @@ public abstract class Buff
 {
     protected int stacks;
     public float duration;
-    public readonly bool isPersist;
     public bool isFinished;
     public readonly ScriptableObjectBuff buffData;
     private readonly GameObject obj;

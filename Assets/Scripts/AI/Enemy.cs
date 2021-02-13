@@ -1,5 +1,7 @@
 public class Enemy : AIEntity
 {
+    public InventoryDrop inventory;
+    
     private void Awake()
     {
         InitializeEntity();
@@ -35,5 +37,15 @@ public class Enemy : AIEntity
     private void Update()
     {
         StatePerform();
+    }
+
+    public override void EventDestroy()
+    {
+        if (Player.Instance)
+        {
+            inventory.Drop();
+        }
+        
+        base.EventDestroy();
     }
 }

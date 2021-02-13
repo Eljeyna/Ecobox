@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BuffSystem : MonoBehaviour
 {
-    public readonly Dictionary<ScriptableObjectBuff, Buff> buffs = new Dictionary<ScriptableObjectBuff, Buff>();
+    public Dictionary<ScriptableObjectBuff, Buff> buffs = new Dictionary<ScriptableObjectBuff, Buff>();
     private List<Buff> buffList = new List<Buff>();
 
     void Update()
@@ -15,7 +15,7 @@ public class BuffSystem : MonoBehaviour
 
         foreach (Buff buff in buffs.Values)
         {
-            if (buff.isPersist)
+            if (buff.buffData.isPersist)
             {
                 continue;
             }
@@ -56,6 +56,7 @@ public class BuffSystem : MonoBehaviour
         if (buffs.ContainsKey(buff.buffData))
         {
             buff.End();
+            buff.buffData.buff = null;
             buffs.Remove(buff.buffData);
         }
     }

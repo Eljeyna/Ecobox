@@ -1,16 +1,12 @@
 using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Pathfinding;
 using UnityEngine.AddressableAssets;
-using Path = System.IO.Path;
 
 public enum EntityState
 {
     None   = 0,
-    Normal = 1,     // Idle animation
+    Normal = 1,     // Idle/Move animation
     Dash   = 2,
     Stun   = 3,
     Swing  = 4,
@@ -22,7 +18,6 @@ public enum EntityState
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BaseTag))]
 [RequireComponent(typeof(BaseEntity))]
-[RequireComponent(typeof(Inventory))]
 [RequireComponent(typeof(Seeker))]
 
 [RequireComponent(typeof(BuffSystem))]
@@ -36,14 +31,12 @@ public enum EntityState
 public abstract class AIEntity : MonoBehaviour
 {
     public float speed;
-    public float speedSlow;
     public float defaultEndReachedDistance;
     public Rigidbody2D rb;
     public CapsuleCollider2D thisCollider;
     public EntityState state;
     public BaseTag thisTag;
     public BaseCommon thisEntity;
-    public Inventory inventory;
     public Transform target;
     public Vector3 targetPosition;
     public BuffSystem buffSystem;
@@ -54,10 +47,10 @@ public abstract class AIEntity : MonoBehaviour
     public Dash dash;
 
     [HideInInspector] public Collider2D[] entity = new Collider2D[1];
-    [HideInInspector] public bool isEnemy = false;
+    [HideInInspector] public bool isEnemy;
     [HideInInspector] public Vector3 dashDirection;
 
-    private float deathTime = 0f;
+    private float deathTime;
 
     public void InitializeEntity()
     {
@@ -100,33 +93,11 @@ public abstract class AIEntity : MonoBehaviour
                 StateDeath();
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                state = EntityState.None;
+                break;
         }
         
         SetAnimation();
-    }
-
-    public void StateDeath()
-    {
-        aiPath.enabled = false;
-
-        if (deathTime > Time.time)
-        {
-            return;
-        }
-
-        if (!gameObject)
-        {
-            return;
-        }
-
-        if (gameObject != Player.Instance.gameObject)
-        {
-            Addressables.ReleaseInstance(gameObject);
-            return;
-        }
-
-        Player.Instance.OnLoad();
     }
 
     public void StateNormal()
@@ -207,6 +178,29 @@ public abstract class AIEntity : MonoBehaviour
     public void StateCast()
     {
         return;
+    }
+    
+    public void StateDeath()
+    {
+        aiPath.enabled = false;
+
+        if (deathTime > Time.time)
+        {
+            return;
+        }
+
+        if (!gameObject)
+        {
+            return;
+        }
+
+        if (gameObject != Player.Instance.gameObject)
+        {
+            Addressables.ReleaseInstance(gameObject);
+            return;
+        }
+
+        Player.Instance.OnLoad();
     }
 
     public void SetAnimation()

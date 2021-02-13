@@ -17,7 +17,7 @@ public class Damage : MonoBehaviour
                     break;
                 }
 
-                if (enemy.TryGetComponent(out BaseTag enemyTag) && attacker.TryGetComponent(out BaseTag attackerTag))
+                if (enemy && enemy.TryGetComponent(out BaseTag enemyTag) && attacker.TryGetComponent(out BaseTag attackerTag))
                 {
                     if (IsEnemy(enemyTag ,attackerTag))
                     {

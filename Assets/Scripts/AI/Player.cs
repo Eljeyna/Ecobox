@@ -20,6 +20,7 @@ public class Player : AIEntity, ITranslate
     public bool buttonTouch;
 
     [Space(10)]
+    public Inventory inventory;
     public InventoryUI inventoryUI;
     public CinemachineVirtualCamera cam;
     public Camera mainCamera;
@@ -27,6 +28,13 @@ public class Player : AIEntity, ITranslate
 
     [Space(10)]
     public bool gender = true;
+    public int fightCount;
+    
+    public EquipableItem head;
+    public EquipableItem torso;
+    public EquipableItem legs;
+    public EquipableItem foots;
+
     
     [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
 
@@ -34,8 +42,11 @@ public class Player : AIEntity, ITranslate
     [HideInInspector] public float zoomAmount;
 
     private ItemWorld itemForPickup;
+    private Collider2D[] searchItem = new Collider2D[1];
+    private const float searchItemRadius = 2f;
     private NewInputSystem controls;
     private LayerMask layer;
+    private LayerMask layerItems;
 
 #if UNITY_ANDROID || UNITY_IOS
     private float lastMultiTouchDistance;
@@ -49,6 +60,7 @@ public class Player : AIEntity, ITranslate
         InitializeEntity();
 
         layer = 1 << gameObject.layer;
+        layerItems = 1 << 30;
 
         zoomAmount = PlayerPrefs.GetFloat("ZoomAmount", 0.6f);
 
@@ -67,9 +79,12 @@ public class Player : AIEntity, ITranslate
         controls.Player.Zoom.performed += Zoom_performed;
 
         GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
+        targetNew.transform.position = transform.position;
         targetNew.AddComponent(typeof(SpriteRenderer));
         AsyncOperationHandle<Sprite> asyncOperationHandle = atlasSprite.LoadAssetAsync<Sprite>();
+        
         await asyncOperationHandle.Task;
+        
         if (targetNew.TryGetComponent(out SpriteRenderer newSpriteRenderer))
         {
             newSpriteRenderer.color = new Color(1f, 1f, 1f, 64f / 255f);
@@ -121,10 +136,12 @@ public class Player : AIEntity, ITranslate
                 
                 if (entity[0].TryGetComponent(out BaseTag anotherEntityTag) && Damage.IsEnemy(thisTag, anotherEntityTag))
                 {
+                    target.gameObject.SetActive(true);
                     isEnemy = true;
                 }
                 else
                 {
+                    target.gameObject.SetActive(false);
                     isEnemy = false;
                 }
             }
@@ -167,6 +184,16 @@ public class Player : AIEntity, ITranslate
         
         inventory.AddItem(itemForPickup.item);
         Addressables.ReleaseInstance(itemForPickup.gameObject);
+
+        int size = Physics2D.OverlapCircleNonAlloc(transform.position, searchItemRadius, searchItem, layerItems);
+        if (size > 0)
+        {
+            if (searchItem[0].TryGetComponent(out ItemWorld itemWorld))
+            {
+                itemForPickup = itemWorld;
+                StaticGameVariables.ShowItemPickableInfo(itemWorld);
+            }
+        }
     }
     
     public void GetTranslate()
@@ -205,18 +232,22 @@ public class Player : AIEntity, ITranslate
 
     private void OnReload()
     {
-        if (!StaticGameVariables.isPause &&weapon && !weapon.reloading)
+        if (StaticGameVariables.isPause ||!weapon || weapon.reloading)
         {
-            weapon.Reload();
+            return;
         }
+        
+        weapon.Reload();
     }
 
     private void OnInventory()
     {
-        if (!StaticGameVariables.isPause && !StaticGameVariables.inventoryCanvas.isActiveAndEnabled)
+        if (StaticGameVariables.isPause && StaticGameVariables.inventoryCanvas.isActiveAndEnabled)
         {
-            StaticGameVariables.OpenInventory();
+            return;
         }
+        
+        StaticGameVariables.OpenInventory();
     }
 
     public void OnSave()
@@ -248,22 +279,26 @@ public class Player : AIEntity, ITranslate
 
     private void Touch_performed(InputAction.CallbackContext obj)
     {
-        if (!StaticGameVariables.isPause)
+        if (StaticGameVariables.isPause)
         {
-            touch = true;
+            return;
         }
+        
+        touch = true;
     }
 
     private void Zoom_performed(InputAction.CallbackContext obj)
     {
-        if (!StaticGameVariables.isPause)
+        if (StaticGameVariables.isPause)
         {
-#if UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
-            Zoom(obj.ReadValue<Vector2>().y > 0f);
-#else
-            Zoom(obj.ReadValue<Vector2>().y < 0f);
-#endif
+            return;
         }
+        
+#if UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
+        Zoom(obj.ReadValue<Vector2>().y > 0f);
+#else
+        Zoom(obj.ReadValue<Vector2>().y < 0f);
+#endif
     }
 
     private new float GetEndReachedDistance()
@@ -290,15 +325,7 @@ public class Player : AIEntity, ITranslate
             if (collision.TryGetComponent(out ItemWorld itemWorld))
             {
                 itemForPickup = itemWorld;
-                
-                if (StaticGameVariables.itemPickupCanvas.isActiveAndEnabled)
-                {
-                    StaticGameVariables.UpdateItemPickableInfo(itemWorld);
-                }
-                else
-                {
-                    StaticGameVariables.ShowItemPickableInfo(itemWorld);
-                }
+                StaticGameVariables.ShowItemPickableInfo(itemWorld);
             }
         }
     }

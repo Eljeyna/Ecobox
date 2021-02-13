@@ -19,6 +19,11 @@ public class MiniMapComponent : MonoBehaviour
 
 	void OnEnable()
 	{
+		if (!Player.Instance)
+		{
+			return;
+		}
+		
 		miniMapController = GameObject.Find("CanvasMiniMap").GetComponent<MiniMapController>();
 		mme = new MiniMapEntity();
 		mme.icon = icon;
@@ -29,11 +34,21 @@ public class MiniMapComponent : MonoBehaviour
 
 	void OnDisable()
 	{
+		if (!Player.Instance)
+		{
+			return;
+		}
+		
 		miniMapController.UnregisterMapObject(mmo, gameObject);
 	}
 
 	void OnDestroy()
 	{
+		if (!Player.Instance)
+		{
+			return;
+		}
+		
 		miniMapController.UnregisterMapObject(mmo, gameObject);
 	}
 }

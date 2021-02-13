@@ -12,6 +12,8 @@ public class GameDirector : MonoBehaviour
 {
     public static GameDirector Instance { get; private set; }
 
+    public bool noControl;
+
     public AssetReference gameUI;
     public TMP_Text debugFPS;
 
@@ -152,6 +154,7 @@ public class GameDirector : MonoBehaviour
 
     public void StartDialogue()
     {
+        noControl = true;
         Player.Instance.cam.m_Lens.OrthographicSize = 15f;
 
         GameUI.Instance.dialogueBox.enabled = true;
@@ -174,11 +177,15 @@ public class GameDirector : MonoBehaviour
         {
             StaticGameVariables.ResumeGame();
             StaticGameVariables.ShowInGameUI();
+            noControl = false;
         }
     }
 
     public async void InitializeDialogue(AssetReference dialogueReference)
     {
+        StaticGameVariables.PauseGame();
+        noControl = true;
+        
         if (!ReferenceEquals(this.dialogueReference, null) && this.dialogueReference.IsValid())
         {
             this.dialogueReference.ReleaseAsset();

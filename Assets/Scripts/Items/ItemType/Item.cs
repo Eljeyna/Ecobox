@@ -26,8 +26,7 @@ public class Item : ScriptableObject
         Uncommon,
         Rare,
         Epic,
-        Legendary,
-        Relic
+        Legendary
     }
     
     public int id;
@@ -38,7 +37,6 @@ public class Item : ScriptableObject
     public float itemWeight;
     public int itemCost;
     public int itemAmount = 1;
-    [Range(0f, 1f)] public float chanceDrop;
     
     public ItemType itemType;
     public ItemQuality itemQuality;
@@ -102,7 +100,12 @@ public class Item : ScriptableObject
     {
         if (idReference.IsValid())
         {
-            Addressables.Release(idReference);
+            idReference.ReleaseAsset();
+        }
+
+        if (atlasSprite.IsValid())
+        {
+            atlasSprite.ReleaseAsset();
         }
     }
 

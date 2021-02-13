@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class Stats : MonoBehaviour, ISaveState
 {
@@ -258,6 +259,7 @@ public class Stats : MonoBehaviour, ISaveState
                 {
                     Item item = await Database.GetItem<Item>(saveObject.itemsID[i]);
                     Player.Instance.inventory.AddItem(item, saveObject.itemsAmount[i]);
+                    Addressables.Release(item);
                 }
             }
 

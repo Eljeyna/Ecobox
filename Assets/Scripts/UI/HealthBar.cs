@@ -13,7 +13,7 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     {
-        BasePlayer basePlayer = (BasePlayer)Player.Instance.thisEntity;
+        BaseCommon basePlayer = Player.Instance.thisEntity;
         basePlayer.OnHealthChanged += OnHealthChanged;
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Items/Synthea (Quest Item)")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Items/ItemType/Quest/Synthea (Quest Item)")]
 public class SyntheaGreenBox : Item
 {
     [SerializeField] public AssetReference talkID;
@@ -15,5 +15,13 @@ public class SyntheaGreenBox : Item
 
         StaticGameVariables.HideInventory();
         GameDirector.Instance.InitializeDialogue(talkID);
+    }
+
+    private void OnDestroy()
+    {
+        if (talkID.IsValid())
+        {
+            talkID.ReleaseAsset();
+        }
     }
 }

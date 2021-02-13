@@ -32,6 +32,11 @@ public class SaveLoadSystem : MonoBehaviour
 
     public void Save()
     {
+        if (Player.Instance.fightCount > 0 || GameDirector.Instance.noControl)
+        {
+            return;
+        }
+        
         StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
         
         json = string.Empty;
@@ -48,6 +53,11 @@ public class SaveLoadSystem : MonoBehaviour
 
     public async Task Load()
     {
+        if (GameDirector.Instance.noControl)
+        {
+            return;
+        }
+        
         await Preload();
         AfterLoadSystem.Instance.Load();
     }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Addressables_Instantiate))]
@@ -14,11 +13,16 @@ public class EntityMaker : MonoBehaviour
 
     private float distance;
     private const float minDistance = 20f;
-    private const float maxDistance = 60f;
-    private const float distanceFade = 80f;
+    private const float maxDistance = 45f;
+    private const float distanceFade = 100f;
 
     private void Update()
     {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+        
         if (!Player.Instance)
         {
             this.enabled = false;
@@ -32,8 +36,9 @@ public class EntityMaker : MonoBehaviour
             return;
         }
 
-        if (isTrigger && Player.Instance && distance <= minDistance && (!target || target == transform))
+        if (isTrigger && distance <= minDistance && (!target || target == transform))
         {
+            Player.Instance.fightCount++;
             target = Player.Instance.transform;
             UpdateTarget();
         }
@@ -46,8 +51,14 @@ public class EntityMaker : MonoBehaviour
         distance = Vector2.Distance(target.position, transform.position);
         if (distance > maxDistance)
         {
+            Player.Instance.fightCount--;
             target = transform;
             UpdateTarget();
+        }
+        
+        if (transform.childCount == 0)
+        {
+            this.enabled = false;
         }
     }
 
@@ -79,7 +90,7 @@ public class EntityMaker : MonoBehaviour
             }
         }
     }
-    
+
     public void SpawnEntities()
     {
         instantiateScript.SpawnEntities();
@@ -92,7 +103,13 @@ public class EntityMaker : MonoBehaviour
 
     private void OnDisable()
     {
+        if (Player.Instance && target == Player.Instance.transform)
+        {
+            Player.Instance.fightCount--;
+        }
+        
         isTrigger = false;
+        target = transform;
 
         if (transform.childCount == 0)
         {

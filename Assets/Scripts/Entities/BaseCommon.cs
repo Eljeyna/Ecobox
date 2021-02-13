@@ -2,6 +2,7 @@
 
 public class BaseCommon : BaseEntity
 {
+    public EventHandler OnHealthChanged;
     public EventHandler OnDie;
     
     public override void Awake()
@@ -35,6 +36,8 @@ public class BaseCommon : BaseEntity
             healthPercent = 0f;
             Die();
         }
+        
+        EventHealthChanged();
     }
 
     public override void TakeHealth(float amount, BaseEntity healer)
@@ -52,6 +55,8 @@ public class BaseCommon : BaseEntity
             health = maxHealth;
             healthPercent = 1f;
         }
+        
+        EventHealthChanged();
     }
 
     public override void TakeDamagePercent(float amount, int attackType, BaseEntity attacker)
@@ -78,6 +83,8 @@ public class BaseCommon : BaseEntity
             healthPercent = 0f;
             Die();
         }
+        
+        EventHealthChanged();
     }
 
     public override void TakeHealthPercent(float amount, BaseEntity healer)
@@ -95,17 +102,33 @@ public class BaseCommon : BaseEntity
             health = maxHealth;
             healthPercent = 1f;
         }
+        
+        EventHealthChanged();
     }
 
     public override void SetMaxHealth(float amount)
     {
         maxHealth = amount;
         healthPercent = health / maxHealth;
+        EventHealthChanged();
     }
 
     public override void Die()
     {
         flagDeath = true;
         OnDie?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void EventHealthChanged()
+    {
+        OnHealthChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnValidate()
+    {
+        if (resistances == null || resistances.Length < 4)
+        {
+            resistances = new float[4];
+        }
     }
 }

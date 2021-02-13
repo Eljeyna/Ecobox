@@ -26,9 +26,9 @@ public class GameUI : MonoBehaviour
 
         if (Settings.Instance.gameIsLoaded)
         {
-            Player.Instance.Initialize();
-            
             await SaveLoadSystem.Instance.Load();
+            
+            Player.Instance.Initialize();
             
             Settings.Instance.gameIsLoaded = false;
             StaticGameVariables.ResumeGame();
