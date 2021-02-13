@@ -8,48 +8,17 @@ public class Rifle : Gun
     public float lineFade = 0.1f;
 
     [HideInInspector] public float nextFade;
-    /*public float fadeSpeed = 5f;
-    [HideInInspector] public float timeElapsed;
-
-    private GradientAlphaKey[] standartGradientAlpha;
-
-    private void Start()
-    {
-        standartGradientAlpha = line.colorGradient.alphaKeys;
-    }*/
 
     private void Update()
     {
+        StatePerform();
+
         if (line.isVisible)
         {
             if (nextFade <= Time.time)
             {
                 line.enabled = false;
-
-                /*timeElapsed = 0f;
-
-                Gradient lineRendererGradient = new Gradient();
-                lineRendererGradient.SetKeys
-                (
-                    line.colorGradient.colorKeys,
-                    standartGradientAlpha
-                );
-                line.colorGradient = lineRendererGradient;*/
             }
-            /*else
-            {
-                float alpha = Mathf.Lerp(0.5f, 0f, timeElapsed * fadeSpeed);
-
-                Gradient lineRendererGradient = new Gradient();
-                lineRendererGradient.SetKeys
-                (
-                    line.colorGradient.colorKeys,
-                    new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0f) }
-                );
-                line.colorGradient = lineRendererGradient;
-
-                timeElapsed += Time.deltaTime;
-            }*/
         }
 
         if (reloading && nextAttack <= Time.time)
@@ -80,6 +49,11 @@ public class Rifle : Gun
             return;
         }
 
+        base.PrimaryAttack();
+    }
+
+    public override void Attack()
+    {
         if (clip != -1)
         {
             clip--;
@@ -110,8 +84,6 @@ public class Rifle : Gun
             line.SetPosition(1, transform.position + transform.up * gunData.range);
             line.enabled = true;
         }
-
-        nextAttack = Time.time + gunData.fireRatePrimary;
     }
 
     public override void SecondaryAttack()

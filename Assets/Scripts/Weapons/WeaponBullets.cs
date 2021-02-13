@@ -8,6 +8,8 @@ public class LaserPistol : Gun
 
     private void Update()
     {
+        StatePerform();
+        
         if (reloading && nextAttack <= Time.time)
         {
             int cl = Mathf.Min(gunData.maxClip - clip, ammo);
@@ -35,15 +37,18 @@ public class LaserPistol : Gun
             nextAttack = Time.time + 0.1f;
             return;
         }
+        
+        base.PrimaryAttack();
+    }
 
+    public override void Attack()
+    {
         if (clip != -1)
         {
             clip--;
         }
 
         BulletSetup(Pool.Instance.GetFromPoolAsync(0).Result);
-
-        nextAttack = Time.time + gunData.fireRatePrimary;
     }
 
     public override void SecondaryAttack()
