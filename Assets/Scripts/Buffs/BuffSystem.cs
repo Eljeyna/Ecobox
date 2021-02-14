@@ -40,6 +40,11 @@ public class BuffSystem : MonoBehaviour
 
     public void AddBuff(Buff buff)
     {
+        if (buff == null)
+        {
+            return;
+        }
+        
         if (buffs.ContainsKey(buff.buffData))
         {
             buffs[buff.buffData].Activate();
@@ -53,6 +58,11 @@ public class BuffSystem : MonoBehaviour
     
     public void RemoveBuff(Buff buff)
     {
+        if (buff == null)
+        {
+            return;
+        }
+        
         if (buffs.ContainsKey(buff.buffData))
         {
             buff.End();

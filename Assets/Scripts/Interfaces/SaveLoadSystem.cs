@@ -86,6 +86,7 @@ public struct Saveable
 
     public List<string> buffsID;
     public List<float> buffsDuration;
+    public List<int> buffsStacks;
 
     public int maxStamina;
     public int stamina;

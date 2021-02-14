@@ -133,14 +133,24 @@ public class Stats : MonoBehaviour, ISaveState
             }
         }
 
+        List<ScriptableObjectBuff> buffsList = new List<ScriptableObjectBuff>();
         if (Player.Instance.buffSystem.buffs.Count > 0)
         {
             saveObject.buffsID = new List<string>();
             saveObject.buffsDuration = new List<float>();
+            saveObject.buffsStacks = new List<int>();
+            
             foreach (ScriptableObjectBuff key in Player.Instance.buffSystem.buffs.Keys)
             {
                 saveObject.buffsID.Add(key.idReference.AssetGUID);
                 saveObject.buffsDuration.Add(key.duration);
+                saveObject.buffsStacks.Add(key.buff.stacks);
+                buffsList.Add(key);
+            }
+
+            foreach (ScriptableObjectBuff key in buffsList)
+            {
+                Player.Instance.buffSystem.RemoveBuff(key.buff);
             }
         }
 
@@ -271,6 +281,18 @@ public class Stats : MonoBehaviour, ISaveState
         saveObject.positionX = Player.Instance.transform.position.x;
         saveObject.positionY = Player.Instance.transform.position.y;
 
+        if (buffsList.Count > 0)
+        {
+            int i = 0;
+            foreach (ScriptableObjectBuff key in buffsList)
+            {
+                Player.Instance.buffSystem.AddBuff(key.InitializeBuff(Player.Instance.gameObject));
+                Player.Instance.buffSystem.buffs[key].duration = saveObject.buffsDuration[i];
+                Player.Instance.buffSystem.buffs[key].stacks = saveObject.buffsStacks[i];
+                i++;
+            }
+        }
+
         return JsonConvert.SerializeObject(saveObject);
     }
 
@@ -302,53 +324,6 @@ public class Stats : MonoBehaviour, ISaveState
                 }
             }
 
-            if (saveObject.activeQuestID != string.Empty)
-            {
-                GameDirector.Instance.activeQuest = GameDirector.Instance.quests[saveObject.activeQuestID];
-                GameDirector.Instance.UpdateQuestDescription();
-            }
-            
-            if (saveObject.head != string.Empty)
-            {
-                Player.Instance.inventory.itemList[saveObject.head].Use();
-            }
-            
-            if (saveObject.torso != string.Empty)
-            {
-                Player.Instance.inventory.itemList[saveObject.torso].Use();
-            }
-            
-            if (saveObject.legs != string.Empty)
-            {
-                Player.Instance.inventory.itemList[saveObject.legs].Use();
-            }
-            
-            if (saveObject.foots != string.Empty)
-            {
-                Player.Instance.inventory.itemList[saveObject.foots].Use();
-            }
-            
-            if (saveObject.weapon != string.Empty)
-            {
-                Player.Instance.inventory.itemList[saveObject.weapon].Use();
-            }
-
-            if (saveObject.weaponRanged != string.Empty)
-            {
-                Player.Instance.inventory.itemList[saveObject.weaponRanged].Use();
-            }
-            
-            if (!ReferenceEquals(saveObject.buffsID, null))
-            {
-                for (int i = 0; i < saveObject.buffsID.Count; i++)
-                {
-                    ScriptableObjectBuff buff = await Database.GetItem<ScriptableObjectBuff>(saveObject.buffsID[i]);
-                    Player.Instance.buffSystem.AddBuff(buff.GetBuff());
-                    Player.Instance.buffSystem.buffs[buff].duration = saveObject.buffsDuration[i];
-                    Addressables.Release(buff);
-                }
-            }
-
             maxStamina = saveObject.maxStamina;
             stamina = saveObject.stamina;
             staminaRegen = saveObject.staminaRegen;
@@ -370,6 +345,54 @@ public class Stats : MonoBehaviour, ISaveState
             Player.Instance.thisEntity.invinsibility = saveObject.invinsibility;
             Player.Instance.thisEntity.SetMaxHealth(saveObject.maxHealth);
             Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
+
+            if (saveObject.activeQuestID != string.Empty)
+            {
+                GameDirector.Instance.activeQuest = GameDirector.Instance.quests[saveObject.activeQuestID];
+                GameDirector.Instance.UpdateQuestDescription();
+            }
+            
+            if (saveObject.head != string.Empty)
+            {
+                Player.Instance.head = (EquipableItem)Player.Instance.inventory.itemList[saveObject.head];
+            }
+            
+            if (saveObject.torso != string.Empty)
+            {
+                Player.Instance.head = (EquipableItem)Player.Instance.inventory.itemList[saveObject.torso];
+            }
+            
+            if (saveObject.legs != string.Empty)
+            {
+                Player.Instance.head = (EquipableItem)Player.Instance.inventory.itemList[saveObject.legs];
+            }
+            
+            if (saveObject.foots != string.Empty)
+            {
+                Player.Instance.head = (EquipableItem)Player.Instance.inventory.itemList[saveObject.foots];
+            }
+            
+            if (saveObject.weapon != string.Empty)
+            {
+                Player.Instance.inventory.itemList[saveObject.weapon].Use();
+            }
+
+            if (saveObject.weaponRanged != string.Empty)
+            {
+                Player.Instance.inventory.itemList[saveObject.weaponRanged].Use();
+            }
+            
+            if (!ReferenceEquals(saveObject.buffsID, null))
+            {
+                for (int i = 0; i < saveObject.buffsID.Count; i++)
+                {
+                    ScriptableObjectBuff buff = await Database.GetItem<ScriptableObjectBuff>(saveObject.buffsID[i]);
+                    Player.Instance.buffSystem.AddBuff(buff.InitializeBuff(Player.Instance.gameObject));
+                    Player.Instance.buffSystem.buffs[buff].duration = saveObject.buffsDuration[i];
+                    Player.Instance.buffSystem.buffs[buff].stacks = saveObject.buffsStacks[i];
+                    Addressables.Release(buff);
+                }
+            }
         }
     }
 }

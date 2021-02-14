@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Buff
 {
-    protected int stacks;
+    public int stacks;
     public float duration;
     public bool isFinished;
     public readonly ScriptableObjectBuff buffData;

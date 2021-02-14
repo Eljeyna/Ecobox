@@ -116,23 +116,25 @@ public class Player : AIEntity, ITranslate
 #if UNITY_ANDROID || UNITY_IOS
         if (!buttonTouch)
         {
-            if (!weaponChangeTouch && Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
-            {
-                touch = true;
-            }
-            else if (Touch.activeFingers.Count == 2)
+            if (Touch.activeFingers.Count == 2)
             {
                 if (Touch.activeTouches[0].phase == TouchPhase.Stationary &&
-                    (Touch.activeTouches[1].phase == TouchPhase.Moved ||
-                    Touch.activeTouches[1].phase == TouchPhase.Stationary))
+                    (Touch.activeTouches[1].phase == TouchPhase.Canceled ||
+                     Touch.activeTouches[1].phase == TouchPhase.Ended))
                 {
                     weaponChangeTouch = true;
                     touch = true;
                     return;
                 }
-                
+
+                weaponChangeTouch = false;
                 touch = false;
                 ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
+            }
+            else if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
+            {
+                weaponChangeTouch = false;
+                touch = true;
             }
         }
 #endif
