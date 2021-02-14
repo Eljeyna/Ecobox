@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54a0765a78be144dabec0c9bdf9e9e1, type: 3}
   m_Name: Health +2
   m_EditorClassIdentifier: 
+  idReference:
+    m_AssetGUID: a4ec5ec56ab929640a43eca3af8e1857
+    m_SubObjectName: 
+    m_SubObjectType: 
   duration: 0
   isStackable: 0
   isPersist: 1

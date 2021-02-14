@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03d2355ab5ce86c42968b13d43b33d4f, type: 3}
-  m_Name: Plastic Bottle
+  m_Name: Plastic bottle
   m_EditorClassIdentifier: 
   id: 5000
   idReference:
     m_AssetGUID: 415aa3390d9c45b45bab21db4ad5984b
     m_SubObjectName: 
     m_SubObjectType: 
+  itemName: Plastic bottle
   itemEnd: 0
   itemWeight: 0.1
   itemCost: 1
   itemAmount: 1
-  chanceDrop: 0.9
   itemType: 4
   itemQuality: 0
   atlasSprite:

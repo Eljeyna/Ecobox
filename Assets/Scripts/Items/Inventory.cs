@@ -6,84 +6,55 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public float weight;
-    public List<Item> itemList = new List<Item>();
+    public Dictionary<string, Item> itemList = new Dictionary<string, Item>();
+    private List<string> itemListToDestroy = new List<string>();
 
     public event EventHandler OnItemListChanged;
 
     public void AddItem(Item item)
     {
-        bool itemInInventory = false;
-        foreach (Item inventoryItem in itemList)
+        if (itemList.TryGetValue(item.itemName, out Item value))
         {
-            if (inventoryItem.id == item.id)
-            {
-                if (inventoryItem.itemAmount < 999)
-                {
-                    inventoryItem.itemAmount++;
-                }
-
-                itemInInventory = true;
-                break;
-            }
+            value.itemAmount += Mathf.Clamp(item.itemAmount, 1, 999);
         }
-
-        if (!itemInInventory)
+        else
         {
-            itemList.Add(Instantiate(item));
+            itemList.Add(item.itemName, Instantiate(item));
         }
     }
 
     public void AddItem(Item item, int amount)
     {
-        bool itemInInventory = false;
-        foreach (Item inventoryItem in itemList)
+        if (itemList.TryGetValue(item.itemName, out Item value))
         {
-            if (inventoryItem.id == item.id)
-            {
-                if (inventoryItem.itemAmount < 999)
-                {
-                    inventoryItem.itemAmount += amount - 1;
-                }
-
-                itemInInventory = true;
-                break;
-            }
+            value.itemAmount += Mathf.Clamp(amount, 1, 999);
         }
-
-        if (!itemInInventory)
+        else
         {
-            itemList.Add(Instantiate(item));
-            itemList[itemList.Count - 1].itemAmount = amount;
+            itemList.Add(item.itemName, Instantiate(item));
         }
     }
 
     public void RemoveItem(Item item)
     {
-        for (int i = 0; i < itemList.Count; i++)
-        {
-            if (itemList[i].id == item.id)
-            {
-                itemList[i].UnloadSprite();
-                Destroy(itemList[i]);
-                itemList.Remove(itemList[i]);
-                break;
-            }
-        }
+        itemList[item.itemName].UnloadSprite();
+        Destroy(itemList[item.itemName]);
+        itemList.Remove(item.itemName);
     }
 
     public async Task PreloadInventory()
     {
-        for (int i = 0; i < itemList.Count; i++)
+        foreach (string key in itemList.Keys)
         {
-            await itemList[i].LoadSprite();
+            await itemList[key].LoadSprite();
         }
     }
 
     public void UnloadInventory()
     {
-        for (int i = 0; i < itemList.Count; i++)
+        foreach (string key in itemList.Keys)
         {
-            itemList[i].UnloadSprite();
+            itemList[key].UnloadSprite();
         }
 
         Player.Instance.inventoryUI.RemoveInventorySlots();
@@ -91,11 +62,17 @@ public class Inventory : MonoBehaviour
 
     public void ClearInventory()
     {
-        while (itemList.Count > 0)
+        itemListToDestroy.Clear();
+        foreach (string key in itemList.Keys)
         {
-            itemList[itemList.Count - 1].UnloadSprite();
-            Destroy(itemList[itemList.Count - 1]);
-            itemList.Remove(itemList[itemList.Count - 1]);
+            itemList[key].UnloadSprite();
+            Destroy(itemList[key]);
+            itemListToDestroy.Add(key);
+        }
+        
+        for (int i = itemListToDestroy.Count - 1; i >= 0; i--)
+        {
+            itemList.Remove(itemListToDestroy[i]);
         }
     }
 

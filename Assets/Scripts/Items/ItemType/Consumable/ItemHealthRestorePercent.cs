@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Consumable", menuName = "ScriptableObjects/Items/ItemType/Comsumable/Consumable (Health Restore Percent)")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Items/ItemType/Consumable/Consumable (Health Restore Percent)")]
 public class ItemHealthRestorePercent : Item
 {
     public float heal;

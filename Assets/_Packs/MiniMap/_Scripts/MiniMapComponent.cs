@@ -19,7 +19,7 @@ public class MiniMapComponent : MonoBehaviour
 
 	void OnEnable()
 	{
-		if (!Player.Instance)
+		if (!GameDirector.Instance)
 		{
 			return;
 		}
@@ -34,7 +34,7 @@ public class MiniMapComponent : MonoBehaviour
 
 	void OnDisable()
 	{
-		if (!Player.Instance)
+		if (!GameDirector.Instance)
 		{
 			return;
 		}
@@ -44,7 +44,7 @@ public class MiniMapComponent : MonoBehaviour
 
 	void OnDestroy()
 	{
-		if (!Player.Instance)
+		if (!GameDirector.Instance)
 		{
 			return;
 		}

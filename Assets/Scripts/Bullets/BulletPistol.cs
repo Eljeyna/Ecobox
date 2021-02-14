@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class BulletPistolSoldier : Bullet
+public class BulletPistol : Bullet
 {
     private void Update()
     {
-        transform.position += transform.up * (bulletData.speed * Time.deltaTime);
+        transform.position += transform.right * (bulletData.speed * Time.deltaTime);
         nextFade += Time.deltaTime;
 
         if (nextFade >= bulletData.timeFade)
@@ -18,9 +18,14 @@ public class BulletPistolSoldier : Bullet
     {
         if (collision.gameObject.layer == 8)
         {
+            if (collision.collider.gameObject == owner.gameObject)
+            {
+                return;
+            }
+            
             if (collision.collider.TryGetComponent(out BaseTag attackerTag))
             {
-                if ((baseTag & attackerTag.entityTag) == 0)
+                if (Damage.IsEnemy(baseTag, attackerTag))
                 {
                     if (bulletData.radius > 0f)
                     {
@@ -29,8 +34,10 @@ public class BulletPistolSoldier : Bullet
                     }
                     else
                     {
-                        BaseEntity baseEntity = collision.gameObject.GetComponent<BaseEntity>();
-                        baseEntity.TakeDamage(bulletData.damage, 0, owner);
+                        if (collision.collider.TryGetComponent(out BaseEntity baseEntity))
+                        {
+                            baseEntity.TakeDamage(bulletData.damage, 0, owner);
+                        }
                     }
                 }
             }

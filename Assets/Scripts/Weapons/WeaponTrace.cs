@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Rifle : Gun
+public class WeaponTrace : Gun
 {
     public BaseEntity thisEntity;
     public LineRenderer line;
@@ -84,11 +84,6 @@ public class Rifle : Gun
             line.SetPosition(1, transform.position + transform.up * gunData.range);
             line.enabled = true;
         }
-    }
-
-    public override void SecondaryAttack()
-    {
-        return;
     }
 
     public override bool Reload()

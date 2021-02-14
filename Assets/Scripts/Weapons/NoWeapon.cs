@@ -10,11 +10,6 @@ public class NoWeapon : Gun
         Damage.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
     }
 
-    public override void SecondaryAttack()
-    {
-        return;
-    }
-
     public override bool Reload()
     {
         return true;

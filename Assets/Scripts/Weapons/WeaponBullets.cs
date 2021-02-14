@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
 
-public class LaserPistol : Gun
+public class WeaponBullets : Gun
 {
-    public BaseEntity thisEntity;
-    public BaseTag baseTag;
-    public Transform laserStartPosition;
-
     private void Update()
     {
-        StatePerform();
-        
         if (reloading && nextAttack <= Time.time)
         {
             int cl = Mathf.Min(gunData.maxClip - clip, ammo);
@@ -28,6 +22,8 @@ public class LaserPistol : Gun
                 Reload();
             }
         }
+        
+        StatePerform();
     }
 
     public override void PrimaryAttack()
@@ -41,19 +37,14 @@ public class LaserPistol : Gun
         base.PrimaryAttack();
     }
 
-    public override void Attack()
+    public override async void Attack()
     {
         if (clip != -1)
         {
             clip--;
         }
 
-        BulletSetup(Pool.Instance.GetFromPoolAsync(0).Result);
-    }
-
-    public override void SecondaryAttack()
-    {
-        return;
+        BulletSetup(await Pool.Instance.GetFromPoolAsync((int)PoolID.SimpleBullet));
     }
 
     public override bool Reload()
@@ -80,10 +71,11 @@ public class LaserPistol : Gun
     {
         if (bullet.TryGetComponent(out Bullet bulletPistol))
         {
-            bulletPistol.owner = thisEntity;
-            bulletPistol.baseTag = baseTag.entityTag;
-            bullet.transform.position = laserStartPosition.position;
-            bullet.transform.rotation = transform.rotation;
+            bulletPistol.owner = entity.thisEntity;
+            bulletPistol.baseTag = entity.thisTag;
+            bullet.transform.position = attackPoint.position;
+            bullet.transform.rotation = Quaternion.AngleAxis(
+                StaticGameVariables.GetAngleBetweenPositions(entity.targetPosition, entity.transform.position), Vector3.forward);
         }
     }
 }

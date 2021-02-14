@@ -24,14 +24,24 @@ public abstract class Gun : MonoBehaviour
     public Transform attackPoint;
 
     public abstract void Attack();
-    public abstract void SecondaryAttack();
     public abstract bool Reload();
+
+    private void Awake()
+    {
+        clip = gunData.maxClip;
+        ammo = gunData.maxAmmo;
+    }
 
     public void StatePerform()
     {
         if (StaticGameVariables.isPause && delay != 0f)
         {
             delay = StaticGameVariables.WaitInPause(delay);
+            return;
+        }
+
+        if (!entity)
+        {
             return;
         }
     
@@ -50,7 +60,11 @@ public abstract class Gun : MonoBehaviour
                 {
                     delay = 0f;
                     entity.state = EntityState.Normal;
-                    this.enabled = false;
+                    
+                    if (clip == -1)
+                    {
+                        this.enabled = false;
+                    }
                 }
             }
         }
@@ -60,13 +74,21 @@ public abstract class Gun : MonoBehaviour
             {
                 delay = 0f;
                 entity.state = EntityState.Normal;
-                this.enabled = false;
+                
+                if (clip == -1)
+                {
+                    this.enabled = false;
+                }
             }
         }
         else
         {
             delay = 0f;
-            this.enabled = false;
+            
+            if (clip == -1)
+            {
+                this.enabled = false;
+            }
         }
     }
 

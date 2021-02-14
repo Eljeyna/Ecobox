@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530f347c89f1b85438a1b1f41327ac0e, type: 3}
   m_Name: Bullet
   m_EditorClassIdentifier: 
-  index: 0
+  index: 1
   damageType: 0
   damage: 2
-  speed: 6.5
+  speed: 12
   timeFade: 8
   radius: 0

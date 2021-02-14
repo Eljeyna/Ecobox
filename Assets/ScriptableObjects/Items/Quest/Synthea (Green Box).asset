@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d87d92dd811f97d43ad13be51ac75864, type: 3}
-  m_Name: Synthea (Green Box)
+  m_Name: Synthea (green box)
   m_EditorClassIdentifier: 
   id: 4000
   idReference:
     m_AssetGUID: 20f23a82d8b6ea04b8445d908f2e0287
     m_SubObjectName: 
     m_SubObjectType: 
-  itemName: Synthea (Green Box)
+  itemName: Synthea (green box)
   itemEnd: 0
   itemWeight: 0
   itemCost: 0

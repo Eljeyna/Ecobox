@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d139609ca9f31d24280f9f3e5fee90ee, type: 3}
   m_Name: Hat
   m_EditorClassIdentifier: Assembly-CSharp::EquipableItem
-  id: 0
+  id: 2000
   idReference:
     m_AssetGUID: 2b136154e9dc8c34cb8b2f6496bf4b56
     m_SubObjectName: 
     m_SubObjectType: 
   itemName: Hat
-  itemEnd: 1
+  itemEnd: 0
   itemWeight: 2
   itemCost: 100
   itemAmount: 1

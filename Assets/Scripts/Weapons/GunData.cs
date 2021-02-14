@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/GunData/New Gun Data")]
 public class GunData : ScriptableObject
@@ -10,7 +13,6 @@ public class GunData : ScriptableObject
     public float delay;
     public float lateDelay;
     public float fireRatePrimary;
-    public float fireRateSecondary;
     public float impactForce;
 
     public float reloadTime;
@@ -19,4 +21,38 @@ public class GunData : ScriptableObject
 
     public int maxClip;
     public int maxAmmo;
+    
+    [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
+    
+    public async Task<Sprite> LoadSprite()
+    {
+        if (atlasSprite.IsValid())
+        {
+            return (Sprite)atlasSprite.OperationHandle.Result;
+        }
+
+        AsyncOperationHandle<Sprite> asyncOperationHandle = atlasSprite.LoadAssetAsync<Sprite>();
+
+        await asyncOperationHandle.Task;
+
+        if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            return asyncOperationHandle.Result;
+        }
+
+        return null;
+    }
+
+    public void UnloadSprite()
+    {
+        if (atlasSprite.IsValid())
+        {
+            atlasSprite.ReleaseAsset();
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        UnloadSprite();
+    }
 }

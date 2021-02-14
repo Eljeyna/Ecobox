@@ -12,7 +12,6 @@ public class InventoryDrop : MonoBehaviour
     public void Drop()
     {
         position = transform.position;
-        StaticGameVariables.GetRandom();
         
         for (int i = 0; i < itemsForDrop.Length; i++)
         {
@@ -25,7 +24,7 @@ public class InventoryDrop : MonoBehaviour
 
     private void SetItemPosition(AsyncOperationHandle<GameObject> obj)
     {
-        if (!Player.Instance)
+        if (!GameDirector.Instance)
         {
             return;
         }
@@ -33,17 +32,6 @@ public class InventoryDrop : MonoBehaviour
         if (obj.IsValid() && obj.Status == AsyncOperationStatus.Succeeded)
         {
             obj.Result.transform.position = position;
-        }
-    }
-
-    private void OnDestroy()
-    {
-        for (int i = 0; i < itemsForDrop.Length; i++)
-        {
-            if (itemsForDrop[i].IsValid())
-            {
-                itemsForDrop[i].ReleaseAsset();
-            }
         }
     }
 }

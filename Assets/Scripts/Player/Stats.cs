@@ -43,10 +43,6 @@ public class Stats : MonoBehaviour, ISaveState
         }
 
         stamina = maxStamina;
-
-        AddStrength(3);
-        AddAgility(3);
-        AddIntelligence(3);
     }
 
     private void Update()
@@ -89,7 +85,6 @@ public class Stats : MonoBehaviour, ISaveState
         }
 
         strength += amount;
-        AddStrengthBonus(amount);
     }
 
     public void AddAgility(int amount)
@@ -100,7 +95,6 @@ public class Stats : MonoBehaviour, ISaveState
         }
 
         agility += amount;
-        AddAgilityBonus(amount);
     }
 
     public void AddIntelligence(int amount)
@@ -111,33 +105,6 @@ public class Stats : MonoBehaviour, ISaveState
         }
 
         intelligence += amount;
-        AddIntelligenceBonus(amount);
-    }
-
-    public void AddStrengthBonus(int amount)
-    {
-        float heal = Player.Instance.thisEntity.healthPercent;
-        weight += StaticGameVariables.weightBonus * amount;
-
-        Player.Instance.thisEntity.SetMaxHealth(Player.Instance.thisEntity.maxHealth + (StaticGameVariables.healthBonus * amount));
-        Player.Instance.thisEntity.TakeHealthPercent(heal, null);
-        Player.Instance.thisEntity.resistances[0] += StaticGameVariables.resistanceAll * amount;
-        Player.Instance.thisEntity.resistances[1] += StaticGameVariables.resistanceAll * amount;
-    }
-
-    public void AddAgilityBonus(int amount)
-    {
-        maxStamina += StaticGameVariables.staminaBonus * amount;
-
-        Player.Instance.speed += StaticGameVariables.speedBonus * amount;
-    }
-
-    public void AddIntelligenceBonus(int amount)
-    {
-        oratory += StaticGameVariables.oratoryBonus * amount;
-
-        Player.Instance.thisEntity.resistances[2] += StaticGameVariables.resistanceAll * amount;
-        Player.Instance.thisEntity.resistances[3] += StaticGameVariables.resistanceAll * amount;
     }
 
     public string Save()
@@ -148,13 +115,13 @@ public class Stats : MonoBehaviour, ISaveState
         {
             saveObject.itemsID = new List<string>();
             saveObject.itemsAmount = new List<int>();
-            for (int i = 0; i < Player.Instance.inventory.itemList.Count; i++)
+            foreach (string key in Player.Instance.inventory.itemList.Keys)
             {
-                saveObject.itemsID.Add(Player.Instance.inventory.itemList[i].idReference.AssetGUID);
-                saveObject.itemsAmount.Add(Player.Instance.inventory.itemList[i].itemAmount);
+                saveObject.itemsID.Add(Player.Instance.inventory.itemList[key].idReference.AssetGUID);
+                saveObject.itemsAmount.Add(Player.Instance.inventory.itemList[key].itemAmount);
             }
         }
-
+        
         if (GameDirector.Instance.quests.Count > 0)
         {
             saveObject.questID = new List<string>();
@@ -163,6 +130,17 @@ public class Stats : MonoBehaviour, ISaveState
             {
                 saveObject.questID.Add(GameDirector.Instance.quests[key].id);
                 saveObject.questTask.Add(GameDirector.Instance.quests[key].currentTask);
+            }
+        }
+
+        if (Player.Instance.buffSystem.buffs.Count > 0)
+        {
+            saveObject.buffsID = new List<string>();
+            saveObject.buffsDuration = new List<float>();
+            foreach (ScriptableObjectBuff key in Player.Instance.buffSystem.buffs.Keys)
+            {
+                saveObject.buffsID.Add(key.idReference.AssetGUID);
+                saveObject.buffsDuration.Add(key.duration);
             }
         }
 
@@ -216,6 +194,60 @@ public class Stats : MonoBehaviour, ISaveState
         {
             saveObject.activeQuestID = string.Empty;
         }
+
+        if (Player.Instance.head)
+        {
+            saveObject.head = Player.Instance.head.itemName;
+        }
+        else
+        {
+            saveObject.head = string.Empty;
+        }
+        
+        if (Player.Instance.torso)
+        {
+            saveObject.torso = Player.Instance.torso.itemName;
+        }
+        else
+        {
+            saveObject.torso = string.Empty;
+        }
+        
+        if (Player.Instance.legs)
+        {
+            saveObject.legs = Player.Instance.legs.itemName;
+        }
+        else
+        {
+            saveObject.legs = string.Empty;
+        }
+        
+        if (Player.Instance.foots)
+        {
+            saveObject.foots = Player.Instance.foots.itemName;
+        }
+        else
+        {
+            saveObject.foots = string.Empty;
+        }
+        
+        if (Player.Instance.weaponItem)
+        {
+            saveObject.weapon = Player.Instance.weaponItem.itemName;
+        }
+        else
+        {
+            saveObject.weapon = string.Empty;
+        }
+
+        if (Player.Instance.weaponRangedItem)
+        {
+            saveObject.weaponRanged = Player.Instance.weaponRangedItem.itemName;
+        }
+        else
+        {
+            saveObject.weaponRanged = string.Empty;
+        }
         
         saveObject.maxStamina = maxStamina;
         saveObject.stamina = stamina;
@@ -236,8 +268,6 @@ public class Stats : MonoBehaviour, ISaveState
         saveObject.healthPercent = Player.Instance.thisEntity.healthPercent;
         saveObject.resistances = Player.Instance.thisEntity.resistances;
         saveObject.invinsibility = Player.Instance.thisEntity.invinsibility;
-
-        //saveObject.weapon = Player.Instance.weapon;
         saveObject.positionX = Player.Instance.transform.position.x;
         saveObject.positionY = Player.Instance.transform.position.y;
 
@@ -271,11 +301,52 @@ public class Stats : MonoBehaviour, ISaveState
                     GameDirector.Instance.quests.Add(saveObject.questID[i], new Quest(saveObject.questID[i], saveObject.questTask[i]));
                 }
             }
-            
+
             if (saveObject.activeQuestID != string.Empty)
             {
                 GameDirector.Instance.activeQuest = GameDirector.Instance.quests[saveObject.activeQuestID];
                 GameDirector.Instance.UpdateQuestDescription();
+            }
+            
+            if (saveObject.head != string.Empty)
+            {
+                Player.Instance.inventory.itemList[saveObject.head].Use();
+            }
+            
+            if (saveObject.torso != string.Empty)
+            {
+                Player.Instance.inventory.itemList[saveObject.torso].Use();
+            }
+            
+            if (saveObject.legs != string.Empty)
+            {
+                Player.Instance.inventory.itemList[saveObject.legs].Use();
+            }
+            
+            if (saveObject.foots != string.Empty)
+            {
+                Player.Instance.inventory.itemList[saveObject.foots].Use();
+            }
+            
+            if (saveObject.weapon != string.Empty)
+            {
+                Player.Instance.inventory.itemList[saveObject.weapon].Use();
+            }
+
+            if (saveObject.weaponRanged != string.Empty)
+            {
+                Player.Instance.inventory.itemList[saveObject.weaponRanged].Use();
+            }
+            
+            if (!ReferenceEquals(saveObject.buffsID, null))
+            {
+                for (int i = 0; i < saveObject.buffsID.Count; i++)
+                {
+                    ScriptableObjectBuff buff = await Database.GetItem<ScriptableObjectBuff>(saveObject.buffsID[i]);
+                    Player.Instance.buffSystem.AddBuff(buff.GetBuff());
+                    Player.Instance.buffSystem.buffs[buff].duration = saveObject.buffsDuration[i];
+                    Addressables.Release(buff);
+                }
             }
 
             maxStamina = saveObject.maxStamina;
@@ -298,8 +369,6 @@ public class Stats : MonoBehaviour, ISaveState
             Player.Instance.thisEntity.resistances = saveObject.resistances;
             Player.Instance.thisEntity.invinsibility = saveObject.invinsibility;
             Player.Instance.thisEntity.SetMaxHealth(saveObject.maxHealth);
-
-            //Player.Instance.weapon = saveObject.weapon;
             Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
         }
     }

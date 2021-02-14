@@ -79,6 +79,8 @@ public class Item : ScriptableObject
 #if UNITY_ANDROID
         if (sb.ToString() == string.Empty)
         {
+            translationString[0] = string.Empty;
+            translationString[1] = string.Empty;
             return;
         }
         
@@ -103,10 +105,7 @@ public class Item : ScriptableObject
             idReference.ReleaseAsset();
         }
 
-        if (atlasSprite.IsValid())
-        {
-            atlasSprite.ReleaseAsset();
-        }
+        UnloadSprite();
     }
 
     private void OnValidate()

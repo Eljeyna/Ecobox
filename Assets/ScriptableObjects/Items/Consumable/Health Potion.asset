@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5991b367847c9543bfd739b8d159f1f, type: 3}
-  m_Name: Health Potion
+  m_Name: Health potion
   m_EditorClassIdentifier: 
   id: 3000
   idReference:
     m_AssetGUID: 97a7c3fd967810341b5fc6179587c6bd
     m_SubObjectName: 
     m_SubObjectType: 
+  itemName: Health potion
   itemEnd: 1
   itemWeight: 0
   itemCost: 25
   itemAmount: 1
-  chanceDrop: 0.6
   itemType: 3
   itemQuality: 0
   atlasSprite:
@@ -29,4 +29,3 @@ MonoBehaviour:
     m_SubObjectName: UI Health
     m_SubObjectType: 
   heal: 0.2
-  testBuff: {fileID: 11400000, guid: 317f3a3ffc8e5804caeb0b6bde895bab, type: 2}

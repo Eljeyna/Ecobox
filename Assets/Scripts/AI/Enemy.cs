@@ -1,3 +1,5 @@
+using System;
+
 public class Enemy : AIEntity
 {
     public InventoryDrop inventory;
@@ -39,13 +41,13 @@ public class Enemy : AIEntity
         StatePerform();
     }
 
-    public override void EventDestroy()
+    public override void OnDie(object sender, EventArgs e)
     {
-        if (Player.Instance)
+        if (GameDirector.Instance)
         {
             inventory.Drop();
         }
         
-        base.EventDestroy();
+        base.OnDie(sender, e);
     }
 }

@@ -84,6 +84,9 @@ public struct Saveable
     public List<string> itemsID;
     public List<int> itemsAmount;
 
+    public List<string> buffsID;
+    public List<float> buffsDuration;
+
     public int maxStamina;
     public int stamina;
     public int staminaRegen;
@@ -104,7 +107,13 @@ public struct Saveable
     public float[] resistances;
     public bool invinsibility;
 
-    //public Gun weapon;
+    public string head;
+    public string torso;
+    public string legs;
+    public string foots;
+
+    public string weapon;
+    public string weaponRanged;
     public float positionX;
     public float positionY;
 }

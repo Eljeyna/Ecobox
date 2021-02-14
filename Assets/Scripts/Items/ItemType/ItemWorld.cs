@@ -7,6 +7,9 @@ public class ItemWorld : MonoBehaviour
 
     private void OnDestroy()
     {
-        Addressables.ReleaseInstance(gameObject);
+        if (gameObject)
+        {
+            Addressables.ReleaseInstance(gameObject);
+        }
     }
 }

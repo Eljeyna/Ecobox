@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static StaticGameVariables;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Addressables_Instantiate))]
@@ -12,18 +13,15 @@ public class EntityMaker : MonoBehaviour
     public Transform target;
 
     private float distance;
-    private const float minDistance = 20f;
-    private const float maxDistance = 45f;
-    private const float distanceFade = 100f;
 
     private void Update()
     {
-        if (StaticGameVariables.isPause)
+        if (isPause)
         {
             return;
         }
         
-        if (!Player.Instance)
+        if (!GameDirector.Instance)
         {
             this.enabled = false;
             return;

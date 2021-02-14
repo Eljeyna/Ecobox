@@ -2,8 +2,8 @@
 
 public abstract class Bullet : MonoBehaviour
 {
-    public readonly BulletData bulletData;
+    public BulletData bulletData;
     public BaseEntity owner;
-    public Tags baseTag;
+    public BaseTag baseTag;
     [HideInInspector] public float nextFade;
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -7,7 +6,7 @@ using UnityEngine.AddressableAssets;
 public enum PoolID
 {
     Target = 0,
-    
+    SimpleBullet = 1,
 }
 
 public class Pool : MonoBehaviour
@@ -18,7 +17,7 @@ public class Pool : MonoBehaviour
 
     private Queue<GameObject>[] availableObjects;
 
-    private void Awake()
+    private async void Awake()
     {
         Instance = this;
 
@@ -26,6 +25,11 @@ public class Pool : MonoBehaviour
         for (int i = 0; i < availableObjects.Length; i++)
         {
             availableObjects[i] = new Queue<GameObject>();
+        }
+
+        for (int i = 0; i <= (int)PoolID.SimpleBullet; i++)
+        {
+            AddToPool(i, await GetFromPoolAsync(i));
         }
     }
 

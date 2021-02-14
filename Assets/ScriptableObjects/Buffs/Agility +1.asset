@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b974d350f9eaee04c9cce343b45b0fcf, type: 3}
   m_Name: Agility +1
   m_EditorClassIdentifier: 
+  idReference:
+    m_AssetGUID: 317f3a3ffc8e5804caeb0b6bde895bab
+    m_SubObjectName: 
+    m_SubObjectType: 
   duration: 5
   isStackable: 0
+  isPersist: 0
   parameter: 1

@@ -34,7 +34,7 @@ public class InventoryUI : MonoBehaviour
         RemoveInventorySlots();
 
         int i = 0;
-        foreach (Item item in inventory.itemList)
+        foreach (Item item in inventory.itemList.Values)
         {
             inventory.weight += item.itemWeight * item.itemAmount;
 
@@ -45,16 +45,15 @@ public class InventoryUI : MonoBehaviour
                 RectTransform itemSlotRect = Instantiate(itemSlotPrefab, itemSlotContainer).GetComponent<RectTransform>();
                 itemSlotRect.gameObject.SetActive(true);
 
-                ItemInfoSelected itemInfo = null;
                 if (itemSlotRect.transform.GetChild(0).TryGetComponent(out ItemInfoSelected newItemInfo))
                 {
-                    itemInfo = newItemInfo;
-                }
-
-                itemInfo.item = item;
-                if (StaticGameVariables.itemSelected == item)
-                {
-                    itemInfo.GetItemInfo();
+                    ItemInfoSelected itemInfo = newItemInfo;
+                    
+                    itemInfo.item = item;
+                    if (StaticGameVariables.itemSelected == item)
+                    {
+                        itemInfo.GetItemInfo();
+                    }
                 }
 
                 if (itemSlotRect.transform.GetChild(0).TryGetComponent(out Image newImage))

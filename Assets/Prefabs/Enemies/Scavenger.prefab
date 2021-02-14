@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 6753366706675599900}
   - component: {fileID: 6753366706675599901}
   - component: {fileID: 6753366706675599891}
+  - component: {fileID: -4327144568771029104}
   - component: {fileID: 6753366706675599897}
   - component: {fileID: 3457025894024740812}
   m_Layer: 8
@@ -153,9 +154,17 @@ MonoBehaviour:
   - m_AssetGUID: c85be42de7862db429da7e719bb5064d
     m_SubObjectName: 
     m_SubObjectType: 
+  - m_AssetGUID: b516e709f2040334a87ebafdfe3cccb7
+    m_SubObjectName: 
+    m_SubObjectType: 
+  - m_AssetGUID: de3358ee5284a94479ec83984e5fb145
+    m_SubObjectName: 
+    m_SubObjectType: 
   chanceDrop:
   - 0.9
   - 0.25
+  - 1
+  - 1
   - 1
 --- !u!114 &-7746920673815902821
 MonoBehaviour:
@@ -332,15 +341,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cee71364a4569c479c278d6beac893a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunData: {fileID: 11400000, guid: 2fb66c327b1718d4db02cfaff4dae2b8, type: 2}
   nextAttack: 0
   reloading: 0
   fireWhenEmpty: 0
   delay: 0
   clip: -1
   ammo: -1
+  gunData: {fileID: 11400000, guid: 2fb66c327b1718d4db02cfaff4dae2b8, type: 2}
   entity: {fileID: 6753366706675599897}
   attackPoint: {fileID: 6753366707821187379}
+--- !u!114 &-4327144568771029104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753366706675599878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6925164a29cb7a54f8a42c0e0fb3b768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaCost: 5
+  dashTime: 0.25
+  dashReload: 0.5
+  dashSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 50
+      inSlope: -280
+      outSlope: -280
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.125
+      value: 15
+      inSlope: -200
+      outSlope: -200
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
+      value: 0
+      inSlope: -120
+      outSlope: -120
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashEvaluateTime: 0
+  nextDash: 0
+  nextDashTime: 0
 --- !u!114 &6753366706675599897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,8 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260d9110ae557a745ae684551bb23f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3.5
-  speedSlow: 0
+  speed: 4
   defaultEndReachedDistance: 0
   rb: {fileID: 6753366706675599899}
   thisCollider: {fileID: 6753366706675599896}
@@ -368,7 +427,8 @@ MonoBehaviour:
   aiPath: {fileID: 6753366706675599900}
   aiEntity: {fileID: 6753366706675599901}
   weapon: {fileID: 6753366706675599891}
-  dash: {fileID: 0}
+  dash: {fileID: -4327144568771029104}
+  deathTime: 0
   entity:
   - {fileID: 0}
   isEnemy: 0

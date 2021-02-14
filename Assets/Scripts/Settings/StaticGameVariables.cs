@@ -79,23 +79,13 @@ public static class StaticGameVariables
     public static readonly float camMaxSize = 20f;
     public static readonly float camMinSize = 8f;
 
-    [HideInInspector] public const int maxLevel = 60;
-    [HideInInspector] public const int maxBonus = 20;
+    public const int maxLevel = 60;
+    public const int maxBonus = 20;
 
-    /* Strength */
-    [HideInInspector] public const float healthBonus = 2f;
-    [HideInInspector] public const float weightBonus = 5f;
-
-    /* Agility */
-    [HideInInspector] public const float speedBonus = 0.1f;
-    [HideInInspector] public const int staminaBonus = 20;
-    [HideInInspector] public const int staminaRegenBonus = 1;
-
-    /* Intelligence */
-    [HideInInspector] public const int oratoryBonus = 1;
-
-    /* All */
-    [HideInInspector] public const float resistanceAll = 0.01f;
+    /* Entity Maker */
+    public const float minDistance = 20f;
+    public const float maxDistance = 45f;
+    public const float distanceFade = 100f;
     #endregion
     
     #region Animations
@@ -109,19 +99,7 @@ public static class StaticGameVariables
     public static string _SAVE_FOLDER = Path.Combine(Application.persistentDataPath, "Saves");
     public static string defaultValueAmount = "1";
     #endregion
-    
-    #region Addressables_Paths
 
-    public static string addressablesAnimations = Path.Combine("Assets", "Animations");
-    public static string addressablesBuffs = Path.Combine("Assets", "ScriptableObjects", "Buffs");
-    public static string addressablesDialogues = Path.Combine("Assets", "Prefabs", "Dialogues");
-    public static string addressablesItems = Path.Combine("Assets", "ScriptableObjects", "Items");
-    public static string addressablesMusic = Path.Combine("Assets", "Music");
-    public static string addressablesSounds = Path.Combine("Assets", "Sounds");
-    public static string addressablesSpriteAtlas = Path.Combine("Assets", "SpriteAtlas");
-
-    #endregion
-    
     #region SpecialSymbols
     public static readonly char genderSymbol = '$';
     public static readonly char splitSymbol  = '|';
@@ -494,12 +472,13 @@ public static class StaticGameVariables
 
     public static bool InRandom(float value)
     {
+        GetRandom();
         return random <= value;
     }
 
     public static float GetReachedDistance(CapsuleCollider2D collider)
     {
-        var size = collider.size;
+        Vector2 size = collider.size;
         return (size.x + size.y) / 2;
     }
 

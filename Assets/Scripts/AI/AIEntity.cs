@@ -30,6 +30,16 @@ public enum EntityState
 [RequireComponent(typeof(Dash))]
 public abstract class AIEntity : MonoBehaviour
 {
+    public float Speed
+    {
+        get => speed;
+        set
+        {
+            speed = value;
+            aiPath.maxSpeed = speed;
+        }
+    }
+    
     public float speed;
     public float defaultEndReachedDistance;
     public Rigidbody2D rb;
@@ -45,18 +55,18 @@ public abstract class AIEntity : MonoBehaviour
     public AIDestinationSetter aiEntity;
     public Gun weapon;
     public Dash dash;
+    
+    public float deathTime;
 
     [HideInInspector] public Collider2D[] entity = new Collider2D[1];
     [HideInInspector] public bool isEnemy;
     [HideInInspector] public Vector3 dashDirection;
 
-    private float deathTime;
-
     public void InitializeEntity()
     {
         state = EntityState.Normal;
         aiEntity.target = transform;
-        aiPath.maxSpeed = speed;
+        Speed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
     }
 
@@ -263,7 +273,7 @@ public abstract class AIEntity : MonoBehaviour
         animations.speed = StaticGameVariables.isPause ? 0f : 1f;
     }
 
-    public void OnDie(object sender, EventArgs e)
+    public virtual void OnDie(object sender, EventArgs e)
     {
         state = EntityState.Death;
         deathTime = Time.time + 3f;

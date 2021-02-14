@@ -17,6 +17,7 @@ public class Player : AIEntity, ITranslate
     
     [Space(10)]
     public bool touch;
+    public bool weaponChangeTouch;
     public bool buttonTouch;
 
     [Space(10)]
@@ -25,6 +26,7 @@ public class Player : AIEntity, ITranslate
     public CinemachineVirtualCamera cam;
     public Camera mainCamera;
     public Stats stats;
+    public Transform gunPosition;
 
     [Space(10)]
     public bool gender = true;
@@ -35,6 +37,9 @@ public class Player : AIEntity, ITranslate
     public EquipableItem legs;
     public EquipableItem foots;
 
+    public ItemWeapon weaponItem;
+    public ItemWeapon weaponRangedItem;
+    public Gun weaponRanged;
     
     [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
 
@@ -76,6 +81,8 @@ public class Player : AIEntity, ITranslate
         stats.Initialize();
 
         controls.Player.Touch.performed += Touch_performed;
+        controls.Player.WeaponChange.performed += WeaponChange_performed;
+        controls.Player.WeaponChange.canceled += WeaponChange_canceled;
         controls.Player.Zoom.performed += Zoom_performed;
 
         GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
@@ -100,22 +107,57 @@ public class Player : AIEntity, ITranslate
 
     private void Update()
     {
-#if UNITY_ANDROID || UNITY_IOS
-        if (!StaticGameVariables.isPause && !buttonTouch)
+        if (StaticGameVariables.isPause)
         {
-            if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
+            StatePerform();
+            return;
+        }
+        
+#if UNITY_ANDROID || UNITY_IOS
+        if (!buttonTouch)
+        {
+            if (!weaponChangeTouch && Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
             {
                 touch = true;
             }
             else if (Touch.activeFingers.Count == 2)
             {
+                if (Touch.activeTouches[0].phase == TouchPhase.Stationary &&
+                    (Touch.activeTouches[1].phase == TouchPhase.Moved ||
+                    Touch.activeTouches[1].phase == TouchPhase.Stationary))
+                {
+                    weaponChangeTouch = true;
+                    touch = true;
+                    return;
+                }
+                
                 touch = false;
                 ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
             }
         }
 #endif
 
-        if (touch && !buttonTouch && state != EntityState.Attack)
+        if (weaponChangeTouch && touch)
+        {
+            touch = false;
+            targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
+            targetPosition.z = 0f;
+            
+            float angle = StaticGameVariables.GetAngleBetweenPositions(targetPosition, transform.position);
+
+            if (angle <= 90f && angle >= -90f)
+            {
+                transform.localScale = new Vector3(1f, 1f, 1f);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            
+            AttackRange();
+        }
+
+        if (!weaponChangeTouch && touch && !buttonTouch && state != EntityState.Attack)
         {
             touch = false;
             targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
@@ -136,17 +178,18 @@ public class Player : AIEntity, ITranslate
                 
                 if (entity[0].TryGetComponent(out BaseTag anotherEntityTag) && Damage.IsEnemy(thisTag, anotherEntityTag))
                 {
-                    target.gameObject.SetActive(true);
+                    target.gameObject.SetActive(false);
                     isEnemy = true;
                 }
                 else
                 {
-                    target.gameObject.SetActive(false);
+                    target.gameObject.SetActive(true);
                     isEnemy = false;
                 }
             }
             else
             {
+                target.gameObject.SetActive(true);
                 isEnemy = false;
                 aiEntity.target = target;
                 aiPath.endReachedDistance = defaultEndReachedDistance;
@@ -154,6 +197,28 @@ public class Player : AIEntity, ITranslate
         }
 
         StatePerform();
+    }
+    
+    public void AttackRange()
+    {
+        if (!weaponRanged)
+        {
+            state = EntityState.Normal;
+            return;
+        }
+        
+        if (weaponRanged.nextAttack > Time.time)
+        {
+            return;
+        }
+
+        if (weaponRanged.clip == 0)
+        {
+            weaponRanged.fireWhenEmpty = true;
+        }
+
+        weaponRanged.enabled = true;
+        weaponRanged.PrimaryAttack();
     }
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -177,7 +242,7 @@ public class Player : AIEntity, ITranslate
 
     public void PickUpItem()
     {
-        if (ReferenceEquals(itemForPickup, null))
+        if (!itemForPickup)
         {
             return;
         }
@@ -186,6 +251,7 @@ public class Player : AIEntity, ITranslate
         Addressables.ReleaseInstance(itemForPickup.gameObject);
 
         int size = Physics2D.OverlapCircleNonAlloc(transform.position, searchItemRadius, searchItem, layerItems);
+        
         if (size > 0)
         {
             if (searchItem[0].TryGetComponent(out ItemWorld itemWorld))
@@ -198,7 +264,7 @@ public class Player : AIEntity, ITranslate
     
     public void GetTranslate()
     {
-        if (ReferenceEquals(itemForPickup, null))
+        if (!itemForPickup)
         {
             return;
         }
@@ -285,6 +351,26 @@ public class Player : AIEntity, ITranslate
         }
         
         touch = true;
+    }
+    
+    private void WeaponChange_performed(InputAction.CallbackContext obj)
+    {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+        
+        weaponChangeTouch = true;
+    }
+    
+    private void WeaponChange_canceled(InputAction.CallbackContext obj)
+    {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+        
+        weaponChangeTouch = false;
     }
 
     private void Zoom_performed(InputAction.CallbackContext obj)
