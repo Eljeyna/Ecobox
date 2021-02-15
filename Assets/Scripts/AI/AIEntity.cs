@@ -65,7 +65,7 @@ public abstract class AIEntity : MonoBehaviour
     public void InitializeEntity()
     {
         state = EntityState.Normal;
-        aiEntity.target = transform;
+        aiEntity.target = null;
         Speed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
     }

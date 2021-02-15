@@ -10,13 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2860060068697847226}
   - component: {fileID: 2860060069687688380}
-  - component: {fileID: 7941920395886555809}
   - component: {fileID: 2860060068697847225}
   - component: {fileID: 2860060068697847224}
   - component: {fileID: 2860060068697847227}
-  - component: {fileID: 2072805794315855465}
   m_Layer: 30
-  m_Name: Health Potion
+  m_Name: Health potion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,22 +49,6 @@ MonoBehaviour:
   atlasSprite:
     m_AssetGUID: fc305c1c43aad9645b4c2fd6ba4091ff
     m_SubObjectName: Trash Apple
-    m_SubObjectType: 
---- !u!114 &7941920395886555809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860060068697846853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5961bcf174d03746ac6e73ac633d74b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  atlasSprite:
-    m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
-    m_SubObjectName: AllAxis_Plain
     m_SubObjectType: 
 --- !u!212 &2860060068697847225
 SpriteRenderer:
@@ -157,17 +139,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 97a7c3fd967810341b5fc6179587c6bd, type: 2}
---- !u!114 &2072805794315855465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860060068697846853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf9db670c1df4bb2843b82560ce5409, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  size: {x: 20, y: 20}

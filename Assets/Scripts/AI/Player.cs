@@ -79,14 +79,14 @@ public class Player : AIEntity, ITranslate
         inventoryUI.Initialize();
 
         stats.Initialize();
-
-        controls.Player.Touch.performed += Touch_performed;
+        
+        controls.Player.Touch.canceled += Touch_performed;
         controls.Player.WeaponChange.performed += WeaponChange_performed;
         controls.Player.WeaponChange.canceled += WeaponChange_canceled;
         controls.Player.Zoom.performed += Zoom_performed;
 
         GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
-        targetNew.transform.position = transform.position;
+        targetNew.SetActive(false);
         targetNew.AddComponent(typeof(SpriteRenderer));
         AsyncOperationHandle<Sprite> asyncOperationHandle = atlasSprite.LoadAssetAsync<Sprite>();
         
@@ -103,47 +103,44 @@ public class Player : AIEntity, ITranslate
         }
         
         target = targetNew.transform;
+        target.position = transform.position;
     }
 
     private void Update()
     {
         if (StaticGameVariables.isPause)
         {
+            return;
+        }
+
+        if (buttonTouch || !touch)
+        {
             StatePerform();
             return;
         }
         
 #if UNITY_ANDROID || UNITY_IOS
-        if (!buttonTouch)
+        if (Touch.activeFingers.Count == 2)
         {
-            if (Touch.activeFingers.Count == 2)
-            {
-                if (Touch.activeTouches[0].phase == TouchPhase.Stationary &&
-                    (Touch.activeTouches[1].phase == TouchPhase.Canceled ||
-                     Touch.activeTouches[1].phase == TouchPhase.Ended))
-                {
-                    weaponChangeTouch = true;
-                    touch = true;
-                    return;
-                }
-
-                weaponChangeTouch = false;
-                touch = false;
-                ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
-            }
-            else if (Touch.activeFingers.Count == 1 && Touch.activeTouches[0].phase == TouchPhase.Began)
-            {
-                weaponChangeTouch = false;
-                touch = true;
-            }
+            touch = false;
+            ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
         }
 #endif
 
-        if (weaponChangeTouch && touch)
+        if (weaponChangeTouch && state != EntityState.Attack)
         {
             touch = false;
             targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
             targetPosition.z = 0f;
+            
+            target.position = transform.position;
+            
+            int length = Physics2D.OverlapCircleNonAlloc(targetPosition, aiPath.radius, entity, layer);
+            if (length > 0 && entity[0] == thisCollider && weaponRanged)
+            {
+                weaponChangeTouch = false;
+                return;
+            }
             
             float angle = StaticGameVariables.GetAngleBetweenPositions(targetPosition, transform.position);
 
@@ -158,24 +155,33 @@ public class Player : AIEntity, ITranslate
             
             AttackRange();
         }
-
-        if (!weaponChangeTouch && touch && !buttonTouch && state != EntityState.Attack)
+        else if (state != EntityState.Attack)
         {
             touch = false;
+            
             targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
             targetPosition.z = 0f;
 
-            if (!target)
-            {
-                isEnemy = false;
-                return;
-            }
-            
             target.position = targetPosition;
 
-            int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entity, layer);
-            if (length > 0 && entity[0] != thisCollider)
+            int length = Physics2D.OverlapCircleNonAlloc(targetPosition, aiPath.radius, entity, layer);
+            if (length > 0)
             {
+                if (entity[0] == thisCollider)
+                {
+                    if (weaponRanged)
+                    {
+                        target.position = transform.position;
+                        weaponChangeTouch = true;
+                    }
+                    else
+                    {
+                        target.gameObject.SetActive(true);
+                        isEnemy = false;
+                    }
+                    return;
+                }
+                
                 aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
                 
                 if (entity[0].TryGetComponent(out BaseTag anotherEntityTag) && Damage.IsEnemy(thisTag, anotherEntityTag))
@@ -284,8 +290,10 @@ public class Player : AIEntity, ITranslate
 
     private void OnDash()
     {
-        if (!StaticGameVariables.isPause && !ReferenceEquals(aiEntity.target, null) && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        if (!StaticGameVariables.isPause && !buttonTouch && state == EntityState.Normal &&
+            !ReferenceEquals(aiEntity.target, null) && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
+            weaponChangeTouch = false;
             aiEntity.enabled = false;
             aiPath.enabled = false;
             stats.stamina -= dash.staminaCost;
@@ -300,11 +308,12 @@ public class Player : AIEntity, ITranslate
 
     private void OnReload()
     {
-        if (StaticGameVariables.isPause ||!weapon || weapon.reloading)
+        if (StaticGameVariables.isPause || !weapon || weapon.reloading || state != EntityState.Normal)
         {
             return;
         }
         
+        weaponChangeTouch = false;
         weapon.Reload();
     }
 

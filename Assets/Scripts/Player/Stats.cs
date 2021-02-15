@@ -345,6 +345,7 @@ public class Stats : MonoBehaviour, ISaveState
             Player.Instance.thisEntity.invinsibility = saveObject.invinsibility;
             Player.Instance.thisEntity.SetMaxHealth(saveObject.maxHealth);
             Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
+            Player.Instance.aiEntity.target = transform;
 
             if (saveObject.activeQuestID != string.Empty)
             {

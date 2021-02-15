@@ -202,6 +202,28 @@ public static class StaticGameVariables
         colorItems[3] = new Color(147f / 255f, 86f / 255f, 183f / 255f, 1f);
         colorItems[4] = new Color(183f / 255f, 175f / 255f, 86f / 255f, 1f);
     }
+
+    public static async void InitializeFinale()
+    {
+        if (GameUI.Instance.transform.GetChild(1).TryGetComponent(out Canvas canvas))
+        {
+            canvas.worldCamera = Player.Instance.mainCamera;
+        }
+
+        if (Settings.Instance.gameIsLoaded)
+        {
+            await SaveLoadSystem.Instance.Load();
+            
+            Player.Instance.Initialize();
+
+            Settings.Instance.gameIsLoaded = false;
+            ResumeGame();
+        }
+        else
+        {
+            GameDirector.Instance.Initialize();
+        }
+    }
     #endregion
 
     #region Functions

@@ -12,30 +12,12 @@ public class GameUI : MonoBehaviour
     public InvisibleButton invisibleButton;
     public GameObject circleRepeat;
 
-    private async void Awake()
+    private void Awake()
     {
         Instance = this;
 
         StaticGameVariables.InitializeLanguage();
         StaticGameVariables.InitializeAwake();
-        
-        if (transform.GetChild(1).TryGetComponent(out Canvas canvas))
-        {
-            canvas.worldCamera = Player.Instance.mainCamera;
-        }
-
-        if (Settings.Instance.gameIsLoaded)
-        {
-            await SaveLoadSystem.Instance.Load();
-            
-            Player.Instance.Initialize();
-            
-            Settings.Instance.gameIsLoaded = false;
-            StaticGameVariables.ResumeGame();
-        }
-        else
-        {
-            GameDirector.Instance.Initialize();
-        }
+        StaticGameVariables.InitializeFinale();
     }
 }
