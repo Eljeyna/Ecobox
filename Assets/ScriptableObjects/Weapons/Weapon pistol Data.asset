@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon pistol Data
   m_EditorClassIdentifier: 
   damageType: 0
-  damage: 2
+  damage: 3
   radius: 0
   range: 12
   delay: 0

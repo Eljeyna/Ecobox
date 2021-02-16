@@ -4,6 +4,11 @@ public class BulletPistol : Bullet
 {
     private void Update()
     {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+        
         transform.position += transform.right * (bulletData.speed * Time.deltaTime);
         nextFade += Time.deltaTime;
 
@@ -16,7 +21,7 @@ public class BulletPistol : Bullet
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8) // Entities
         {
             if (collision.collider.gameObject == owner.gameObject)
             {

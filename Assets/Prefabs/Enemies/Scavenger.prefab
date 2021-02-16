@@ -70,9 +70,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 0}
-  m_Color: {r: 0.69803923, g: 0.32236624, b: 0.23921567, a: 1}
+  m_Color: {r: 0.7176471, g: 0.34462914, b: 0.3372549, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,7 +136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6753366706675599878}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.56, y: 4.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6753366707821187379}
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c6e3bafd5f2154794a3cb817d6aac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   health: 0
   healthPercent: 0
   resistances:
@@ -425,12 +425,12 @@ MonoBehaviour:
   nextAttack: 0
   reloading: 0
   fireWhenEmpty: 0
+  attackOffset: 0
   delay: 0
   clip: -1
   ammo: -1
   gunData: {fileID: 11400000, guid: 2fb66c327b1718d4db02cfaff4dae2b8, type: 2}
   entity: {fileID: 6753366706675599897}
-  attackPoint: {fileID: 6753366707821187379}
 --- !u!114 &-4327144568771029104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,7 +502,7 @@ MonoBehaviour:
   thisTag: {fileID: 6753366706675599902}
   thisEntity: {fileID: 6753366706675599903}
   target: {fileID: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
+  targetDirection: {x: 0, y: 0, z: 0}
   buffSystem: {fileID: 6753366706675599889}
   animations: {fileID: -5682101602445208287}
   aiPath: {fileID: 6753366706675599900}
@@ -539,7 +539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6753366707821187388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: 0, z: 0}
+  m_LocalPosition: {x: 1.6, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6753366706675599877}

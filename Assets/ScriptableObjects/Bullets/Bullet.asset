@@ -15,6 +15,6 @@ MonoBehaviour:
   index: 1
   damageType: 0
   damage: 2
-  speed: 12
-  timeFade: 8
+  speed: 35
+  timeFade: 1
   radius: 0

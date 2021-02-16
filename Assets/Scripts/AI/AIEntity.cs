@@ -15,6 +15,15 @@ public enum EntityState
     Death  = 7
 }
 
+public enum GameLayers
+{
+    Entities = 8,
+    Spawners = 20,
+    Minimap = 29,
+    Items = 30,
+    Obstacles = 31,
+}
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BaseTag))]
 [RequireComponent(typeof(BaseEntity))]
@@ -48,7 +57,7 @@ public abstract class AIEntity : MonoBehaviour
     public BaseTag thisTag;
     public BaseCommon thisEntity;
     public Transform target;
-    public Vector3 targetPosition;
+    public Vector3 targetDirection;
     public BuffSystem buffSystem;
     public Animator animations;
     public AIPath aiPath;
@@ -238,6 +247,7 @@ public abstract class AIEntity : MonoBehaviour
         }
 
         weapon.enabled = true;
+        targetDirection = (aiEntity.target.position - transform.position).normalized;
         weapon.PrimaryAttack();
     }
 
@@ -273,6 +283,16 @@ public abstract class AIEntity : MonoBehaviour
         animations.speed = StaticGameVariables.isPause ? 0f : 1f;
     }
 
+    public void OnDamaged(object sender, EventArgs e)
+    {
+        if (!target && transform.parent && transform.parent.TryGetComponent(out EntityMaker entityMaker))
+        {
+            entityMaker.isTrigger = true;
+            entityMaker.target = thisEntity.attacker.transform;
+            entityMaker.UpdateTarget();
+        }
+    }
+
     public virtual void OnDie(object sender, EventArgs e)
     {
         state = EntityState.Death;
@@ -282,18 +302,21 @@ public abstract class AIEntity : MonoBehaviour
     public virtual void EventEnable()
     {
         StaticGameVariables.OnPauseGame += OnPause;
+        thisEntity.OnHealthChanged += OnDamaged;
         thisEntity.OnDie += OnDie;
     }
     
     public virtual void EventDisable()
     {
         StaticGameVariables.OnPauseGame -= OnPause;
+        thisEntity.OnHealthChanged -= OnDamaged;
         thisEntity.OnDie -= OnDie;
     }
     
     public virtual void EventDestroy()
     {
         StaticGameVariables.OnPauseGame -= OnPause;
+        thisEntity.OnHealthChanged -= OnDamaged;
         thisEntity.OnDie -= OnDie;
         
         if (target)

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d2355ab5ce86c42968b13d43b33d4f, type: 3}
+  m_Script: {fileID: 11500000, guid: aba3ec404493a8045805581498b85c8b, type: 3}
   m_Name: Plastic bottle
   m_EditorClassIdentifier: 
   id: 5000
@@ -28,3 +28,4 @@ MonoBehaviour:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
     m_SubObjectName: UI Health
     m_SubObjectType: 
+  trashType: 0

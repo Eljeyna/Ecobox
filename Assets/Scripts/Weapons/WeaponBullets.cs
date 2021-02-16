@@ -73,9 +73,9 @@ public class WeaponBullets : Gun
         {
             bulletPistol.owner = entity.thisEntity;
             bulletPistol.baseTag = entity.thisTag;
-            bullet.transform.position = attackPoint.position;
-            bullet.transform.rotation = Quaternion.AngleAxis(
-                StaticGameVariables.GetAngleBetweenPositions(entity.targetPosition, entity.transform.position), Vector3.forward);
+            bullet.transform.position = entity.transform.position + entity.targetDirection * attackOffset;
+            float angle = Mathf.Atan2(entity.targetDirection.y, entity.targetDirection.x) * Mathf.Rad2Deg;
+            bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
 }

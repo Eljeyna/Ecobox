@@ -7,7 +7,8 @@ public class NoWeapon : Gun
 
     public override void Attack()
     {
-        Damage.RadiusDamage(gameObject, attackPoint.position, gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
+        Damage.RadiusDamage(gameObject, entity.transform.position + entity.targetDirection * attackOffset,
+            gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
     }
 
     public override bool Reload()

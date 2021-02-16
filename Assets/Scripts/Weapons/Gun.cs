@@ -13,6 +13,7 @@ public abstract class Gun : MonoBehaviour
     [HideInInspector] public float nextAttack;
     public bool reloading;
     public bool fireWhenEmpty;
+    public float attackOffset;
 
     public float delay;
     
@@ -21,7 +22,6 @@ public abstract class Gun : MonoBehaviour
     
     public GunData gunData;
     public AIEntity entity;
-    public Transform attackPoint;
 
     public abstract void Attack();
     public abstract bool Reload();
@@ -30,6 +30,14 @@ public abstract class Gun : MonoBehaviour
     {
         clip = gunData.maxClip;
         ammo = gunData.maxAmmo;
+
+        if (!entity)
+        {
+            return;
+        }
+        
+        Vector2 size = entity.thisCollider.size;
+        attackOffset = (size.x + size.y) / 2;
     }
 
     public void StatePerform()

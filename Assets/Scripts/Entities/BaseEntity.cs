@@ -5,7 +5,7 @@ public abstract class BaseEntity : MonoBehaviour
     public float maxHealth = 100f;
     public float health;
     [Range(0f, 1f)] public float healthPercent;
-    [Range(0f, 1f)] public float[] resistances;
+    [Range(-1f, 1f)] public float[] resistances;
     public bool invinsibility = false;
     public bool flagDeath;
     public BaseEntity attacker;

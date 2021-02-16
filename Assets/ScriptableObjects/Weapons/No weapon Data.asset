@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: No weapon Data
   m_EditorClassIdentifier: 
   damageType: 0
-  damage: 100
-  radius: 2.5
+  damage: 3
+  radius: 2
   range: 2
-  delay: 0
+  delay: 0.25
   lateDelay: 0.25
   fireRatePrimary: 1.25
   impactForce: 0

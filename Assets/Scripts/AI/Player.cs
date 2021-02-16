@@ -18,7 +18,6 @@ public class Player : AIEntity, ITranslate
     [Space(10)]
     public bool touch;
     public bool weaponChangeTouch;
-    public bool buttonTouch;
 
     [Space(10)]
     public Inventory inventory;
@@ -63,6 +62,7 @@ public class Player : AIEntity, ITranslate
         controls = new NewInputSystem();
 
         InitializeEntity();
+        thisEntity.OnHealthChanged -= OnDamaged;
 
         layer = 1 << gameObject.layer;
         layerItems = 1 << 30;
@@ -113,36 +113,52 @@ public class Player : AIEntity, ITranslate
             return;
         }
 
-        if (buttonTouch || !touch)
+        if (state == EntityState.Attack)
         {
             StatePerform();
             return;
         }
         
 #if UNITY_ANDROID || UNITY_IOS
-        if (Touch.activeFingers.Count == 2)
+        if (Touch.activeFingers.Count == 0)
         {
-            touch = false;
-            ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
+            weaponChangeTouch = false;
+        }
+        else if (Touch.activeFingers.Count == 1)
+        {
+            if (weaponChangeTouch && touch)
+            {
+                touch = false;
+                weaponChangeTouch = false;
+            }
+        }
+        else if (Touch.activeFingers.Count == 2)
+        {
+            if (weaponChangeTouch)
+            {
+                touch = true;
+            }
+            else
+            {
+                touch = false;
+                ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
+                return;
+            }
         }
 #endif
 
-        if (weaponChangeTouch && state != EntityState.Attack)
+        if (weaponChangeTouch && touch)
         {
             touch = false;
-            targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
-            targetPosition.z = 0f;
-            
-            target.position = transform.position;
-            
-            int length = Physics2D.OverlapCircleNonAlloc(targetPosition, aiPath.radius, entity, layer);
-            if (length > 0 && entity[0] == thisCollider && weaponRanged)
+#if UNITY_ANDROID || UNITY_IOS
+            if (Touch.activeFingers.Count == 2)
             {
-                weaponChangeTouch = false;
-                return;
+                targetDirection = (mainCamera.ScreenToWorldPoint(Touch.activeTouches[1].screenPosition) - transform.position).normalized;
             }
-            
-            float angle = StaticGameVariables.GetAngleBetweenPositions(targetPosition, transform.position);
+#else
+            targetDirection = (mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue()) - transform.position).normalized;
+#endif
+            float angle = StaticGameVariables.GetAngleBetweenPositions(targetDirection, transform.position);
 
             if (angle <= 90f && angle >= -90f)
             {
@@ -155,33 +171,17 @@ public class Player : AIEntity, ITranslate
             
             AttackRange();
         }
-        else if (state != EntityState.Attack)
+        else if (touch)
         {
             touch = false;
-            
-            targetPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
-            targetPosition.z = 0f;
 
-            target.position = targetPosition;
+            Vector3 newPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
+            newPosition.z = 0f;
+            target.position = newPosition;
 
-            int length = Physics2D.OverlapCircleNonAlloc(targetPosition, aiPath.radius, entity, layer);
-            if (length > 0)
+            int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entity, layer);
+            if (length > 0 && entity[0] != thisCollider)
             {
-                if (entity[0] == thisCollider)
-                {
-                    if (weaponRanged)
-                    {
-                        target.position = transform.position;
-                        weaponChangeTouch = true;
-                    }
-                    else
-                    {
-                        target.gameObject.SetActive(true);
-                        isEnemy = false;
-                    }
-                    return;
-                }
-                
                 aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
                 
                 if (entity[0].TryGetComponent(out BaseTag anotherEntityTag) && Damage.IsEnemy(thisTag, anotherEntityTag))
@@ -290,7 +290,7 @@ public class Player : AIEntity, ITranslate
 
     private void OnDash()
     {
-        if (!StaticGameVariables.isPause && !buttonTouch && state == EntityState.Normal &&
+        if (!StaticGameVariables.isPause && state == EntityState.Normal &&
             !ReferenceEquals(aiEntity.target, null) && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
             weaponChangeTouch = false;
@@ -406,7 +406,7 @@ public class Player : AIEntity, ITranslate
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 20) // Spawners
+        if (collision.gameObject.layer == (int)GameLayers.Spawners) // Spawners
         {
             if (collision.TryGetComponent(out EntityMaker entityMaker))
             {
@@ -417,7 +417,7 @@ public class Player : AIEntity, ITranslate
             return;
         }
         
-        if (collision.gameObject.layer == 30) // Items
+        if (collision.gameObject.layer == (int)GameLayers.Items) // Items
         {
             if (collision.TryGetComponent(out ItemWorld itemWorld))
             {
@@ -429,7 +429,7 @@ public class Player : AIEntity, ITranslate
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 30) // Items
+        if (collision.gameObject.layer == (int)GameLayers.Items) // Items
         {
             if (collision.TryGetComponent(out ItemWorld itemWorld) && ReferenceEquals(itemForPickup, itemWorld))
             {
@@ -468,16 +468,4 @@ public class Player : AIEntity, ITranslate
             atlasSprite.ReleaseAsset();
         }
     }
-
-#if UNITY_EDITOR
-    /*private void OnDrawGizmos()
-    {
-        if ((weapon as NoWeapon).attackPoint == null)
-        {
-            return;
-        }
-
-        Gizmos.DrawWireSphere((weapon as NoWeapon).attackPoint.position, weapon.gunData.radius);
-    }*/
-#endif
 }

@@ -74,18 +74,18 @@ public static class StaticGameVariables
     public static float progress;
 
     #region Settings
-
     public static readonly float shakeForce = 2f;
     public static readonly float camMaxSize = 20f;
     public static readonly float camMinSize = 8f;
 
     public const int maxLevel = 60;
     public const int maxBonus = 20;
+    #endregion
 
-    /* Entity Maker */
+    #region Entity Maker
     public const float minDistance = 20f;
-    public const float maxDistance = 45f;
-    public const float distanceFade = 100f;
+    public const float maxDistance = 70f;
+    public const float distanceFade = 200f;
     #endregion
     
     #region Animations
@@ -479,7 +479,7 @@ public static class StaticGameVariables
 
     public static float WaitInPause(float value)
     {
-        return value += Time.time - (Time.time + value);
+        return value + Time.deltaTime;
     }
 
     public static void ValueChangeCheck()

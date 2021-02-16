@@ -11,12 +11,9 @@ public class Enemy : AIEntity
 
     private void Start()
     {
-        if (transform.parent)
+        if (transform.parent && transform.parent.TryGetComponent(out EntityMaker entityMaker))
         {
-            if (transform.parent.TryGetComponent(out EntityMaker entityMaker))
-            {
-                aiEntity.target = entityMaker.target;
-            }
+            aiEntity.target = entityMaker.target;
         }
         
         if (!aiEntity.target)
@@ -29,10 +26,6 @@ public class Enemy : AIEntity
         {
             isEnemy = true;
             aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
-        }
-        else
-        {
-            isEnemy = false;
         }
     }
 

@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using static StaticGameVariables;
 
 [RequireComponent(typeof(CircleCollider2D))]
-[RequireComponent(typeof(Addressables_Instantiate))]
 public class EntityMaker : MonoBehaviour
 {
     public bool isTrigger;
     [Range(1, 4)] public int amountMin;
     [Range(1, 8)] public int amountMax;
 
-    public Addressables_Instantiate instantiateScript;
+    public AssetReference[] entities;
     public Transform target;
 
     private float distance;
+    
+    private AsyncOperationHandle<GameObject>[] createdObjects;
 
     private void Update()
     {
@@ -91,7 +94,43 @@ public class EntityMaker : MonoBehaviour
 
     public void SpawnEntities()
     {
-        instantiateScript.SpawnEntities();
+        if (ReferenceEquals(createdObjects, null))
+        {
+            createdObjects = new AsyncOperationHandle<GameObject>[amountMax];
+        }
+
+        int amount = amountMax;
+        for (int i = 0; i < entities.Length; i++)
+        {
+            if (amount == 0)
+            {
+                break;
+            }
+            
+            GetRandom();
+
+            int count = Mathf.RoundToInt(amount * random);
+            for (int j = 0; j < count; j++)
+            {
+                createdObjects[j] = Addressables.InstantiateAsync(entities[i], transform, true);
+            }
+
+            amount -= count;
+        }
+    }
+
+    public void DeleteEntities()
+    {
+        if (createdObjects.Length > 0)
+        {
+            for (int i = 0; i < createdObjects.Length; i++)
+            {
+                if (createdObjects[i].IsValid())
+                {
+                    Addressables.ReleaseInstance(createdObjects[i]);
+                }
+            }
+        }
     }
 
     private void OnEnable()
@@ -105,7 +144,7 @@ public class EntityMaker : MonoBehaviour
         {
             Player.Instance.fightCount--;
         }
-        
+
         isTrigger = false;
         target = transform;
 
@@ -114,7 +153,7 @@ public class EntityMaker : MonoBehaviour
             return;
         }
         
-        instantiateScript.DeleteEntities();
+        DeleteEntities();
     }
 
     private void OnValidate()
