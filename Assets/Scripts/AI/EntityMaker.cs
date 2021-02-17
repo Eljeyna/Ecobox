@@ -11,11 +11,13 @@ public class EntityMaker : MonoBehaviour
     [Range(1, 8)] public int amountMax;
 
     public AssetReference[] entities;
+    public Transform[] positions;
     public Transform target;
+    public CircleCollider2D circleCollider;
 
     private float distance;
     
-    private AsyncOperationHandle<GameObject>[] createdObjects;
+    private GameObject[] createdObjects;
 
     private void Update()
     {
@@ -65,38 +67,40 @@ public class EntityMaker : MonoBehaviour
 
     public void UpdateTarget()
     {
-        if (transform.childCount > 0)
+        if (transform.childCount == 0)
         {
-            if (target == transform)
+            return;
+        }
+
+        if (target == transform)
+        {
+            for (int i = 0; i < transform.childCount; i++)
             {
-                for (int i = 0; i < transform.childCount; i++)
+                if (transform.GetChild(i).TryGetComponent(out AIEntity aiEntityScript))
                 {
-                    if (transform.GetChild(i).TryGetComponent(out AIEntity aiEntityScript))
-                    {
-                        aiEntityScript.isEnemy = false;
-                        aiEntityScript.aiEntity.target = target;
-                        aiEntityScript.aiPath.endReachedDistance = aiEntityScript.defaultEndReachedDistance;
-                    }
+                    aiEntityScript.isEnemy = false;
+                    aiEntityScript.aiEntity.target = positions[i];
+                    aiEntityScript.aiPath.endReachedDistance = aiEntityScript.defaultEndReachedDistance;
                 }
             }
-            else
+        }
+        else
+        {
+            for (int i = 0; i < transform.childCount; i++)
             {
-                for (int i = 0; i < transform.childCount; i++)
+                if (transform.GetChild(i).TryGetComponent(out AIEntity aiEntityScript))
                 {
-                    if (transform.GetChild(i).TryGetComponent(out AIEntity aiEntityScript))
-                    {
-                        aiEntityScript.UpdateTarget(target);
-                    }
+                    aiEntityScript.UpdateTarget(target);
                 }
             }
         }
     }
 
-    public void SpawnEntities()
+    public async void SpawnEntities()
     {
         if (ReferenceEquals(createdObjects, null))
         {
-            createdObjects = new AsyncOperationHandle<GameObject>[amountMax];
+            createdObjects = new GameObject[amountMax];
         }
 
         int amount = amountMax;
@@ -112,7 +116,13 @@ public class EntityMaker : MonoBehaviour
             int count = Mathf.RoundToInt(amount * random);
             for (int j = 0; j < count; j++)
             {
-                createdObjects[j] = Addressables.InstantiateAsync(entities[i], transform, true);
+                createdObjects[j] = await Addressables.InstantiateAsync(entities[i], transform, true).Task;
+
+                if (createdObjects[j].TryGetComponent(out AIEntity aiEntityScript))
+                {
+                    aiEntityScript.aiEntity.target = positions[i];
+                    aiEntityScript.aiPath.endReachedDistance = aiEntityScript.defaultEndReachedDistance;
+                }
             }
 
             amount -= count;
@@ -125,7 +135,7 @@ public class EntityMaker : MonoBehaviour
         {
             for (int i = 0; i < createdObjects.Length; i++)
             {
-                if (createdObjects[i].IsValid())
+                if (createdObjects[i])
                 {
                     Addressables.ReleaseInstance(createdObjects[i]);
                 }

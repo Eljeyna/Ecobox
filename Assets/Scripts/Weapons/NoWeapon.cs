@@ -7,7 +7,7 @@ public class NoWeapon : Gun
 
     public override void Attack()
     {
-        Damage.RadiusDamage(gameObject, entity.transform.position + entity.targetDirection * attackOffset,
+        Damage.RadiusDamage(gameObject, entity.transform.position + entity.targetDirection * gunData.range,
             gunData.radius, gunData.damageType, gunData.damage, 1 << gameObject.layer);
     }
 

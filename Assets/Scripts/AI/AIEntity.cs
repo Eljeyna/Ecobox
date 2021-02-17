@@ -79,6 +79,12 @@ public abstract class AIEntity : MonoBehaviour
         defaultEndReachedDistance = aiPath.endReachedDistance;
     }
 
+    public async void InitializeTarget()
+    {
+        GameObject newTarget = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
+        target = newTarget.transform;
+    }
+
     public void StatePerform()
     {
         if (StaticGameVariables.isPause)

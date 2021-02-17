@@ -94,6 +94,7 @@ public class Player : AIEntity, ITranslate
         
         if (targetNew.TryGetComponent(out SpriteRenderer newSpriteRenderer))
         {
+            newSpriteRenderer.sortingOrder = 999;
             newSpriteRenderer.color = new Color(1f, 1f, 1f, 64f / 255f);
             
             if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
