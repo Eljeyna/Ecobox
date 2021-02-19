@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TilemapAtlas
+  m_Name: TIlemapAtlas
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -3455,5 +3455,5 @@ SpriteAtlas:
   - roguelikeSheet_transparent_170
   - roguelikeSheet_transparent_1043
   - roguelikeSheet_transparent_1053
-  m_Tag: TilemapAtlas
+  m_Tag: TIlemapAtlas
   m_IsVariant: 0

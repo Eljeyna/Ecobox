@@ -23,7 +23,7 @@ public class Dialogue : MonoBehaviour, ITranslate
     {
         StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Dialogues", $"{key}.json")));
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
         {
             return;

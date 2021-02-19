@@ -76,7 +76,7 @@ public class Item : ScriptableObject
     {
         StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Items", $"{itemName}.json")));
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
         {
             translationString[0] = string.Empty;

@@ -23,7 +23,7 @@ public class QuestTasks : ITranslate
     {
         StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Quests", "QuestsID.json")));
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
         {
             return;
@@ -53,7 +53,7 @@ public class QuestTasks : ITranslate
     {
         StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Quests", $"{id}.json")));
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
         {
             return;

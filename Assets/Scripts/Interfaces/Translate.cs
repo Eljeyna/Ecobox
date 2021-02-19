@@ -38,7 +38,7 @@ public class Translate : MonoBehaviour
         
         StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[language], "UI.json")));
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
         {
             return;

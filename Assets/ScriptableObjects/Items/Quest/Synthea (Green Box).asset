@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d87d92dd811f97d43ad13be51ac75864, type: 3}
-  m_Name: Synthea (green box)
+  m_Name: Synthea (Green Box)
   m_EditorClassIdentifier: 
   id: 4000
   idReference:

@@ -512,7 +512,7 @@ public static class StaticGameVariables
 
     public static string GetAsset(string path)
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         return GetRequest(Path.Combine(Application.streamingAssetsPath, path));
 #else
         return new StringBuilder(Path.Combine(Application.streamingAssetsPath, path)).ToString();
