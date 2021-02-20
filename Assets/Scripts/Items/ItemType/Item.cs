@@ -12,8 +12,7 @@ public class Item : ScriptableObject
 {
     public enum ItemType
     {
-        WeaponMelee,
-        WeaponRanged,
+        Weapon,
         Cloth,
         Consumable,
         Trash,
@@ -34,7 +33,6 @@ public class Item : ScriptableObject
     public string itemName;
     
     public bool itemEnd = true;
-    public float itemWeight;
     public int itemCost;
     public int itemAmount = 1;
     

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d139609ca9f31d24280f9f3e5fee90ee, type: 3}
+  m_Name: Hat
+  m_EditorClassIdentifier: Assembly-CSharp::EquipableItem
+  id: 2000
+  idReference:
+    m_AssetGUID: 2b136154e9dc8c34cb8b2f6496bf4b56
+    m_SubObjectName: 
+    m_SubObjectType: 
+  itemName: Hat
+  itemEnd: 0
+  itemWeight: 2
+  itemCost: 100
+  itemAmount: 1
+  itemType: 2
+  itemQuality: 0
+  atlasSprite:
+    m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
+    m_SubObjectName: UI Health
+    m_SubObjectType: 
+  itemClothType: 0
+  itemBuff: {fileID: 11400000, guid: a4ec5ec56ab929640a43eca3af8e1857, type: 2}

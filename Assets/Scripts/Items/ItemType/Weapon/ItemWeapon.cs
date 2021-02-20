@@ -17,7 +17,7 @@ public class ItemWeapon : Item
     {
         switch (itemType)
         {
-            case ItemType.WeaponMelee:
+            case ItemType.Weapon:
                 if (Player.Instance.TryGetComponent(out NoWeapon noWeapon))
                 {
                     if (weapon && weapon.TryGetComponent(out Gun gun))
@@ -53,34 +53,6 @@ public class ItemWeapon : Item
                 }
 
                 break;
-            case ItemType.WeaponRanged:
-                if (weapon && weapon.TryGetComponent(out Gun gunB))
-                {
-                    Addressables.ReleaseInstance(weapon);
-                    Player.Instance.weaponRangedItem = null;
-                    Player.Instance.weaponRanged = null;
-
-                    return;
-                }
-            
-                weapon = await idReferenceWeapon.InstantiateAsync(Player.Instance.transform).Task;
-
-                if (weapon && weapon.TryGetComponent(out Gun gunC))
-                {
-                    gunC.entity = Player.Instance;
-                    Vector2 size = Player.Instance.thisCollider.size;
-                    gunC.attackOffset = (size.x + size.y) / 2;
-                    
-                    if (Player.Instance.weaponRanged)
-                    {
-                        Addressables.ReleaseInstance(Player.Instance.weaponRanged.gameObject);
-                    }
-
-                    Player.Instance.weaponRangedItem = this;
-                    Player.Instance.weaponRanged = gunC;
-                }
-                
-                break;
             default:
                 return;
         }
@@ -94,19 +66,11 @@ public class ItemWeapon : Item
             {
                 switch (itemType)
                 {
-                    case ItemType.WeaponMelee:
+                    case ItemType.Weapon:
                         if (weapon.TryGetComponent(out Gun gunA) && Player.Instance.weapon == gunA)
                         {
                             Player.Instance.weaponItem = null;
                             Player.Instance.weapon = null;
-                        }
-
-                        break;
-                    case ItemType.WeaponRanged:
-                        if (weapon.TryGetComponent(out Gun gunB) && Player.Instance.weapon == gunB)
-                        {
-                            Player.Instance.weaponRangedItem = null;
-                            Player.Instance.weaponRanged = null;
                         }
 
                         break;

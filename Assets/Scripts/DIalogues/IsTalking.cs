@@ -108,20 +108,17 @@ public class IsTalking : MonoBehaviour
 
                 if (dialogue.answersArray[_currentLine].answers[i].check == DialogueCheckRequirements.None)
                 {
-                    if (GameUI.Instance.dialogueButtons[i + length].TryGetComponent(out Button button))
+                    if (GameUI.Instance.dialogueButtons[i + length].TryGetComponent(out Button buttonA))
                     {
-                        button.interactable = true;
+                        buttonA.interactable = true;
                     }
                     
                     continue;
                 }
-
-                if (GetCheckRequirements(i))
+                
+                if (GameUI.Instance.dialogueButtons[i + length].TryGetComponent(out Button buttonB))
                 {
-                    if (GameUI.Instance.dialogueButtons[i + length].TryGetComponent(out Button button))
-                    {
-                        button.interactable = false;
-                    }
+                    buttonB.interactable = false;
                 }
             }
         }
@@ -162,17 +159,5 @@ public class IsTalking : MonoBehaviour
         sb.Append(text.Substring(indexLast + 1, text.Length - indexLast - 1));
         
         return sb.ToString();
-    }
-
-    public bool GetCheckRequirements(int index)
-    {
-        return dialogue.answersArray[_currentLine].answers[index].check == DialogueCheckRequirements.Strength
-               && dialogue.answersArray[_currentLine].answers[index].checkParameter > Player.Instance.stats.strength
-               ||
-               dialogue.answersArray[_currentLine].answers[index].check == DialogueCheckRequirements.Agility
-               && dialogue.answersArray[_currentLine].answers[index].checkParameter > Player.Instance.stats.agility
-               ||
-               dialogue.answersArray[_currentLine].answers[index].check == DialogueCheckRequirements.Intelligence
-               && dialogue.answersArray[_currentLine].answers[index].checkParameter > Player.Instance.stats.intelligence;
     }
 }

@@ -245,24 +245,8 @@ MonoBehaviour:
   - m_AssetGUID: b6368a8a9afe35c4b8fd63d315484385
     m_SubObjectName: 
     m_SubObjectType: 
-  - m_AssetGUID: 449506d650d22364dac04252686aeb2d
-    m_SubObjectName: 
-    m_SubObjectType: 
-  - m_AssetGUID: c85be42de7862db429da7e719bb5064d
-    m_SubObjectName: 
-    m_SubObjectType: 
-  - m_AssetGUID: b516e709f2040334a87ebafdfe3cccb7
-    m_SubObjectName: 
-    m_SubObjectType: 
-  - m_AssetGUID: de3358ee5284a94479ec83984e5fb145
-    m_SubObjectName: 
-    m_SubObjectType: 
   chanceDrop:
   - 0.9
-  - 0.25
-  - 1
-  - 1
-  - 1
 --- !u!114 &6753366706675599889
 MonoBehaviour:
   m_ObjectHideFlags: 0

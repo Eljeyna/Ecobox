@@ -11,6 +11,7 @@ public class GameUI : MonoBehaviour
     public DialogueButton[] dialogueButtons;
     public InvisibleButton invisibleButton;
     public GameObject circleRepeat;
+    public Joystick joystick;
 
     private void Awake()
     {

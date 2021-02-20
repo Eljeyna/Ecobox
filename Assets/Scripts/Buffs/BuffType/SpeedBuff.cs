@@ -15,13 +15,13 @@ public class SpeedBuff: Buff
     protected override void ApplyEffect()
     {
         SpeedBuffScriptable appliedBuff = (SpeedBuffScriptable)buffData;
-        entity.Speed += appliedBuff.parameter;
+        entity.speed += appliedBuff.parameter;
     }
 
     public override void End()
     {
         SpeedBuffScriptable appliedBuff = (SpeedBuffScriptable)buffData;
-        entity.Speed -= appliedBuff.parameter * stacks;
+        entity.speed -= appliedBuff.parameter * stacks;
         stacks = 0;
         isFinished = true;
     }

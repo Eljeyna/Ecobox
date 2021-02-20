@@ -27,16 +27,12 @@ public enum GameLayers
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BaseTag))]
 [RequireComponent(typeof(BaseEntity))]
-[RequireComponent(typeof(Seeker))]
 
 [RequireComponent(typeof(BuffSystem))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-[RequireComponent(typeof(AIPath))]
-[RequireComponent(typeof(AIDestinationSetter))]
 [RequireComponent(typeof(Gun))]
-[RequireComponent(typeof(Dash))]
 public abstract class AIEntity : MonoBehaviour
 {
     public float Speed
@@ -125,7 +121,7 @@ public abstract class AIEntity : MonoBehaviour
         SetAnimation();
     }
 
-    public void StateNormal()
+    public virtual void StateNormal()
     {
         if (!aiPath.isActiveAndEnabled)
         {
@@ -165,7 +161,7 @@ public abstract class AIEntity : MonoBehaviour
         }
     }
     
-    public void StateDash()
+    public virtual void StateDash()
     {
         if (dash.nextDash <= Time.time)
         {
@@ -182,7 +178,7 @@ public abstract class AIEntity : MonoBehaviour
         }
     }
     
-    public void StateStun()
+    public virtual void StateStun()
     {
         if (aiPath.isActiveAndEnabled)
         {
@@ -228,13 +224,13 @@ public abstract class AIEntity : MonoBehaviour
         Player.Instance.OnLoad();
     }
 
-    public void SetAnimation()
+    public virtual void SetAnimation()
     {
         animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
         animations.SetBool(StaticGameVariables.animationMoveKeyID, !aiPath.reachedDestination);
     }
     
-    public void Attack()
+    public virtual void Attack()
     {
         if (!weapon)
         {
@@ -283,7 +279,7 @@ public abstract class AIEntity : MonoBehaviour
         return weapon.gunData.range;
     }
 
-    public void OnPause(object sender, EventArgs e)
+    public virtual void OnPause(object sender, EventArgs e)
     {
         aiPath.enabled = !StaticGameVariables.isPause;
         animations.speed = StaticGameVariables.isPause ? 0f : 1f;

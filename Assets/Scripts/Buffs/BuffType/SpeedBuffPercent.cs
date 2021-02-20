@@ -15,13 +15,13 @@ public class SpeedBuffPercent: Buff
     protected override void ApplyEffect()
     {
         SpeedBuffPercentScriptable appliedBuff = (SpeedBuffPercentScriptable)buffData;
-        entity.Speed += entity.Speed * appliedBuff.parameter / 100f;
+        entity.speed += entity.speed * appliedBuff.parameter / 100f;
     }
 
     public override void End()
     {
         SpeedBuffPercentScriptable appliedBuff = (SpeedBuffPercentScriptable)buffData;
-        entity.Speed -= entity.Speed * appliedBuff.parameter * stacks / 100f;
+        entity.speed -= entity.speed * appliedBuff.parameter * stacks / 100f;
         stacks = 0;
         isFinished = true;
     }

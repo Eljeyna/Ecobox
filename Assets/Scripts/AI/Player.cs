@@ -1,23 +1,27 @@
+using System;
 using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using Pathfinding;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
+using Path = System.IO.Path;
 #if UNITY_ANDROID || UNITY_IOS
+using UnityEngine.EventSystems;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using UnityEngine.InputSystem.EnhancedTouch;
 #endif
 
-public class Player : AIEntity, ITranslate
+public class Player : AIEntity
 {
     public static Player Instance { get; private set; }
     
     [Space(10)]
     public bool touch;
-    public bool weaponChangeTouch;
+    //public bool weaponChangeTouch;
 
     [Space(10)]
     public Inventory inventory;
@@ -25,31 +29,32 @@ public class Player : AIEntity, ITranslate
     public CinemachineVirtualCamera cam;
     public Camera mainCamera;
     public Stats stats;
-    public Transform gunPosition;
+    //public Transform gunPosition;
 
     [Space(10)]
     public bool gender = true;
     public int fightCount;
     
-    public EquipableItem head;
+    public ItemWeapon weaponItem;
+    
+    /*public EquipableItem head;
     public EquipableItem torso;
     public EquipableItem legs;
     public EquipableItem foots;
 
     public ItemWeapon weaponItem;
     public ItemWeapon weaponRangedItem;
-    public Gun weaponRanged;
-    
-    [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
+    public Gun weaponRanged;*/
 
+    public Joystick joystick;
+    
+    [HideInInspector] public Vector2 moveVelocity;
     [HideInInspector] public Vector3 moving;
     [HideInInspector] public float zoomAmount;
 
-    private ItemWorld itemForPickup;
     private Collider2D[] searchItem = new Collider2D[1];
     private const float searchItemRadius = 2f;
     private NewInputSystem controls;
-    private LayerMask layer;
     private LayerMask layerItems;
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -60,11 +65,10 @@ public class Player : AIEntity, ITranslate
     {
         Instance = this;
         controls = new NewInputSystem();
-
-        InitializeEntity();
+        
+        state = EntityState.Normal;
         thisEntity.OnHealthChanged -= OnDamaged;
 
-        layer = 1 << gameObject.layer;
         layerItems = 1 << 30;
 
         zoomAmount = PlayerPrefs.GetFloat("ZoomAmount", 0.6f);
@@ -72,7 +76,7 @@ public class Player : AIEntity, ITranslate
         DontDestroyOnLoad(gameObject);
     }
 
-    public async void Initialize()
+    public void Initialize()
     {
         inventoryUI = GameObject.Find("ListSlots").GetComponent<InventoryUI>();
         inventoryUI.SetInventory(inventory);
@@ -80,31 +84,18 @@ public class Player : AIEntity, ITranslate
 
         stats.Initialize();
         
-        controls.Player.Touch.canceled += Touch_performed;
+        /*controls.Player.Touch.canceled += Touch_performed;
         controls.Player.WeaponChange.performed += WeaponChange_performed;
-        controls.Player.WeaponChange.canceled += WeaponChange_canceled;
+        controls.Player.WeaponChange.canceled += WeaponChange_canceled;*/
         controls.Player.Zoom.performed += Zoom_performed;
+    }
 
-        GameObject targetNew = await Pool.Instance.GetFromPoolAsync((int)PoolID.Target);
-        targetNew.SetActive(false);
-        targetNew.AddComponent(typeof(SpriteRenderer));
-        AsyncOperationHandle<Sprite> asyncOperationHandle = atlasSprite.LoadAssetAsync<Sprite>();
-        
-        await asyncOperationHandle.Task;
-        
-        if (targetNew.TryGetComponent(out SpriteRenderer newSpriteRenderer))
+    private void FixedUpdate()
+    {
+        if (state == EntityState.Normal && moveVelocity != Vector2.zero)
         {
-            newSpriteRenderer.sortingOrder = 999;
-            newSpriteRenderer.color = new Color(1f, 1f, 1f, 64f / 255f);
-            
-            if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
-            {
-                newSpriteRenderer.sprite = asyncOperationHandle.Result;
-            }
+            rb.MovePosition(rb.position + moveVelocity * (speed * Time.fixedDeltaTime));
         }
-        
-        target = targetNew.transform;
-        target.position = transform.position;
     }
 
     private void Update()
@@ -114,120 +105,112 @@ public class Player : AIEntity, ITranslate
             return;
         }
 
+#if UNITY_ANDROID || UNITY_IOS
         if (state == EntityState.Attack)
         {
             StatePerform();
             return;
         }
-        
-#if UNITY_ANDROID || UNITY_IOS
+
         if (Touch.activeFingers.Count == 0)
         {
-            weaponChangeTouch = false;
+            joystick.gameObject.SetActive(false);
         }
-        else if (Touch.activeFingers.Count == 1)
+        else if (Touch.activeFingers.Count == 1 && !joystick.gameObject.activeInHierarchy)
         {
-            if (weaponChangeTouch && touch)
+            joystick.transform.position = Touch.activeTouches[0].screenPosition - (Vector2)joystick.transform.lossyScale / 2f;
+            joystick.gameObject.SetActive(true);
+            
+            PointerEventData eventData = new PointerEventData(EventSystem.current)
             {
-                touch = false;
-                weaponChangeTouch = false;
-            }
+                position = Touch.activeTouches[0].screenPosition
+            };
+            
+            joystick.OnDrag(eventData);
         }
         else if (Touch.activeFingers.Count == 2)
         {
-            if (weaponChangeTouch)
-            {
-                touch = true;
-            }
-            else
-            {
-                touch = false;
-                ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
-                return;
-            }
+            joystick.gameObject.SetActive(false);
+            touch = false;
+            ZoomCamera(Touch.activeTouches[0], Touch.activeTouches[1]);
+            return;
         }
 #endif
-
-        if (weaponChangeTouch && touch)
-        {
-            touch = false;
-#if UNITY_ANDROID || UNITY_IOS
-            if (Touch.activeFingers.Count == 2)
-            {
-                targetDirection = (mainCamera.ScreenToWorldPoint(Touch.activeTouches[1].screenPosition) - transform.position).normalized;
-            }
-#else
-            targetDirection = (mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue()) - transform.position).normalized;
-#endif
-            float angle = StaticGameVariables.GetAngleBetweenPositions(targetDirection, transform.position);
-
-            if (angle <= 90f && angle >= -90f)
-            {
-                transform.localScale = new Vector3(1f, 1f, 1f);
-            }
-            else
-            {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
-            }
-            
-            AttackRange();
-        }
-        else if (touch)
-        {
-            touch = false;
-
-            Vector3 newPosition = mainCamera.ScreenToWorldPoint(Pointer.current.position.ReadValue());
-            newPosition.z = 0f;
-            target.position = newPosition;
-
-            int length = Physics2D.OverlapCircleNonAlloc(target.position, aiPath.radius, entity, layer);
-            if (length > 0 && entity[0] != thisCollider)
-            {
-                aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
-                
-                if (entity[0].TryGetComponent(out BaseTag anotherEntityTag) && Damage.IsEnemy(thisTag, anotherEntityTag))
-                {
-                    target.gameObject.SetActive(false);
-                    isEnemy = true;
-                }
-                else
-                {
-                    target.gameObject.SetActive(true);
-                    isEnemy = false;
-                }
-            }
-            else
-            {
-                target.gameObject.SetActive(true);
-                isEnemy = false;
-                aiEntity.target = target;
-                aiPath.endReachedDistance = defaultEndReachedDistance;
-            }
-        }
 
         StatePerform();
     }
     
-    public void AttackRange()
+    public override void StateNormal()
     {
-        if (!weaponRanged)
+#if UNITY_ANDROID || UNITY_IOS
+        if (joystick.Direction == Vector2.zero)
+        {
+            moveVelocity = Vector2.zero;
+        }
+        else
+        {
+            moveVelocity = joystick.Direction.normalized;
+            
+            if (moveVelocity.x > 0f)
+            {
+                transform.localScale = new Vector3(1f, 1f, 1f);
+            }
+            else if (moveVelocity.x < 0f)
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            
+            targetDirection = moveVelocity;
+        }
+#endif
+    }
+    
+    public override void StateDash()
+    {
+        if (dash.nextDash <= Time.time)
+        {
+            rb.velocity = Vector2.zero;
+            state = EntityState.Normal;
+        }
+        else
+        {
+            float dashSpeed = dash.dashSpeed.Evaluate(dash.dashEvaluateTime);
+            rb.velocity = dashDirection * dashSpeed;
+            dash.dashEvaluateTime += Time.deltaTime;
+        }
+    }
+    
+    public override void StateStun()
+    {
+        moveVelocity = Vector2.zero;
+    }
+    
+    public override void SetAnimation()
+    {
+        animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
+        animations.SetBool(StaticGameVariables.animationMoveKeyID, moveVelocity != Vector2.zero);
+    }
+    
+    public override void Attack()
+    {
+        if (!weapon)
         {
             state = EntityState.Normal;
             return;
         }
         
-        if (weaponRanged.nextAttack > Time.time)
+        if (weapon.nextAttack > Time.time)
         {
             return;
         }
 
-        if (weaponRanged.clip == 0)
+        if (weapon.clip == 0)
         {
-            weaponRanged.fireWhenEmpty = true;
+            weapon.fireWhenEmpty = true;
         }
 
-        weaponRanged.enabled = true;
-        weaponRanged.PrimaryAttack();
+        weapon.enabled = true;
+        weapon.PrimaryAttack();
     }
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -249,7 +232,7 @@ public class Player : AIEntity, ITranslate
     }
 #endif
 
-    public void PickUpItem()
+    public void PickUpItem(ItemWorld itemForPickup)
     {
         if (!itemForPickup)
         {
@@ -265,42 +248,25 @@ public class Player : AIEntity, ITranslate
         {
             if (searchItem[0].TryGetComponent(out ItemWorld itemWorld))
             {
-                itemForPickup = itemWorld;
-                StaticGameVariables.ShowItemPickableInfo(itemWorld);
+                PickUpItem(itemWorld);
             }
-        }
-    }
-    
-    public void GetTranslate()
-    {
-        if (!itemForPickup)
-        {
-            return;
-        }
-        
-        if (StaticGameVariables.itemPickupCanvas.isActiveAndEnabled)
-        {
-            StaticGameVariables.UpdateItemPickableInfo(itemForPickup);
         }
     }
 
     private void Zoom(bool zoomOut)
     {
-        cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize + (zoomOut ? zoomAmount : -zoomAmount), StaticGameVariables.camMinSize, StaticGameVariables.camMaxSize);
+        cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize + (zoomOut ? zoomAmount : -zoomAmount),
+            StaticGameVariables.camMinSize, StaticGameVariables.camMaxSize);
     }
 
     private void OnDash()
     {
-        if (!StaticGameVariables.isPause && state == EntityState.Normal &&
-            !ReferenceEquals(aiEntity.target, null) && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        if (!StaticGameVariables.isPause && state == EntityState.Normal && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
-            weaponChangeTouch = false;
-            aiEntity.enabled = false;
-            aiPath.enabled = false;
+            //weaponChangeTouch = false;
             stats.stamina -= dash.staminaCost;
             dash.dashEvaluateTime = 0f;
-            moving = target.position - transform.position;
-            dashDirection = moving.normalized;
+            dashDirection = moveVelocity;
             dash.enabled = true;
             dash.Use();
             state = EntityState.Dash;
@@ -314,7 +280,7 @@ public class Player : AIEntity, ITranslate
             return;
         }
         
-        weaponChangeTouch = false;
+        //weaponChangeTouch = false;
         weapon.Reload();
     }
 
@@ -326,16 +292,6 @@ public class Player : AIEntity, ITranslate
         }
         
         StaticGameVariables.OpenInventory();
-    }
-
-    public void OnSave()
-    {
-        if (StaticGameVariables.isPause)
-        {
-            return;
-        }
-        
-        SaveLoadSystem.Instance.Save();
     }
 
     public void OnLoad()
@@ -354,15 +310,21 @@ public class Player : AIEntity, ITranslate
         
         SceneLoading.Instance.LoadLevel("World");
     }
+    
+    public override void OnPause(object sender, EventArgs e)
+    {
+        moveVelocity = Vector2.zero;
+        animations.speed = StaticGameVariables.isPause ? 0f : 1f;
+    }
 
-    private void Touch_performed(InputAction.CallbackContext obj)
+    /*private void Touch_performed(InputAction.CallbackContext obj)
     {
         if (StaticGameVariables.isPause)
         {
             return;
         }
         
-        touch = true;
+        //touch = true;
     }
     
     private void WeaponChange_performed(InputAction.CallbackContext obj)
@@ -372,7 +334,7 @@ public class Player : AIEntity, ITranslate
             return;
         }
         
-        weaponChangeTouch = true;
+        //weaponChangeTouch = true;
     }
     
     private void WeaponChange_canceled(InputAction.CallbackContext obj)
@@ -382,8 +344,8 @@ public class Player : AIEntity, ITranslate
             return;
         }
         
-        weaponChangeTouch = false;
-    }
+        //weaponChangeTouch = false;
+    }*/
 
     private void Zoom_performed(InputAction.CallbackContext obj)
     {
@@ -397,12 +359,6 @@ public class Player : AIEntity, ITranslate
 #else
         Zoom(obj.ReadValue<Vector2>().y < 0f);
 #endif
-    }
-
-    private new float GetEndReachedDistance()
-    {
-        aiEntity.target = entity[0].transform;
-        return base.GetEndReachedDistance();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -422,23 +378,11 @@ public class Player : AIEntity, ITranslate
         {
             if (collision.TryGetComponent(out ItemWorld itemWorld))
             {
-                itemForPickup = itemWorld;
-                StaticGameVariables.ShowItemPickableInfo(itemWorld);
+                PickUpItem(itemWorld);
             }
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == (int)GameLayers.Items) // Items
-        {
-            if (collision.TryGetComponent(out ItemWorld itemWorld) && ReferenceEquals(itemForPickup, itemWorld))
-            {
-                itemForPickup = null;
-                StaticGameVariables.HideItemPickableInfo();
-            }
-        }
-    }
+    
     public override void EventEnable()
     {
         base.EventEnable();
@@ -464,9 +408,5 @@ public class Player : AIEntity, ITranslate
 #if UNITY_ANDROID || UNITY_IOS
         EnhancedTouchSupport.Disable();
 #endif
-        if (atlasSprite.IsValid())
-        {
-            atlasSprite.ReleaseAsset();
-        }
     }
 }

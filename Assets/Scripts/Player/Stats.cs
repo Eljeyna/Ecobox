@@ -14,20 +14,6 @@ public class Stats : MonoBehaviour, ISaveState
     public int staminaRegen = 1;
     public float staminaTimeRegen = 0.2f;
 
-    public int level = 1;
-    public int exp;
-    public int talentPoints;
-
-    public float weight = 50f;
-
-    [Space(10)]
-    public int strength;
-    public int agility;
-    public int intelligence;
-
-    [Space(10)]
-    public int oratory;
-
     [Space(10)]
     public int money;
 
@@ -65,46 +51,6 @@ public class Stats : MonoBehaviour, ISaveState
             nextStaminaRegen = Time.time + staminaTimeRegen;
             OnStaminaChanged?.Invoke(this, EventArgs.Empty);
         }
-    }
-    
-    public void LevelUp()
-    {
-        if (level >= StaticGameVariables.maxLevel)
-        {
-            return;
-        }
-
-        talentPoints++;
-    }
-
-    public void AddStrength(int amount)
-    {
-        if (strength >= StaticGameVariables.maxBonus)
-        {
-            return;
-        }
-
-        strength += amount;
-    }
-
-    public void AddAgility(int amount)
-    {
-        if (agility >= StaticGameVariables.maxBonus)
-        {
-            return;
-        }
-
-        agility += amount;
-    }
-
-    public void AddIntelligence(int amount)
-    {
-        if (intelligence >= StaticGameVariables.maxBonus)
-        {
-            return;
-        }
-
-        intelligence += amount;
     }
 
     public string Save()
@@ -205,7 +151,7 @@ public class Stats : MonoBehaviour, ISaveState
             saveObject.activeQuestID = string.Empty;
         }
 
-        if (Player.Instance.head)
+        /*if (Player.Instance.head)
         {
             saveObject.head = Player.Instance.head.itemName;
         }
@@ -240,6 +186,15 @@ public class Stats : MonoBehaviour, ISaveState
         {
             saveObject.foots = string.Empty;
         }
+        if (Player.Instance.weaponRangedItem)
+        {
+            saveObject.weaponRanged = Player.Instance.weaponRangedItem.itemName;
+        }
+        else
+        {
+            saveObject.weaponRanged = string.Empty;
+        }
+        */
         
         if (Player.Instance.weaponItem)
         {
@@ -250,27 +205,18 @@ public class Stats : MonoBehaviour, ISaveState
             saveObject.weapon = string.Empty;
         }
 
-        if (Player.Instance.weaponRangedItem)
-        {
-            saveObject.weaponRanged = Player.Instance.weaponRangedItem.itemName;
-        }
-        else
-        {
-            saveObject.weaponRanged = string.Empty;
-        }
-        
         saveObject.maxStamina = maxStamina;
         saveObject.stamina = stamina;
         saveObject.staminaRegen = staminaRegen;
         saveObject.staminaTimeRegen = staminaTimeRegen;
-        saveObject.level = level;
+        /*saveObject.level = level;
         saveObject.exp = exp;
         saveObject.talentPoints = talentPoints;
         saveObject.weight = weight;
         saveObject.strength = strength;
         saveObject.agility = agility;
         saveObject.intelligence = intelligence;
-        saveObject.oratory = oratory;
+        saveObject.oratory = oratory;*/
         saveObject.money = money;
 
         saveObject.maxHealth = Player.Instance.thisEntity.maxHealth;
@@ -328,14 +274,14 @@ public class Stats : MonoBehaviour, ISaveState
             stamina = saveObject.stamina;
             staminaRegen = saveObject.staminaRegen;
             staminaTimeRegen = saveObject.staminaTimeRegen;
-            level = saveObject.level;
+            /*level = saveObject.level;
             exp = saveObject.exp;
             talentPoints = saveObject.talentPoints;
             weight = saveObject.weight;
             strength = saveObject.strength;
             agility = saveObject.agility;
             intelligence = saveObject.intelligence;
-            oratory = saveObject.oratory;
+            oratory = saveObject.oratory;*/
             money = saveObject.money;
 
             Player.Instance.aiEntity.target = null;
@@ -344,8 +290,8 @@ public class Stats : MonoBehaviour, ISaveState
             Player.Instance.thisEntity.resistances = saveObject.resistances;
             Player.Instance.thisEntity.invinsibility = saveObject.invinsibility;
             Player.Instance.thisEntity.SetMaxHealth(saveObject.maxHealth);
-            Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
-            Player.Instance.aiEntity.target = transform;
+            /*Player.Instance.transform.position = new Vector3(saveObject.positionX, saveObject.positionY, 0f);
+            Player.Instance.aiEntity.target = transform;*/
 
             if (saveObject.activeQuestID != string.Empty)
             {
@@ -353,7 +299,7 @@ public class Stats : MonoBehaviour, ISaveState
                 GameDirector.Instance.UpdateQuestDescription();
             }
             
-            if (saveObject.head != string.Empty)
+            /*if (saveObject.head != string.Empty)
             {
                 Player.Instance.head = (EquipableItem)Player.Instance.inventory.itemList[saveObject.head];
             }
@@ -371,7 +317,7 @@ public class Stats : MonoBehaviour, ISaveState
             if (saveObject.foots != string.Empty)
             {
                 Player.Instance.head = (EquipableItem)Player.Instance.inventory.itemList[saveObject.foots];
-            }
+            }*/
             
             if (saveObject.weapon != string.Empty)
             {

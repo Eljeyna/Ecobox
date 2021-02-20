@@ -33,7 +33,7 @@ public static class StaticGameVariables
 
     public static Language language;
     public static ActionType actionWithItem;
-    public static Item.ItemType currentItemCategory = Item.ItemType.WeaponMelee;
+    public static Item.ItemType currentItemCategory = Item.ItemType.Weapon;
 
     public static GameObject slotSelected;
 
@@ -64,9 +64,6 @@ public static class StaticGameVariables
 
     public static TMP_Text questName;
     public static TMP_Text taskDescription;
-
-    public static Canvas itemPickupCanvas;
-    public static TMP_Text itemPickupName;
 
     public static Transform _DIALOGUES;
     public static Transform _ITEMS;
@@ -164,15 +161,7 @@ public static class StaticGameVariables
         sb.Clear();
         sb.Append("TaskDescription");
         taskDescription = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
-        
-        sb.Clear();
-        sb.Append("ItemPickableCanvas");
-        itemPickupCanvas = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
-        
-        sb.Clear();
-        sb.Append("ItemPickableNameOfItem");
-        itemPickupName = GameObject.Find(sb.ToString()).GetComponent<TMP_Text>();
-        
+
         sb.Clear();
         sb.Append("_DIALOGUES");
         _DIALOGUES = GameObject.Find(sb.ToString()).transform;
@@ -205,10 +194,7 @@ public static class StaticGameVariables
 
     public static async void InitializeFinale()
     {
-        if (GameUI.Instance.transform.GetChild(1).TryGetComponent(out Canvas canvas))
-        {
-            canvas.worldCamera = Player.Instance.mainCamera;
-        }
+        Player.Instance.joystick = GameUI.Instance.joystick;
 
         if (Settings.Instance.gameIsLoaded)
         {
@@ -430,23 +416,6 @@ public static class StaticGameVariables
         buttonUseItem.interactable = true;
         buttonDropItem.interactable = true;
         buttonDisItem.interactable = true;
-    }
-
-    public static void UpdateItemPickableInfo(ItemWorld itemWorld)
-    {
-        itemWorld.item.GetTranslate();
-        itemPickupName.text = translationString[0];
-    }
-
-    public static void ShowItemPickableInfo(ItemWorld itemWorld)
-    {
-        UpdateItemPickableInfo(itemWorld);
-        itemPickupCanvas.enabled = true;
-    }
-    
-    public static void HideItemPickableInfo()
-    {
-        itemPickupCanvas.enabled = false;
     }
 
     public static void ChangeLanguage(int languageChange)

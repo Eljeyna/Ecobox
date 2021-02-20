@@ -4,8 +4,6 @@ using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
-    public TMP_Text weightText;
-
     private Inventory inventory;
     private Transform itemSlotContainer;
     private Transform itemSlotPrefab;
@@ -36,8 +34,6 @@ public class InventoryUI : MonoBehaviour
         int i = 0;
         foreach (Item item in inventory.itemList.Values)
         {
-            inventory.weight += item.itemWeight * item.itemAmount;
-
             if (item.itemType == StaticGameVariables.currentItemCategory)
             {
                 i = (int)item.itemQuality;
@@ -72,8 +68,6 @@ public class InventoryUI : MonoBehaviour
                 }
             }
         }
-
-        weightText.text = ($"{Mathf.Round(inventory.weight)} / {Player.Instance.stats.weight}");
     }
 
     public void RemoveInventorySlots()
