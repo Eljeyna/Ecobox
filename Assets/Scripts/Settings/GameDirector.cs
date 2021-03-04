@@ -54,11 +54,11 @@ public class GameDirector : MonoBehaviour
 
     public void Initialize()
     {
-        AddNewQuest("New beginnings");
+        Player.Instance.Initialize();
+
+        AddNewQuest("New Beginnings");
         
         UpdateQuestDescription();
-        
-        Player.Instance.Initialize();
 
         InitializeDialogue(startDialogue);
     }

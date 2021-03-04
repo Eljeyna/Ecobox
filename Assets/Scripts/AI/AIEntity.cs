@@ -63,7 +63,7 @@ public abstract class AIEntity : MonoBehaviour
     
     public float deathTime;
 
-    [HideInInspector] public Collider2D[] entity = new Collider2D[1];
+    [HideInInspector] public Collider2D[] entity = new Collider2D[2];
     [HideInInspector] public bool isEnemy;
     [HideInInspector] public Vector3 dashDirection;
 
@@ -137,7 +137,7 @@ public abstract class AIEntity : MonoBehaviour
         
         if (distance <= aiPath.endReachedDistance)
         {
-            if (ReferenceEquals(entity, null))
+            if (entity[0])
             {
                 aiEntity.target = null;
                 return;
@@ -201,7 +201,7 @@ public abstract class AIEntity : MonoBehaviour
         return;
     }
     
-    public void StateDeath()
+    public virtual void StateDeath()
     {
         aiPath.enabled = false;
 
@@ -214,14 +214,8 @@ public abstract class AIEntity : MonoBehaviour
         {
             return;
         }
-
-        if (gameObject != Player.Instance.gameObject)
-        {
-            Addressables.ReleaseInstance(gameObject);
-            return;
-        }
-
-        Player.Instance.OnLoad();
+        
+        Addressables.ReleaseInstance(gameObject);
     }
 
     public virtual void SetAnimation()
@@ -264,8 +258,8 @@ public abstract class AIEntity : MonoBehaviour
         }
         else
         {
-            aiPath.endReachedDistance = defaultEndReachedDistance;
             isEnemy = false;
+            aiPath.endReachedDistance = defaultEndReachedDistance;
         }
     }
     

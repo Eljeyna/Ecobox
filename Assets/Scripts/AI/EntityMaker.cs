@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using static StaticGameVariables;
 
 [RequireComponent(typeof(CircleCollider2D))]
@@ -13,7 +12,6 @@ public class EntityMaker : MonoBehaviour
     public AssetReference[] entities;
     public Transform[] positions;
     public Transform target;
-    public CircleCollider2D circleCollider;
 
     private float distance;
     

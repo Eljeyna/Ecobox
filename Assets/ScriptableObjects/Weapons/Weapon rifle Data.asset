@@ -22,8 +22,7 @@ MonoBehaviour:
   impactForce: 0
   reloadTime: 2.5
   autoreload: 1
-  maxClip: 30
-  maxAmmo: 360
+  maxClip: -1
   atlasSprite:
     m_AssetGUID: 
     m_SubObjectName: 

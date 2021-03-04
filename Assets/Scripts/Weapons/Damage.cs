@@ -12,11 +12,6 @@ public class Damage : MonoBehaviour
         {            
             foreach (Collider2D enemy in targets)
             {
-                if (ReferenceEquals(enemy, null))
-                {
-                    break;
-                }
-
                 if (enemy && enemy.TryGetComponent(out BaseTag enemyTag) && attacker.TryGetComponent(out BaseTag attackerTag))
                 {
                     if (IsEnemy(enemyTag ,attackerTag))

@@ -31,13 +31,10 @@ public class InventoryUI : MonoBehaviour
         inventory.weight = 0f;
         RemoveInventorySlots();
 
-        int i = 0;
         foreach (Item item in inventory.itemList.Values)
         {
             if (item.itemType == StaticGameVariables.currentItemCategory)
             {
-                i = (int)item.itemQuality;
-
                 RectTransform itemSlotRect = Instantiate(itemSlotPrefab, itemSlotContainer).GetComponent<RectTransform>();
                 itemSlotRect.gameObject.SetActive(true);
 
@@ -54,7 +51,7 @@ public class InventoryUI : MonoBehaviour
 
                 if (itemSlotRect.transform.GetChild(0).TryGetComponent(out Image newImage))
                 {
-                    newImage.color = StaticGameVariables.colorItems[i];
+                    newImage.color = StaticGameVariables.colorItems[(int)item.itemQuality];
                 }
 
                 if (itemSlotRect.transform.GetChild(0).GetChild(0).TryGetComponent(out Image newSprite))

@@ -76,22 +76,23 @@ public class SaveLoadSystem : MonoBehaviour
 
 public struct Saveable
 {
-    public List<string> questID;
-    public List<int> questTask;
+    public string[] questID;
+    public int[] questTask;
     public Dictionary<string, int> completedQuestsID;
     public string activeQuestID;
     
-    public List<string> itemsID;
-    public List<int> itemsAmount;
+    public string[] itemsID;
+    public int[] itemsAmount;
 
-    public List<string> buffsID;
-    public List<float> buffsDuration;
-    public List<int> buffsStacks;
+    public string[] buffsID;
+    public float[] buffsDuration;
+    public int[] buffsStacks;
 
     public int maxStamina;
     public int stamina;
     public int staminaRegen;
     public float staminaTimeRegen;
+    /*
     public int level;
     public int exp;
     public int talentPoints;
@@ -100,6 +101,7 @@ public struct Saveable
     public int agility;
     public int intelligence;
     public int oratory;
+    */
     public int money;
 
     public float maxHealth;
@@ -108,15 +110,19 @@ public struct Saveable
     public float[] resistances;
     public bool invinsibility;
 
+    /*
     public string head;
     public string torso;
     public string legs;
     public string foots;
+    */
 
     public string weapon;
+    /*
     public string weaponRanged;
     public float positionX;
     public float positionY;
+    */
 }
 
 public struct CompletedQuestsID

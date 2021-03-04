@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using UnityEngine;
 using static StaticGameVariables;
 
 public class QuestTasks : ITranslate

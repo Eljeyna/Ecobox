@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 
 /// <summary>
 /// Keeps constant camera width instead of height, works for both Orthographic & Perspective cameras
@@ -51,3 +52,4 @@ public class CameraConstantWidth : MonoBehaviour
         return vFovInRads * Mathf.Rad2Deg;
     }
 }
+*/

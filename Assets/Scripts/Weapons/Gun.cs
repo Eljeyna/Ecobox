@@ -28,9 +28,6 @@ public abstract class Gun : MonoBehaviour
 
     private void Awake()
     {
-        clip = gunData.maxClip;
-        ammo = gunData.maxAmmo;
-
         if (!entity)
         {
             return;

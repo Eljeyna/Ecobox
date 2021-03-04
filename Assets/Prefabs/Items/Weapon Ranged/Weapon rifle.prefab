@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2860060068697847226}
-  - component: {fileID: 2860060069687688380}
   - component: {fileID: 2860060068697847225}
   - component: {fileID: 2860060068697847224}
   - component: {fileID: 2860060068697847227}
+  - component: {fileID: 2860060069687688380}
   m_Layer: 30
   m_Name: Weapon rifle
   m_TagString: Untagged
@@ -35,22 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2860060069687688380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860060068697846853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70afda1ff2c7f424ba3db7c69cdafd23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  atlasSprite:
-    m_AssetGUID: fc305c1c43aad9645b4c2fd6ba4091ff
-    m_SubObjectName: Trash Apple
-    m_SubObjectType: 
 --- !u!212 &2860060068697847225
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -140,6 +124,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: bc4d85ec4aeb9eb44b3038c91ad91908, type: 2}
+--- !u!114 &2860060069687688380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860060068697846853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70afda1ff2c7f424ba3db7c69cdafd23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atlasSprite:
+    m_AssetGUID: fc305c1c43aad9645b4c2fd6ba4091ff
+    m_SubObjectName: Trash Apple
+    m_SubObjectType: 
 --- !u!1 &3407204801592915504
 GameObject:
   m_ObjectHideFlags: 0

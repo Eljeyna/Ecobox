@@ -17,12 +17,11 @@ MonoBehaviour:
     m_AssetGUID: 20f23a82d8b6ea04b8445d908f2e0287
     m_SubObjectName: 
     m_SubObjectType: 
-  itemName: Synthea (green box)
+  itemName: Synthea (Green Box)
   itemEnd: 0
-  itemWeight: 0
   itemCost: 0
   itemAmount: 1
-  itemType: 5
+  itemType: 4
   itemQuality: 4
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3

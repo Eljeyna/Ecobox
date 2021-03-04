@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 
 public enum ItemClothType
 {
@@ -7,7 +8,7 @@ public enum ItemClothType
     Legs    = 2,
     Foots   = 3,
 }
-/*
+
 [CreateAssetMenu(menuName = "ScriptableObjects/Items/Cloth/New Cloth Item")]
 public class EquipableItem : Item
 {

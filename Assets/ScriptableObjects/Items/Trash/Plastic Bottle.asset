@@ -17,12 +17,11 @@ MonoBehaviour:
     m_AssetGUID: 415aa3390d9c45b45bab21db4ad5984b
     m_SubObjectName: 
     m_SubObjectType: 
-  itemName: Plastic bottle
+  itemName: Plastic Bottle
   itemEnd: 0
-  itemWeight: 0.1
   itemCost: 1
   itemAmount: 1
-  itemType: 4
+  itemType: 3
   itemQuality: 0
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3

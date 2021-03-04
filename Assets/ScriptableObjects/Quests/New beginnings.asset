@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef01817c23f2e1c4f9be66013e530ba9, type: 3}
-  m_Name: New beginnings
+  m_Name: New Beginnings
   m_EditorClassIdentifier: 
   syntheaBox:
     m_AssetGUID: e9ba0c80bfa6b4e42ab8dc6362131bc8

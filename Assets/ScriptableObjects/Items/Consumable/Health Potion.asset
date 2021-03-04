@@ -17,12 +17,11 @@ MonoBehaviour:
     m_AssetGUID: 97a7c3fd967810341b5fc6179587c6bd
     m_SubObjectName: 
     m_SubObjectType: 
-  itemName: Health potion
+  itemName: Health Potion
   itemEnd: 1
-  itemWeight: 0
   itemCost: 25
   itemAmount: 1
-  itemType: 3
+  itemType: 2
   itemQuality: 0
   atlasSprite:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3

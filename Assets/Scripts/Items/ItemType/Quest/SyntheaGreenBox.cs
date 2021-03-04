@@ -11,7 +11,7 @@ public class SyntheaGreenBox : Item
     {
         itemAmount--;
 
-        GameDirector.Instance.UpdateQuest("New beginnings", taskID);
+        GameDirector.Instance.UpdateQuest("New Beginnings", taskID);
 
         StaticGameVariables.HideInventory();
         GameDirector.Instance.InitializeDialogue(talkID);

@@ -20,7 +20,6 @@ public class GunData : ScriptableObject
     public bool autoreload = true;
 
     public int maxClip;
-    public int maxAmmo;
     
     [SerializeField] private AssetReferenceAtlasedSprite atlasSprite;
     

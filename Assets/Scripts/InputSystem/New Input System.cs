@@ -111,17 +111,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ae214cf7-cfed-4df4-9312-d0704350260a"",
-                    ""path"": ""<Touchscreen>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""4779115c-6388-40e8-9c4a-18f9745be3e3"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
