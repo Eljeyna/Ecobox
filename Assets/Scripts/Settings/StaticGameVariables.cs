@@ -194,7 +194,8 @@ public static class StaticGameVariables
 
     public static async void InitializeFinale()
     {
-        Player.Instance.joystick = GameUI.Instance.joystick;
+        Player.Instance.joystickMove = GameUI.Instance.joystickMove;
+        Player.Instance.joystickAttack = GameUI.Instance.joystickAttack;
 
         if (Settings.Instance.gameIsLoaded)
         {

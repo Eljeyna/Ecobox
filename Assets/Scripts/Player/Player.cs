@@ -41,7 +41,8 @@ public class Player : AIEntity, ISaveState
     public EquipableItem foots;
     */
 
-    public Joystick joystick;
+    public Joystick joystickMove;
+    public Joystick joystickAttack;
     
     [HideInInspector] public Vector2 moveVelocity;
     [HideInInspector] public float zoomAmount;
@@ -124,24 +125,26 @@ public class Player : AIEntity, ISaveState
     public override void StateNormal()
     {
 #if UNITY_ANDROID || UNITY_IOS
-        if (joystick.Direction == Vector2.zero)
+        if (joystickMove.Direction == Vector2.zero)
         {
             moveVelocity = Vector2.zero;
         }
         else
         {
-            moveVelocity = joystick.Direction.normalized;
-            
-            if (moveVelocity.x > 0f)
-            {
-                transform.localScale = new Vector3(1f, 1f, 1f);
-            }
-            else if (moveVelocity.x < 0f)
-            {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
-            }
-            
+            moveVelocity = joystickMove.Direction.normalized;
             targetDirection = moveVelocity;
+
+            if (joystickAttack.Direction.x == 0f)
+            {
+                if (moveVelocity.x > 0f)
+                {
+                    transform.localScale = new Vector3(1f, 1f, 1f);
+                }
+                else if (moveVelocity.x < 0f)
+                {
+                    transform.localScale = new Vector3(-1f, 1f, 1f);
+                }
+            }
         }
 #endif
     }
@@ -180,6 +183,20 @@ public class Player : AIEntity, ISaveState
     
     public override void Attack()
     {
+        if (!gameObject)
+        {
+            return;
+        }
+        
+        if (joystickAttack.Direction.x > 0f)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (joystickAttack.Direction.x < 0f)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        
         if (!weapon)
         {
             state = EntityState.Normal;
@@ -258,6 +275,7 @@ public class Player : AIEntity, ISaveState
         }
         
         inventory.AddItem(itemForPickup.item);
+        itemForPickup.gameObject.SetActive(false);
         Addressables.ReleaseInstance(itemForPickup.gameObject);
 
         int size = Physics2D.OverlapCircleNonAlloc(transform.position, searchItemRadius, searchItem, layerItems);

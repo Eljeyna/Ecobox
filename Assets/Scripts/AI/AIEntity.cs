@@ -24,15 +24,6 @@ public enum GameLayers
     Obstacles = 31,
 }
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BaseTag))]
-[RequireComponent(typeof(BaseEntity))]
-
-[RequireComponent(typeof(BuffSystem))]
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(CapsuleCollider2D))]
-[RequireComponent(typeof(Gun))]
 public abstract class AIEntity : MonoBehaviour
 {
     public float Speed
@@ -209,7 +200,7 @@ public abstract class AIEntity : MonoBehaviour
         {
             return;
         }
-
+        
         if (!gameObject)
         {
             return;
@@ -291,6 +282,7 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void OnDie(object sender, EventArgs e)
     {
+        Destroy(thisCollider);
         state = EntityState.Death;
         deathTime = Time.time + 3f;
     }
