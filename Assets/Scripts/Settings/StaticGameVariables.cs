@@ -498,7 +498,7 @@ public static class StaticGameVariables
 
             while (!webRequest.isDone) {}
 
-            if (webRequest.isNetworkError)
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
             {
                 //Debug.LogError(webRequest.error);
                 return string.Empty;

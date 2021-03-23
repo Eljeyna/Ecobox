@@ -40,10 +40,14 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 0
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 60c626e42d3cc894a9771cebdfeaee77, type: 3}
+    totalSpriteSurfaceArea: 436224
     bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: -4167334015192982960, guid: 25401aee2a086524482eaea83a3e8147, type: 3}
@@ -3455,5 +3459,6 @@ SpriteAtlas:
   - roguelikeSheet_transparent_170
   - roguelikeSheet_transparent_1043
   - roguelikeSheet_transparent_1053
+  m_RenderDataMap: {}
   m_Tag: TIlemapAtlas
   m_IsVariant: 0
