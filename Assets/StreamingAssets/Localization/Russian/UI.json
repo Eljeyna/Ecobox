@@ -22,5 +22,7 @@
     "Disassemble item" : "Разобрать",
     "Pickup item" : "Взять",
     "Apply" : "Применить",
-    "Cancel" : "Отмена"
+    "Cancel" : "Отмена",
+    "Enter login/email" : "Введите логин/email",
+    "Enter password" : "Введите пароль"
 }

@@ -22,5 +22,7 @@
     "Disassemble item" : "Disassemble",
     "Pickup item" : "Pick up",
     "Apply" : "Apply",
-    "Cancel" : "Cancel"
+    "Cancel" : "Cancel",
+    "Enter login/email" : "Enter login/email",
+    "Enter password" : "Enter password"
 }

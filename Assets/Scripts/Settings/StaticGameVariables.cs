@@ -490,7 +490,7 @@ public static class StaticGameVariables
     }
 
 #if UNITY_ANDROID
-    static string GetRequest(string uri)
+    public static string GetRequest(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -508,5 +508,50 @@ public static class StaticGameVariables
         }
     }
 #endif
+
+    public static string UserLogin(string login, string password)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userLogin", login);
+        form.AddField("userPassword", password);
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/EztixUnity/Login.php", form))
+        {
+            webRequest.SendWebRequest();
+
+            while (!webRequest.isDone) {}
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                //Debug.LogError(webRequest.error);
+                return string.Empty;
+            }
+
+            return webRequest.downloadHandler.text;
+        }
+    }
+
+    public static string UserRegister(string login, string email, string password)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userLogin", login);
+        form.AddField("userEmail", email);
+        form.AddField("userPassword", password);
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/EztixUnity/Register.php", form))
+        {
+            webRequest.SendWebRequest();
+
+            while (!webRequest.isDone) {}
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                //Debug.LogError(webRequest.error);
+                return string.Empty;
+            }
+
+            return webRequest.downloadHandler.text;
+        }
+    }
     #endregion
 }
