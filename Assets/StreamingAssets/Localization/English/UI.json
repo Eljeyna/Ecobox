@@ -24,5 +24,7 @@
     "Apply" : "Apply",
     "Cancel" : "Cancel",
     "Enter login/email" : "Enter login/email",
-    "Enter password" : "Enter password"
+    "Enter password" : "Enter password",
+    "Login" : "Login",
+    "Login offline" : "Login offline"
 }
