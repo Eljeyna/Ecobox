@@ -4,11 +4,19 @@ using TMPro;
 
 public class Web : MonoBehaviour
 {
-    public TMP_Text login;
-    public TMP_Text password;
+    public TMP_InputField loginField;
+    public TMP_InputField passwordField;
+    public TMP_Text messageField;
 
     public Button enterLogin;
     public Button playOffline;
+
+    public Translate translate;
+
+    public string message;
+
+    private static readonly string errorLogin = "User does not exists";
+    private static readonly string errorPassword = "Wrong password";
 
     private void Start()
     {
@@ -21,7 +29,60 @@ public class Web : MonoBehaviour
 
     private void Login()
     {
-        Debug.Log(StaticGameVariables.UserLogin(login.text, password.text));
+        if (string.IsNullOrWhiteSpace(loginField.text))
+        {
+            if (Translate.Instance.translationUI.TryGetValue("Enter login/email", out string value))
+            {
+                messageField.text = value;
+            }
+
+            ShowMessageField();
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(passwordField.text))
+        {
+            if (Translate.Instance.translationUI.TryGetValue("Enter password", out string value))
+            {
+                messageField.text = value;
+            }
+
+            ShowMessageField();
+            return;
+        }
+
+        message = StaticGameVariables.UserLogin(loginField.text, passwordField.text);
+
+        if (message != errorLogin && message != errorPassword)
+        {
+            PlayOnline();
+        }
+        else
+        {
+            if (Translate.Instance.translationUI.TryGetValue(message, out string value))
+            {
+                messageField.text = value;
+            }
+
+            ShowMessageField();
+        }
+    }
+
+    private void Register()
+    {
+        //TODO: Add register form with action (Register.php)
+    }
+
+    private void ShowMessageField()
+    {
+        if (!messageField.isActiveAndEnabled)
+        {
+            messageField.enabled = true;
+        }
+    }
+
+    private void PlayOnline()
+    {
         SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
     }
 

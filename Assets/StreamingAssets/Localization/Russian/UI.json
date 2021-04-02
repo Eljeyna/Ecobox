@@ -26,5 +26,9 @@
     "Enter login/email" : "Введите логин/email",
     "Enter password" : "Введите пароль",
     "Login" : "Вход",
-    "Play offline" : "Играть оффлайн"
+    "Play offline" : "Играть оффлайн",
+    "Registration" : "Регистрация",
+    "Wrong password" : "Неправильный пароль",
+    "User does not exists" : "Пользователь не существует",
+    "Login/Email already taken" : "Пользователь с таким логином или email уже существует"
 }
