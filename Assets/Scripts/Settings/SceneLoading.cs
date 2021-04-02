@@ -13,8 +13,8 @@ public class SceneLoading : MonoBehaviour
 
     private bool playAnim = false;
     
-    private static readonly int startAnimationID = Animator.StringToHash("Start");
-    private static readonly int endAnimationID = Animator.StringToHash("End");
+    public static readonly int startAnimationID = Animator.StringToHash("Start");
+    public static readonly int endAnimationID = Animator.StringToHash("End");
 
     private void Start()
     {
@@ -50,6 +50,12 @@ public class SceneLoading : MonoBehaviour
     }
 
     public void SwitchToScene(string sceneName, string animId)
+    {
+        anim.SetTrigger(animId);
+        LoadLevel(sceneName);
+    }
+
+    public void SwitchToScene(string sceneName, int animId)
     {
         anim.SetTrigger(animId);
         LoadLevel(sceneName);
