@@ -21,7 +21,6 @@ public class Web : MonoBehaviour
     private void Start()
     {
         //Debug.Log(StaticGameVariables.GetRequest("http://eztix/GetUsers.php"));
-        //Debug.Log(StaticGameVariables.UserLogin("__test__testunity@gmail.com", "121212"));
         //Debug.Log(StaticGameVariables.UserRegister("TestUnity", "mironov20002000@gmail.com", "121212"));
         enterLogin.onClick.AddListener(Login);
         playOffline.onClick.AddListener(PlayOffline);
@@ -31,23 +30,15 @@ public class Web : MonoBehaviour
     {
         if (string.IsNullOrWhiteSpace(loginField.text))
         {
-            if (Translate.Instance.translationUI.TryGetValue("Enter login/email", out string value))
-            {
-                messageField.text = value;
-            }
+            ShowMessageField("Enter login/email");
 
-            ShowMessageField();
             return;
         }
 
         if (string.IsNullOrWhiteSpace(passwordField.text))
         {
-            if (Translate.Instance.translationUI.TryGetValue("Enter password", out string value))
-            {
-                messageField.text = value;
-            }
+            ShowMessageField("Enter password");
 
-            ShowMessageField();
             return;
         }
 
@@ -59,12 +50,7 @@ public class Web : MonoBehaviour
         }
         else
         {
-            if (Translate.Instance.translationUI.TryGetValue(message, out string value))
-            {
-                messageField.text = value;
-            }
-
-            ShowMessageField();
+            ShowMessageField(message);
         }
     }
 
@@ -73,8 +59,13 @@ public class Web : MonoBehaviour
         //TODO: Add register form with action (Register.php)
     }
 
-    private void ShowMessageField()
+    private void ShowMessageField(string text)
     {
+        if (Translate.Instance.translationUI.TryGetValue(text, out string value))
+        {
+            messageField.text = value;
+        }
+
         if (!messageField.isActiveAndEnabled)
         {
             messageField.enabled = true;
