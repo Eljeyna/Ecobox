@@ -15,8 +15,8 @@ public class Web : MonoBehaviour
 
     public string message;
 
-    private static readonly string errorLogin = "User does not exists";
-    private static readonly string errorPassword = "Wrong password";
+    private readonly string errorLogin = "User does not exists";
+    private readonly string errorPassword = "Wrong password";
 
     private void Start()
     {
@@ -46,7 +46,7 @@ public class Web : MonoBehaviour
 
         if (message != errorLogin && message != errorPassword)
         {
-            PlayOnline();
+            PlayOnline(message);
         }
         else
         {
@@ -64,16 +64,17 @@ public class Web : MonoBehaviour
         if (Translate.Instance.translationUI.TryGetValue(text, out string value))
         {
             messageField.text = value;
-        }
 
-        if (!messageField.isActiveAndEnabled)
-        {
-            messageField.enabled = true;
+            if (!messageField.isActiveAndEnabled)
+            {
+                messageField.enabled = true;
+            }
         }
     }
 
-    private void PlayOnline()
+    private void PlayOnline(string ID)
     {
+        messageField.text = ID;
         SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
     }
 
