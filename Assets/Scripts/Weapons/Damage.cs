@@ -14,7 +14,7 @@ public class Damage : MonoBehaviour
             {
                 if (enemy && enemy.TryGetComponent(out BaseTag enemyTag) && attacker.TryGetComponent(out BaseTag attackerTag))
                 {
-                    if (IsEnemy(enemyTag ,attackerTag))
+                    if (IsEnemy(enemyTag, attackerTag))
                     {
                         if (enemy.TryGetComponent(out BaseEntity entity) && attacker.TryGetComponent(out BaseEntity thisEntity))
                         {
