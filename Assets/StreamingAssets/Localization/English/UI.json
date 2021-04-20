@@ -33,5 +33,6 @@
     "Registration" : "Registration",
     "Wrong password" : "Wrong password",
     "User does not exists" : "User does not exists",
+    "Passwords are different" : "Passwords are different",
     "Login/Email already taken" : "Login/Email already taken"
 }

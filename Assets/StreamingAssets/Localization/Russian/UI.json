@@ -33,5 +33,6 @@
     "Registration" : "Регистрация",
     "Wrong password" : "Неправильный пароль",
     "User does not exists" : "Пользователь не существует",
+    "Passwords are different" : "Пароли не совпадают",
     "Login/Email already taken" : "Пользователь с таким логином или email уже существует"
 }
