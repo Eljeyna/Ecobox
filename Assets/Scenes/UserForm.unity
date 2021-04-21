@@ -4640,6 +4640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40a98b3667bdf34eb99e45abd79bf34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasSignIn: {fileID: 0}
+  canvasSignUp: {fileID: 0}
   loginField: {fileID: 1092318286}
   loginFieldRegister: {fileID: 1873329243}
   passwordField: {fileID: 314186144}
@@ -4728,7 +4730,7 @@ RectTransform:
   - {fileID: 265752741}
   - {fileID: 424355096}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9334,7 +9336,7 @@ RectTransform:
   m_Children:
   - {fileID: 579033083}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

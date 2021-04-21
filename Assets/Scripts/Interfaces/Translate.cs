@@ -24,8 +24,6 @@ public class Translate : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
-        
         InitializeLanguage();
     }
 

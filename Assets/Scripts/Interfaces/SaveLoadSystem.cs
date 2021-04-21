@@ -22,8 +22,6 @@ public class SaveLoadSystem : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
-
         if (!Directory.Exists(StaticGameVariables._SAVE_FOLDER))
         {
             Directory.CreateDirectory(StaticGameVariables._SAVE_FOLDER);

@@ -15,8 +15,6 @@ public class AfterLoadSystem : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Load()

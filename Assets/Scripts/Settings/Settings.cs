@@ -38,8 +38,6 @@ public class Settings : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
-
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
     }
