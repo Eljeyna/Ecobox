@@ -32,11 +32,6 @@ public class Settings : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
 
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;

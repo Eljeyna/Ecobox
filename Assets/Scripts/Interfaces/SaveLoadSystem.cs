@@ -16,11 +16,6 @@ public class SaveLoadSystem : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
 
         if (!Directory.Exists(StaticGameVariables._SAVE_FOLDER))
         {

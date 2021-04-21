@@ -27,13 +27,6 @@ public class SceneLoading : MonoBehaviour
             {
                 anim = animator;
             }
-            
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
         }
 
         if (playAnim)

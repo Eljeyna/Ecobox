@@ -10,11 +10,6 @@ public class AfterLoadSystem : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
     }
 
     public void Load()

@@ -18,11 +18,6 @@ public class Translate : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
 
         InitializeLanguage();
     }
