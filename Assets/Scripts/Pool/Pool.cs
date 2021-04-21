@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 public enum PoolID
 {
     Target = 0,
-    SimpleBullet = 1,
+    SimpleProjectile = 1,
 }
 
 public class Pool : MonoBehaviour
@@ -27,7 +27,7 @@ public class Pool : MonoBehaviour
             availableObjects[i] = new Queue<GameObject>();
         }
 
-        for (int i = 0; i <= (int)PoolID.SimpleBullet; i++)
+        for (int i = 0; i <= (int)PoolID.SimpleProjectile; i++)
         {
             AddToPool(i, await GetFromPoolAsync(i));
         }
