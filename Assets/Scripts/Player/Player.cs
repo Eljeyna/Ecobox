@@ -69,8 +69,6 @@ public class Player : AIEntity, ISaveState
         entity = new Collider2D[2];
 
         zoomAmount = PlayerPrefs.GetFloat("ZoomAmount", 0.6f);
-
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Initialize()
