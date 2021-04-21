@@ -25,7 +25,7 @@ public class GameDirector : MonoBehaviour
     public Dictionary<string, Quest> quests = new Dictionary<string, Quest>();
     [HideInInspector] public bool controlAfter = true;
 
-    private bool DEBUG = true;
+    public bool DEBUG = true;
     private float timeToUpdate;
 
     private AsyncOperationHandle<GameObject> dialogueHandle;

@@ -40,8 +40,14 @@ MonoBehaviour:
     m_Address: UserForm
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 102900000, guid: 7478037e0fdd59a4587558638cba8b44, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: 7478037e0fdd59a4587558638cba8b44, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d30fbee988f498842a6e22beea9f1786
+    m_Address: Tutorial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 102900000, guid: d30fbee988f498842a6e22beea9f1786, type: 3}
+    m_TargetAsset: {fileID: 102900000, guid: d30fbee988f498842a6e22beea9f1786, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

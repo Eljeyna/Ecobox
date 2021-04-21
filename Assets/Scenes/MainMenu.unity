@@ -286,16 +286,6 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6121860477016326441, guid: 76892deabc46e52e6956162a219cad8a,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6121860477075541527, guid: 76892deabc46e52e6956162a219cad8a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -288
-      objectReference: {fileID: 0}
     - target: {fileID: 6121860477246300728, guid: 76892deabc46e52e6956162a219cad8a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -355,11 +345,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6121860478160942114, guid: 76892deabc46e52e6956162a219cad8a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 288
       objectReference: {fileID: 0}
     - target: {fileID: 7605161734263399846, guid: 76892deabc46e52e6956162a219cad8a,
         type: 3}
@@ -1240,7 +1225,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9037619935047907548}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -1366,7 +1351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d11a0046116eab458f851becd085dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: World
+  level: Tutorial
 --- !u!222 &9037619935063377505
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3391,7 +3376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d11a0046116eab458f851becd085dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: World
+  level: Tutorial
 --- !u!114 &9037619936786748810
 MonoBehaviour:
   m_ObjectHideFlags: 0
