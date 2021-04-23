@@ -7,7 +7,7 @@ public class Enemy : AIEntity
     private void Awake()
     {
         InitializeEntity();
-        InitializeTarget();
+        //InitializeTarget();
     }
 
     private void Update()

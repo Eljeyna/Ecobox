@@ -61,7 +61,8 @@ public abstract class AIEntity : MonoBehaviour
     public void InitializeEntity()
     {
         state = EntityState.Normal;
-        aiEntity.target = null;
+        //aiEntity.target = null;
+        UpdateTarget(target);
         Speed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
     }
@@ -272,12 +273,12 @@ public abstract class AIEntity : MonoBehaviour
 
     public void OnDamaged(object sender, EventArgs e)
     {
-        if (!target && transform.parent && transform.parent.TryGetComponent(out EntityMaker entityMaker))
+        /*if (!target && transform.parent && transform.parent.TryGetComponent(out EntityMaker entityMaker))
         {
             entityMaker.isTrigger = true;
             entityMaker.target = thisEntity.attacker.transform;
             entityMaker.UpdateTarget();
-        }
+        }*/
     }
 
     public virtual void OnDie(object sender, EventArgs e)

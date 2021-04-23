@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.consulo.ide": {
-      "version": "2.6.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://upm.consulo.io"
-    },
     "com.unity.2d.common": {
       "version": "4.0.3",
       "depth": 1,
@@ -169,7 +162,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.5",
+      "version": "3.0.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {

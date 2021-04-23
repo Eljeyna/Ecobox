@@ -72,17 +72,17 @@ public static class StaticGameVariables
 
     #region Settings
     public static readonly float shakeForce = 2f;
-    public static readonly float camMaxSize = 20f;
-    public static readonly float camMinSize = 8f;
+    public static readonly float camMaxSize = 8f;
+    public static readonly float camMinSize = 4f;
 
     public const int maxLevel = 60;
     public const int maxBonus = 20;
     #endregion
 
     #region Entity Maker
-    public const float minDistance = 20f;
+    /*public const float minDistance = 20f;
     public const float maxDistance = 70f;
-    public const float distanceFade = 200f;
+    public const float distanceFade = 200f;*/
     #endregion
     
     #region Animations
@@ -470,8 +470,9 @@ public static class StaticGameVariables
 
     public static float GetReachedDistance(CapsuleCollider2D collider)
     {
-        Vector2 size = collider.size;
-        return (size.x + size.y) / 2;
+        //Vector2 size = collider.size;
+        //return (size.x + size.y) / 2;
+        return collider.size.x / 2;
     }
 
     public static float GetAngleBetweenPositions(Vector3 pos1, Vector3 pos2)

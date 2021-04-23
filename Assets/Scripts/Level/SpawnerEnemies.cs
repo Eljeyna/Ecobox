@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public class SpawnerEnemies : MonoBehaviour
@@ -37,3 +38,4 @@ public class SpawnerEnemies : MonoBehaviour
         }
     }
 }
+*/

@@ -61,7 +61,6 @@ public class SceneLoading : MonoBehaviour
         if (Player.Instance)
         {
             Player.Instance.inventory.ClearInventory();
-            Destroy(Player.Instance.gameObject);
         }
 
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);

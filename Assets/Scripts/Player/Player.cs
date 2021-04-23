@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 #if UNITY_ANDROID || UNITY_IOS
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
@@ -327,12 +328,7 @@ public class Player : AIEntity, ISaveState
     }
 
     public void OnLoad()
-    {
-        if (StaticGameVariables.isPause)
-        {
-            return;
-        }
-        
+    {        
         StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
 
         if (File.Exists(sb.ToString()))
@@ -340,7 +336,7 @@ public class Player : AIEntity, ISaveState
             Settings.Instance.gameIsLoaded = true;
         }
         
-        SceneLoading.Instance.LoadLevel("World");
+        SceneLoading.Instance.LoadLevel(SceneManager.GetActiveScene().name);
     }
     
     public override void OnPause(object sender, EventArgs e)

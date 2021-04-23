@@ -17,7 +17,7 @@ public class EntityMaker : MonoBehaviour
     
     private GameObject[] createdObjects;
 
-    private void Update()
+    /*private void Update()
     {
         if (isPause)
         {
@@ -176,5 +176,5 @@ public class EntityMaker : MonoBehaviour
         {
             target = transform;
         }
-    }
+    }*/
 }

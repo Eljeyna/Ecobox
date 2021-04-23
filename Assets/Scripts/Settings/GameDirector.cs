@@ -155,7 +155,7 @@ public class GameDirector : MonoBehaviour
     public void StartDialogue()
     {
         noControl = true;
-        Player.Instance.cam.m_Lens.OrthographicSize = 15f;
+        Player.Instance.cam.m_Lens.OrthographicSize = 7f;
 
         GameUI.Instance.dialogueBox.enabled = true;
         GameUI.Instance.circleRepeat.SetActive(true);
