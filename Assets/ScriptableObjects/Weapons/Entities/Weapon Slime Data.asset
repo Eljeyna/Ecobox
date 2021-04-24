@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageType: 0
   damage: 100
-  radius: 2
-  range: 1
+  radius: 0.5
+  range: 0.5
   delay: 1
   lateDelay: 0.5
   fireRatePrimary: 2

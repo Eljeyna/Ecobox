@@ -6,19 +6,19 @@
     {
       "description" :
       [
-        "Find green box"
+        "Use left stick for movement"
       ]
     },
     {
       "description" :
       [
-        "Open green box" 
+        "Use right button with arrow up for jump"
       ]
     },
     {
       "description" :
       [
-        "Follow Synthea" 
+        "Defeat slime"
       ]
     }
   ]
