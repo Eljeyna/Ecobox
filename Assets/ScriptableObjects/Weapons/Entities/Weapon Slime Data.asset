@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Weapon Slime Data
   m_EditorClassIdentifier: 
   damageType: 0
-  damage: 10
+  damage: 100
   radius: 2
-  range: 2
+  range: 1
   delay: 1
   lateDelay: 0.5
   fireRatePrimary: 2

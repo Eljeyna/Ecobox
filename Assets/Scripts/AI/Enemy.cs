@@ -4,7 +4,7 @@ public class Enemy : AIEntity
 {
     public InventoryDrop inventory;
     
-    private void Awake()
+    private void Start()
     {
         InitializeEntity();
         //InitializeTarget();

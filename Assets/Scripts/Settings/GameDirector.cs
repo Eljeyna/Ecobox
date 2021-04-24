@@ -7,12 +7,15 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Cinemachine;
 
 public class GameDirector : MonoBehaviour
 {
     public static GameDirector Instance { get; private set; }
 
     public bool noControl;
+
+    public CinemachineVirtualCamera cam;
 
     public AssetReference gameUI;
     public TMP_Text debugFPS;
@@ -33,7 +36,10 @@ public class GameDirector : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (!Instance)
+        {
+            Instance = this;
+        }
     }
 
     private void Update()

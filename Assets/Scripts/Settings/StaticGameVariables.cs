@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Text;
 using UnityEngine.Networking;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public static class StaticGameVariables
 {
@@ -100,6 +101,7 @@ public static class StaticGameVariables
     #region SpecialSymbols
     public static readonly char genderSymbol = '$';
     public static readonly char splitSymbol  = '|';
+    public static readonly string tutorialScene = "Tutorial";
     #endregion
 
     #region Initialize
@@ -194,10 +196,11 @@ public static class StaticGameVariables
 
     public static async void InitializeFinale()
     {
+        Player.Instance.cam = GameDirector.Instance.cam;
         Player.Instance.joystickMove = GameUI.Instance.joystickMove;
         Player.Instance.joystickAttack = GameUI.Instance.joystickAttack;
 
-        if (Settings.Instance.gameIsLoaded)
+        if (Settings.Instance.gameIsLoaded && SceneManager.GetActiveScene().name != tutorialScene)
         {
             await SaveLoadSystem.Instance.Load();
             
@@ -470,9 +473,9 @@ public static class StaticGameVariables
 
     public static float GetReachedDistance(CapsuleCollider2D collider)
     {
-        //Vector2 size = collider.size;
-        //return (size.x + size.y) / 2;
-        return collider.size.x / 2;
+        Vector2 size = collider.size;
+        return (size.x + size.y) / 2;
+        //return collider.size.x / 2;
     }
 
     public static float GetAngleBetweenPositions(Vector3 pos1, Vector3 pos2)

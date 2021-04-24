@@ -62,7 +62,10 @@ public abstract class AIEntity : MonoBehaviour
     {
         state = EntityState.Normal;
         //aiEntity.target = null;
-        UpdateTarget(target);
+        if (Player.Instance)
+        {
+            UpdateTarget(Player.Instance.transform);
+        }
         Speed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
     }
@@ -267,6 +270,7 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void OnPause(object sender, EventArgs e)
     {
+        rb.simulated = !StaticGameVariables.isPause;
         aiPath.enabled = !StaticGameVariables.isPause;
         animations.speed = StaticGameVariables.isPause ? 0f : 1f;
     }

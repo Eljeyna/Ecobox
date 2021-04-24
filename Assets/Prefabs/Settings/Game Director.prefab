@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4359542564302590195}
   - component: {fileID: 4359542564302590194}
   m_Layer: 0
-  m_Name: GameDirector
+  m_Name: Game Director
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421df94b0622f9148a869917c92e2287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: {fileID: 0}
+  noControl: 0
+  cam: {fileID: 0}
   gameUI:
     m_AssetGUID: 7fe507d3507859273af5485ea4e9df47
     m_SubObjectName: 
@@ -55,3 +56,4 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
   controlAfter: 1
+  DEBUG: 0
