@@ -160,11 +160,11 @@ Rigidbody2D:
   m_Mass: 10
   m_LinearDrag: 10
   m_AngularDrag: 10
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
-  m_Interpolate: 0
+  m_GravityScale: 10
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8664085281891089347
 MonoBehaviour:
@@ -236,7 +236,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 8664085281891089359}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c334d34ee6206584b8e18c8956338778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 4.5
   defaultEndReachedDistance: 0
   rb: {fileID: 8664085281891089372}
   thisCollider: {fileID: 8664085281891089349}
@@ -343,10 +343,7 @@ MonoBehaviour:
   weapon: {fileID: 8664085281891089348}
   dash: {fileID: 8664085281891089355}
   deathTime: 0
-  entity:
-  - {fileID: 0}
-  isEnemy: 0
-  dashDirection: {x: 0, y: 0, z: 0}
+  isGrounded: 0
   touch: 0
   inventory: {fileID: 8664085281891089345}
   inventoryUI: {fileID: 0}

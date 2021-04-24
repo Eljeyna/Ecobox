@@ -60,7 +60,11 @@ public class GameDirector : MonoBehaviour
 
     public void Initialize()
     {
+        quests = new Dictionary<string, Quest>();
+
         Player.Instance.Initialize();
+
+        cam.m_Follow = Player.Instance.transform;
 
         AddNewQuest("New Beginnings");
         

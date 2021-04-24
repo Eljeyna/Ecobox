@@ -45,7 +45,8 @@ public class Player : AIEntity, ISaveState
     public Joystick joystickMove;
     public Joystick joystickAttack;
     
-    [HideInInspector] public Vector2 moveVelocity;
+    //[HideInInspector] public Vector2 moveVelocity;
+    [HideInInspector] public float moveVelocity;
     [HideInInspector] public float zoomAmount;
 
     private Collider2D[] searchItem = new Collider2D[1];
@@ -79,22 +80,21 @@ public class Player : AIEntity, ISaveState
         inventoryUI.Initialize();
 
         stats.Initialize();
-        
-        /*
-        controls.Player.Touch.canceled += Touch_performed;
-        controls.Player.WeaponChange.performed += WeaponChange_performed;
-        controls.Player.WeaponChange.canceled += WeaponChange_canceled;
-        */
+
+        controls.Player.Attack.performed += Attack_performed;
+
         controls.Player.Zoom.performed += Zoom_performed;
     }
 
-    private void FixedUpdate()
+    /*private void FixedUpdate()
     {
+        CheckGround();
+
         if (state == EntityState.Normal && moveVelocity != Vector2.zero)
         {
             rb.MovePosition(rb.position + moveVelocity * (speed * Time.fixedDeltaTime));
         }
-    }
+    }*/
 
     private void Update()
     {
@@ -124,22 +124,30 @@ public class Player : AIEntity, ISaveState
     public override void StateNormal()
     {
 #if UNITY_ANDROID || UNITY_IOS
+        /*if (jumping)
+        {
+            return;
+        }*/
+
         if (joystickMove.Direction == Vector2.zero)
         {
-            moveVelocity = Vector2.zero;
+            moveVelocity = 0f;
+            rb.velocity = new Vector2(0f, rb.velocity.y);
         }
         else
         {
-            moveVelocity = joystickMove.Direction.normalized;
-            targetDirection = moveVelocity;
+            moveVelocity = joystickMove.Direction.normalized.x;
+            targetDirection = new Vector3(moveVelocity, 0f, rb.velocity.y);
 
             if (joystickAttack.Direction.x == 0f)
             {
-                if (moveVelocity.x > 0f)
+                rb.velocity = new Vector2(moveVelocity * Speed, rb.velocity.y);
+
+                if (moveVelocity > 0f)
                 {
                     transform.localScale = new Vector3(1f, 1f, 1f);
                 }
-                else if (moveVelocity.x < 0f)
+                else if (moveVelocity < 0f)
                 {
                     transform.localScale = new Vector3(-1f, 1f, 1f);
                 }
@@ -165,7 +173,7 @@ public class Player : AIEntity, ISaveState
     
     public override void StateStun()
     {
-        moveVelocity = Vector2.zero;
+        moveVelocity = 0f;
     }
     
     public override void StateDeath()
@@ -177,7 +185,7 @@ public class Player : AIEntity, ISaveState
     public override void SetAnimation()
     {
         animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
-        animations.SetBool(StaticGameVariables.animationMoveKeyID, moveVelocity != Vector2.zero);
+        animations.SetBool(StaticGameVariables.animationMoveKeyID, moveVelocity != 0f);
     }
     
     public override void Attack()
@@ -247,6 +255,12 @@ public class Player : AIEntity, ISaveState
         weapon.PrimaryAttack();
     }
 
+    public void Jump()
+    {
+        rb.AddForce(transform.up * 500f, ForceMode2D.Impulse);
+        //rb.velocity = new Vector2(rb.velocity.x, 50f);
+    }
+
 #if UNITY_ANDROID || UNITY_IOS
     private void ZoomCamera(Touch firstTouch, Touch secondTouch)
     {
@@ -307,9 +321,20 @@ public class Player : AIEntity, ISaveState
         }
     }
 
+    public void OnJump()
+    {
+        //if (StaticGameVariables.isPause || state != EntityState.Normal || !isGrounded)
+        if (StaticGameVariables.isPause || state != EntityState.Normal)
+        {
+            return;
+        }
+
+        Jump();
+    }
+
     public void OnReload()
     {
-        if (StaticGameVariables.isPause || !weapon || weapon.reloading || state != EntityState.Normal)
+        if (StaticGameVariables.isPause || state != EntityState.Normal || !weapon || weapon.reloading)
         {
             return;
         }
@@ -329,33 +354,29 @@ public class Player : AIEntity, ISaveState
 
     public void OnLoad()
     {        
-        StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
-
-        if (File.Exists(sb.ToString()))
-        {
-            Settings.Instance.gameIsLoaded = true;
-        }
-        
+        //StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
         SceneLoading.Instance.LoadLevel(SceneManager.GetActiveScene().name);
     }
     
     public override void OnPause(object sender, EventArgs e)
     {
-        moveVelocity = Vector2.zero;
+        rb.simulated = !StaticGameVariables.isPause;
+        moveVelocity = 0f;
         animations.speed = StaticGameVariables.isPause ? 0f : 1f;
     }
 
-    /*
-    private void Touch_performed(InputAction.CallbackContext obj)
+
+    private void Attack_performed(InputAction.CallbackContext obj)
     {
-        if (StaticGameVariables.isPause)
+        if (StaticGameVariables.isPause || state != EntityState.Normal)
         {
             return;
         }
-        
-        //touch = true;
+
+        touch = false;
+        Attack();
     }
-    */
+
 
     private void Zoom_performed(InputAction.CallbackContext obj)
     {

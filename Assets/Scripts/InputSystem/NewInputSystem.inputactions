@@ -1,10 +1,18 @@
 {
-    "name": "New Input System",
+    "name": "NewInputSystem",
     "maps": [
         {
             "name": "Player",
             "id": "66aeba14-8842-4049-b77d-1bd7676a955b",
             "actions": [
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "cc5497d6-5986-43f9-a81f-884ee20e6bac",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
                 {
                     "name": "Touch",
                     "type": "Button",
@@ -60,6 +68,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "c19e5988-ad01-451c-940c-2902372b70f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -88,7 +104,7 @@
                 {
                     "name": "",
                     "id": "6dc83e9a-5d49-424b-b8b8-627f5e5a2768",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and mouse",
@@ -143,11 +159,33 @@
                 {
                     "name": "",
                     "id": "8fcd819e-c1af-49f1-8be2-1924344fffbb",
-                    "path": "<Keyboard>/shift",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and mouse",
                     "action": "WeaponChange",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5c3378a-0248-4bda-a953-271e3f2f3d7c",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36a96534-e270-417e-ad08-d1c07707928b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

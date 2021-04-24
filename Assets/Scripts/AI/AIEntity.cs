@@ -53,10 +53,17 @@ public abstract class AIEntity : MonoBehaviour
     public Dash dash;
     
     public float deathTime;
+    public bool isGrounded;
 
-    [HideInInspector] public Collider2D[] entity = new Collider2D[2];
-    [HideInInspector] public bool isEnemy;
-    [HideInInspector] public Vector3 dashDirection;
+    protected Collider2D[] groundCheck = new Collider2D[2];
+    protected Collider2D[] entity = new Collider2D[2];
+    protected bool isEnemy;
+    protected Vector3 dashDirection;
+
+    private void FixedUpdate()
+    {
+        CheckGround();
+    }
 
     public void InitializeEntity()
     {
@@ -198,7 +205,6 @@ public abstract class AIEntity : MonoBehaviour
     
     public virtual void StateDeath()
     {
-        aiPath.enabled = false;
 
         if (deathTime > Time.time)
         {
@@ -240,6 +246,13 @@ public abstract class AIEntity : MonoBehaviour
         weapon.enabled = true;
         targetDirection = (aiEntity.target.position - transform.position).normalized;
         weapon.PrimaryAttack();
+    }
+
+    public void CheckGround()
+    {
+        Physics2D.OverlapCircleNonAlloc(transform.position, 1f, groundCheck);
+        isGrounded = ReferenceEquals(groundCheck[1], null);
+        groundCheck[1] = null;
     }
 
     public void UpdateTarget(Transform newTarget)
@@ -287,9 +300,15 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void OnDie(object sender, EventArgs e)
     {
+        if (aiPath)
+        {
+            aiPath.enabled = false;
+        }
+
+        rb.simulated = false;
+        deathTime = Time.time + 3f;
         Destroy(thisCollider);
         state = EntityState.Death;
-        deathTime = Time.time + 3f;
     }
 
     public virtual void EventEnable()

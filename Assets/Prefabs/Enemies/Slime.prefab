@@ -96,7 +96,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.14, y: 1.52}
+  m_Size: {x: 1.9, y: 1.06}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -160,8 +160,8 @@ Rigidbody2D:
   m_Mass: 10
   m_LinearDrag: 10
   m_AngularDrag: 10
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
+  m_GravityScale: 10
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -269,13 +269,13 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 6753366706675599878}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.75, y: 4}
-  m_Direction: 0
+  m_Offset: {x: 0, y: -1}
+  m_Size: {x: 1.75, y: 1}
+  m_Direction: 1
 --- !u!114 &6753366706675599900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  radius: 2.2
+  radius: 1.5
   height: 0.01
   repathRate: 0.5
   canSearch: 1
@@ -307,7 +307,7 @@ MonoBehaviour:
   rotationSpeed: 360
   slowdownDistance: 1
   pickNextWaypointDist: 3
-  endReachedDistance: 2.25
+  endReachedDistance: 0
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -426,8 +426,5 @@ MonoBehaviour:
   weapon: {fileID: 6753366706675599891}
   dash: {fileID: -4327144568771029104}
   deathTime: 0
-  entity:
-  - {fileID: 0}
-  isEnemy: 0
-  dashDirection: {x: 0, y: 0, z: 0}
+  isGrounded: 0
   inventory: {fileID: 8023196567392388234}

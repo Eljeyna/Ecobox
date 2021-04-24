@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputSystem/New Input System.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputSystem/NewInputSystem.inputactions'
 
 using System;
 using System.Collections;
@@ -12,12 +12,20 @@ public class NewInputSystem : IInputActionCollection, IDisposable
     public NewInputSystem()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""New Input System"",
+    ""name"": ""NewInputSystem"",
     ""maps"": [
         {
             ""name"": ""Player"",
             ""id"": ""66aeba14-8842-4049-b77d-1bd7676a955b"",
             ""actions"": [
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc5497d6-5986-43f9-a81f-884ee20e6bac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
                 {
                     ""name"": ""Touch"",
                     ""type"": ""Button"",
@@ -73,6 +81,14 @@ public class NewInputSystem : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""c19e5988-ad01-451c-940c-2902372b70f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,7 +117,7 @@ public class NewInputSystem : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6dc83e9a-5d49-424b-b8b8-627f5e5a2768"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
@@ -156,11 +172,33 @@ public class NewInputSystem : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8fcd819e-c1af-49f1-8be2-1924344fffbb"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
                     ""action"": ""WeaponChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5c3378a-0248-4bda-a953-271e3f2f3d7c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36a96534-e270-417e-ad08-d1c07707928b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -199,6 +237,7 @@ public class NewInputSystem : IInputActionCollection, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
@@ -206,6 +245,7 @@ public class NewInputSystem : IInputActionCollection, IDisposable
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
         m_Player_Load = m_Player.FindAction("Load", throwIfNotFound: true);
         m_Player_WeaponChange = m_Player.FindAction("WeaponChange", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -255,6 +295,7 @@ public class NewInputSystem : IInputActionCollection, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Touch;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Dash;
@@ -262,10 +303,12 @@ public class NewInputSystem : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Zoom;
     private readonly InputAction m_Player_Load;
     private readonly InputAction m_Player_WeaponChange;
+    private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
         private @NewInputSystem m_Wrapper;
         public PlayerActions(@NewInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Touch => m_Wrapper.m_Player_Touch;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
@@ -273,6 +316,7 @@ public class NewInputSystem : IInputActionCollection, IDisposable
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
         public InputAction @Load => m_Wrapper.m_Player_Load;
         public InputAction @WeaponChange => m_Wrapper.m_Player_WeaponChange;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -282,6 +326,9 @@ public class NewInputSystem : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
+                @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Touch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
                 @Touch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
                 @Touch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
@@ -303,10 +350,16 @@ public class NewInputSystem : IInputActionCollection, IDisposable
                 @WeaponChange.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponChange;
                 @WeaponChange.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponChange;
                 @WeaponChange.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponChange;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
                 @Touch.started += instance.OnTouch;
                 @Touch.performed += instance.OnTouch;
                 @Touch.canceled += instance.OnTouch;
@@ -328,6 +381,9 @@ public class NewInputSystem : IInputActionCollection, IDisposable
                 @WeaponChange.started += instance.OnWeaponChange;
                 @WeaponChange.performed += instance.OnWeaponChange;
                 @WeaponChange.canceled += instance.OnWeaponChange;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -352,6 +408,7 @@ public class NewInputSystem : IInputActionCollection, IDisposable
     }
     public interface IPlayerActions
     {
+        void OnAttack(InputAction.CallbackContext context);
         void OnTouch(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
@@ -359,5 +416,6 @@ public class NewInputSystem : IInputActionCollection, IDisposable
         void OnZoom(InputAction.CallbackContext context);
         void OnLoad(InputAction.CallbackContext context);
         void OnWeaponChange(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }
