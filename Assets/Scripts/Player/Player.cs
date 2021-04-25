@@ -120,11 +120,6 @@ public class Player : AIEntity, ISaveState
                 animations.SetFloat(StaticGameVariables.animationFallKeyID, fallTime + Time.fixedDeltaTime);
             }
         }
-
-        /*if (state == EntityState.Normal && moveVelocity != Vector2.zero)
-        {
-            rb.MovePosition(rb.position + moveVelocity * (speed * Time.fixedDeltaTime));
-        }*/
     }
 
     private void Update()
@@ -159,13 +154,13 @@ public class Player : AIEntity, ISaveState
         if (moveX == 0f)
         {
             moveVelocity = 0f;
-            rb.velocity = new Vector2(0f, rb.velocity.y);
+            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
         }
         else
         {
-            moveVelocity = moveX;
-            rb.velocity = new Vector2(moveVelocity * Speed, rb.velocity.y);
-            targetDirection = new Vector3(moveVelocity, 0f, 0f);
+            moveVelocity = moveX * Speed;
+            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+            targetDirection = new Vector3(moveX, 0f, 0f);
 
             if (moveVelocity > 0f)
             {
@@ -187,11 +182,11 @@ public class Player : AIEntity, ISaveState
         else
         {
             moveVelocity = joystickMove.Direction.normalized.x;
-            targetDirection = new Vector3(moveVelocity, 0f, 0f);
+            targetDirection = new Vector3(moveX, 0f, 0f);
 
             if (joystickAttack.Direction.x == 0f)
             {
-                rb.velocity = new Vector2(moveVelocity * Speed, rb.velocity.y);
+                rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 
                 if (moveVelocity > 0f)
                 {

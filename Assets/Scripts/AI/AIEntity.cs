@@ -69,6 +69,8 @@ public abstract class AIEntity : MonoBehaviour
 
     public void InitializeEntity()
     {
+        rb.velocity = Vector2.zero;
+
         state = EntityState.Normal;
 
         if (Player.Instance)
@@ -122,8 +124,6 @@ public abstract class AIEntity : MonoBehaviour
                 break;
         }
 
-        Debug.Log(state + "\n" + rb.velocity.x);
-
         SetAnimation();
     }
 
@@ -137,7 +137,7 @@ public abstract class AIEntity : MonoBehaviour
 
         float distance = Vector2.Distance(rb.position, target.position);
         
-        if (distance <= GetEndReachedDistance()) //2f
+        if (distance <= GetEndReachedDistance())
         {
             if (entity[0])
             {
@@ -162,8 +162,8 @@ public abstract class AIEntity : MonoBehaviour
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
-        moveVelocity = transform.localScale.x;
-        rb.velocity = new Vector2(moveVelocity * Speed, rb.velocity.y);
+        moveVelocity = transform.localScale.x * Speed;
+        //rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
 
     public virtual void StateDash()

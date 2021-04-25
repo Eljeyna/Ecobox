@@ -93,7 +93,7 @@ SpriteRenderer:
   m_SortingOrder: 15
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.9, y: 1.06}
@@ -154,15 +154,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_AngularDrag: 0
+  m_GravityScale: 3
+  m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6753366706675599902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 6753366706675599878}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

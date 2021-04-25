@@ -159,9 +159,9 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 3
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -236,7 +236,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 8664085281891089359}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -330,7 +330,6 @@ MonoBehaviour:
   isGrounded: 0
   isJumping: 0
   speed: 6
-  defaultEndReachedDistance: 0
   rb: {fileID: 8664085281891089372}
   thisCollider: {fileID: 8664085281891089349}
   state: 0
@@ -340,12 +339,11 @@ MonoBehaviour:
   targetDirection: {x: 0, y: 0, z: 0}
   buffSystem: {fileID: 8664085281891089344}
   animations: {fileID: 2701567796575672074}
-  aiPath: {fileID: 0}
-  aiEntity: {fileID: 0}
   weapon: {fileID: 8664085281891089348}
-  dash: {fileID: 8664085281891089355}
   deathTime: 0
+  moveVelocity: 0
   touch: 0
+  dash: {fileID: 8664085281891089355}
   inventory: {fileID: 8664085281891089345}
   inventoryUI: {fileID: 0}
   cam: {fileID: 0}
@@ -357,7 +355,6 @@ MonoBehaviour:
   weaponItem: {fileID: 0}
   joystickMove: {fileID: 0}
   joystickAttack: {fileID: 0}
-  moveVelocity: 0
   zoomAmount: 0
 --- !u!114 &8664085281891089353
 MonoBehaviour:
@@ -422,7 +419,9 @@ MonoBehaviour:
   stamina: 0
   staminaRegen: 1
   staminaTimeRegen: 0.2
+  staminaTimeRegenWhenUse: 1.5
   money: 0
+  nextStaminaRegen: 0
 --- !u!1 &8664085282287830533
 GameObject:
   m_ObjectHideFlags: 0
