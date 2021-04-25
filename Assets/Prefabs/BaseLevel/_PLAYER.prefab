@@ -160,7 +160,7 @@ Rigidbody2D:
   m_Mass: 10
   m_LinearDrag: 10
   m_AngularDrag: 10
-  m_GravityScale: 10
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -343,7 +343,6 @@ MonoBehaviour:
   weapon: {fileID: 8664085281891089348}
   dash: {fileID: 8664085281891089355}
   deathTime: 0
-  isGrounded: 0
   touch: 0
   inventory: {fileID: 8664085281891089345}
   inventoryUI: {fileID: 0}
@@ -355,7 +354,7 @@ MonoBehaviour:
   weaponItem: {fileID: 0}
   joystickMove: {fileID: 0}
   joystickAttack: {fileID: 0}
-  moveVelocity: {x: 0, y: 0}
+  moveVelocity: 0
   zoomAmount: 0
 --- !u!114 &8664085281891089353
 MonoBehaviour:

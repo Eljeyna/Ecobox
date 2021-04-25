@@ -14,6 +14,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "2620593d-7399-4cae-a0b3-7b77b3c14eae",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Touch",
                     "type": "Button",
                     "id": "c71450a5-60ac-4c12-9cda-a399465611b6",
@@ -188,6 +196,39 @@
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "92dbf948-2f25-4675-ab77-1fa2a1845173",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "c16fb16d-1e87-4bf6-9359-f37cf3042a14",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "2f1b4521-8949-46fa-b84f-6faaa72f7c0e",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

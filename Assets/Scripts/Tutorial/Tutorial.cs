@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
-    private int currentTask = 0;
+    private float waitTime;
+    private int currentTask;
     private bool[] checks = new bool[2];
     private float moveVelocity;
     private float newMoveVelocity;
@@ -16,6 +17,7 @@ public class Tutorial : MonoBehaviour
         {
             case 0:
                 moveVelocity = Player.Instance.moveVelocity;
+
                 if (!checks[0] && newMoveVelocity < moveVelocity)
                 {
                     checks[0] = true;
@@ -32,6 +34,7 @@ public class Tutorial : MonoBehaviour
                     GameDirector.Instance.UpdateQuest("New Beginnings", 1);
                     currentTask = 1;
                 }
+
                 break;
             case 1:
                 if (Player.Instance.transform.position.y > 0.5f)
@@ -39,22 +42,31 @@ public class Tutorial : MonoBehaviour
                     GameDirector.Instance.UpdateQuest("New Beginnings", 2);
                     currentTask = 2;
                 }
+
                 break;
             case 2:
+                if (Player.Instance.state == EntityState.Attack)
+                {
+                    GameDirector.Instance.UpdateQuest("New Beginnings", 3);
+                    currentTask = 3;
+                }
+
+                break;
+            case 3:
                 slime = GameObject.Find("_SLIME_POINT");
                 if (slime)
                 {
                     copy = slime.GetComponent<Addressables_Instantiate>();
                     copy.SpawnEntities();
-                    currentTask = 3;
+                    currentTask = 4;
                 }
+
                 break;
-            case 3:
+            case 4:
                 if (healthTest && healthTest.healthPercent <= 0)
                 {
-                    //GameDirector.Instance.UpdateQuest("New Beginnings", 3);
-                    Debug.Log("Победа");
-                    currentTask = 4;
+                    waitTime = Time.time + 4f;
+                    currentTask = 5;
                 }
                 else if (copy.createdObjects != null)
                 {
@@ -66,6 +78,15 @@ public class Tutorial : MonoBehaviour
                         }
                     }
                 }
+
+                break;
+            case 5:
+                if (waitTime > Time.time)
+                {
+                    return;
+                }
+
+                SceneLoading.Instance.LoadLevel("MainMenu");
 
                 break;
             default:

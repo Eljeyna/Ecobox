@@ -323,8 +323,7 @@ public class Player : AIEntity, ISaveState
 
     public void OnJump()
     {
-        //if (StaticGameVariables.isPause || state != EntityState.Normal || !isGrounded)
-        if (StaticGameVariables.isPause || state != EntityState.Normal)
+        if (StaticGameVariables.isPause || state != EntityState.Normal || !IsGrounded())
         {
             return;
         }
@@ -355,7 +354,7 @@ public class Player : AIEntity, ISaveState
     public void OnLoad()
     {        
         //StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
-        SceneLoading.Instance.LoadLevel(SceneManager.GetActiveScene().name);
+        SceneLoading.Instance.SwitchToScene(SceneManager.GetActiveScene().name, SceneLoading.startAnimationID);
     }
     
     public override void OnPause(object sender, EventArgs e)

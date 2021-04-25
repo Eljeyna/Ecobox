@@ -18,7 +18,25 @@
     {
       "description" :
       [
+        "Use right stick for attack"
+      ]
+    },
+    {
+      "description" :
+      [
         "Defeat slime"
+      ]
+    },
+    {
+      "description" :
+      [
+        "Get through the cave"
+      ]
+    },
+    {
+      "description" :
+      [
+        "Defeat boss"
       ]
     }
   ]

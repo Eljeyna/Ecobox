@@ -12,7 +12,8 @@ public enum EntityState
     Swing  = 4,
     Attack = 5,
     Cast   = 6,
-    Death  = 7
+    Death  = 7,
+    Jump   = 8
 }
 
 public enum GameLayers
@@ -53,17 +54,11 @@ public abstract class AIEntity : MonoBehaviour
     public Dash dash;
     
     public float deathTime;
-    public bool isGrounded;
 
-    protected Collider2D[] groundCheck = new Collider2D[2];
+    protected RaycastHit2D[] groundCheck = new RaycastHit2D[2];
     protected Collider2D[] entity = new Collider2D[2];
     protected bool isEnemy;
     protected Vector3 dashDirection;
-
-    private void FixedUpdate()
-    {
-        CheckGround();
-    }
 
     public void InitializeEntity()
     {
@@ -248,11 +243,10 @@ public abstract class AIEntity : MonoBehaviour
         weapon.PrimaryAttack();
     }
 
-    public void CheckGround()
+    public bool IsGrounded()
     {
-        Physics2D.OverlapCircleNonAlloc(transform.position, 1f, groundCheck);
-        isGrounded = ReferenceEquals(groundCheck[1], null);
-        groundCheck[1] = null;
+        int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f);
+        return hits > 1;
     }
 
     public void UpdateTarget(Transform newTarget)

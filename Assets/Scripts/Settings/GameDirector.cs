@@ -56,6 +56,13 @@ public class GameDirector : MonoBehaviour
     public void Preload()
     {
         gameUI.InstantiateAsync();
+        FindCamera();
+    }
+
+    public void FindCamera()
+    {
+        cam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
+        cam.m_Follow = Player.Instance.transform;
     }
 
     public void Initialize()
@@ -64,7 +71,7 @@ public class GameDirector : MonoBehaviour
 
         Player.Instance.Initialize();
 
-        cam.m_Follow = Player.Instance.transform;
+        FindCamera();
 
         AddNewQuest("New Beginnings");
         
