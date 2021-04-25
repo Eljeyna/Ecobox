@@ -46,7 +46,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 8ee68a90ad1661b428d703db1f81779a, type: 3}
     - {fileID: 102900000, guid: 43fd07cd7ae1d6a408610a618e8754c0, type: 3}
     - {fileID: 102900000, guid: 666c3b2fd51c5e448a37b8e4f84177bf, type: 3}
-    totalSpriteSurfaceArea: 56207881
+    totalSpriteSurfaceArea: 63227881
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -57,6 +57,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5f97da3045a028d489f07f824209d71d, type: 3}
   - {fileID: 21300000, guid: dad83f40548408a4fb32796efc8ce29b, type: 3}
   - {fileID: 21300000, guid: 43e89b7046e517742b2f10d98a8a38a4, type: 3}
+  - {fileID: 21300000, guid: fa80eb80e9f6ab94cafde728c4090c94, type: 3}
   - {fileID: 21300000, guid: 2ba7a7b03215d8a4cae469ee163c87c2, type: 3}
   - {fileID: 21300000, guid: f02528c1c31fc714a89d281ad394f375, type: 3}
   - {fileID: 21300000, guid: 97154032e7c2134439d47e578ffd286b, type: 3}
@@ -69,9 +70,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3cbf5cf3e28928545aaee8c214bf5139, type: 3}
   - {fileID: 21300000, guid: f44bee445cf87794d927a5e1ddf7f504, type: 3}
   - {fileID: 21300000, guid: 5bab3f7515dd796438e8f7477c35bb10, type: 3}
+  - {fileID: 21300000, guid: 991d84264a6904d4f960a503f520510a, type: 3}
+  - {fileID: 21300000, guid: 08d8ce56963630a4a918e29779952198, type: 3}
   - {fileID: 21300000, guid: 29a9d8a678ee26845857154983b73146, type: 3}
   - {fileID: 21300000, guid: 0bca6187205a430428df8fb13bbb98c7, type: 3}
   - {fileID: 21300000, guid: 678ab0e739e62f845847843136080fba, type: 3}
+  - {fileID: 21300000, guid: 4bfb41383e7180d4094970ffc757c582, type: 3}
   - {fileID: 21300000, guid: 0e6e2048acb9cac4abac4d02e556eeef, type: 3}
   - {fileID: 21300000, guid: e71536688dfb8a140847589aa282053e, type: 3}
   - {fileID: 21300000, guid: a2ce01790dcfbfe4b8bfedf0601f6c6d, type: 3}
@@ -86,6 +90,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7546885b4468ae945bf49618cd32187c, type: 3}
   - {fileID: 21300000, guid: f16bcb8bcacf3464c9ff0cf6178786d4, type: 3}
   - {fileID: 21300000, guid: 6e917ebbcdf1d1e4d88b9723cefe0bf7, type: 3}
+  - {fileID: 21300000, guid: 6c7407fbcb173294e88c7d514a799f76, type: 3}
   - {fileID: 21300000, guid: 3e385a0d74ea2d94ba94d1cd8cc2cae9, type: 3}
   - {fileID: 21300000, guid: 9f12db9d4de04de4382543d242af264f, type: 3}
   - {fileID: 21300000, guid: 45ca848e20a05274087342ab5b2850ea, type: 3}
@@ -100,25 +105,29 @@ SpriteAtlas:
   - Trash PlasticBottle
   - 1
   - 1
-  - jump_attack_fx_00010
+  - 3
+  - 2
   - 4
   - 1
   - 3
   - 2
   - 3
   - 3
-  - jump_attack_fx_00008
+  - 2
   - 2
   - Trash Apple
   - 3
   - 3
   - 4
+  - 1
+  - 5
   - 4
   - 3
   - 5
+  - 3
   - 1
   - 2
-  - jump_attack_fx_00016
+  - 5
   - 4
   - 5
   - 5
@@ -129,12 +138,13 @@ SpriteAtlas:
   - 2
   - 1
   - 1
-  - jump_attack_fx_00012
+  - 4
+  - 4
   - 3
   - 4
   - Trash Paper
   - 4
-  - jump_attack_fx_00004
+  - 1
   - 2
   - 1
   - 2

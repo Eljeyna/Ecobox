@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2701567796575672074}
   - component: {fileID: 2701567796575672075}
   m_Layer: 8
-  m_Name: SFX
+  m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,7 +328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
-  speed: 4.5
+  isJumping: 0
+  speed: 6
   defaultEndReachedDistance: 0
   rb: {fileID: 8664085281891089372}
   thisCollider: {fileID: 8664085281891089349}

@@ -7,13 +7,14 @@ public class Stats : MonoBehaviour
     public int stamina;
     public int staminaRegen = 1;
     public float staminaTimeRegen = 0.2f;
+    public float staminaTimeRegenWhenUse = 1.5f;
 
     [Space(10)]
     public int money;
 
     public EventHandler OnStaminaChanged;
 
-    private float nextStaminaRegen;
+    public float nextStaminaRegen;
 
     public void Initialize()
     {

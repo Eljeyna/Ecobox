@@ -23,6 +23,7 @@ public class Player : AIEntity, ISaveState
     public bool touch;
 
     [Space(10)]
+    public Dash dash;
     public Inventory inventory;
     public InventoryUI inventoryUI;
     public CinemachineVirtualCamera cam;
@@ -47,11 +48,10 @@ public class Player : AIEntity, ISaveState
     public Joystick joystickAttack;
     
     //[HideInInspector] public Vector2 moveVelocity;
-    [HideInInspector] public float moveVelocity;
     [HideInInspector] public float zoomAmount;
 
     private Collider2D[] searchItem = new Collider2D[1];
-    private const float searchEntityRadius = 3f;
+    //private const float searchEntityRadius = 3f;
     private const float searchItemRadius = 2f;
     private NewInputSystem controls;
     private LayerMask layerItems;
@@ -94,17 +94,31 @@ public class Player : AIEntity, ISaveState
             return;
         }
 
-        if (state == EntityState.Jump)
+        if (isJumping)
         {
-            state = EntityState.Normal;
+            isJumping = false;
             rb.AddForce(Vector2.up * StaticGameVariables.globalJumpForce, ForceMode2D.Impulse);
         }
 
         isGrounded = IsGrounded();
 
-        if (!dashing && isGrounded)
+        if (isGrounded)
         {
-            dashing = true;
+            animations.SetFloat(StaticGameVariables.animationFallKeyID, 0f);
+
+            if (!dashing)
+            {
+                dashing = true;
+            }
+        }
+        else if (!isGrounded)
+        {
+            float fallTime = animations.GetFloat(StaticGameVariables.animationFallKeyID);
+
+            if (fallTime < 1f)
+            {
+                animations.SetFloat(StaticGameVariables.animationFallKeyID, fallTime + Time.fixedDeltaTime);
+            }
         }
 
         /*if (state == EntityState.Normal && moveVelocity != Vector2.zero)
@@ -146,7 +160,6 @@ public class Player : AIEntity, ISaveState
         {
             moveVelocity = 0f;
             rb.velocity = new Vector2(0f, rb.velocity.y);
-
         }
         else
         {
@@ -299,11 +312,6 @@ public class Player : AIEntity, ISaveState
         weapon.PrimaryAttack();
     }
 
-    public void Jump()
-    {
-        state = EntityState.Jump;
-    }
-
 #if UNITY_ANDROID || UNITY_IOS
     private void ZoomCamera(Touch firstTouch, Touch secondTouch)
     {
@@ -357,6 +365,7 @@ public class Player : AIEntity, ISaveState
         {
             dashing = false;
 
+            stats.nextStaminaRegen = Time.time + stats.staminaTimeRegenWhenUse;
             stats.stamina -= dash.staminaCost;
             dash.dashEvaluateTime = 0f;
             dashDirection = targetDirection;
@@ -373,7 +382,7 @@ public class Player : AIEntity, ISaveState
             return;
         }
 
-        Jump();
+        isJumping = true;
     }
 
     public void OnReload()

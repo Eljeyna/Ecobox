@@ -52,7 +52,7 @@ MonoBehaviour:
   debugFPS: {fileID: 0}
   dialogue: {fileID: 0}
   startDialogue:
-    m_AssetGUID: 656f390425f07404babe6d53d0c2612d
+    m_AssetGUID: 69e4901f6c87a5f40a710778117e982b
     m_SubObjectName: 
     m_SubObjectType: 
   controlAfter: 1
