@@ -120,8 +120,9 @@ public abstract class AIEntity : MonoBehaviour
             default:
                 state = EntityState.None;
                 break;
-
         }
+
+        Debug.Log(state + "\n" + rb.velocity.x);
 
         SetAnimation();
     }
@@ -136,7 +137,7 @@ public abstract class AIEntity : MonoBehaviour
 
         float distance = Vector2.Distance(rb.position, target.position);
         
-        if (distance <= 2f)
+        if (distance <= GetEndReachedDistance()) //2f
         {
             if (entity[0])
             {
@@ -162,7 +163,6 @@ public abstract class AIEntity : MonoBehaviour
         }
 
         moveVelocity = transform.localScale.x;
-
         rb.velocity = new Vector2(moveVelocity * Speed, rb.velocity.y);
     }
 
@@ -193,7 +193,6 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void StateDeath()
     {
-
         if (deathTime > Time.time)
         {
             return;
@@ -218,7 +217,6 @@ public abstract class AIEntity : MonoBehaviour
     {
         if (!weapon)
         {
-            state = EntityState.Normal;
             return;
         }
         
@@ -261,10 +259,10 @@ public abstract class AIEntity : MonoBehaviour
     
     public float GetEndReachedDistance()
     {
-        /*if (aiEntity.target.TryGetComponent(out CapsuleCollider2D entityCollider))
+        if (target.TryGetComponent(out CapsuleCollider2D entityCollider))
         {
-            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider) - defaultEndReachedDistance * 2;
-        }*/
+            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider);
+        }
         
         return weapon.gunData.range;
     }
@@ -272,7 +270,6 @@ public abstract class AIEntity : MonoBehaviour
     public virtual void OnPause(object sender, EventArgs e)
     {
         rb.simulated = !StaticGameVariables.isPause;
-        moveVelocity = 0f;
         animations.speed = StaticGameVariables.isPause ? 0f : 1f;
     }
 
@@ -288,6 +285,7 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void OnDie(object sender, EventArgs e)
     {
+        rb.velocity = new Vector2(0f, rb.velocity.y);
         rb.simulated = false;
         rb.isKinematic = true;
         deathTime = Time.time + 3f;

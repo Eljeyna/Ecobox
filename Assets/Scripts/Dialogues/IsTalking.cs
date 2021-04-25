@@ -41,7 +41,6 @@ public class IsTalking : MonoBehaviour
         if (scriptAfterDialogue != null)
         {
             scriptAfterDialogue.Use();
-            return;
         }
 
         GameDirector.Instance.controlAfter = controlAfter;

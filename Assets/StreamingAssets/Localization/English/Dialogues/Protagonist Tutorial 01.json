@@ -1,7 +1,17 @@
 [
   {
     "name" : null,
-    "text" : "Солнце пробивалось сквозь большое окно, освещая яркими лучами комнату и отдавая так нужное тепло в весеннюю пору...",
+    "text" : "I don't remember this place...",
+    "answers" : []
+  },
+  {
+    "name" : null,
+    "text" : "But it seems familiar.",
+    "answers" : []
+  },
+  {
+    "name" : null,
+    "text" : "Deja vu.",
     "answers" : []
   }
 ]

@@ -224,7 +224,6 @@ public class Player : AIEntity, ISaveState
     public override void StateStun()
     {
         rb.velocity = new Vector2(0f, rb.velocity.y);
-        moveVelocity = 0f;
     }
     
     public override void StateDeath()
@@ -261,7 +260,6 @@ public class Player : AIEntity, ISaveState
 
         if (!weapon)
         {
-            state = EntityState.Normal;
             return;
         }
         
@@ -306,8 +304,6 @@ public class Player : AIEntity, ISaveState
                 transform.localScale = new Vector3(-1f, 1f, 1f);
             }
         }*/
-
-        rb.velocity = new Vector2(0f, rb.velocity.y);
 
         weapon.PrimaryAttack();
     }
@@ -364,9 +360,9 @@ public class Player : AIEntity, ISaveState
         if (!StaticGameVariables.isPause && dashing && state == EntityState.Normal && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
             dashing = false;
-
             stats.nextStaminaRegen = Time.time + stats.staminaTimeRegenWhenUse;
             stats.stamina -= dash.staminaCost;
+            stats.OnStaminaChanged?.Invoke(this, EventArgs.Empty);
             dash.dashEvaluateTime = 0f;
             dashDirection = targetDirection;
             dash.enabled = true;
@@ -414,7 +410,6 @@ public class Player : AIEntity, ISaveState
     public override void OnPause(object sender, EventArgs e)
     {
         rb.simulated = !StaticGameVariables.isPause;
-        moveVelocity = 0f;
         animations.speed = StaticGameVariables.isPause ? 0f : 1f;
     }
 
