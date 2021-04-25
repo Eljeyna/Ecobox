@@ -19,8 +19,6 @@ public class Fade : MonoBehaviour
 
     private AsyncOperationHandle<SceneInstance> loadSceneAsync;
 
-    private string startID = "Start";
-
     private void Awake()
     {
         loadSceneAsync = Addressables.LoadSceneAsync(level, LoadSceneMode.Single, false);
@@ -68,7 +66,7 @@ public class Fade : MonoBehaviour
     private IEnumerator End()
     {
         yield return new WaitForSeconds(time);
-        fade.SetTrigger(startID);
+        fade.SetTrigger(SceneLoading.startAnimationID);
         yield return new WaitForSeconds(1.0f);
         WaitLoadLevel();
     }

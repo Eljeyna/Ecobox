@@ -30,7 +30,8 @@ public class Player : AIEntity, ISaveState
     public Transform gunPosition;
 
     [Space(10)]
-    public bool gender = true;
+    public bool gender; // Female
+    public bool dashing = true;
     public int fightCount;
     
     public ItemWeapon weaponItem;
@@ -86,15 +87,31 @@ public class Player : AIEntity, ISaveState
         controls.Player.Zoom.performed += Zoom_performed;
     }
 
-    /*private void FixedUpdate()
+    private void FixedUpdate()
     {
-        CheckGround();
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
 
-        if (state == EntityState.Normal && moveVelocity != Vector2.zero)
+        if (state == EntityState.Jump)
+        {
+            state = EntityState.Normal;
+            rb.AddForce(Vector2.up * StaticGameVariables.globalJumpForce, ForceMode2D.Impulse);
+        }
+
+        isGrounded = IsGrounded();
+
+        if (!dashing && isGrounded)
+        {
+            dashing = true;
+        }
+
+        /*if (state == EntityState.Normal && moveVelocity != Vector2.zero)
         {
             rb.MovePosition(rb.position + moveVelocity * (speed * Time.fixedDeltaTime));
-        }
-    }*/
+        }*/
+    }
 
     private void Update()
     {
@@ -123,12 +140,32 @@ public class Player : AIEntity, ISaveState
     
     public override void StateNormal()
     {
-#if UNITY_ANDROID || UNITY_IOS
-        /*if (jumping)
-        {
-            return;
-        }*/
+        float moveX = controls.Player.Move.ReadValue<float>();
 
+        if (moveX == 0f)
+        {
+            moveVelocity = 0f;
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+
+        }
+        else
+        {
+            moveVelocity = moveX;
+            rb.velocity = new Vector2(moveVelocity * Speed, rb.velocity.y);
+            targetDirection = new Vector3(moveVelocity, 0f, 0f);
+
+            if (moveVelocity > 0f)
+            {
+                transform.localScale = new Vector3(1f, 1f, 1f);
+            }
+            else if (moveVelocity < 0f)
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            return;
+        }
+
+#if UNITY_ANDROID || UNITY_IOS
         if (joystickMove.Direction == Vector2.zero)
         {
             moveVelocity = 0f;
@@ -137,7 +174,7 @@ public class Player : AIEntity, ISaveState
         else
         {
             moveVelocity = joystickMove.Direction.normalized.x;
-            targetDirection = new Vector3(moveVelocity, 0f, rb.velocity.y);
+            targetDirection = new Vector3(moveVelocity, 0f, 0f);
 
             if (joystickAttack.Direction.x == 0f)
             {
@@ -173,11 +210,13 @@ public class Player : AIEntity, ISaveState
     
     public override void StateStun()
     {
+        rb.velocity = new Vector2(0f, rb.velocity.y);
         moveVelocity = 0f;
     }
     
     public override void StateDeath()
     {
+        rb.velocity = new Vector2(0f, rb.velocity.y);
         state = EntityState.None;
         OnLoad();
     }
@@ -186,6 +225,7 @@ public class Player : AIEntity, ISaveState
     {
         animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
         animations.SetBool(StaticGameVariables.animationMoveKeyID, moveVelocity != 0f);
+        animations.SetBool(StaticGameVariables.animationJumpKeyID, !isGrounded);
     }
     
     public override void Attack()
@@ -194,7 +234,8 @@ public class Player : AIEntity, ISaveState
         {
             return;
         }
-        
+
+#if UNITY_ANDROID || UNITY_IOS
         if (joystickAttack.Direction.x > 0f)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
@@ -203,7 +244,8 @@ public class Player : AIEntity, ISaveState
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
-        
+#endif
+
         if (!weapon)
         {
             state = EntityState.Normal;
@@ -222,7 +264,7 @@ public class Player : AIEntity, ISaveState
 
         weapon.enabled = true;
         
-        if (!target)
+        /*if (!target)
         {
             Physics2D.OverlapCircleNonAlloc(transform.position, 
                 weapon.gunData.range + weapon.gunData.radius + searchEntityRadius,
@@ -250,15 +292,16 @@ public class Player : AIEntity, ISaveState
             {
                 transform.localScale = new Vector3(-1f, 1f, 1f);
             }
-        }
-        
+        }*/
+
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+
         weapon.PrimaryAttack();
     }
 
     public void Jump()
     {
-        rb.AddForce(transform.up * 500f, ForceMode2D.Impulse);
-        //rb.velocity = new Vector2(rb.velocity.x, 50f);
+        state = EntityState.Jump;
     }
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -310,8 +353,10 @@ public class Player : AIEntity, ISaveState
 
     public void OnDash()
     {
-        if (!StaticGameVariables.isPause && state == EntityState.Normal && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        if (!StaticGameVariables.isPause && dashing && state == EntityState.Normal && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
+            dashing = false;
+
             stats.stamina -= dash.staminaCost;
             dash.dashEvaluateTime = 0f;
             dashDirection = targetDirection;

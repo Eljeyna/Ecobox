@@ -131,7 +131,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 640, y: 384}
+  m_SizeDelta: {x: 480, y: 384}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &151212571488212911
 CanvasRenderer:
@@ -591,14 +591,14 @@ GameObject:
   - component: {fileID: 5009782402010193386}
   - component: {fileID: 272778758793215289}
   - component: {fileID: 846969245711825877}
-  - component: {fileID: 7566543220240410388}
+  - component: {fileID: 7035325649506568370}
   m_Layer: 5
   m_Name: Jump Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5679502468792303400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -615,7 +615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -480, y: 128}
+  m_AnchoredPosition: {x: -500, y: 224}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &8802286725939279264
@@ -700,8 +700,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7566543220240410388}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 7035325649506568370}
+        m_TargetAssemblyTypeName: JumpButton, Assembly-CSharp
         m_MethodName: Use
         m_Mode: 1
         m_Arguments:
@@ -728,7 +728,7 @@ MonoBehaviour:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
     m_SubObjectName: T_9_arrow_rounded_up_
     m_SubObjectType: 
---- !u!114 &7566543220240410388
+--- !u!114 &7035325649506568370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2622751827533977617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78b9dceaac61e64fab8844f23e60814, type: 3}
+  m_Script: {fileID: 11500000, guid: 843d584822d4ff945a35ecb6be3df246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2691485942162786704
@@ -870,7 +870,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 640, y: 384}
+  m_SizeDelta: {x: 480, y: 384}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &4796595564975153363
 CanvasRenderer:
@@ -12736,7 +12736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -480, y: 128}
+  m_AnchoredPosition: {x: -540, y: 64}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &1819076513261701430

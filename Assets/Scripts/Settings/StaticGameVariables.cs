@@ -72,12 +72,13 @@ public static class StaticGameVariables
     public static float progress;
 
     #region Settings
+    public static readonly float globalJumpForce = 25f;
     public static readonly float shakeForce = 2f;
     public static readonly float camMaxSize = 8f;
     public static readonly float camMinSize = 4f;
 
-    public const int maxLevel = 60;
-    public const int maxBonus = 20;
+    /*public const int maxLevel = 60;
+    public const int maxBonus = 20;*/
     #endregion
 
     #region Entity Maker
@@ -90,7 +91,8 @@ public static class StaticGameVariables
 
     public static readonly int animationKeyID = Animator.StringToHash("Animation");
     public static readonly int animationMoveKeyID = Animator.StringToHash("IsMove");
-    #endregion
+    public static readonly int animationJumpKeyID = Animator.StringToHash("IsJumping");
+#endregion
     
     public static event System.EventHandler OnPauseGame;
     

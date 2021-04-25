@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
+    public Animator[] animations = new Animator[4];
+
     private float waitTime;
     private int currentTask;
     private bool[] checks = new bool[2];
@@ -35,6 +37,10 @@ public class Tutorial : MonoBehaviour
                     currentTask = 1;
                 }
 
+#if UNITY_ANDROID || UNITY_IOS
+                animations[0].enabled = true;
+#endif
+
                 break;
             case 1:
                 if (Player.Instance.transform.position.y > 0.5f)
@@ -43,6 +49,11 @@ public class Tutorial : MonoBehaviour
                     currentTask = 2;
                 }
 
+#if UNITY_ANDROID || UNITY_IOS
+                animations[0].gameObject.SetActive(false);
+                animations[1].enabled = true;
+#endif
+
                 break;
             case 2:
                 if (Player.Instance.state == EntityState.Attack)
@@ -50,6 +61,11 @@ public class Tutorial : MonoBehaviour
                     GameDirector.Instance.UpdateQuest("New Beginnings", 3);
                     currentTask = 3;
                 }
+
+#if UNITY_ANDROID || UNITY_IOS
+                animations[1].gameObject.SetActive(false);
+                animations[2].enabled = true;
+#endif
 
                 break;
             case 3:
@@ -61,10 +77,18 @@ public class Tutorial : MonoBehaviour
                     currentTask = 4;
                 }
 
+#if UNITY_ANDROID || UNITY_IOS
+                animations[2].gameObject.SetActive(false);
+#endif
                 break;
             case 4:
+
                 if (healthTest && healthTest.healthPercent <= 0)
                 {
+#if UNITY_ANDROID || UNITY_IOS
+
+                    animations[3].gameObject.SetActive(false);
+#endif
                     waitTime = Time.time + 4f;
                     currentTask = 5;
                 }
@@ -75,6 +99,9 @@ public class Tutorial : MonoBehaviour
                         if (copy.createdObjects[0].Result.TryGetComponent(out BaseCommon baseCommon))
                         {
                             healthTest = baseCommon;
+#if UNITY_ANDROID || UNITY_IOS
+                            animations[3].enabled = true;
+#endif
                         }
                     }
                 }

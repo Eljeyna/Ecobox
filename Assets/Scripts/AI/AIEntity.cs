@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 public enum EntityState
 {
     None   = 0,
-    Normal = 1,     // Idle/Move animation
+    Normal = 1,     // Idle/Move/Jump animation
     Dash   = 2,
     Stun   = 3,
     Swing  = 4,
@@ -36,6 +36,7 @@ public abstract class AIEntity : MonoBehaviour
             aiPath.maxSpeed = speed;
         }
     }
+    public bool isGrounded;
     
     public float speed;
     public float defaultEndReachedDistance;
@@ -45,7 +46,7 @@ public abstract class AIEntity : MonoBehaviour
     public BaseTag thisTag;
     public BaseCommon thisEntity;
     public Transform target;
-    public Vector3 targetDirection;
+    public Vector3 targetDirection = new Vector3(1f, 0f, 0f);
     public BuffSystem buffSystem;
     public Animator animations;
     public AIPath aiPath;
@@ -60,14 +61,26 @@ public abstract class AIEntity : MonoBehaviour
     protected bool isEnemy;
     protected Vector3 dashDirection;
 
+    private void FixedUpdate()
+    {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+
+        isGrounded = IsGrounded();
+    }
+
     public void InitializeEntity()
     {
         state = EntityState.Normal;
         //aiEntity.target = null;
+
         if (Player.Instance)
         {
             UpdateTarget(Player.Instance.transform);
         }
+
         Speed = speed;
         defaultEndReachedDistance = aiPath.endReachedDistance;
     }
@@ -110,11 +123,15 @@ public abstract class AIEntity : MonoBehaviour
             case EntityState.Death:
                 StateDeath();
                 break;
+            case EntityState.Jump:
+                StateJump();
+                break;
             default:
                 state = EntityState.None;
                 break;
+
         }
-        
+
         SetAnimation();
     }
 
@@ -183,17 +200,22 @@ public abstract class AIEntity : MonoBehaviour
         }
     }
 
-    public void StateSwing()
+    public virtual void StateSwing()
     {
         return;
     }
 
-    public void StateAttack()
+    public virtual void StateAttack()
     {
         return;
     }
 
-    public void StateCast()
+    public virtual void StateCast()
+    {
+        return;
+    }
+
+    public virtual void StateJump()
     {
         return;
     }
@@ -218,6 +240,7 @@ public abstract class AIEntity : MonoBehaviour
     {
         animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
         animations.SetBool(StaticGameVariables.animationMoveKeyID, !aiPath.reachedDestination);
+        animations.SetBool(StaticGameVariables.animationJumpKeyID, !isGrounded);
     }
     
     public virtual void Attack()
@@ -300,8 +323,8 @@ public abstract class AIEntity : MonoBehaviour
         }
 
         rb.simulated = false;
+        rb.isKinematic = true;
         deathTime = Time.time + 3f;
-        Destroy(thisCollider);
         state = EntityState.Death;
     }
 
