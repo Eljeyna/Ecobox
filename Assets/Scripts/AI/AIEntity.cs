@@ -56,7 +56,6 @@ public abstract class AIEntity : MonoBehaviour
     protected Vector3 dashDirection;
 
     [HideInInspector] public float moveVelocity;
-
     private void FixedUpdate()
     {
         if (StaticGameVariables.isPause)
@@ -163,7 +162,7 @@ public abstract class AIEntity : MonoBehaviour
         }
 
         moveVelocity = transform.localScale.x * Speed;
-        //rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
 
     public virtual void StateDash()
@@ -237,7 +236,8 @@ public abstract class AIEntity : MonoBehaviour
 
     public bool IsGrounded()
     {
-        int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f);
+        int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center * 0.99f, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f);
+        //int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f, StaticGameVariables.obstacleMask);
         return hits > 1;
     }
 
