@@ -51,11 +51,18 @@ public abstract class AIEntity : MonoBehaviour
     public float deathTime;
 
     protected RaycastHit2D[] groundCheck = new RaycastHit2D[2];
+    protected Vector3 groundCheckBox;
     protected Collider2D[] entity = new Collider2D[2];
     protected bool isEnemy;
     protected Vector3 dashDirection;
 
     [HideInInspector] public float moveVelocity;
+
+    private void Awake()
+    {
+        groundCheckBox = thisCollider.bounds.size * 0.99f;
+    }
+
     private void FixedUpdate()
     {
         if (StaticGameVariables.isPause)
@@ -91,6 +98,11 @@ public abstract class AIEntity : MonoBehaviour
         if (StaticGameVariables.isPause)
         {
             return;
+        }
+
+        if ((thisTag.entityTag & Tags.FL_ENEMY) != 0)
+        {
+            Debug.Log(state + "\n" + rb.velocity.x);
         }
 
         switch (state)
@@ -162,7 +174,7 @@ public abstract class AIEntity : MonoBehaviour
         }
 
         moveVelocity = transform.localScale.x * Speed;
-        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        //rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
 
     public virtual void StateDash()
@@ -236,7 +248,8 @@ public abstract class AIEntity : MonoBehaviour
 
     public bool IsGrounded()
     {
-        int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center * 0.99f, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f);
+        int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, groundCheckBox, 0f, Vector2.down, groundCheck, 0.1f);
+        //int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center * 0.99f, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f);
         //int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f, StaticGameVariables.obstacleMask);
         return hits > 1;
     }

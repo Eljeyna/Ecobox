@@ -65,6 +65,7 @@ public class Player : AIEntity, ISaveState
         Instance = this;
         controls = new NewInputSystem();
         
+        groundCheckBox = thisCollider.bounds.size * 0.99f;
         state = EntityState.Normal;
         thisEntity.OnHealthChanged -= OnDamaged;
 
