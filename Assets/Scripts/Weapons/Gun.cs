@@ -99,7 +99,7 @@ public abstract class Gun : MonoBehaviour
 
     public virtual void PrimaryAttack()
     {
-        entity.rb.velocity = new Vector2(0f, entity.rb.velocity.y);
+        entity.StopForces();
 
         if (gunData.delay == 0f)
         {

@@ -55,12 +55,14 @@ public abstract class AIEntity : MonoBehaviour
     protected Collider2D[] entity = new Collider2D[2];
     protected bool isEnemy;
     protected Vector3 dashDirection;
+    protected float needDistanceBetweenTarget;
 
     [HideInInspector] public float moveVelocity;
 
     private void Awake()
     {
         groundCheckBox = thisCollider.bounds.size * 0.99f;
+        StopForces();
     }
 
     private void FixedUpdate()
@@ -75,8 +77,6 @@ public abstract class AIEntity : MonoBehaviour
 
     public void InitializeEntity()
     {
-        rb.velocity = Vector2.zero;
-
         state = EntityState.Normal;
 
         if (Player.Instance)
@@ -100,10 +100,10 @@ public abstract class AIEntity : MonoBehaviour
             return;
         }
 
-        if ((thisTag.entityTag & Tags.FL_ENEMY) != 0)
+        /*if ((thisTag.entityTag & Tags.FL_ENEMY) != 0)
         {
             Debug.Log(state + "\n" + rb.velocity.x);
-        }
+        }*/
 
         switch (state)
         {
@@ -142,13 +142,13 @@ public abstract class AIEntity : MonoBehaviour
     {
         if (!target)
         {
-            rb.velocity = new Vector2(0f, rb.velocity.y);
+            StopForces();
             return;
         }
 
         float distance = Vector2.Distance(rb.position, target.position);
         
-        if (distance <= GetEndReachedDistance())
+        if (distance <= needDistanceBetweenTarget)
         {
             if (entity[0])
             {
@@ -174,7 +174,7 @@ public abstract class AIEntity : MonoBehaviour
         }
 
         moveVelocity = transform.localScale.x * Speed;
-        //rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
 
     public virtual void StateDash()
@@ -184,21 +184,24 @@ public abstract class AIEntity : MonoBehaviour
     
     public virtual void StateStun()
     {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
+        StopForces();
     }
 
     public virtual void StateSwing()
     {
+        StopForces();
         return;
     }
 
     public virtual void StateAttack()
     {
+        StopForces();
         return;
     }
 
     public virtual void StateCast()
     {
+        StopForces();
         return;
     }
 
@@ -246,6 +249,12 @@ public abstract class AIEntity : MonoBehaviour
         weapon.PrimaryAttack();
     }
 
+    public void StopForces()
+    {
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+        rb.angularVelocity = 0f;
+    }
+
     public bool IsGrounded()
     {
         int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, groundCheckBox, 0f, Vector2.down, groundCheck, 0.1f);
@@ -261,12 +270,12 @@ public abstract class AIEntity : MonoBehaviour
         if (target.TryGetComponent(out BaseTag theTag) && Damage.IsEnemy(thisTag, theTag))
         {
             isEnemy = true;
-            //aiPath.endReachedDistance = GetEndReachedDistance() - defaultEndReachedDistance;
+            needDistanceBetweenTarget = GetEndReachedDistance();
         }
         else
         {
             isEnemy = false;
-            //aiPath.endReachedDistance = defaultEndReachedDistance;
+            needDistanceBetweenTarget = 0.1f;
         }
     }
     
@@ -298,7 +307,7 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void OnDie(object sender, EventArgs e)
     {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
+        StopForces();
         rb.simulated = false;
         rb.isKinematic = true;
         deathTime = Time.time + 3f;

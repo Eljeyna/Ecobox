@@ -155,7 +155,7 @@ public class Player : AIEntity, ISaveState
         if (moveX == 0f)
         {
             moveVelocity = 0f;
-            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+            StopForces();
         }
         else
         {
@@ -178,7 +178,7 @@ public class Player : AIEntity, ISaveState
         if (joystickMove.Direction == Vector2.zero)
         {
             moveVelocity = 0f;
-            rb.velocity = new Vector2(0f, rb.velocity.y);
+            StopForces();
         }
         else
         {
@@ -219,12 +219,12 @@ public class Player : AIEntity, ISaveState
     
     public override void StateStun()
     {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
+        StopForces();
     }
-    
+
     public override void StateDeath()
     {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
+        StopForces();
         state = EntityState.None;
         OnLoad();
     }
