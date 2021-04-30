@@ -349,7 +349,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   stats: {fileID: 8664085281891089352}
   gunPosition: {fileID: 8664085282287830534}
-  gender: 1
+  gender: 0
   dashing: 1
   fightCount: 0
   weaponItem: {fileID: 0}

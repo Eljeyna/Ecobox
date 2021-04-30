@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class NewInputSystem : IInputActionCollection, IDisposable
+public class @NewInputSystem : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public NewInputSystem()
+    public @NewInputSystem()
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""NewInputSystem"",
