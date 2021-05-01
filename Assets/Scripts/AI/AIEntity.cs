@@ -143,6 +143,7 @@ public abstract class AIEntity : MonoBehaviour
             if (isEnemy)
             {
                 Attack();
+                return;
             }
         }
 
@@ -241,10 +242,9 @@ public abstract class AIEntity : MonoBehaviour
     }
     public void Standing()
     {
-        moveVelocity = 0f;
-
         if (Mathf.Abs(rb.velocity.x) <= speed)
         {
+            moveVelocity = 0f;
             rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
         }
     }

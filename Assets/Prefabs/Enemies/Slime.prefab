@@ -155,7 +155,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.05
   m_AngularDrag: 0
   m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: 5c00987cf5d47724fa3b14babb2c7784, type: 2}
@@ -353,5 +353,6 @@ MonoBehaviour:
   animations: {fileID: 1883501996}
   weapon: {fileID: 6753366706675599891}
   deathTime: 0
+  stunTime: 0
   moveVelocity: 0
   inventory: {fileID: 8023196567392388234}
