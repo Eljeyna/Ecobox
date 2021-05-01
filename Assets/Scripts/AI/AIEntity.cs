@@ -290,7 +290,7 @@ public abstract class AIEntity : MonoBehaviour
 
         Standing();
         state = EntityState.Stun;
-        stunTime = Time.time + 1f;
+        stunTime = Time.time + 0.5f;
 
         if ((thisTag.entityTag & Tags.FL_PLAYER) != 0)
         {

@@ -119,7 +119,7 @@ public class Tutorial : MonoBehaviour
                 }
 
                 SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
-
+                currentTask = -1;
                 break;
             default:
                 Destroy(this);

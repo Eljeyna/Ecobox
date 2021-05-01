@@ -218,7 +218,11 @@ public class Player : AIEntity, ISaveState
 
     public override void StateDeath()
     {
-        state = EntityState.None;
+        if (deathTime > Time.time)
+        {
+            return;
+        }
+
         OnLoad();
     }
     
@@ -419,7 +423,15 @@ public class Player : AIEntity, ISaveState
                 break;
         }
     }
-    
+
+    public override void OnDie(object sender, EventArgs e)
+    {
+        rb.simulated = false;
+        rb.isKinematic = true;
+        deathTime = Time.time + 1.5f;
+        state = EntityState.Death;
+    }
+
     public override void EventEnable()
     {
         base.EventEnable();
