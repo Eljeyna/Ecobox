@@ -27,32 +27,38 @@ MonoBehaviour:
     m_Address: Assets/_Packs/Fonts/Comic Nefors SDF.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 11400000, guid: a379f58f339a1fb408624ee6c249d975, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: a379f58f339a1fb408624ee6c249d975, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 68e6db2ebdc24f95958faec2be5558d6
     m_Address: Assets/_Packs/TextMesh Pro/Shaders/TMP_SDF.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-    m_TargetAsset: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
     m_Address: Assets/_Packs/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
-    m_TargetAsset: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e3265ab4bf004d28a9537516768c1c75
     m_Address: Assets/_Packs/TextMesh Pro/Fonts/LiberationSans.ttf
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-    m_TargetAsset: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: c6d0c8bebb99e0c4daf40508dba657db
     m_Address: Assets/_Packs/Fonts/Comic Nefors.ttf
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 12800000, guid: c6d0c8bebb99e0c4daf40508dba657db, type: 3}
-    m_TargetAsset: {fileID: 12800000, guid: c6d0c8bebb99e0c4daf40508dba657db, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 9c7bef9eed3995548b8fd77fd8bcd7dd
+    m_Address: Assets/_Packs/Fonts/PoiretOne-Regular SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

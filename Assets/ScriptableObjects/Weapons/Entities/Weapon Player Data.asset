@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon Player Data
   m_EditorClassIdentifier: 
   damageType: 0
-  damage: 3
+  damage: 5
   radius: 1.75
   range: 2
   delay: 0

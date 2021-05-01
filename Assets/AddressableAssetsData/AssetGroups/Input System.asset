@@ -16,7 +16,23 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: c847c6a4209dd864087f8f1bc2e1a2e7
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: ca9f5fa95ffab41fb9a615ab714db018
+    m_Address: Packages/com.unity.inputsystem/InputSystem/Plugins/PlayerInput/DefaultInputActions.inputactions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+      type: 3}
+    m_TargetAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+      type: 3}
+  - m_GUID: 0ae0bf6f63225414688303ae4aa6172d
+    m_Address: Assets/Scripts/InputSystem/NewInputSystem.inputactions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: -944628639613478452, guid: 0ae0bf6f63225414688303ae4aa6172d,
+      type: 3}
+    m_TargetAsset: {fileID: -944628639613478452, guid: 0ae0bf6f63225414688303ae4aa6172d,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

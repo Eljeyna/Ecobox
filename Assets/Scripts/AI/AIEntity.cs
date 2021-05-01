@@ -275,7 +275,7 @@ public abstract class AIEntity : MonoBehaviour
     {
         if (target.TryGetComponent(out Collider2D entityCollider))
         {
-            return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider);
+            return StaticGameVariables.GetReachedDistance(entityCollider) - weapon.gunData.range;
         }
         
         return weapon.gunData.range;
