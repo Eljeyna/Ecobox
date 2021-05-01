@@ -444,18 +444,15 @@ public static class StaticGameVariables
     public static void PauseGame()
     {
         isPause = true;
+        Time.timeScale = 0f;
         OnPauseGame?.Invoke(GameDirector.Instance, System.EventArgs.Empty);
     }
 
     public static void ResumeGame()
     {
+        Time.timeScale = 1f;
         isPause = false;
         OnPauseGame?.Invoke(GameDirector.Instance, System.EventArgs.Empty);
-    }
-
-    public static float WaitInPause(float value)
-    {
-        return value + Time.deltaTime;
     }
 
     public static void ValueChangeCheck()
@@ -478,7 +475,6 @@ public static class StaticGameVariables
     {
         Vector2 size = collider.bounds.size;
         return (size.x + size.y) / 2;
-        //return collider.size.x / 2;
     }
 
     public static float GetAngleBetweenPositions(Vector3 pos1, Vector3 pos2)

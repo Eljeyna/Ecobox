@@ -41,7 +41,6 @@ public abstract class Gun : MonoBehaviour
     {
         if (StaticGameVariables.isPause && delay != 0f)
         {
-            delay = StaticGameVariables.WaitInPause(delay);
             return;
         }
 
@@ -99,6 +98,8 @@ public abstract class Gun : MonoBehaviour
 
     public virtual void PrimaryAttack()
     {
+        entity.Standing();
+
         if (gunData.delay == 0f)
         {
             entity.state = EntityState.Attack;

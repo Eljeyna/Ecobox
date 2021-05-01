@@ -64,9 +64,8 @@ public class Player : AIEntity, ISaveState
     {
         Instance = this;
         controls = new NewInputSystem();
-        
+
         state = EntityState.Normal;
-        thisEntity.OnHealthChanged -= OnDamaged;
 
         layerItems = 1 << 30;
         entity = new Collider2D[2];
@@ -155,10 +154,11 @@ public class Player : AIEntity, ISaveState
         {
             Standing();
         }
-        else if (rb.velocity.x == 0f)
+        else
         {
-            moveVelocity = moveX * speed;
-            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+            moveVelocity = moveX * speed - rb.velocity.x;
+            rb.velocity += new Vector2(moveVelocity, 0f);
+
             targetDirection = new Vector3(moveX, 0f, 0f);
 
             if (moveVelocity > 0f)
@@ -178,10 +178,11 @@ public class Player : AIEntity, ISaveState
         {
             Standing();
         }
-        else if (rb.velocity.x == 0f)
+        else
         {
-            moveVelocity = joystickMove.Direction.normalized.x;
-            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+            moveVelocity = joystickMove.Direction.normalized.x * speed - rb.velocity.x;
+            rb.velocity += new Vector2(moveVelocity, 0f);
+
             targetDirection = new Vector3(moveX, 0f, 0f);
 
             if (joystickAttack.Direction.x == 0f)
@@ -210,13 +211,9 @@ public class Player : AIEntity, ISaveState
         {
             float dashSpeed = dash.dashSpeed.Evaluate(dash.dashEvaluateTime);
             moveVelocity = transform.localScale.x * dashSpeed;
+            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
             dash.dashEvaluateTime += Time.deltaTime;
         }
-    }
-    
-    public override void StateStun()
-    {
-        return;
     }
 
     public override void StateDeath()
@@ -228,7 +225,7 @@ public class Player : AIEntity, ISaveState
     public override void SetAnimation()
     {
         animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
-        animations.SetBool(StaticGameVariables.animationMoveKeyID, moveVelocity != 0f);
+        animations.SetBool(StaticGameVariables.animationMoveKeyID, rb.velocity.x != 0f);
         animations.SetBool(StaticGameVariables.animationJumpKeyID, !isGrounded);
     }
     
@@ -367,13 +364,6 @@ public class Player : AIEntity, ISaveState
         //StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
         SceneLoading.Instance.SwitchToScene(SceneManager.GetActiveScene().name, SceneLoading.startAnimationID);
     }
-    
-    public override void OnPause(object sender, EventArgs e)
-    {
-        rb.simulated = !StaticGameVariables.isPause;
-        animations.speed = StaticGameVariables.isPause ? 0f : 1f;
-    }
-
 
     private void Attack_performed(InputAction.CallbackContext obj)
     {

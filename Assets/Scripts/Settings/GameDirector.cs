@@ -175,7 +175,6 @@ public class GameDirector : MonoBehaviour
         Player.Instance.cam.m_Lens.OrthographicSize = 7f;
 
         GameUI.Instance.dialogueBox.enabled = true;
-        GameUI.Instance.circleRepeat.SetActive(true);
     }
 
     public void StopDialogue()
@@ -188,7 +187,6 @@ public class GameDirector : MonoBehaviour
         Addressables.ReleaseInstance(dialogue.gameObject);
 
         GameUI.Instance.dialogueBox.enabled = false;
-        GameUI.Instance.circleRepeat.SetActive(false);
 
         if (controlAfter)
         {

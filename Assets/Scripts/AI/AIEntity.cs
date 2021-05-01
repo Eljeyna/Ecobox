@@ -47,6 +47,7 @@ public abstract class AIEntity : MonoBehaviour
     public Gun weapon;
 
     public float deathTime;
+    public float stunTime;
 
     protected RaycastHit2D[] groundCheck = new RaycastHit2D[2];
     protected Collider2D[] entity = new Collider2D[1];
@@ -156,8 +157,8 @@ public abstract class AIEntity : MonoBehaviour
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
-        moveVelocity = transform.localScale.x * speed;
-        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        moveVelocity = transform.localScale.x * speed - rb.velocity.x;
+        rb.velocity += new Vector2(moveVelocity, 0f);
     }
 
     public virtual void StateDash()
@@ -167,7 +168,17 @@ public abstract class AIEntity : MonoBehaviour
     
     public virtual void StateStun()
     {
-        return;
+        if (stunTime > Time.time)
+        {
+            return;
+        }
+
+        state = EntityState.Normal;
+
+        if ((thisTag.entityTag & Tags.FL_PLAYER) != 0)
+        {
+            thisEntity.invinsibility = false;
+        }
     }
 
     public virtual void StateSwing()
@@ -203,7 +214,7 @@ public abstract class AIEntity : MonoBehaviour
     public virtual void SetAnimation()
     {
         animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
-        animations.SetBool(StaticGameVariables.animationMoveKeyID, moveVelocity != 0f);
+        animations.SetBool(StaticGameVariables.animationMoveKeyID, rb.velocity.x != 0f);
         animations.SetBool(StaticGameVariables.animationJumpKeyID, !isGrounded);
     }
 
@@ -231,7 +242,11 @@ public abstract class AIEntity : MonoBehaviour
     public void Standing()
     {
         moveVelocity = 0f;
-        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+
+        if (Mathf.Abs(rb.velocity.x) <= speed)
+        {
+            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+        }
     }
 
     public bool IsGrounded()
@@ -266,20 +281,21 @@ public abstract class AIEntity : MonoBehaviour
         return weapon.gunData.range;
     }
 
-    public virtual void OnPause(object sender, EventArgs e)
-    {
-        rb.simulated = !StaticGameVariables.isPause;
-        animations.speed = StaticGameVariables.isPause ? 0f : 1f;
-    }
-
     public void OnDamaged(object sender, EventArgs e)
     {
-        /*if (!target && transform.parent && transform.parent.TryGetComponent(out EntityMaker entityMaker))
+        if (thisEntity.flagDeath)
         {
-            entityMaker.isTrigger = true;
-            entityMaker.target = thisEntity.attacker.transform;
-            entityMaker.UpdateTarget();
-        }*/
+            return;
+        }
+
+        Standing();
+        state = EntityState.Stun;
+        stunTime = Time.time + 1f;
+
+        if ((thisTag.entityTag & Tags.FL_PLAYER) != 0)
+        {
+            thisEntity.invinsibility = true;
+        }
     }
 
     public virtual void OnDie(object sender, EventArgs e)
@@ -292,21 +308,18 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void EventEnable()
     {
-        StaticGameVariables.OnPauseGame += OnPause;
         thisEntity.OnHealthChanged += OnDamaged;
         thisEntity.OnDie += OnDie;
     }
     
     public virtual void EventDisable()
     {
-        StaticGameVariables.OnPauseGame -= OnPause;
         thisEntity.OnHealthChanged -= OnDamaged;
         thisEntity.OnDie -= OnDie;
     }
     
     public virtual void EventDestroy()
     {
-        StaticGameVariables.OnPauseGame -= OnPause;
         thisEntity.OnHealthChanged -= OnDamaged;
         thisEntity.OnDie -= OnDie;
         

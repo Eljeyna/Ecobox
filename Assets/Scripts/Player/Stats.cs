@@ -30,7 +30,6 @@ public class Stats : MonoBehaviour
     {
         if (StaticGameVariables.isPause)
         {
-            nextStaminaRegen = StaticGameVariables.WaitInPause(nextStaminaRegen);
             return;
         }
         

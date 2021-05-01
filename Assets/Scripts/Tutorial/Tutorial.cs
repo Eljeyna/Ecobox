@@ -15,10 +15,15 @@ public class Tutorial : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (StaticGameVariables.isPause)
+        {
+            return;
+        }
+
         switch (currentTask)
         {
             case 0:
-                moveVelocity = Player.Instance.moveVelocity;
+                moveVelocity = Player.Instance.rb.velocity.x;
 
                 if (!checks[0] && newMoveVelocity < moveVelocity)
                 {
@@ -113,7 +118,7 @@ public class Tutorial : MonoBehaviour
                     return;
                 }
 
-                SceneLoading.Instance.LoadLevel("MainMenu");
+                SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
 
                 break;
             default:

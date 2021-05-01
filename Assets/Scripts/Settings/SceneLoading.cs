@@ -12,6 +12,8 @@ public class SceneLoading : MonoBehaviour
     private AsyncOperationHandle<SceneInstance> loadSceneAsync;
 
     private bool playAnim = false;
+    private float waitTime;
+    private string scene;
     
     public static readonly int startAnimationID = Animator.StringToHash("Start");
     public static readonly int endAnimationID = Animator.StringToHash("End");
@@ -23,6 +25,7 @@ public class SceneLoading : MonoBehaviour
         if (ReferenceEquals(Instance, null))
         {
             Instance = this;
+
             if (transform.GetChild(0).TryGetComponent(out Animator animator))
             {
                 anim = animator;
@@ -42,22 +45,34 @@ public class SceneLoading : MonoBehaviour
         }
     }
 
-    public void SwitchToScene(string sceneName, string animId)
+    private void Update()
     {
-        anim.SetTrigger(animId);
-        LoadLevel(sceneName);
+        if (waitTime == 0f || waitTime > Time.unscaledTime)
+        {
+            return;
+        }
+
+        waitTime = 0f;
+        this.enabled = false;
+        LoadLevel(scene);
     }
 
     public void SwitchToScene(string sceneName, int animId)
     {
+        scene = sceneName;
         anim.SetTrigger(animId);
-        LoadLevel(sceneName);
+        SwitchToScene();
+    }
+
+    public void SwitchToScene()
+    {
+        waitTime = Time.unscaledTime + 1f;
+        StaticGameVariables.PauseGame();
+        this.enabled = true;
     }
 
     public async void LoadLevel(string sceneName)
     {
-        StaticGameVariables.PauseGame();
-        
         if (Player.Instance)
         {
             Player.Instance.inventory.ClearInventory();

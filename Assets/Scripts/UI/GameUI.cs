@@ -10,7 +10,6 @@ public class GameUI : MonoBehaviour
     public TMP_Text dialogueBoxName;
     public DialogueButton[] dialogueButtons;
     public InvisibleButton invisibleButton;
-    public GameObject circleRepeat;
     public Joystick joystickMove;
     public Joystick joystickAttack;
 

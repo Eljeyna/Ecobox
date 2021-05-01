@@ -22,7 +22,7 @@ public class Damage : MonoBehaviour
 
                             if (force > 0f && enemy.attachedRigidbody)
                             {
-                                enemy.attachedRigidbody.AddForce(-enemy.transform.localScale * force, ForceMode2D.Impulse);
+                                enemy.attachedRigidbody.AddForce(attacker.transform.localScale * force, ForceMode2D.Impulse);
                             }
                         }
                     }
