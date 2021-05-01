@@ -33,7 +33,7 @@ public class ProjectilePistol : Projectile
                 if (bulletData.radius > 0f)
                 {
                     Damage.RadiusDamage(owner.gameObject, transform.position, bulletData.radius,
-                        bulletData.damageType, bulletData.damage, 1 << gameObject.layer);
+                        bulletData.damageType, bulletData.damage, 0f, 1 << gameObject.layer);
                 }
                 else
                 {

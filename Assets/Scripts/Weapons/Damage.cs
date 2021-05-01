@@ -4,7 +4,7 @@ public class Damage : MonoBehaviour
 {
     private static Collider2D[] targets = new Collider2D[10];
 
-    public static void RadiusDamage(GameObject attacker, Vector3 pos, float radius, WeaponDamageType damageType, float amount, LayerMask mask)
+    public static void RadiusDamage(GameObject attacker, Vector3 pos, float radius, WeaponDamageType damageType, float amount, float force, LayerMask mask)
     {
         int length = Physics2D.OverlapCircleNonAlloc(pos, radius, targets, mask);
 
@@ -18,7 +18,12 @@ public class Damage : MonoBehaviour
                     {
                         if (enemy.TryGetComponent(out BaseEntity entity) && attacker.TryGetComponent(out BaseEntity thisEntity))
                         {
-                            entity.TakeDamage(amount, (int) damageType, thisEntity);
+                            entity.TakeDamage(amount, (int)damageType, thisEntity);
+
+                            if (force > 0f && enemy.attachedRigidbody)
+                            {
+                                enemy.attachedRigidbody.AddForce(-enemy.transform.localScale * force, ForceMode2D.Impulse);
+                            }
                         }
                     }
                 }

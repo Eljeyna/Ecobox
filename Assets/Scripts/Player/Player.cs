@@ -65,7 +65,6 @@ public class Player : AIEntity, ISaveState
         Instance = this;
         controls = new NewInputSystem();
         
-        groundCheckBox = thisCollider.bounds.size * 0.99f;
         state = EntityState.Normal;
         thisEntity.OnHealthChanged -= OnDamaged;
 
@@ -154,12 +153,11 @@ public class Player : AIEntity, ISaveState
 
         if (moveX == 0f)
         {
-            moveVelocity = 0f;
-            StopForces();
+            Standing();
         }
-        else
+        else if (rb.velocity.x == 0f)
         {
-            moveVelocity = moveX * Speed;
+            moveVelocity = moveX * speed;
             rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
             targetDirection = new Vector3(moveX, 0f, 0f);
 
@@ -171,24 +169,23 @@ public class Player : AIEntity, ISaveState
             {
                 transform.localScale = new Vector3(-1f, 1f, 1f);
             }
+
             return;
         }
 
 #if UNITY_ANDROID || UNITY_IOS
         if (joystickMove.Direction == Vector2.zero)
         {
-            moveVelocity = 0f;
-            StopForces();
+            Standing();
         }
-        else
+        else if (rb.velocity.x == 0f)
         {
             moveVelocity = joystickMove.Direction.normalized.x;
+            rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
             targetDirection = new Vector3(moveX, 0f, 0f);
 
             if (joystickAttack.Direction.x == 0f)
             {
-                rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
-
                 if (moveVelocity > 0f)
                 {
                     transform.localScale = new Vector3(1f, 1f, 1f);
@@ -206,25 +203,24 @@ public class Player : AIEntity, ISaveState
     {
         if (dash.nextDash <= Time.time)
         {
-            rb.velocity = Vector2.zero;
+            Standing();
             state = EntityState.Normal;
         }
         else
         {
             float dashSpeed = dash.dashSpeed.Evaluate(dash.dashEvaluateTime);
-            rb.velocity = dashDirection * dashSpeed;
+            moveVelocity = transform.localScale.x * dashSpeed;
             dash.dashEvaluateTime += Time.deltaTime;
         }
     }
     
     public override void StateStun()
     {
-        StopForces();
+        return;
     }
 
     public override void StateDeath()
     {
-        StopForces();
         state = EntityState.None;
         OnLoad();
     }
@@ -270,37 +266,6 @@ public class Player : AIEntity, ISaveState
         }
 
         weapon.enabled = true;
-        
-        /*if (!target)
-        {
-            Physics2D.OverlapCircleNonAlloc(transform.position, 
-                weapon.gunData.range + weapon.gunData.radius + searchEntityRadius,
-                entity, 1 << gameObject.layer);
-
-            if (entity[1])
-            {
-                if (entity[1].TryGetComponent(out BaseTag tagEntity) && Damage.IsEnemy(tagEntity, thisTag))
-                {
-                    target = entity[1].transform;
-                    targetDirection = (target.position - transform.position).normalized;
-                }  
-            }
-        }
-
-        if (target)
-        {
-            float angle = StaticGameVariables.GetAngleBetweenPositions(target.position, transform.position);
-
-            if (angle <= 90f && angle >= -90f)
-            {
-                transform.localScale = new Vector3(1f, 1f, 1f);
-            }
-            else
-            {
-                transform.localScale = new Vector3(-1f, 1f, 1f);
-            }
-        }*/
-
         weapon.PrimaryAttack();
     }
 
@@ -355,12 +320,12 @@ public class Player : AIEntity, ISaveState
     {
         if (!StaticGameVariables.isPause && dashing && state == EntityState.Normal && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
+            Standing();
             dashing = false;
             stats.nextStaminaRegen = Time.time + stats.staminaTimeRegenWhenUse;
             stats.stamina -= dash.staminaCost;
             stats.OnStaminaChanged?.Invoke(this, EventArgs.Empty);
             dash.dashEvaluateTime = 0f;
-            dashDirection = targetDirection;
             dash.enabled = true;
             dash.Use();
             state = EntityState.Dash;
@@ -438,23 +403,30 @@ public class Player : AIEntity, ISaveState
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == (int)GameLayers.Spawners) // Spawners
+        switch (collision.gameObject.layer)
         {
-            if (collision.TryGetComponent(out EntityMaker entityMaker))
-            {
-                entityMaker.isTrigger = true;
-                entityMaker.enabled = true;
-            }
-            
-            return;
-        }
-        
-        if (collision.gameObject.layer == (int)GameLayers.Items) // Items
-        {
-            if (collision.TryGetComponent(out ItemWorld itemWorld))
-            {
-                PickUpItem(itemWorld);
-            }
+            case (int)GameLayers.TrashBin:
+                if (collision.TryGetComponent(out TrashBin trashBin))
+                {
+                    Debug.Log("Trash!");
+                }
+
+                 break;
+            case (int)GameLayers.Spawners:
+                if (collision.TryGetComponent(out EntityMaker entityMaker))
+                {
+                    entityMaker.isTrigger = true;
+                    entityMaker.enabled = true;
+                }
+
+                break;
+            case (int)GameLayers.Items:
+                if (collision.TryGetComponent(out ItemWorld itemWorld))
+                {
+                    PickUpItem(itemWorld);
+                }
+
+                break;
         }
     }
     

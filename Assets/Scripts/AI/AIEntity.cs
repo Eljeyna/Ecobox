@@ -18,27 +18,25 @@ public enum GameLayers
 {
     Entities = 8,
     Spawners = 20,
+    TrashBin = 28,
     Minimap = 29,
     Items = 30,
     Obstacles = 31,
 }
 
+public enum GameLayerMasks
+{
+    Obstacles = (1 << 31)
+}
+
 public abstract class AIEntity : MonoBehaviour
 {
-    public float Speed
-    {
-        get => speed;
-        set
-        {
-            speed = value;
-        }
-    }
     public bool isGrounded;
     public bool isJumping;
     
     public float speed;
     public Rigidbody2D rb;
-    public CapsuleCollider2D thisCollider;
+    public Collider2D thisCollider;
     public EntityState state;
     public BaseTag thisTag;
     public BaseCommon thisEntity;
@@ -51,19 +49,11 @@ public abstract class AIEntity : MonoBehaviour
     public float deathTime;
 
     protected RaycastHit2D[] groundCheck = new RaycastHit2D[2];
-    protected Vector3 groundCheckBox;
-    protected Collider2D[] entity = new Collider2D[2];
+    protected Collider2D[] entity = new Collider2D[1];
     protected bool isEnemy;
-    protected Vector3 dashDirection;
     protected float needDistanceBetweenTarget;
 
     [HideInInspector] public float moveVelocity;
-
-    private void Awake()
-    {
-        groundCheckBox = thisCollider.bounds.size * 0.99f;
-        StopForces();
-    }
 
     private void FixedUpdate()
     {
@@ -83,8 +73,6 @@ public abstract class AIEntity : MonoBehaviour
         {
             UpdateTarget(Player.Instance.transform);
         }
-
-        Speed = speed;
     }
 
     public async void InitializeTarget()
@@ -99,11 +87,6 @@ public abstract class AIEntity : MonoBehaviour
         {
             return;
         }
-
-        /*if ((thisTag.entityTag & Tags.FL_ENEMY) != 0)
-        {
-            Debug.Log(state + "\n" + rb.velocity.x);
-        }*/
 
         switch (state)
         {
@@ -142,7 +125,7 @@ public abstract class AIEntity : MonoBehaviour
     {
         if (!target)
         {
-            StopForces();
+            Standing();
             return;
         }
 
@@ -173,7 +156,7 @@ public abstract class AIEntity : MonoBehaviour
             transform.localScale = new Vector3(-1f, 1f, 1f);
         }
 
-        moveVelocity = transform.localScale.x * Speed;
+        moveVelocity = transform.localScale.x * speed;
         rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
 
@@ -184,24 +167,21 @@ public abstract class AIEntity : MonoBehaviour
     
     public virtual void StateStun()
     {
-        StopForces();
+        return;
     }
 
     public virtual void StateSwing()
     {
-        StopForces();
         return;
     }
 
     public virtual void StateAttack()
     {
-        StopForces();
         return;
     }
 
     public virtual void StateCast()
     {
-        StopForces();
         return;
     }
 
@@ -226,7 +206,7 @@ public abstract class AIEntity : MonoBehaviour
         animations.SetBool(StaticGameVariables.animationMoveKeyID, moveVelocity != 0f);
         animations.SetBool(StaticGameVariables.animationJumpKeyID, !isGrounded);
     }
-    
+
     public virtual void Attack()
     {
         if (!weapon)
@@ -248,19 +228,16 @@ public abstract class AIEntity : MonoBehaviour
         targetDirection = (target.position - transform.position).normalized;
         weapon.PrimaryAttack();
     }
-
-    public void StopForces()
+    public void Standing()
     {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
-        rb.angularVelocity = 0f;
+        moveVelocity = 0f;
+        rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
     }
 
     public bool IsGrounded()
     {
-        int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, groundCheckBox, 0f, Vector2.down, groundCheck, 0.1f);
-        //int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center * 0.99f, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f);
-        //int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f, StaticGameVariables.obstacleMask);
-        return hits > 1;
+        int hits = Physics2D.BoxCastNonAlloc(thisCollider.bounds.center, thisCollider.bounds.size, 0f, Vector2.down, groundCheck, 0.1f, (int)GameLayerMasks.Obstacles);
+        return hits > 0;
     }
 
     public void UpdateTarget(Transform newTarget)
@@ -281,7 +258,7 @@ public abstract class AIEntity : MonoBehaviour
     
     public float GetEndReachedDistance()
     {
-        if (target.TryGetComponent(out CapsuleCollider2D entityCollider))
+        if (target.TryGetComponent(out Collider2D entityCollider))
         {
             return weapon.gunData.range + StaticGameVariables.GetReachedDistance(entityCollider);
         }
@@ -307,7 +284,6 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void OnDie(object sender, EventArgs e)
     {
-        StopForces();
         rb.simulated = false;
         rb.isKinematic = true;
         deathTime = Time.time + 3f;

@@ -474,9 +474,9 @@ public static class StaticGameVariables
         return random <= value;
     }
 
-    public static float GetReachedDistance(CapsuleCollider2D collider)
+    public static float GetReachedDistance(Collider2D collider)
     {
-        Vector2 size = collider.size;
+        Vector2 size = collider.bounds.size;
         return (size.x + size.y) / 2;
         //return collider.size.x / 2;
     }

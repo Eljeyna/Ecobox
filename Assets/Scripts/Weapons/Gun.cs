@@ -33,7 +33,7 @@ public abstract class Gun : MonoBehaviour
             return;
         }
         
-        Vector2 size = entity.thisCollider.size;
+        Vector2 size = entity.thisCollider.bounds.size;
         attackOffset = (size.x + size.y) / 2;
     }
 
@@ -99,8 +99,6 @@ public abstract class Gun : MonoBehaviour
 
     public virtual void PrimaryAttack()
     {
-        entity.StopForces();
-
         if (gunData.delay == 0f)
         {
             entity.state = EntityState.Attack;

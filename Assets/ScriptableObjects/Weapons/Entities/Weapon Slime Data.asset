@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Weapon Slime Data
   m_EditorClassIdentifier: 
   damageType: 0
-  damage: 100
+  damage: 5
   radius: 1
   range: 0.5
   delay: 1
   lateDelay: 0.5
   fireRatePrimary: 2
-  impactForce: 0
+  impactForce: 5
   reloadTime: 0
   autoreload: 0
   maxClip: -1

@@ -115,8 +115,8 @@ GameObject:
   - component: {fileID: 6753366706675599902}
   - component: {fileID: 6753366706675599903}
   - component: {fileID: 8023196567392388234}
+  - component: {fileID: 6874918407005955759}
   - component: {fileID: 6753366706675599889}
-  - component: {fileID: 6753366706675599896}
   - component: {fileID: 6753366706675599891}
   - component: {fileID: -4327144568771029104}
   - component: {fileID: 6753366706675599897}
@@ -154,7 +154,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000000
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 3
@@ -217,20 +217,8 @@ MonoBehaviour:
     m_SubObjectType: 
   chanceDrop:
   - 0.9
---- !u!114 &6753366706675599889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6753366706675599878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac840e9c0f4be7d46ace6a8617d1a837, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!70 &6753366706675599896
-CapsuleCollider2D:
+--- !u!61 &6874918407005955759
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -243,8 +231,30 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -1}
-  m_Size: {x: 1.75, y: 1}
-  m_Direction: 1
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &6753366706675599889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753366706675599878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac840e9c0f4be7d46ace6a8617d1a837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6753366706675599891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +343,7 @@ MonoBehaviour:
   isJumping: 0
   speed: 3
   rb: {fileID: 3431153763544919892}
-  thisCollider: {fileID: 6753366706675599896}
+  thisCollider: {fileID: 6874918407005955759}
   state: 0
   thisTag: {fileID: 6753366706675599902}
   thisEntity: {fileID: 6753366706675599903}

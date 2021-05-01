@@ -19,7 +19,7 @@ MonoBehaviour:
   delay: 0
   lateDelay: 0.2
   fireRatePrimary: 0.3
-  impactForce: 0
+  impactForce: 5
   reloadTime: 0
   autoreload: 0
   maxClip: -1

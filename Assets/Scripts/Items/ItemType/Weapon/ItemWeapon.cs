@@ -35,7 +35,8 @@ public class ItemWeapon : Item
                     if (weapon && weapon.TryGetComponent(out Gun gunA))
                     {
                         gunA.entity = Player.Instance;
-                        Vector2 size = Player.Instance.thisCollider.size;
+                        //Vector2 size = Player.Instance.thisCollider.size;
+                        Vector2 size = Player.Instance.thisCollider.bounds.size;
                         gunA.attackOffset = (size.x + size.y) / 2;
 
                         if (Player.Instance.weapon == noWeapon)

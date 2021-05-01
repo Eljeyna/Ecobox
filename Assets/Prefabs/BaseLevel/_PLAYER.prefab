@@ -115,8 +115,8 @@ GameObject:
   - component: {fileID: 8664085281891089347}
   - component: {fileID: 8664085281891089346}
   - component: {fileID: 8664085281891089345}
+  - component: {fileID: 3856828926585660304}
   - component: {fileID: 8664085281891089344}
-  - component: {fileID: 8664085281891089349}
   - component: {fileID: 8664085281891089348}
   - component: {fileID: 8664085281891089355}
   - component: {fileID: 8664085281891089354}
@@ -215,20 +215,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 0
---- !u!114 &8664085281891089344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8664085281891089359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac840e9c0f4be7d46ace6a8617d1a837, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!70 &8664085281891089349
-CapsuleCollider2D:
+--- !u!61 &3856828926585660304
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -241,8 +229,30 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.5}
-  m_Size: {x: 0.5, y: 3.5}
-  m_Direction: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 3}
+  m_EdgeRadius: 0
+--- !u!114 &8664085281891089344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8664085281891089359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac840e9c0f4be7d46ace6a8617d1a837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8664085281891089348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,12 +341,12 @@ MonoBehaviour:
   isJumping: 0
   speed: 6
   rb: {fileID: 8664085281891089372}
-  thisCollider: {fileID: 8664085281891089349}
+  thisCollider: {fileID: 3856828926585660304}
   state: 0
   thisTag: {fileID: 8664085281891089347}
   thisEntity: {fileID: 8664085281891089346}
   target: {fileID: 0}
-  targetDirection: {x: 0, y: 0, z: 0}
+  targetDirection: {x: 1, y: 0, z: 0}
   buffSystem: {fileID: 8664085281891089344}
   animations: {fileID: 2701567796575672074}
   weapon: {fileID: 8664085281891089348}
