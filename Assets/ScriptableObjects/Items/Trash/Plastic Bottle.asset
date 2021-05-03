@@ -24,7 +24,7 @@ MonoBehaviour:
   itemType: 3
   itemQuality: 0
   atlasSprite:
-    m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
-    m_SubObjectName: UI Health
+    m_AssetGUID: fc305c1c43aad9645b4c2fd6ba4091ff
+    m_SubObjectName: Trash PlasticBottle
     m_SubObjectType: 
   trashType: 0

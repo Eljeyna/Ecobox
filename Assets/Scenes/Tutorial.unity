@@ -22158,6 +22158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashType: 0
+  reward: {fileID: 0}
 --- !u!1 &1847751143
 GameObject:
   m_ObjectHideFlags: 0

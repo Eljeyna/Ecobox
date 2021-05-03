@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 151212571488212911}
   - component: {fileID: 151212571488212910}
   - component: {fileID: 151212571488212904}
+  - component: {fileID: 3094227110025819498}
   - component: {fileID: 7974340149060760723}
   m_Layer: 5
   m_Name: Joystick Move
@@ -190,6 +191,18 @@ MonoBehaviour:
   snapY: 0
   background: {fileID: 151212570477597235}
   handle: {fileID: 151212571799005225}
+--- !u!114 &3094227110025819498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151212571488212908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfaa137a2262704d88ae914e5886613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7974340149060760723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +603,7 @@ GameObject:
   - component: {fileID: 8802286725939279264}
   - component: {fileID: 5009782402010193386}
   - component: {fileID: 272778758793215289}
+  - component: {fileID: 2147459252304596868}
   - component: {fileID: 846969245711825877}
   - component: {fileID: 7035325649506568370}
   m_Layer: 5
@@ -712,6 +726,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2147459252304596868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2622751827533977617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfaa137a2262704d88ae914e5886613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &846969245711825877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,6 +871,8 @@ GameObject:
   - component: {fileID: 5015546298731816304}
   - component: {fileID: 5136471455315952081}
   - component: {fileID: 6163862731426286991}
+  - component: {fileID: 5050921459916690217}
+  - component: {fileID: 5543572404213251206}
   m_Layer: 5
   m_Name: Joystick Attack
   m_TagString: Untagged
@@ -942,6 +970,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 5136471455315952081}
+--- !u!114 &5050921459916690217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728845929612891942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfaa137a2262704d88ae914e5886613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5543572404213251206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728845929612891942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec2487c6c5a6244ca3a958d0053e4c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3752484387406677228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,6 +1082,7 @@ GameObject:
   - component: {fileID: 6646248501683537825}
   - component: {fileID: 7447839380874960381}
   - component: {fileID: 6631643086599322799}
+  - component: {fileID: 2569365799770327066}
   m_Layer: 5
   m_Name: Portrait Mask
   m_TagString: Untagged
@@ -1109,6 +1162,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
+--- !u!114 &2569365799770327066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385119168450262311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfaa137a2262704d88ae914e5886613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5973413354161599512
 GameObject:
   m_ObjectHideFlags: 0
@@ -10838,6 +10903,7 @@ GameObject:
   - component: {fileID: 7472518458548594406}
   - component: {fileID: 7472518458548594424}
   - component: {fileID: 7472518458548594425}
+  - component: {fileID: 1526414821418139874}
   - component: {fileID: 7472518458548594407}
   - component: {fileID: 6831842422285685890}
   - component: {fileID: 7472518458548594427}
@@ -10961,6 +11027,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1526414821418139874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7472518458548594429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfaa137a2262704d88ae914e5886613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7472518458548594407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11947,6 +12025,7 @@ GameObject:
   - component: {fileID: 7472518458766420151}
   - component: {fileID: 7472518458766420150}
   - component: {fileID: 7472518458766420105}
+  - component: {fileID: 4440266933661950401}
   - component: {fileID: 7472518458766420104}
   - component: {fileID: 780899507066613837}
   m_Layer: 5
@@ -12069,6 +12148,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4440266933661950401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7472518458766420106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfaa137a2262704d88ae914e5886613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7472518458766420104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12439,6 +12530,7 @@ GameObject:
   - component: {fileID: 1819076513261701430}
   - component: {fileID: 4955694996409444250}
   - component: {fileID: 2898966156313931668}
+  - component: {fileID: 9006928568719002726}
   - component: {fileID: 8005616793904744128}
   - component: {fileID: 130081981524468111}
   m_Layer: 5
@@ -12561,6 +12653,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9006928568719002726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8483181375145698687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfaa137a2262704d88ae914e5886613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8005616793904744128
 MonoBehaviour:
   m_ObjectHideFlags: 0

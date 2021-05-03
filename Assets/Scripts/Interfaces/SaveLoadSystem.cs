@@ -25,7 +25,8 @@ public class SaveLoadSystem : MonoBehaviour
 
     public void Save()
     {
-        if (Player.Instance.fightCount > 0 || GameDirector.Instance.noControl)
+        //if (Player.Instance.fightCount > 0 || GameDirector.Instance.noControl)
+        if (GameDirector.Instance.noControl)
         {
             return;
         }

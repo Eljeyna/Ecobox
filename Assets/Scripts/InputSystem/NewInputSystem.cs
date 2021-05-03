@@ -97,6 +97,14 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""052054fe-c224-4776-81f8-deac6435853b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -242,6 +250,17 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""add25837-4b3f-40e0-be4c-12407cc1e6d1"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and mouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -288,6 +307,7 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         m_Player_Load = m_Player.FindAction("Load", throwIfNotFound: true);
         m_Player_WeaponChange = m_Player.FindAction("WeaponChange", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Cancel = m_Player.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -347,6 +367,7 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Load;
     private readonly InputAction m_Player_WeaponChange;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Cancel;
     public struct PlayerActions
     {
         private @NewInputSystem m_Wrapper;
@@ -361,6 +382,7 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         public InputAction @Load => m_Wrapper.m_Player_Load;
         public InputAction @WeaponChange => m_Wrapper.m_Player_WeaponChange;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Cancel => m_Wrapper.m_Player_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -400,6 +422,9 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Cancel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCancel;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -434,6 +459,9 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Cancel.started += instance.OnCancel;
+                @Cancel.performed += instance.OnCancel;
+                @Cancel.canceled += instance.OnCancel;
             }
         }
     }
@@ -468,5 +496,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         void OnLoad(InputAction.CallbackContext context);
         void OnWeaponChange(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

@@ -101,9 +101,10 @@ public class Tutorial : MonoBehaviour
                 {
                     if (copy.createdObjects[0].IsValid() && copy.createdObjects[0].Result)
                     {
-                        if (copy.createdObjects[0].Result.TryGetComponent(out BaseCommon baseCommon))
+                        if (copy.createdObjects[0].Result.TryGetComponent(out BaseCommon baseCommon) && copy.createdObjects[0].Result.TryGetComponent(out InventoryDrop inventoryDrop))
                         {
                             healthTest = baseCommon;
+                            inventoryDrop.chanceDrop[0] = 0f;
 #if UNITY_ANDROID || UNITY_IOS
                             animations[3].enabled = true;
 #endif

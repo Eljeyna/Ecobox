@@ -31,9 +31,6 @@ public enum GameLayerMasks
 
 public abstract class AIEntity : MonoBehaviour
 {
-    public bool isGrounded;
-    public bool isJumping;
-    
     public float speed;
     public Rigidbody2D rb;
     public Collider2D thisCollider;
@@ -55,6 +52,10 @@ public abstract class AIEntity : MonoBehaviour
     protected float needDistanceBetweenTarget;
 
     [HideInInspector] public float moveVelocity;
+
+    [Space(10)]
+    public bool isGrounded;
+    public bool isJumping;
 
     private void FixedUpdate()
     {
@@ -240,6 +241,7 @@ public abstract class AIEntity : MonoBehaviour
         targetDirection = (target.position - transform.position).normalized;
         weapon.PrimaryAttack();
     }
+
     public void Standing()
     {
         if (Mathf.Abs(rb.velocity.x) <= speed)
@@ -281,7 +283,7 @@ public abstract class AIEntity : MonoBehaviour
         return weapon.gunData.range;
     }
 
-    public void OnDamaged(object sender, EventArgs e)
+    public virtual void OnDamaged(object sender, EventArgs e)
     {
         if (thisEntity.flagDeath)
         {

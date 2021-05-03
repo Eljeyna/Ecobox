@@ -43,6 +43,8 @@ public class SceneLoading : MonoBehaviour
         {
             GameDirector.Instance.Preload();
         }
+
+        ChangeMusicBetweenScenes();
     }
 
     private void Update()
@@ -88,6 +90,21 @@ public class SceneLoading : MonoBehaviour
         if (GameDirector.Instance)
         {
             GameDirector.Instance.Preload();
+        }
+
+        ChangeMusicBetweenScenes();
+    }
+
+    public void ChangeMusicBetweenScenes()
+    {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "MainMenu":
+                MusicDirector.Instance.ChangeMusic((int)MusicList.MainMenu);
+                break;
+            case "Tutorial":
+                MusicDirector.Instance.ChangeMusic((int)MusicList.Tutorial);
+                break;
         }
     }
 }

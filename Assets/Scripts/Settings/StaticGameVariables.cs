@@ -93,8 +93,9 @@ public static class StaticGameVariables
     public static readonly int animationMoveKeyID = Animator.StringToHash("IsMove");
     public static readonly int animationJumpKeyID = Animator.StringToHash("IsJumping");
     public static readonly int animationFallKeyID = Animator.StringToHash("Fall");
-#endregion
-    
+    public static readonly int animationAttackComboKeyID = Animator.StringToHash("AttackCombo");
+    #endregion
+
     public static event System.EventHandler OnPauseGame;
     
     public static string _SAVE_FOLDER = Path.Combine(Application.persistentDataPath, "Saves");

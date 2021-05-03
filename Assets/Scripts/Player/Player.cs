@@ -15,12 +15,19 @@ using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 using UnityEngine.InputSystem.EnhancedTouch;
 #endif
 
+public enum PlayerSounds
+{
+    Attack1     = 0,
+    AttackLast  = 3
+}
+
 public class Player : AIEntity, ISaveState
 {
     public static Player Instance { get; private set; }
     
-    [Space(10)]
     public bool touch;
+    public bool gender; // Female
+    public bool dashing = true;
 
     [Space(10)]
     public Dash dash;
@@ -29,12 +36,8 @@ public class Player : AIEntity, ISaveState
     public CinemachineVirtualCamera cam;
     public Stats stats;
     public Transform gunPosition;
+    public AudioDirector audioDirector;
 
-    [Space(10)]
-    public bool gender; // Female
-    public bool dashing = true;
-    public int fightCount;
-    
     public ItemWeapon weaponItem;
     
     /*
@@ -267,6 +270,9 @@ public class Player : AIEntity, ISaveState
         }
 
         weapon.enabled = true;
+        StaticGameVariables.GetRandom();
+        animations.SetInteger(StaticGameVariables.animationAttackComboKeyID, (int)(StaticGameVariables.random + 0.5f));
+        audioDirector.Play((int)((float)PlayerSounds.Attack1 + StaticGameVariables.random * (float)PlayerSounds.AttackLast));
         weapon.PrimaryAttack();
     }
 
@@ -353,7 +359,7 @@ public class Player : AIEntity, ISaveState
         weapon.Reload();
     }
 
-    private void OnInventory()
+    public void OnInventory()
     {
         if (StaticGameVariables.isPause && StaticGameVariables.inventoryCanvas.isActiveAndEnabled)
         {
@@ -361,6 +367,29 @@ public class Player : AIEntity, ISaveState
         }
         
         StaticGameVariables.OpenInventory();
+    }
+
+    public void OnCancel()
+    {
+        if (GameDirector.Instance.noControl)
+        {
+            return;
+        }
+
+        if (StaticGameVariables.inventoryCanvas.isActiveAndEnabled)
+        {
+            StaticGameVariables.HideInventory();
+            return;
+        }
+
+        if (StaticGameVariables.quickUI.isActiveAndEnabled)
+        {
+            StaticGameVariables.HideQuickMenu();
+        }
+        else
+        {
+            StaticGameVariables.ShowQuickMenu();
+        }
     }
 
     public void OnLoad()
@@ -402,7 +431,7 @@ public class Player : AIEntity, ISaveState
             case (int)GameLayers.TrashBin:
                 if (collision.TryGetComponent(out TrashBin trashBin))
                 {
-                    Debug.Log("Trash!");
+                    Debug.Log(trashBin.trashType);
                 }
 
                  break;

@@ -21,6 +21,7 @@ public class AudioDirector : MonoBehaviour
         foreach (AudioSource sound in sources)
         {
             sound.volume = 1f;
+            sound.outputAudioMixerGroup = MusicDirector.Instance.soundsGroup;
         }
     }
 

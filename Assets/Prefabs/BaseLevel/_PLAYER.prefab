@@ -102,6 +102,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5556201573064764034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1252147025421934811}
+  - component: {fileID: 5725813507525540967}
+  m_Layer: 8
+  m_Name: Sounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1252147025421934811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556201573064764034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8664085281891089373}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5725813507525540967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556201573064764034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536a99f81829c30479a7a62348aecd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: e3b8f9856594e604d915432a3a1cedbb, type: 3}
+  - {fileID: 8300000, guid: 89ab407a3e67ec14a9043f19a9527d9b, type: 3}
+  - {fileID: 8300000, guid: 55533bf8a894cd649ad7ffd3e733b17b, type: 3}
+  - {fileID: 8300000, guid: 2e53d14d9d2e049488cb62006bbec0db, type: 3}
+  sources: []
 --- !u!1 &8664085281891089359
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +191,7 @@ Transform:
   m_Children:
   - {fileID: 8664085282287830534}
   - {fileID: 2701567796575672180}
+  - {fileID: 1252147025421934811}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -337,8 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c334d34ee6206584b8e18c8956338778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
-  isJumping: 0
   speed: 6
   rb: {fileID: 8664085281891089372}
   thisCollider: {fileID: 3856828926585660304}
@@ -353,16 +401,18 @@ MonoBehaviour:
   deathTime: 0
   stunTime: 0
   moveVelocity: 0
+  isGrounded: 0
+  isJumping: 0
   touch: 0
+  gender: 0
+  dashing: 1
   dash: {fileID: 8664085281891089355}
   inventory: {fileID: 8664085281891089345}
   inventoryUI: {fileID: 0}
   cam: {fileID: 0}
   stats: {fileID: 8664085281891089352}
   gunPosition: {fileID: 8664085282287830534}
-  gender: 0
-  dashing: 1
-  fightCount: 0
+  audioDirector: {fileID: 5725813507525540967}
   weaponItem: {fileID: 0}
   joystickMove: {fileID: 0}
   joystickAttack: {fileID: 0}

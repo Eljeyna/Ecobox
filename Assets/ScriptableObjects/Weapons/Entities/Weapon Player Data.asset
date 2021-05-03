@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 5
   radius: 1.75
   range: 2
-  delay: 0
+  delay: 0.1
   lateDelay: 0.2
   fireRatePrimary: 0.3
   impactForce: 5
