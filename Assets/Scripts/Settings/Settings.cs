@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Newtonsoft.Json.Utilities;
 
 public class Settings : MonoBehaviour
 {
@@ -32,6 +33,15 @@ public class Settings : MonoBehaviour
         {
             Instance = this;
         }
+
+        //For AOT Compiler (fix errors)
+        AotHelper.EnsureList<QuestsTasksStruct>();
+        AotHelper.EnsureList<QuestTask>();
+        AotHelper.EnsureList<CompletedQuestsID>();
+        AotHelper.EnsureList<AnswersArray>();
+        AotHelper.EnsureList<AnswersFile>();
+        AotHelper.EnsureList<Sentences>();
+        AotHelper.EnsureList<Saveable>();
 
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;

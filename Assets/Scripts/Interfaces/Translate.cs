@@ -43,7 +43,8 @@ public class Translate : MonoBehaviour
         {
             return;
         }
-        
+
+        //Debug.Log(new DirectoryInfo(GetAsset(Path.Combine("Localization", languageKeys[language], "UI.json"))).FullName);
         translationUI = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(sb.ToString()));
 #endif
         if (translationUI == null)

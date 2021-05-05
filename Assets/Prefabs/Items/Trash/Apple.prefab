@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2860060068697847227}
   - component: {fileID: 2860060069687688380}
   m_Layer: 30
-  m_Name: Plastic Bottle
+  m_Name: Apple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d0eddf00992c645923e51388adb455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 415aa3390d9c45b45bab21db4ad5984b, type: 2}
+  item: {fileID: 11400000, guid: 5122d39e522ce4c419b27ff1251849bc, type: 2}
 --- !u!114 &2860060069687688380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,5 +138,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atlasSprite:
     m_AssetGUID: fc305c1c43aad9645b4c2fd6ba4091ff
-    m_SubObjectName: Trash PlasticBottle
+    m_SubObjectName: Trash Apple
     m_SubObjectType: 

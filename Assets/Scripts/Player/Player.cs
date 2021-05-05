@@ -52,6 +52,7 @@ public class Player : AIEntity, ISaveState
     
     //[HideInInspector] public Vector2 moveVelocity;
     [HideInInspector] public float zoomAmount;
+    [HideInInspector] public TrashBin trashBin;
 
     private Collider2D[] searchItem = new Collider2D[1];
     //private const float searchEntityRadius = 3f;
@@ -429,9 +430,9 @@ public class Player : AIEntity, ISaveState
         switch (collision.gameObject.layer)
         {
             case (int)GameLayers.TrashBin:
-                if (collision.TryGetComponent(out TrashBin trashBin))
+                if (collision.TryGetComponent(out TrashBin newTrashBin))
                 {
-                    Debug.Log(trashBin.trashType);
+                    trashBin = newTrashBin;
                 }
 
                  break;
@@ -449,6 +450,16 @@ public class Player : AIEntity, ISaveState
                     PickUpItem(itemWorld);
                 }
 
+                break;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        switch (collision.gameObject.layer)
+        {
+            case (int)GameLayers.TrashBin:
+                trashBin = null;
                 break;
         }
     }

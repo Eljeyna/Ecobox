@@ -29,14 +29,14 @@ public class Addressables_Instantiate : MonoBehaviour
         {
             for (int i = 0; i < prefabs.Length; i++)
             {
-                createdObjects[i] = Addressables.InstantiateAsync(prefabs[i], transform, true);
+                createdObjects[i] = Addressables.InstantiateAsync(prefabs[i], transform.position, Quaternion.identity, transform);
             }
         }
         else
         {
             for (int i = 0; i < prefabs.Length; i++)
             {
-                createdObjects[i] = Addressables.InstantiateAsync(prefabs[i]);
+                createdObjects[i] = Addressables.InstantiateAsync(prefabs[i], transform.position, Quaternion.identity);
             }
         }
     }

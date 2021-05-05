@@ -48,9 +48,5 @@ public class ItemInfoSelected : MonoBehaviour
             StaticGameVariables.buttonDisItem.interactable = false;
             StaticGameVariables.buttonDropItem.interactable = false;
         }
-        else if (item.itemType == Item.ItemType.Trash)
-        {
-            StaticGameVariables.buttonUseItem.interactable = false;
-        }
     }
 }

@@ -8,7 +8,6 @@ using TMPro;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Cinemachine;
-using UnityEngine.Audio;
 
 public class GameDirector : MonoBehaviour
 {
@@ -75,7 +74,6 @@ public class GameDirector : MonoBehaviour
         FindCamera();
 
         AddNewQuest("New Beginnings");
-        
         UpdateQuestDescription();
 
         InitializeDialogue(startDialogue);
