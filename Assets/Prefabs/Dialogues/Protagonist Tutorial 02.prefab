@@ -46,10 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: Protagonist Tutorial 02
   dialogues: []
-  answersArray:
-  - answers: []
-  - answers: []
-  - answers: []
+  answersArray: []
 --- !u!114 &1618419712651941639
 MonoBehaviour:
   m_ObjectHideFlags: 0

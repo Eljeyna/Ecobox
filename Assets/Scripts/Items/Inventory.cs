@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public float weight;
     public Dictionary<string, Item> itemList = new Dictionary<string, Item>();
     private List<string> itemListToDestroy = new List<string>();
 

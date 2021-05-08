@@ -1,19 +1,17 @@
 using System;
 using UnityEngine;
 
-public enum SlimeSounds
+public enum RatSounds
 {
     Attack      = 0,
     Death       = 1,
-    Hit1        = 2
-    //HitLast     = 4
 }
 
-public class Slime : Enemy
+public class Rat : Enemy
 {
     public AudioDirector audioDirector;
 
-    public override void Attack()
+    /*public override void Attack()
     {
         if (!weapon)
         {
@@ -50,5 +48,5 @@ public class Slime : Enemy
         base.OnDie(sender, e);
 
         audioDirector.Play((int)SlimeSounds.Death);
-    }
+    }*/
 }

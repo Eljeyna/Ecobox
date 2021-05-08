@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 1618419712651941632}
   - component: {fileID: 1618419712651941633}
   - component: {fileID: 1618419712651941639}
-  - component: {fileID: 93465828551493798}
   m_Layer: 0
-  m_Name: Protagonist Tutorial 01
+  m_Name: God 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94012724f52eb4449093ca792ee7e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: Protagonist Tutorial 01
+  key: God Tutorial 01
   dialogues: []
   answersArray: []
 --- !u!114 &1618419712651941639
@@ -64,16 +63,4 @@ MonoBehaviour:
   _currentLine: 0
   _defaultLine: 0
   controlAfter: 1
-  scriptAfterDialogue: {fileID: 93465828551493798}
---- !u!114 &93465828551493798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618419712651941638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585a423c3b3695e4b9aea76e679e5534, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  scriptAfterDialogue: {fileID: 0}

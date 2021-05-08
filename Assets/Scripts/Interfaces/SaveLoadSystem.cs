@@ -70,6 +70,7 @@ public class SaveLoadSystem : MonoBehaviour
 
 public struct Saveable
 {
+    public int checkPoint;
     public string[] questID;
     public int[] questTask;
     public Dictionary<string, int> completedQuestsID;

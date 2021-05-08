@@ -1,0 +1,22 @@
+[
+  {
+    "name": null,
+    "text": "This place is sacred, human. Only by atoning for your sins will you be able to remember him.",
+    "answers": []
+  },
+  {
+    "name": "Entity",
+    "text": "How can I remember, even if I have no idea what you are talking about?!",
+    "answers": []
+  },
+  {
+    "name": null,
+    "text": "Consider this a test... human.",
+    "answers": []
+  },
+  {
+    "name": "Entity",
+    "text": "Who are you anyway?",
+    "answers": []
+  }
+]

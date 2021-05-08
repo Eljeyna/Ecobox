@@ -17,12 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ffd4136d90ebda248bc810a208fe913a
   m_SerializeEntries:
-  - m_GUID: 2cda990e2423bbf4892e6590ba056729
-    m_Address: World
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: 3a49edaaf0c6f544eb11a926ee359aca
     m_Address: MainMenu
     m_ReadOnly: 0
@@ -46,8 +40,8 @@ MonoBehaviour:
     m_Address: Tutorial
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 102900000, guid: d30fbee988f498842a6e22beea9f1786, type: 3}
-    m_TargetAsset: {fileID: 102900000, guid: d30fbee988f498842a6e22beea9f1786, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 00dc3a65888b9a14b9b08e66d48f3740, type: 2}
   m_SchemaSet:

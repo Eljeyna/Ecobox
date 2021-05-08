@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class Tutorial : MonoBehaviour
 {
     public Animator[] animations = new Animator[4];
+    public AssetReference dialogue;
 
     private float waitTime;
     private int currentTask;
@@ -87,14 +89,11 @@ public class Tutorial : MonoBehaviour
 #endif
                 break;
             case 4:
-
                 if (healthTest && healthTest.healthPercent <= 0)
                 {
 #if UNITY_ANDROID || UNITY_IOS
-
                     animations[3].gameObject.SetActive(false);
 #endif
-                    waitTime = Time.time + 4f;
                     currentTask = 5;
                 }
                 else if (copy.createdObjects != null)
@@ -114,6 +113,20 @@ public class Tutorial : MonoBehaviour
 
                 break;
             case 5:
+                waitTime = Time.time + 1f;
+                currentTask = 6;
+                break;
+            case 6:
+                if (waitTime > Time.time || !Player.Instance.isGrounded)
+                {
+                    return;
+                }
+
+                GameDirector.Instance.InitializeDialogue(dialogue);
+                waitTime = Time.time + 1f;
+                currentTask = 7;
+                break;
+            case 7:
                 if (waitTime > Time.time)
                 {
                     return;

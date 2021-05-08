@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
-using TMPro;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Cinemachine;
@@ -18,7 +17,6 @@ public class GameDirector : MonoBehaviour
     public CinemachineVirtualCamera cam;
 
     public AssetReference gameUI;
-    public TMP_Text debugFPS;
 
     public IsTalking dialogue;
     public Quest activeQuest;
@@ -27,9 +25,6 @@ public class GameDirector : MonoBehaviour
 
     public Dictionary<string, Quest> quests = new Dictionary<string, Quest>();
     [HideInInspector] public bool controlAfter = true;
-
-    public bool DEBUG = true;
-    private float timeToUpdate;
 
     private AsyncOperationHandle<GameObject> dialogueHandle;
     private AssetReference dialogueReference;
@@ -40,17 +35,6 @@ public class GameDirector : MonoBehaviour
         {
             Instance = this;
         }
-    }
-
-    private void Update()
-    {
-        if (!DEBUG || timeToUpdate > Time.time)
-        {
-            return;
-        }
-        
-        debugFPS.text = $"{(int)(1f / Time.unscaledDeltaTime)}";
-        timeToUpdate = Time.time + 1f;
     }
 
     public void Preload()
@@ -242,8 +226,6 @@ public class GameDirector : MonoBehaviour
         {
             dialogueReference.ReleaseAsset();
         }
-        
-        DEBUG = false;
     }
 
     private void OnApplicationQuit()

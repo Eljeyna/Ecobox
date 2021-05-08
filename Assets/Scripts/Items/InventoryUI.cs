@@ -28,7 +28,6 @@ public class InventoryUI : MonoBehaviour
 
     public async void UpdateInventoryItems()
     {
-        inventory.weight = 0f;
         RemoveInventorySlots();
 
         foreach (Item item in inventory.itemList.Values)

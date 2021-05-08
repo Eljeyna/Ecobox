@@ -361,12 +361,14 @@ public static class StaticGameVariables
     public static async void OpenInventory()
     {
         itemSelected = null;
+        PauseGame();
 
         await Player.Instance.inventory.PreloadInventory();
         Player.Instance.inventory.CallUpdateInventory();
+        ChangeCategoryItem(Item.ItemType.Trash);
 
-        PauseGame();
         HideInGameUI();
+
         staticUI.enabled = true;
         inventoryCanvas.enabled = true;
     }
@@ -401,7 +403,6 @@ public static class StaticGameVariables
         HideInGameUI();
         staticUI.enabled = true;
         quickUI.enabled = true;
-
     }
 
     public static void HideQuickMenu()
