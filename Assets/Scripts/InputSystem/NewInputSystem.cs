@@ -35,14 +35,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Touch"",
-                    ""type"": ""Button"",
-                    ""id"": ""c71450a5-60ac-4c12-9cda-a399465611b6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Inventory"",
                     ""type"": ""Button"",
                     ""id"": ""11656985-d409-4da5-9733-a7cc20e977d2"",
@@ -176,17 +168,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2fca73d9-dda7-4239-9682-2dc4f86e8d05"",
-                    ""path"": ""<Pointer>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and mouse"",
-                    ""action"": ""Touch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8fcd819e-c1af-49f1-8be2-1924344fffbb"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -299,7 +280,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Touch = m_Player.FindAction("Touch", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
@@ -359,7 +339,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Touch;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Reload;
@@ -374,7 +353,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
         public PlayerActions(@NewInputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Touch => m_Wrapper.m_Player_Touch;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
@@ -398,9 +376,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                @Touch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
-                @Touch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
-                @Touch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTouch;
                 @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
@@ -435,9 +410,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Touch.started += instance.OnTouch;
-                @Touch.performed += instance.OnTouch;
-                @Touch.canceled += instance.OnTouch;
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
@@ -488,7 +460,6 @@ public class @NewInputSystem : IInputActionCollection, IDisposable
     {
         void OnAttack(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
-        void OnTouch(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);

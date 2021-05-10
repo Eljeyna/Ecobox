@@ -1,41 +1,34 @@
 {
-  "nameQuest" : "Новые начинания",
-  "fullDescription" : "Все мы когда-то с чего-то начинаем...",
-  "tasksDescriptions" : 
-  [
+  "nameQuest": "Новые начинания",
+  "fullDescription": "Все мы когда-то с чего-то начинаем...",
+  "tasksDescriptions": [
     {
-      "description" :
-      [
+      "description": [
         "Используйте левый стик для передвижения"
       ]
     },
     {
-      "description" :
-      [
+      "description": [
         "Нажмите на кнопку со стрелкой вверх для прыжка"
       ]
     },
     {
-      "description" :
-      [
+      "description": [
         "Используйте правый стик для атаки"
       ]
     },
     {
-      "description" :
-      [
+      "description": [
         "Победите слизня"
       ]
     },
     {
-      "description" :
-      [
+      "description": [
         "Проберитесь сквозь пещеру"
       ]
     },
     {
-      "description" :
-      [
+      "description": [
         "Победите босса"
       ]
     }

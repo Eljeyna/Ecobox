@@ -22,14 +22,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Touch",
-                    "type": "Button",
-                    "id": "c71450a5-60ac-4c12-9cda-a399465611b6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Inventory",
                     "type": "Button",
                     "id": "11656985-d409-4da5-9733-a7cc20e977d2",
@@ -158,17 +150,6 @@
                     "processors": "",
                     "groups": "Keyboard and mouse",
                     "action": "Load",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2fca73d9-dda7-4239-9682-2dc4f86e8d05",
-                    "path": "<Pointer>/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard and mouse",
-                    "action": "Touch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

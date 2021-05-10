@@ -5,6 +5,7 @@ using TMPro;
 public class Web : MonoBehaviour
 {
     public Canvas canvasSignIn;
+    public CanvasGroup canvasGroup;
     public Canvas canvasSignUp;
 
     public TMP_InputField loginField;
@@ -121,6 +122,7 @@ public class Web : MonoBehaviour
 
     private void PlayOnline(string ID)
     {
+        canvasGroup.interactable = false;
         messageField.enabled = false;
         messageField.text = ID;
         SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
@@ -128,6 +130,7 @@ public class Web : MonoBehaviour
 
     private void PlayOffline()
     {
+        canvasGroup.interactable = false;
         messageField.enabled = false;
         SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
     }
