@@ -7,7 +7,7 @@ public enum RatSounds
     Death       = 1,
 }
 
-public class Rat : Enemy
+public class Rat : AIEnemy
 {
     public AudioDirector audioDirector;
 

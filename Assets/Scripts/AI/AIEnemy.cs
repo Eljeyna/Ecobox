@@ -1,6 +1,6 @@
 using System;
 
-public class Enemy : AIEntity
+public class AIEnemy : AIEntity
 {
     public InventoryDrop inventory;
     

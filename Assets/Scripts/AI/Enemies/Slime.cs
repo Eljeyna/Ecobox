@@ -9,7 +9,7 @@ public enum SlimeSounds
     //HitLast     = 4
 }
 
-public class Slime : Enemy
+public class Slime : AIEnemy
 {
     public AudioDirector audioDirector;
 
