@@ -4,6 +4,9 @@ using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
+    public TMP_Text qualitativeMaterialCount;
+    public TMP_Text badQualityMaterialCount;
+
     private Inventory inventory;
     private Transform itemSlotContainer;
     private Transform itemSlotPrefab;

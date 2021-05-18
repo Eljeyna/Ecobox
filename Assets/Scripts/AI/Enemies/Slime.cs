@@ -36,9 +36,9 @@ public class Slime : AIEnemy
         weapon.PrimaryAttack();
     }
 
-    public override void OnDamaged(object sender, EventArgs e)
+    public override void OnDamaged(object sender, HealthArguments healthArguments)
     {
-        base.OnDamaged(sender, e);
+        base.OnDamaged(sender, healthArguments);
 
         StaticGameVariables.GetRandom();
         //audioDirector.Play((int)((float)SlimeSounds.Hit1 + StaticGameVariables.random * (SlimeSounds.HitLast - SlimeSounds.Hit1) + 0.5f));

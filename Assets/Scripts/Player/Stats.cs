@@ -3,14 +3,16 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
-    public int maxStamina = 40;
+    public int maxStamina = 100;
     public int stamina;
-    public int staminaRegen = 1;
+    public int staminaRegen = 2;
     public float staminaTimeRegen = 0.2f;
     public float staminaTimeRegenWhenUse = 1.5f;
 
     [Space(10)]
     public int money;
+    public int qualitativeMaterial;
+    public int badQualityMaterial;
 
     public EventHandler OnStaminaChanged;
 
@@ -24,6 +26,13 @@ public class Stats : MonoBehaviour
         }
 
         stamina = maxStamina;
+    }
+    
+    public void StaminaAction(int amount)
+    {
+        stamina -= amount;
+        nextStaminaRegen = Time.time + staminaTimeRegenWhenUse;
+        OnStaminaChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private void Update()

@@ -98,6 +98,8 @@ public struct Saveable
     public int oratory;
     */
     public int money;
+    public int qualitativeMaterial;
+    public int badQualityMaterial;
 
     public float maxHealth;
     public float health;

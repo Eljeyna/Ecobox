@@ -1,9 +1,21 @@
 ﻿using System;
 
+public class HealthArguments : EventArgs
+{
+    public bool isDamageOrHeal;
+
+    public HealthArguments(bool isDamageOrHeal)
+    {
+        this.isDamageOrHeal = isDamageOrHeal;
+    }
+}
+
 public class BaseCommon : BaseEntity
 {
-    public EventHandler OnHealthChanged;
-    public EventHandler OnDie;
+    public EventHandler<HealthArguments> OnHealthChanged;
+    public EventHandler<HealthArguments> OnDie;
+    
+    private HealthArguments healthArguments = new HealthArguments(false);
     
     public override void Awake()
     {
@@ -36,7 +48,8 @@ public class BaseCommon : BaseEntity
             healthPercent = 0f;
             Die();
         }
-        
+
+        healthArguments.isDamageOrHeal = false;
         EventHealthChanged();
     }
 
@@ -55,7 +68,8 @@ public class BaseCommon : BaseEntity
             health = maxHealth;
             healthPercent = 1f;
         }
-        
+
+        healthArguments.isDamageOrHeal = true;
         EventHealthChanged();
     }
 
@@ -84,6 +98,7 @@ public class BaseCommon : BaseEntity
             Die();
         }
         
+        healthArguments.isDamageOrHeal = false;
         EventHealthChanged();
     }
 
@@ -103,6 +118,7 @@ public class BaseCommon : BaseEntity
             healthPercent = 1f;
         }
         
+        healthArguments.isDamageOrHeal = true;
         EventHealthChanged();
     }
 
@@ -116,12 +132,12 @@ public class BaseCommon : BaseEntity
     public override void Die()
     {
         flagDeath = true;
-        OnDie?.Invoke(this, EventArgs.Empty);
+        OnDie?.Invoke(this, healthArguments);
     }
 
     public void EventHealthChanged()
     {
-        OnHealthChanged?.Invoke(this, EventArgs.Empty);
+        OnHealthChanged?.Invoke(this, healthArguments);
     }
 
     private void OnValidate()

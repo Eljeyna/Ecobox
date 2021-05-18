@@ -88,12 +88,19 @@ public static class StaticGameVariables
     #endregion
     
     #region Animations
-
     public static readonly int animationKeyID = Animator.StringToHash("Animation");
     public static readonly int animationMoveKeyID = Animator.StringToHash("IsMove");
     public static readonly int animationJumpKeyID = Animator.StringToHash("IsJumping");
     public static readonly int animationFallKeyID = Animator.StringToHash("Fall");
     public static readonly int animationAttackComboKeyID = Animator.StringToHash("AttackCombo");
+    #endregion
+    
+    #region Upgrade Zone
+
+    public static readonly float healthGrade = 5f;
+    public static readonly int staminaGrade = 5;
+    public static readonly int qualitativeMaterialNeededForUpgrade = 10;
+    public static readonly int badQualityMaterialNeededForUpgrade  = 45;
     #endregion
 
     public static event System.EventHandler OnPauseGame;
@@ -201,8 +208,10 @@ public static class StaticGameVariables
     public static async void InitializeFinale()
     {
         Player.Instance.cam = GameDirector.Instance.cam;
+#if UNITY_ANDROID || UNITY_IOS
         Player.Instance.joystickMove = GameUI.Instance.joystickMove;
         Player.Instance.joystickAttack = GameUI.Instance.joystickAttack;
+#endif
 
         if (Settings.Instance.gameIsLoaded && SceneManager.GetActiveScene().name != tutorialScene)
         {
@@ -233,6 +242,12 @@ public static class StaticGameVariables
         itemInfoCanvas.enabled = false;
         DisableInventoryButtons();
         Player.Instance.inventory.CallUpdateInventory();
+    }
+    
+    public static void UpdateMaterialUI()
+    {
+        Player.Instance.inventoryUI.qualitativeMaterialCount.text = Player.Instance.stats.qualitativeMaterial.ToString();
+        Player.Instance.inventoryUI.badQualityMaterialCount.text = Player.Instance.stats.badQualityMaterial.ToString();
     }
 
     public static void UseItem()
@@ -320,7 +335,9 @@ public static class StaticGameVariables
         {
             DisableInventoryButtons();
             itemInfoCanvas.enabled = false;
+            Player.Instance.stats.badQualityMaterial += 3;
             Player.Instance.inventory.RemoveItem(itemSelected);
+            UpdateMaterialUI();
             itemSelected = null;
         }
 
@@ -329,11 +346,14 @@ public static class StaticGameVariables
 
     public static void DisassembleItemMultiple()
     {
-        itemSelected.itemAmount -= (int)yesNoSlider.value;
+        int amount = (int)yesNoSlider.value;
+        itemSelected.itemAmount -= amount;
 
         if (itemSelected && itemSelected.itemAmount <= 0)
         {
+            Player.Instance.stats.badQualityMaterial += 3 * amount;
             Player.Instance.inventory.RemoveItem(itemSelected);
+            UpdateMaterialUI();
             itemSelected = null;
         }
 
@@ -365,6 +385,7 @@ public static class StaticGameVariables
 
         await Player.Instance.inventory.PreloadInventory();
         Player.Instance.inventory.CallUpdateInventory();
+        UpdateMaterialUI();
         ChangeCategoryItem(Item.ItemType.Trash);
 
         HideInGameUI();
@@ -505,7 +526,6 @@ public static class StaticGameVariables
 
             if (webRequest.result == UnityWebRequest.Result.ConnectionError)
             {
-                //Debug.LogError(webRequest.error);
                 return string.Empty;
             }
 
@@ -528,7 +548,6 @@ public static class StaticGameVariables
 
             if (webRequest.result == UnityWebRequest.Result.ConnectionError)
             {
-                //Debug.LogError(webRequest.error);
                 return string.Empty;
             }
 
@@ -551,7 +570,6 @@ public static class StaticGameVariables
 
             if (webRequest.result == UnityWebRequest.Result.ConnectionError)
             {
-                //Debug.LogError(webRequest.error);
                 return string.Empty;
             }
 

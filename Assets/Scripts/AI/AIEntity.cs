@@ -18,6 +18,7 @@ public enum GameLayers
 {
     Entities = 8,
     Spawners = 20,
+    UpgradeZone = 27,
     TrashBin = 28,
     Minimap = 29,
     Items = 30,
@@ -283,9 +284,9 @@ public abstract class AIEntity : MonoBehaviour
         return weapon.gunData.range;
     }
 
-    public virtual void OnDamaged(object sender, EventArgs e)
+    public virtual void OnDamaged(object sender, HealthArguments healthArguments)
     {
-        if (thisEntity.flagDeath)
+        if (thisEntity.flagDeath || healthArguments.isDamageOrHeal)
         {
             return;
         }

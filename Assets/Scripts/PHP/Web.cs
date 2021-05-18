@@ -31,6 +31,7 @@ public class Web : MonoBehaviour
     private readonly string errorLogin = "User does not exists";
     private readonly string errorPassword = "Wrong password";
     private readonly string confirmRegisterMessage = "All done";
+    private readonly string errorConnection = "Connection failed";
 
     private void Start()
     {
@@ -57,7 +58,7 @@ public class Web : MonoBehaviour
 
         message = StaticGameVariables.UserLogin(loginField.text, passwordField.text);
 
-        if (message != errorLogin && message != errorPassword)
+        if (message != string.Empty && message != errorLogin && message != errorPassword && !message.Contains(errorConnection))
         {
             PlayOnline(message);
         }
@@ -75,19 +76,22 @@ public class Web : MonoBehaviour
 
             return;
         }
-        else if (string.IsNullOrWhiteSpace(emailRegister.text))
+
+        if (string.IsNullOrWhiteSpace(emailRegister.text))
         {
             ShowMessageField("Enter email");
 
             return;
         }
-        else if (string.IsNullOrWhiteSpace(passwordFieldRegister.text))
+        
+        if (string.IsNullOrWhiteSpace(passwordFieldRegister.text))
         {
             ShowMessageField("Enter password");
 
             return;
         }
-        else if (passwordFieldRegister.text != passwordConfirmFieldRegister.text)
+        
+        if (passwordFieldRegister.text != passwordConfirmFieldRegister.text)
         {
             ShowMessageField("Passwords are different");
 
@@ -96,7 +100,7 @@ public class Web : MonoBehaviour
 
         message = StaticGameVariables.UserRegister(loginFieldRegister.text, emailRegister.text, passwordFieldRegister.text);
 
-        if (message == confirmRegisterMessage)
+        if (message != string.Empty && message == confirmRegisterMessage)
         {
             canvasSignUp.enabled = false;
             canvasSignIn.enabled = true;

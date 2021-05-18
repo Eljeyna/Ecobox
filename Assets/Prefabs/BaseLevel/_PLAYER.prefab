@@ -264,7 +264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34b5b26ece10ab48ad884b3077d9a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 0
 --- !u!61 &3856828926585660304
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -403,7 +402,6 @@ MonoBehaviour:
   moveVelocity: 0
   isGrounded: 0
   isJumping: 0
-  touch: 0
   gender: 0
   dashing: 1
   dash: {fileID: 8664085281891089355}
@@ -414,9 +412,9 @@ MonoBehaviour:
   gunPosition: {fileID: 8664085282287830534}
   audioDirector: {fileID: 5725813507525540967}
   weaponItem: {fileID: 0}
-  joystickMove: {fileID: 0}
-  joystickAttack: {fileID: 0}
   zoomAmount: 0
+  trashBin: {fileID: 0}
+  upgradeZone: {fileID: 0}
 --- !u!114 &8664085281891089353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,10 +476,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStamina: 100
   stamina: 0
-  staminaRegen: 1
+  staminaRegen: 3
   staminaTimeRegen: 0.2
   staminaTimeRegenWhenUse: 1.5
   money: 0
+  qualitativeMaterial: 0
+  badQualityMaterial: 0
   nextStaminaRegen: 0
 --- !u!1 &8664085282287830533
 GameObject:

@@ -24,7 +24,6 @@ public enum PlayerSounds
 public class Player : AIEntity, ISaveState
 {
     public static Player Instance { get; private set; }
-    
     public bool touch;
     public bool gender; // Female
     public bool dashing = true;
@@ -47,18 +46,21 @@ public class Player : AIEntity, ISaveState
     public EquipableItem foots;
     */
 
+#if UNITY_ANDROID || UNITY_IOS
     public Joystick joystickMove;
     public Joystick joystickAttack;
+#endif
     
     //[HideInInspector] public Vector2 moveVelocity;
     [HideInInspector] public float zoomAmount;
     [HideInInspector] public TrashBin trashBin;
+    [HideInInspector] public UpgradeZone upgradeZone;
 
     private Collider2D[] searchItem = new Collider2D[1];
-    //private const float searchEntityRadius = 3f;
     private const float searchItemRadius = 2f;
     private NewInputSystem controls;
     private LayerMask layerItems;
+    private const int staminaToAttack = 20;
 
 #if UNITY_ANDROID || UNITY_IOS
     private float lastMultiTouchDistance;
@@ -86,7 +88,6 @@ public class Player : AIEntity, ISaveState
         stats.Initialize();
 
         controls.Player.Attack.performed += Attack_performed;
-
         controls.Player.Zoom.performed += Zoom_performed;
     }
 
@@ -132,13 +133,13 @@ public class Player : AIEntity, ISaveState
             return;
         }
 
-#if UNITY_ANDROID || UNITY_IOS
         if (!touch || state == EntityState.Attack)
         {
             StatePerform();
             return;
         }
 
+#if UNITY_ANDROID || UNITY_IOS
         if (Touch.activeFingers.Count == 2)
         {
             touch = false;
@@ -260,7 +261,7 @@ public class Player : AIEntity, ISaveState
             return;
         }
         
-        if (weapon.nextAttack > Time.time)
+        if (weapon.nextAttack > Time.time || stats.stamina < staminaToAttack)
         {
             return;
         }
@@ -275,6 +276,7 @@ public class Player : AIEntity, ISaveState
         animations.SetInteger(StaticGameVariables.animationAttackComboKeyID, (int)(StaticGameVariables.random + 0.5f));
         audioDirector.Play((int)((float)PlayerSounds.Attack1 + StaticGameVariables.random * (float)PlayerSounds.AttackLast));
         weapon.PrimaryAttack();
+        stats.StaminaAction(staminaToAttack);
     }
 
 #if UNITY_ANDROID || UNITY_IOS
@@ -330,9 +332,7 @@ public class Player : AIEntity, ISaveState
         {
             Standing();
             dashing = false;
-            stats.nextStaminaRegen = Time.time + stats.staminaTimeRegenWhenUse;
-            stats.stamina -= dash.staminaCost;
-            stats.OnStaminaChanged?.Invoke(this, EventArgs.Empty);
+            stats.StaminaAction(dash.staminaCost);
             dash.dashEvaluateTime = 0f;
             dash.enabled = true;
             dash.Use();
@@ -401,7 +401,7 @@ public class Player : AIEntity, ISaveState
 
     private void Attack_performed(InputAction.CallbackContext obj)
     {
-        if (StaticGameVariables.isPause || state != EntityState.Normal)
+        if (StaticGameVariables.isPause || state != EntityState.Normal || touch)
         {
             return;
         }
@@ -429,13 +429,22 @@ public class Player : AIEntity, ISaveState
     {
         switch (collision.gameObject.layer)
         {
+            case (int)GameLayers.UpgradeZone:
+                if (collision.TryGetComponent(out UpgradeZone newUpgradeZone))
+                {
+                    upgradeZone = newUpgradeZone;
+                    upgradeZone.icons.enabled = true;
+                }
+                
+                break;
             case (int)GameLayers.TrashBin:
                 if (collision.TryGetComponent(out TrashBin newTrashBin))
                 {
                     trashBin = newTrashBin;
+                    trashBin.icon.enabled = true;
                 }
 
-                 break;
+                break;
             case (int)GameLayers.Spawners:
                 if (collision.TryGetComponent(out EntityMaker entityMaker))
                 {
@@ -458,8 +467,15 @@ public class Player : AIEntity, ISaveState
     {
         switch (collision.gameObject.layer)
         {
+            case (int)GameLayers.UpgradeZone:
+                upgradeZone.icons.enabled = false;
+                upgradeZone = null;
+                
+                break;
             case (int)GameLayers.TrashBin:
+                trashBin.icon.enabled = false;
                 trashBin = null;
+                
                 break;
         }
     }
@@ -675,6 +691,8 @@ public class Player : AIEntity, ISaveState
         saveObject.oratory = oratory;
         */
         saveObject.money = stats.money;
+        saveObject.qualitativeMaterial = stats.qualitativeMaterial;
+        saveObject.badQualityMaterial = stats.badQualityMaterial;
 
         saveObject.maxHealth = thisEntity.maxHealth;
         saveObject.health = thisEntity.health;
@@ -745,6 +763,8 @@ public class Player : AIEntity, ISaveState
             oratory = saveObject.oratory;
             */
             stats.money = saveObject.money;
+            stats.qualitativeMaterial = saveObject.qualitativeMaterial;
+            stats.badQualityMaterial = saveObject.badQualityMaterial;
 
             //aiEntity.target = null;
             thisEntity.health = saveObject.health;

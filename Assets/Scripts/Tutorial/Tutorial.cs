@@ -27,15 +27,26 @@ public class Tutorial : MonoBehaviour
             case 0:
                 moveVelocity = Player.Instance.rb.velocity.x;
 
-                if (!checks[0] && newMoveVelocity < moveVelocity)
+                if (!checks[0])
                 {
-                    checks[0] = true;
-                    newMoveVelocity = moveVelocity;
+                    if (newMoveVelocity < moveVelocity)
+                    {
+                        checks[0] = true;
+                        newMoveVelocity = moveVelocity;
+                    }
+
+                    return;
                 }
-                else if (!checks[1] && newMoveVelocity > moveVelocity)
+                
+                if (!checks[1])
                 {
-                    checks[1] = true;
-                    newMoveVelocity = moveVelocity;
+                    if (newMoveVelocity > moveVelocity)
+                    {
+                        checks[1] = true;
+                        newMoveVelocity = moveVelocity;
+                    }
+
+                    return;
                 }
 
                 if (checks[0] && checks[1])
