@@ -28,6 +28,8 @@
             {
                 echo "Wrong password";
             }
+
+            break;
         }
     }
     else

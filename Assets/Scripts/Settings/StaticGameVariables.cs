@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public static class StaticGameVariables
 {
     #region Variables
+    #region Language
     public enum Language
     {
         English = 0,
@@ -22,13 +23,9 @@ public static class StaticGameVariables
     };
 
     public static string[] translationString = new string[2];
+    #endregion
 
-    public enum ActionType
-    {
-        DropItem,
-        DisassembleItem,
-    }
-
+    #region VariablesForInitialize
     public static bool isPause = true;
     public static float random;
 
@@ -70,6 +67,7 @@ public static class StaticGameVariables
     public static Transform _ITEMS;
 
     public static float progress;
+    #endregion
 
     #region Settings
     public static readonly float globalJumpForce = 18f;
@@ -102,11 +100,28 @@ public static class StaticGameVariables
     public static readonly int qualitativeMaterialNeededForUpgrade = 10;
     public static readonly int badQualityMaterialNeededForUpgrade  = 45;
     #endregion
-
-    public static event System.EventHandler OnPauseGame;
     
+    #region Web
+    public static string accountID;
+    #endregion
+
+    #region Extra
+    public static event System.EventHandler OnPauseGame;
+    #endregion
+    
+    #region Folders
     public static string _SAVE_FOLDER = Path.Combine(Application.persistentDataPath, "Saves");
+    #endregion
+    
+    #region Inventory
+    public enum ActionType
+    {
+        DropItem,
+        DisassembleItem,
+    }
+    
     public static string defaultValueAmount = "1";
+    #endregion
     #endregion
 
     #region SpecialSymbols
@@ -563,6 +578,27 @@ public static class StaticGameVariables
         form.AddField("userPassword", password);
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/EztixUnity/Register.php", form))
+        {
+            webRequest.SendWebRequest();
+
+            while (!webRequest.isDone) {}
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
+            {
+                return string.Empty;
+            }
+
+            return webRequest.downloadHandler.text;
+        }
+    }
+
+    public static string SaveAccountData(string ID, string json)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("userID", ID);
+        form.AddField("userData", json);
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/EztixUnity/SaveData.php", form))
         {
             webRequest.SendWebRequest();
 

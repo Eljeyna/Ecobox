@@ -716,8 +716,16 @@ public class Player : AIEntity, ISaveState
                 i++;
             }
         }
+
+        string jsonConvert = JsonConvert.SerializeObject(saveObject);
         
-        return JsonConvert.SerializeObject(saveObject);
+        if (StaticGameVariables.accountID != string.Empty)
+        {
+            string debugString = StaticGameVariables.SaveAccountData(StaticGameVariables.accountID, jsonConvert);
+            Debug.Log(debugString);
+        }
+        
+        return jsonConvert;
     }
 
     public async Task Load()

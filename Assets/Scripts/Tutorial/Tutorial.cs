@@ -143,6 +143,7 @@ public class Tutorial : MonoBehaviour
                     return;
                 }
 
+                Player.Instance.Save();
                 SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
                 currentTask = -1;
                 break;

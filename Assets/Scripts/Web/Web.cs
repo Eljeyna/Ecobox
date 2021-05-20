@@ -128,7 +128,8 @@ public class Web : MonoBehaviour
     {
         canvasGroup.interactable = false;
         messageField.enabled = false;
-        messageField.text = ID;
+        StaticGameVariables.accountID = ID;
+        Debug.Log(StaticGameVariables.accountID);
         SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
     }
 
