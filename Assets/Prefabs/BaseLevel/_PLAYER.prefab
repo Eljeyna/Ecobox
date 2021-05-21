@@ -402,6 +402,7 @@ MonoBehaviour:
   moveVelocity: 0
   isGrounded: 0
   isJumping: 0
+  touch: 0
   gender: 0
   dashing: 1
   dash: {fileID: 8664085281891089355}
@@ -480,7 +481,7 @@ MonoBehaviour:
   staminaTimeRegen: 0.2
   staminaTimeRegenWhenUse: 1.5
   money: 0
-  qualitativeMaterial: 0
+  qualitativeMaterial: 4
   badQualityMaterial: 0
   nextStaminaRegen: 0
 --- !u!1 &8664085282287830533

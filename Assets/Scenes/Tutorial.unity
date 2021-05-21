@@ -7124,16 +7124,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8664085281891089352, guid: ca291038897004546b7d7dce3cb2e3a8,
-        type: 3}
-      propertyPath: badQualityMaterial
-      value: 100000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8664085281891089352, guid: ca291038897004546b7d7dce3cb2e3a8,
-        type: 3}
-      propertyPath: qualitativeMaterial
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 8664085281891089359, guid: ca291038897004546b7d7dce3cb2e3a8,
         type: 3}
       propertyPath: m_Name

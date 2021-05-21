@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -5,6 +6,7 @@ using System.Text;
 using UnityEngine.Networking;
 using System.IO;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public static class StaticGameVariables
 {
@@ -94,7 +96,6 @@ public static class StaticGameVariables
     #endregion
     
     #region Upgrade Zone
-
     public static readonly float healthGrade = 5f;
     public static readonly int staminaGrade = 5;
     public static readonly int qualitativeMaterialNeededForUpgrade = 10;
@@ -102,11 +103,12 @@ public static class StaticGameVariables
     #endregion
     
     #region Web
-    public static string accountID;
+    public static string accountID = string.Empty;
     #endregion
 
     #region Extra
     public static event System.EventHandler OnPauseGame;
+    public static string sceneToSave = string.Empty;
     #endregion
     
     #region Folders

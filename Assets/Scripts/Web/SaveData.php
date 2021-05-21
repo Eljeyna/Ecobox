@@ -13,7 +13,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "UPDATE `users` SET `SaveData` = '" . $userData . "' WHERE `ID` = '"$userID"'";
+    $sql = "UPDATE `users` SET `SaveData` = '" . $userData . "' WHERE `ID` = '" . $userID . "'";
     if ($conn->query($sql) === TRUE)
     {
         echo "All done";

@@ -143,7 +143,8 @@ public class Tutorial : MonoBehaviour
                     return;
                 }
 
-                Player.Instance.Save();
+                StaticGameVariables.sceneToSave = "Tutorial 01";
+                SaveLoadSystem.Instance.Save();
                 SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
                 currentTask = -1;
                 break;

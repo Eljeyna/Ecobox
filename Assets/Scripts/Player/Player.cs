@@ -133,13 +133,13 @@ public class Player : AIEntity, ISaveState
             return;
         }
 
+#if UNITY_ANDROID || UNITY_IOS
         if (!touch || state == EntityState.Attack)
         {
             StatePerform();
             return;
         }
 
-#if UNITY_ANDROID || UNITY_IOS
         if (Touch.activeFingers.Count == 2)
         {
             touch = false;
@@ -518,6 +518,7 @@ public class Player : AIEntity, ISaveState
     public string Save()
     {
         Saveable saveObject = new Saveable();
+        saveObject.scene = StaticGameVariables.sceneToSave;
         int i = 0;
         
         if (inventory.itemList.Count > 0)
@@ -675,7 +676,7 @@ public class Player : AIEntity, ISaveState
         {
             saveObject.weapon = string.Empty;
         }
-
+        
         saveObject.maxStamina = stats.maxStamina;
         saveObject.stamina = stats.stamina;
         saveObject.staminaRegen = stats.staminaRegen;
@@ -703,7 +704,7 @@ public class Player : AIEntity, ISaveState
         saveObject.positionX = transform.position.x;
         saveObject.positionY = transform.position.y;
         */
-
+        
         if (buffsList.Length > 0)
         {
             i = 0;
@@ -716,13 +717,12 @@ public class Player : AIEntity, ISaveState
                 i++;
             }
         }
-
+        
         string jsonConvert = JsonConvert.SerializeObject(saveObject);
         
         if (StaticGameVariables.accountID != string.Empty)
         {
-            string debugString = StaticGameVariables.SaveAccountData(StaticGameVariables.accountID, jsonConvert);
-            Debug.Log(debugString);
+            StaticGameVariables.SaveAccountData(StaticGameVariables.accountID, jsonConvert);
         }
         
         return jsonConvert;
