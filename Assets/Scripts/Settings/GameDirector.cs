@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 using Cinemachine;
 
 public class GameDirector : MonoBehaviour
@@ -59,6 +60,14 @@ public class GameDirector : MonoBehaviour
 
         AddNewQuest("New Beginnings");
         UpdateQuestDescription();
+
+        if (SceneManager.GetActiveScene().name == "Tutorial 01")
+        {
+            UpdateQuest("New Beginnings", 4);
+            StaticGameVariables.ResumeGame();
+            noControl = false;
+            return;
+        }
 
         InitializeDialogue(startDialogue);
     }
