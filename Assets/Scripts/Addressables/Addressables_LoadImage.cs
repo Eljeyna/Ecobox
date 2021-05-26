@@ -9,7 +9,11 @@ public class Addressables_LoadImage : MonoBehaviour
 
     private void Awake()
     {
+#if UNITY_ANDROID || UNITY_IOS
         if (atlasSprite == null || atlasSprite.IsValid())
+#else
+        if (atlasSprite == null || atlasSprite.IsValid() || TryGetComponent(out DeleteMobileData deleteMobileData))
+#endif
         {
             return;
         }

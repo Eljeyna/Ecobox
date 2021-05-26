@@ -1,17 +1,22 @@
 [
   {
     "name": null,
-    "text": "I don't remember this place...",
+    "text": "Instead of the usual money in the game, there are two types of currency: high-quality and low-quality material.",
     "answers": []
   },
   {
     "name": null,
-    "text": "But it seems familiar.",
+    "text": "To get high-quality material, each garbage must be put in a container prepared for it..",
     "answers": []
   },
   {
     "name": null,
-    "text": "Deja vu.",
+    "text": "Yellow -> plastic, blue -> glass, green -> paper, red -> unsorted.",
+    "answers": []
+  },
+  {
+    "name": null,
+    "text": "To hand over the trash, go to the desired container, press the inventory button on the top / I on the keyboard, select the trash and press the \"Use\" button.",
     "answers": []
   }
 ]

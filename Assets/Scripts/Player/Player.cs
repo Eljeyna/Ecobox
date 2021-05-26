@@ -429,6 +429,13 @@ public class Player : AIEntity, ISaveState
     {
         switch (collision.gameObject.layer)
         {
+            case (int)GameLayers.Trigger:
+                if (collision.TryGetComponent(out Trigger trigger))
+                {
+                    trigger.Use();
+                }
+                
+                break;
             case (int)GameLayers.UpgradeZone:
                 if (collision.TryGetComponent(out UpgradeZone newUpgradeZone))
                 {
@@ -440,6 +447,11 @@ public class Player : AIEntity, ISaveState
             case (int)GameLayers.TrashBin:
                 if (collision.TryGetComponent(out TrashBin newTrashBin))
                 {
+                    if (trashBin)
+                    {
+                        trashBin.icon.enabled = false;
+                    }
+                    
                     trashBin = newTrashBin;
                     trashBin.icon.enabled = true;
                 }

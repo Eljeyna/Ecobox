@@ -43,9 +43,10 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 8ee68a90ad1661b428d703db1f81779a, type: 3}
     - {fileID: 102900000, guid: 666c3b2fd51c5e448a37b8e4f84177bf, type: 3}
-    totalSpriteSurfaceArea: 70247881
+    - {fileID: 102900000, guid: 8ee68a90ad1661b428d703db1f81779a, type: 3}
+    - {fileID: 102900000, guid: 6b8818ccc66cf1d2dbbf47fa8f413b4a, type: 3}
+    totalSpriteSurfaceArea: 70406511
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -70,6 +71,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 96b366e35edc77b4a9996d51c8b7a0c4, type: 3}
   - {fileID: 21300000, guid: 3cbf5cf3e28928545aaee8c214bf5139, type: 3}
   - {fileID: 21300000, guid: f44bee445cf87794d927a5e1ddf7f504, type: 3}
+  - {fileID: 5538684916715828304, guid: 8bcb1e849c5d729bf9f69603015746b3, type: 3}
+  - {fileID: 7088172547955779493, guid: 8bcb1e849c5d729bf9f69603015746b3, type: 3}
+  - {fileID: -4480998869908633083, guid: 8bcb1e849c5d729bf9f69603015746b3, type: 3}
+  - {fileID: 3575507383223036392, guid: 8bcb1e849c5d729bf9f69603015746b3, type: 3}
+  - {fileID: 6323279799599701973, guid: 8bcb1e849c5d729bf9f69603015746b3, type: 3}
+  - {fileID: -2856074565292839068, guid: 8bcb1e849c5d729bf9f69603015746b3, type: 3}
   - {fileID: 21300000, guid: 5bab3f7515dd796438e8f7477c35bb10, type: 3}
   - {fileID: 21300000, guid: 991d84264a6904d4f960a503f520510a, type: 3}
   - {fileID: 21300000, guid: 08d8ce56963630a4a918e29779952198, type: 3}
@@ -124,6 +131,12 @@ SpriteAtlas:
   - Trash Apple
   - 3
   - 3
+  - trashbins_0
+  - trashbins_1
+  - trashbins_2
+  - trashbins_3
+  - trashbins_4
+  - trashbins_5
   - 2
   - 1
   - 5

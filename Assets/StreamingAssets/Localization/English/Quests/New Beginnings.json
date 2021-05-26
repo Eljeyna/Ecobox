@@ -4,17 +4,17 @@
   "tasksDescriptions": [
     {
       "description": [
-        "Use left stick for movement"
+        "Use left stick for movement / A & D on the keyboard"
       ]
     },
     {
       "description": [
-        "Use right button with arrow up for jump"
+        "Use right button with arrow up for jump / Space on the keyboard"
       ]
     },
     {
       "description": [
-        "Use right stick for attack"
+        "Use right stick for attack / Left Mouse Button"
       ]
     },
     {

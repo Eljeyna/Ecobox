@@ -1,0 +1,192 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TutorialWorld 01
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 8192
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 23c7601758c428e5a902748add8cebc5, type: 3}
+    totalSpriteSurfaceArea: 14338994
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -2564032576524098436, guid: 5c57d210b801dea8982fab199ac1893d, type: 3}
+  - {fileID: 6823571529453442794, guid: 5c57d210b801dea8982fab199ac1893d, type: 3}
+  - {fileID: 6504452907052581091, guid: 5c57d210b801dea8982fab199ac1893d, type: 3}
+  - {fileID: 9153258738859498887, guid: 5c57d210b801dea8982fab199ac1893d, type: 3}
+  - {fileID: 1378068251089034365, guid: 5c57d210b801dea8982fab199ac1893d, type: 3}
+  - {fileID: -2527406384049011000, guid: 5c57d210b801dea8982fab199ac1893d, type: 3}
+  - {fileID: 3758862390733383049, guid: 5c57d210b801dea8982fab199ac1893d, type: 3}
+  - {fileID: 927450667673174160, guid: 5c57d210b801dea8982fab199ac1893d, type: 3}
+  - {fileID: -418929144885664223, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: -4372659424568917565, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: -2891453398403303555, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: -6547473480025862038, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: -524877543031904614, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: -3872889320325841034, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: 4946514624398523938, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: -5036600939746470205, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: -1581547282002965455, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: 5140639665807568530, guid: 0d0eeaf0906064342a10c3b352265c6e, type: 3}
+  - {fileID: 2852847961221375986, guid: 9752c793f6b3f75be8d7ceb10a04127d, type: 3}
+  - {fileID: 7394200986258851590, guid: 9752c793f6b3f75be8d7ceb10a04127d, type: 3}
+  - {fileID: -8498703107324428600, guid: 9752c793f6b3f75be8d7ceb10a04127d, type: 3}
+  - {fileID: 9196199614169273764, guid: 9752c793f6b3f75be8d7ceb10a04127d, type: 3}
+  - {fileID: -6975029565482363027, guid: 9752c793f6b3f75be8d7ceb10a04127d, type: 3}
+  - {fileID: 3259294936216281307, guid: 9752c793f6b3f75be8d7ceb10a04127d, type: 3}
+  - {fileID: -6537579023907152598, guid: 9752c793f6b3f75be8d7ceb10a04127d, type: 3}
+  - {fileID: -4712375719159730009, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -2397280860884365182, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -4255489300767683658, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -7710578750478426230, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -5858836328966904953, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -1954566243714298343, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 8330007719274071258, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 7225050338637960144, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -353096110197813778, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -2201004185417273631, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 2955966184537865832, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -3962320231762723227, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 6895592281151743598, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 513964063436504107, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -4180664988829606838, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 3854519087547730619, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -488544862423118083, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -362890367213626599, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 1488301725011014180, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 5261326726376052483, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 7217122259572505013, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 2831356835544050211, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -7972202525676027561, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -4847004538198489123, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 6385898329335650500, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -894820518157784494, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: 998237952344926632, guid: 7d926647546097340afb7b6ab04c0444, type: 3}
+  - {fileID: -6215869556700256215, guid: d85f543a711b0a2309a1dfd07c24308f, type: 3}
+  - {fileID: -2410754012211790020, guid: d85f543a711b0a2309a1dfd07c24308f, type: 3}
+  - {fileID: 1380579553542856557, guid: d85f543a711b0a2309a1dfd07c24308f, type: 3}
+  - {fileID: 3660132632875294079, guid: d85f543a711b0a2309a1dfd07c24308f, type: 3}
+  - {fileID: -3142856237357742515, guid: d85f543a711b0a2309a1dfd07c24308f, type: 3}
+  - {fileID: -7522072805114197072, guid: d85f543a711b0a2309a1dfd07c24308f, type: 3}
+  - {fileID: -8677164435290038233, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: -5427887325597579183, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: -3722490455595391638, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: 3986061963867474379, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: -1960693398722581246, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: -5342899683599240943, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: -3643801988075151291, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: 6343888730784975065, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: -6297841393305379348, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  - {fileID: -9120406111138420596, guid: 248d179bfaeeafb53a5769d1c2f58fe0, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Mossy - FloatingPlatforms_8
+  - Mossy - FloatingPlatforms_9
+  - Mossy - FloatingPlatforms_5
+  - Mossy - FloatingPlatforms_6
+  - Mossy - FloatingPlatforms_7
+  - Mossy - FloatingPlatforms_0
+  - Mossy - FloatingPlatforms_2
+  - Mossy - FloatingPlatforms_3
+  - Mossy - TileSet_6
+  - Mossy - TileSet_7
+  - Mossy - TileSet_5
+  - Mossy - TileSet_19
+  - Mossy - TileSet_20
+  - Mossy - TileSet_21
+  - Mossy - TileSet_22
+  - Mossy - TileSet_23
+  - Mossy - TileSet_24
+  - Mossy - TileSet_25
+  - Mossy - MossyHills_11
+  - Mossy - MossyHills_7
+  - Mossy - MossyHills_6
+  - Mossy - MossyHills_1
+  - Mossy - MossyHills_3
+  - Mossy - MossyHills_9
+  - Mossy - MossyHills_8
+  - Mossy - Decorations&Hazards_20
+  - Mossy - Decorations&Hazards_21
+  - Mossy - Decorations&Hazards_22
+  - Mossy - Decorations&Hazards_23
+  - Mossy - Decorations&Hazards_33
+  - Mossy - Decorations&Hazards_24
+  - Mossy - Decorations&Hazards_25
+  - Mossy - Decorations&Hazards_31
+  - Mossy - Decorations&Hazards_26
+  - Mossy - Decorations&Hazards_30
+  - Mossy - Decorations&Hazards_27
+  - Mossy - Decorations&Hazards_28
+  - Mossy - Decorations&Hazards_29
+  - Mossy - Decorations&Hazards_19
+  - Mossy - Decorations&Hazards_11
+  - Mossy - Decorations&Hazards_10
+  - Mossy - Decorations&Hazards_13
+  - Mossy - Decorations&Hazards_12
+  - Mossy - Decorations&Hazards_2
+  - Mossy - Decorations&Hazards_3
+  - Mossy - Decorations&Hazards_0
+  - Mossy - Decorations&Hazards_6
+  - Mossy - Decorations&Hazards_7
+  - Mossy - Decorations&Hazards_4
+  - Mossy - Decorations&Hazards_5
+  - Mossy - Decorations&Hazards_8
+  - Mossy - Decorations&Hazards_9
+  - Mossy - BackgroundDecoration_4
+  - Mossy - BackgroundDecoration_5
+  - Mossy - BackgroundDecoration_2
+  - Mossy - BackgroundDecoration_3
+  - Mossy - BackgroundDecoration_0
+  - Mossy - BackgroundDecoration_1
+  - Mossy - Hanging Plants_8
+  - Mossy - Hanging Plants_9
+  - Mossy - Hanging Plants_6
+  - Mossy - Hanging Plants_7
+  - Mossy - Hanging Plants_4
+  - Mossy - Hanging Plants_5
+  - Mossy - Hanging Plants_2
+  - Mossy - Hanging Plants_3
+  - Mossy - Hanging Plants_0
+  - Mossy - Hanging Plants_1
+  m_RenderDataMap: {}
+  m_Tag: TutorialWorld 01
+  m_IsVariant: 0

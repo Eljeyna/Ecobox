@@ -18,6 +18,7 @@ public enum GameLayers
 {
     Entities = 8,
     Spawners = 20,
+    Trigger = 26,
     UpgradeZone = 27,
     TrashBin = 28,
     Minimap = 29,
