@@ -4,7 +4,8 @@ using UnityEngine.Audio;
 public enum MusicList
 {
     MainMenu    = 0,
-    Tutorial    = 1
+    Tutorial    = 1,
+    Tutorial01  = 2
 }
 
 public class MusicDirector : MonoBehaviour

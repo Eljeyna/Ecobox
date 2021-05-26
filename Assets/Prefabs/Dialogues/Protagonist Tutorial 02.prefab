@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1618419712651941632}
   - component: {fileID: 1618419712651941633}
   - component: {fileID: 1618419712651941639}
+  - component: {fileID: 9069821575976942803}
   m_Layer: 0
   m_Name: Protagonist Tutorial 02
   m_TagString: Untagged
@@ -63,4 +64,18 @@ MonoBehaviour:
   _currentLine: 0
   _defaultLine: 0
   controlAfter: 1
-  scriptAfterDialogue: {fileID: 0}
+  scriptAfterDialogue: {fileID: 9069821575976942803}
+--- !u!114 &9069821575976942803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618419712651941638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea78d291f39bca8e0a898c16ef4e3272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: New Beginnings
+  nextTask: 5

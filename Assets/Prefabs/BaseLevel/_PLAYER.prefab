@@ -481,7 +481,7 @@ MonoBehaviour:
   staminaTimeRegen: 0.2
   staminaTimeRegenWhenUse: 2
   money: 0
-  qualitativeMaterial: 4
+  qualitativeMaterial: 0
   badQualityMaterial: 0
   nextStaminaRegen: 0
 --- !u!1 &8664085282287830533

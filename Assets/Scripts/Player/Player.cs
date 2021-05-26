@@ -447,11 +447,11 @@ public class Player : AIEntity, ISaveState
             case (int)GameLayers.TrashBin:
                 if (collision.TryGetComponent(out TrashBin newTrashBin))
                 {
-                    if (trashBin)
+                    if (trashBin && trashBin.gameObject == collision.gameObject)
                     {
-                        trashBin.icon.enabled = false;
+                        break;
                     }
-                    
+
                     trashBin = newTrashBin;
                     trashBin.icon.enabled = true;
                 }
@@ -485,6 +485,11 @@ public class Player : AIEntity, ISaveState
                 
                 break;
             case (int)GameLayers.TrashBin:
+                if (!trashBin)
+                {
+                    break;
+                }
+                
                 trashBin.icon.enabled = false;
                 trashBin = null;
                 

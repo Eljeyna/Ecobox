@@ -3,7 +3,6 @@ using UnityEngine.AddressableAssets;
 public class TriggerInitializeDialogue : Trigger
 {
     public AssetReference dialogue;
-    public bool destroyOnExit;
     
     public override void Use()
     {

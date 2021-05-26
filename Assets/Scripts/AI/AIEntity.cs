@@ -277,9 +277,19 @@ public abstract class AIEntity : MonoBehaviour
     
     public float GetEndReachedDistance()
     {
-        if (target.TryGetComponent(out Collider2D entityCollider))
+        if (!weapon)
         {
-            return StaticGameVariables.GetReachedDistance(entityCollider) - weapon.gunData.range;
+            if (target.TryGetComponent(out Collider2D entityCollider))
+            {
+                return StaticGameVariables.GetReachedDistance(entityCollider);
+            }
+
+            return thisCollider.bounds.size.x + thisCollider.bounds.size.y;
+        }
+        
+        if (target.TryGetComponent(out Collider2D entityCollider1))
+        {
+            return StaticGameVariables.GetReachedDistance(entityCollider1) - weapon.gunData.range;
         }
         
         return weapon.gunData.range;
