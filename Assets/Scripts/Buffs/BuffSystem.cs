@@ -8,7 +8,7 @@ public class BuffSystem : MonoBehaviour
 
     void Update()
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }

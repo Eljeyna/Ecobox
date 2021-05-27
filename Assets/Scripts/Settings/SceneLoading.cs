@@ -20,7 +20,7 @@ public class SceneLoading : MonoBehaviour
 
     private void Start()
     {
-        StaticGameVariables.PauseGame();
+        Game.PauseGame();
         
         if (ReferenceEquals(Instance, null))
         {
@@ -69,7 +69,7 @@ public class SceneLoading : MonoBehaviour
     public void SwitchToScene()
     {
         waitTime = Time.unscaledTime + 1f;
-        StaticGameVariables.PauseGame();
+        Game.PauseGame();
         this.enabled = true;
     }
 

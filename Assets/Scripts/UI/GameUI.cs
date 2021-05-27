@@ -17,8 +17,8 @@ public class GameUI : MonoBehaviour
     {
         Instance = this;
 
-        StaticGameVariables.InitializeLanguage();
-        StaticGameVariables.InitializeAwake();
-        StaticGameVariables.InitializeFinale();
+        Game.InitializeLanguage();
+        Game.InitializeAwake();
+        Game.InitializeFinale();
     }
 }

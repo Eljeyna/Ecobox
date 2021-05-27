@@ -13,8 +13,8 @@ public class TrashBin : MonoBehaviour
             return;
         }
 
-        StaticGameVariables.GetRandom();
-        int random = (int)(StaticGameVariables.random * 4f + 0.5f);
+        Game.GetRandom();
+        int random = (int)(Game.random * 4f + 0.5f);
         trashType = (TrashType)random;
     }
 

@@ -6,9 +6,9 @@ public class TriggerSpawnEnemyWithRandom : Trigger
     public Addressables_Instantiate enemyScript;
     public override void Use()
     {
-        StaticGameVariables.GetRandom();
+        Game.GetRandom();
         
-        if (StaticGameVariables.random <= chance)
+        if (Game.random <= chance)
         {
             enemyScript.SpawnEntities();
         }

@@ -4,6 +4,6 @@ public class HideInventory : MonoBehaviour
 {
     public void InventoryHide()
     {
-        StaticGameVariables.HideInventory();
+        Game.HideInventory();
     }
 }

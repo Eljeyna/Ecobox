@@ -16,7 +16,7 @@ public class JoystickAttack : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         
         if (joystick.DeadZone < joystick.Direction.magnitude)
         {
-            if (StaticGameVariables.isPause || Player.Instance.state != EntityState.Normal)
+            if (Game.isPause || Player.Instance.state != EntityState.Normal)
             {
                 return;
             }

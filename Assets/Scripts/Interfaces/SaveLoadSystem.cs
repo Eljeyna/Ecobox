@@ -17,9 +17,9 @@ public class SaveLoadSystem : MonoBehaviour
             Instance = this;
         }
 
-        if (!Directory.Exists(StaticGameVariables._SAVE_FOLDER))
+        if (!Directory.Exists(Game._SAVE_FOLDER))
         {
-            Directory.CreateDirectory(StaticGameVariables._SAVE_FOLDER);
+            Directory.CreateDirectory(Game._SAVE_FOLDER);
         }
     }
 
@@ -31,7 +31,7 @@ public class SaveLoadSystem : MonoBehaviour
             return;
         }
         
-        StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
+        StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "save0.json"));
         
         json = string.Empty;
         foreach (var monoBehaviour in FindObjectsOfType<MonoBehaviour>())

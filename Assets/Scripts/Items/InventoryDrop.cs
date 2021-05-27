@@ -15,9 +15,9 @@ public class InventoryDrop : MonoBehaviour
         
         for (int i = 0; i < itemsForDrop.Length; i++)
         {
-            if (StaticGameVariables.InRandom(chanceDrop[i]))
+            if (Game.InRandom(chanceDrop[i]))
             {
-                Addressables.InstantiateAsync(itemsForDrop[i], StaticGameVariables._ITEMS).Completed += SetItemPosition;
+                Addressables.InstantiateAsync(itemsForDrop[i], Game._ITEMS).Completed += SetItemPosition;
             }
         }
     }

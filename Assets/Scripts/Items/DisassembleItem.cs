@@ -4,6 +4,6 @@ public class DisassembleItem : MonoBehaviour
 {
     public void Use()
     {
-        StaticGameVariables.DisassembleItem();
+        Game.DisassembleItem();
     }
 }

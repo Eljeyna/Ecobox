@@ -40,9 +40,9 @@ public class Slime : AIEnemy
     {
         base.OnDamaged(sender, healthArguments);
 
-        StaticGameVariables.GetRandom();
+        Game.GetRandom();
         //audioDirector.Play((int)((float)SlimeSounds.Hit1 + StaticGameVariables.random * (SlimeSounds.HitLast - SlimeSounds.Hit1) + 0.5f));
-        audioDirector.Play((int)((float)SlimeSounds.Hit1 + StaticGameVariables.random * (float)SlimeSounds.Hit1 + 0.5f));
+        audioDirector.Play((int)((float)SlimeSounds.Hit1 + Game.random * (float)SlimeSounds.Hit1 + 0.5f));
     }
 
     public override void OnDie(object sender, EventArgs e)

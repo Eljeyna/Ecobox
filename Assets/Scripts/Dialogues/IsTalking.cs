@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
-using static StaticGameVariables;
+using static Game;
 
 [RequireComponent(typeof(Dialogue))]
 public class IsTalking : MonoBehaviour

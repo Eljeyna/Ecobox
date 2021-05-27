@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using static StaticGameVariables;
+using static Game;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Items/New Item")]
 public class Item : ScriptableObject

@@ -6,6 +6,6 @@ public class ChangeLanguage : MonoBehaviour
 
     public void LanguageChange()
     {
-        StaticGameVariables.ChangeLanguage(language);
+        Game.ChangeLanguage(language);
     }
 }

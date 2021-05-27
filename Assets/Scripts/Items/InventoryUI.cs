@@ -35,7 +35,7 @@ public class InventoryUI : MonoBehaviour
 
         foreach (Item item in inventory.itemList.Values)
         {
-            if (item.itemType == StaticGameVariables.currentItemCategory)
+            if (item.itemType == Game.currentItemCategory)
             {
                 RectTransform itemSlotRect = Instantiate(itemSlotPrefab, itemSlotContainer).GetComponent<RectTransform>();
                 itemSlotRect.gameObject.SetActive(true);
@@ -45,7 +45,7 @@ public class InventoryUI : MonoBehaviour
                     ItemInfoSelected itemInfo = newItemInfo;
                     
                     itemInfo.item = item;
-                    if (StaticGameVariables.itemSelected == item)
+                    if (Game.itemSelected == item)
                     {
                         itemInfo.GetItemInfo();
                     }
@@ -53,7 +53,7 @@ public class InventoryUI : MonoBehaviour
 
                 if (itemSlotRect.transform.GetChild(0).TryGetComponent(out Image newImage))
                 {
-                    newImage.color = StaticGameVariables.colorItems[(int)item.itemQuality];
+                    newImage.color = Game.colorItems[(int)item.itemQuality];
                 }
 
                 if (itemSlotRect.transform.GetChild(0).GetChild(0).TryGetComponent(out Image newSprite))

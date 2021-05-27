@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsForDrop:
-  - m_AssetGUID: b6368a8a9afe35c4b8fd63d315484385
+  - m_AssetGUID: 1eb645b6ca40ff54686636c4a3f09ce5
     m_SubObjectName: 
     m_SubObjectType: 
   chanceDrop:

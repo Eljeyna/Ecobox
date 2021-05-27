@@ -39,7 +39,7 @@ public abstract class Gun : MonoBehaviour
 
     public void StatePerform()
     {
-        if (StaticGameVariables.isPause && delay != 0f)
+        if (Game.isPause && delay != 0f)
         {
             return;
         }

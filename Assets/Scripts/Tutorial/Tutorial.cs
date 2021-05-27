@@ -17,7 +17,7 @@ public class Tutorial : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }
@@ -143,7 +143,7 @@ public class Tutorial : MonoBehaviour
                     return;
                 }
 
-                StaticGameVariables.sceneToSave = "Tutorial 01";
+                Game.sceneToSave = "Tutorial 01";
                 SaveLoadSystem.Instance.Save();
                 SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
                 currentTask = -1;

@@ -93,7 +93,7 @@ public class Player : AIEntity, ISaveState
 
     private void FixedUpdate()
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }
@@ -101,14 +101,14 @@ public class Player : AIEntity, ISaveState
         if (isJumping)
         {
             isJumping = false;
-            rb.AddForce(Vector2.up * StaticGameVariables.globalJumpForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * Game.globalJumpForce, ForceMode2D.Impulse);
         }
 
         isGrounded = IsGrounded();
 
         if (isGrounded)
         {
-            animations.SetFloat(StaticGameVariables.animationFallKeyID, 0f);
+            animations.SetFloat(Game.animationFallKeyID, 0f);
 
             if (!dashing)
             {
@@ -117,18 +117,18 @@ public class Player : AIEntity, ISaveState
         }
         else if (!isGrounded)
         {
-            float fallTime = animations.GetFloat(StaticGameVariables.animationFallKeyID);
+            float fallTime = animations.GetFloat(Game.animationFallKeyID);
 
             if (fallTime < 1f)
             {
-                animations.SetFloat(StaticGameVariables.animationFallKeyID, fallTime + Time.fixedDeltaTime);
+                animations.SetFloat(Game.animationFallKeyID, fallTime + Time.fixedDeltaTime);
             }
         }
     }
 
     private void Update()
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }
@@ -233,9 +233,9 @@ public class Player : AIEntity, ISaveState
     
     public override void SetAnimation()
     {
-        animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
-        animations.SetBool(StaticGameVariables.animationMoveKeyID, rb.velocity.x != 0f);
-        animations.SetBool(StaticGameVariables.animationJumpKeyID, !isGrounded);
+        animations.SetInteger(Game.animationKeyID, (int)state);
+        animations.SetBool(Game.animationMoveKeyID, rb.velocity.x != 0f);
+        animations.SetBool(Game.animationJumpKeyID, !isGrounded);
     }
     
     public override void Attack()
@@ -272,9 +272,9 @@ public class Player : AIEntity, ISaveState
         }
 
         weapon.enabled = true;
-        StaticGameVariables.GetRandom();
-        animations.SetInteger(StaticGameVariables.animationAttackComboKeyID, (int)(StaticGameVariables.random + 0.5f));
-        audioDirector.Play((int)((float)PlayerSounds.Attack1 + StaticGameVariables.random * (float)PlayerSounds.AttackLast));
+        Game.GetRandom();
+        animations.SetInteger(Game.animationAttackComboKeyID, (int)(Game.random + 0.5f));
+        audioDirector.Play((int)((float)PlayerSounds.Attack1 + Game.random * (float)PlayerSounds.AttackLast));
         weapon.PrimaryAttack();
         stats.StaminaAction(staminaToAttack);
     }
@@ -323,12 +323,12 @@ public class Player : AIEntity, ISaveState
     private void Zoom(bool zoomOut)
     {
         cam.m_Lens.OrthographicSize = Mathf.Clamp(cam.m_Lens.OrthographicSize + (zoomOut ? zoomAmount : -zoomAmount),
-            StaticGameVariables.camMinSize, StaticGameVariables.camMaxSize);
+            Game.camMinSize, Game.camMaxSize);
     }
 
     public void OnDash()
     {
-        if (!StaticGameVariables.isPause && dashing && state == EntityState.Normal && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        if (!Game.isPause && dashing && state == EntityState.Normal && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
         {
             Standing();
             dashing = false;
@@ -342,7 +342,7 @@ public class Player : AIEntity, ISaveState
 
     public void OnJump()
     {
-        if (StaticGameVariables.isPause || state != EntityState.Normal || !IsGrounded())
+        if (Game.isPause || state != EntityState.Normal || !IsGrounded())
         {
             return;
         }
@@ -352,7 +352,7 @@ public class Player : AIEntity, ISaveState
 
     public void OnReload()
     {
-        if (StaticGameVariables.isPause || state != EntityState.Normal || !weapon || weapon.reloading)
+        if (Game.isPause || state != EntityState.Normal || !weapon || weapon.reloading)
         {
             return;
         }
@@ -362,12 +362,12 @@ public class Player : AIEntity, ISaveState
 
     public void OnInventory()
     {
-        if (StaticGameVariables.isPause && StaticGameVariables.inventoryCanvas.isActiveAndEnabled)
+        if (Game.isPause && Game.inventoryCanvas.isActiveAndEnabled)
         {
             return;
         }
         
-        StaticGameVariables.OpenInventory();
+        Game.OpenInventory();
     }
 
     public void OnCancel()
@@ -377,19 +377,19 @@ public class Player : AIEntity, ISaveState
             return;
         }
 
-        if (StaticGameVariables.inventoryCanvas.isActiveAndEnabled)
+        if (Game.inventoryCanvas.isActiveAndEnabled)
         {
-            StaticGameVariables.HideInventory();
+            Game.HideInventory();
             return;
         }
 
-        if (StaticGameVariables.quickUI.isActiveAndEnabled)
+        if (Game.quickUI.isActiveAndEnabled)
         {
-            StaticGameVariables.HideQuickMenu();
+            Game.HideQuickMenu();
         }
         else
         {
-            StaticGameVariables.ShowQuickMenu();
+            Game.ShowQuickMenu();
         }
     }
 
@@ -401,7 +401,7 @@ public class Player : AIEntity, ISaveState
 
     private void Attack_performed(InputAction.CallbackContext obj)
     {
-        if (StaticGameVariables.isPause || state != EntityState.Normal || touch)
+        if (Game.isPause || state != EntityState.Normal || touch)
         {
             return;
         }
@@ -413,7 +413,7 @@ public class Player : AIEntity, ISaveState
 
     private void Zoom_performed(InputAction.CallbackContext obj)
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }
@@ -535,7 +535,7 @@ public class Player : AIEntity, ISaveState
     public string Save()
     {
         Saveable saveObject = new Saveable();
-        saveObject.scene = StaticGameVariables.sceneToSave;
+        saveObject.scene = Game.sceneToSave;
         int i = 0;
         
         if (inventory.itemList.Count > 0)
@@ -588,8 +588,8 @@ public class Player : AIEntity, ISaveState
             }
         }
         
-        StringBuilder saveBuilder = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json")); 
-        StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "cplQ.json")); // file with Completed Quests (temporary)
+        StringBuilder saveBuilder = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "save0.json")); 
+        StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "cplQ.json")); // file with Completed Quests (temporary)
 
         if (File.Exists(saveBuilder.ToString()))
         {
@@ -737,9 +737,9 @@ public class Player : AIEntity, ISaveState
         
         string jsonConvert = JsonConvert.SerializeObject(saveObject);
         
-        if (StaticGameVariables.accountID != string.Empty)
+        if (Game.accountID != string.Empty)
         {
-            StaticGameVariables.SaveAccountData(StaticGameVariables.accountID, jsonConvert);
+            Game.SaveAccountData(Game.accountID, jsonConvert);
         }
         
         return jsonConvert;
@@ -747,7 +747,7 @@ public class Player : AIEntity, ISaveState
 
     public async Task Load()
     {
-        StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
+        StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "save0.json"));
 
         if (File.Exists(sb.ToString()))
         {

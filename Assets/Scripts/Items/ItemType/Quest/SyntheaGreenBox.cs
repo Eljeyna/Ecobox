@@ -13,7 +13,7 @@ public class SyntheaGreenBox : Item
 
         GameDirector.Instance.UpdateQuest("New Beginnings", taskID);
 
-        StaticGameVariables.HideInventory();
+        Game.HideInventory();
         GameDirector.Instance.InitializeDialogue(talkID);
     }
 

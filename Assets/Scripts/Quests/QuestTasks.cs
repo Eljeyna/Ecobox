@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
-using static StaticGameVariables;
+using static Game;
 
 public class QuestTasks : ITranslate
 {

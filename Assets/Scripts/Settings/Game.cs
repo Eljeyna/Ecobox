@@ -8,7 +8,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public static class StaticGameVariables
+public static class Game
 {
     #region Variables
     #region Language

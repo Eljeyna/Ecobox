@@ -56,7 +56,7 @@ public class Web : MonoBehaviour
             return;
         }
 
-        message = StaticGameVariables.UserLogin(loginField.text, passwordField.text);
+        message = Game.UserLogin(loginField.text, passwordField.text);
 
         if (message != string.Empty && message != errorLogin && message != errorPassword && !message.Contains(errorConnection))
         {
@@ -98,7 +98,7 @@ public class Web : MonoBehaviour
             return;
         }
 
-        message = StaticGameVariables.UserRegister(loginFieldRegister.text, emailRegister.text, passwordFieldRegister.text);
+        message = Game.UserRegister(loginFieldRegister.text, emailRegister.text, passwordFieldRegister.text);
 
         if (message != string.Empty && message == confirmRegisterMessage)
         {
@@ -128,7 +128,7 @@ public class Web : MonoBehaviour
     {
         canvasGroup.interactable = false;
         messageField.enabled = false;
-        StaticGameVariables.accountID = ID;
+        Game.accountID = ID;
         SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
     }
 

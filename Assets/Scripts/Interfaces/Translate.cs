@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using static StaticGameVariables;
+using static Game;
 
 public class Translate : MonoBehaviour
 {
@@ -24,9 +24,9 @@ public class Translate : MonoBehaviour
 
     public void GetTranslate()
     {
-        if (language != (int)StaticGameVariables.language)
+        if (language != (int)Game.language)
         {
-            language = (int)StaticGameVariables.language;
+            language = (int)Game.language;
         }
         
         StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[language], "UI.json")));

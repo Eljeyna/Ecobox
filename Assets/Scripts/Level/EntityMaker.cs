@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
-using static StaticGameVariables;
+using static Game;
 
 [RequireComponent(typeof(CircleCollider2D))]
 public class EntityMaker : MonoBehaviour

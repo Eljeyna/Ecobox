@@ -17,36 +17,36 @@ public class ItemInfoSelected : MonoBehaviour
 
     public void GetItemInfo()
     {
-        if (StaticGameVariables.slotSelected)
+        if (Game.slotSelected)
         {
-            if (StaticGameVariables.slotSelected.TryGetComponent(out Image newImage))
+            if (Game.slotSelected.TryGetComponent(out Image newImage))
             {
-                newImage.color = StaticGameVariables.slotDefaultColor;
+                newImage.color = Game.slotDefaultColor;
             }
         }
 
-        StaticGameVariables.slotSelected = transform.parent.gameObject;
-        if (StaticGameVariables.slotSelected.TryGetComponent(out Image newColor))
+        Game.slotSelected = transform.parent.gameObject;
+        if (Game.slotSelected.TryGetComponent(out Image newColor))
         {
-            newColor.color = StaticGameVariables.slotColor;
+            newColor.color = Game.slotColor;
         }
 
-        StaticGameVariables.itemSelected = item;
-        StaticGameVariables.itemSelected.GetTranslate();
-        StaticGameVariables.itemName.text = StaticGameVariables.translationString[0];
-        StaticGameVariables.itemDescription.text = StaticGameVariables.translationString[1];
+        Game.itemSelected = item;
+        Game.itemSelected.GetTranslate();
+        Game.itemName.text = Game.translationString[0];
+        Game.itemDescription.text = Game.translationString[1];
 
-        if (!StaticGameVariables.itemInfoCanvas.isActiveAndEnabled)
+        if (!Game.itemInfoCanvas.isActiveAndEnabled)
         {
-            StaticGameVariables.itemInfoCanvas.enabled = true;
+            Game.itemInfoCanvas.enabled = true;
         }
 
-        StaticGameVariables.EnableInventoryButtons();
+        Game.EnableInventoryButtons();
 
         if (item.itemType == Item.ItemType.Quest)
         {
-            StaticGameVariables.buttonDisItem.interactable = false;
-            StaticGameVariables.buttonDropItem.interactable = false;
+            Game.buttonDisItem.interactable = false;
+            Game.buttonDropItem.interactable = false;
         }
     }
 }

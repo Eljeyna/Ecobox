@@ -6,6 +6,6 @@ public class InventoryCategorySelect : MonoBehaviour
 
     public void Use()
     {
-        StaticGameVariables.ChangeCategoryItem(itemType);
+        Game.ChangeCategoryItem(itemType);
     }
 }

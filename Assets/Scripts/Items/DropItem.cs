@@ -4,6 +4,6 @@ public class DropItem : MonoBehaviour
 {
     public void Use()
     {
-        StaticGameVariables.DropItem();
+        Game.DropItem();
     }
 }

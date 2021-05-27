@@ -37,7 +37,7 @@ public class Stats : MonoBehaviour
 
     private void Update()
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }

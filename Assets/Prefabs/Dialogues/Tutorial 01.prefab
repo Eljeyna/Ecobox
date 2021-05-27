@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1618419712651941639}
   - component: {fileID: 9069821575976942803}
   m_Layer: 0
-  m_Name: Protagonist Tutorial 02
+  m_Name: Tutorial 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94012724f52eb4449093ca792ee7e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: Protagonist Tutorial 02
+  key: Tutorial 01
   dialogues: []
   answersArray: []
 --- !u!114 &1618419712651941639

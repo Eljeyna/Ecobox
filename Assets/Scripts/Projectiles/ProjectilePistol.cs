@@ -4,7 +4,7 @@ public class ProjectilePistol : Projectile
 {
     private void Update()
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }

@@ -64,7 +64,7 @@ public class GameDirector : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Tutorial 01")
         {
             UpdateQuest("New Beginnings", 4);
-            StaticGameVariables.ResumeGame();
+            Game.ResumeGame();
             noControl = false;
             return;
         }
@@ -96,14 +96,14 @@ public class GameDirector : MonoBehaviour
     {
         StringBuilder sb = new StringBuilder();
         activeQuest.tasks.GetTranslate();
-        StaticGameVariables.questName.text = activeQuest.tasks.nameQuest;
+        Game.questName.text = activeQuest.tasks.nameQuest;
         
         for (int i = 0; i < activeQuest.tasks.tasksDescriptions[activeQuest.currentTask].description.Length; i++)
         {
             sb.Append(activeQuest.tasks.tasksDescriptions[activeQuest.currentTask].description[i]);
         }
         
-        StaticGameVariables.taskDescription.text = sb.ToString();
+        Game.taskDescription.text = sb.ToString();
     }
 
     public void UpdateQuest(string id, int task)
@@ -130,7 +130,7 @@ public class GameDirector : MonoBehaviour
             value.Complete();
             quests.Remove(id);
             
-            StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "cplQ.json"));
+            StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "cplQ.json"));
             CompletedQuestsID cplQ;
 
             if (File.Exists(sb.ToString()))
@@ -182,15 +182,15 @@ public class GameDirector : MonoBehaviour
 
         if (controlAfter)
         {
-            StaticGameVariables.ResumeGame();
-            StaticGameVariables.ShowInGameUI();
+            Game.ResumeGame();
+            Game.ShowInGameUI();
             noControl = false;
         }
     }
 
     public async void InitializeDialogue(AssetReference dialogueReference)
     {
-        StaticGameVariables.PauseGame();
+        Game.PauseGame();
         noControl = true;
         
         if (!ReferenceEquals(this.dialogueReference, null) && this.dialogueReference.IsValid())
@@ -204,7 +204,7 @@ public class GameDirector : MonoBehaviour
     
     public async Task LoadDialogue()
     {
-        dialogueHandle = Addressables.InstantiateAsync(dialogueReference, StaticGameVariables._DIALOGUES);
+        dialogueHandle = Addressables.InstantiateAsync(dialogueReference, Game._DIALOGUES);
         await dialogueHandle.Task;
     }
 
@@ -239,9 +239,9 @@ public class GameDirector : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        if (Directory.Exists(StaticGameVariables._SAVE_FOLDER))
+        if (Directory.Exists(Game._SAVE_FOLDER))
         {
-            StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "cplQ.json"));
+            StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "cplQ.json"));
 
             if (File.Exists(sb.ToString()))
             {

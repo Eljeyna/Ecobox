@@ -61,7 +61,7 @@ public abstract class AIEntity : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }
@@ -87,7 +87,7 @@ public abstract class AIEntity : MonoBehaviour
 
     public void StatePerform()
     {
-        if (StaticGameVariables.isPause)
+        if (Game.isPause)
         {
             return;
         }
@@ -150,7 +150,7 @@ public abstract class AIEntity : MonoBehaviour
             }
         }
 
-        float angle = StaticGameVariables.GetAngleBetweenPositions(target.position, transform.position);
+        float angle = Game.GetAngleBetweenPositions(target.position, transform.position);
 
         if (angle <= 90f && angle >= -90f)
         {
@@ -217,9 +217,9 @@ public abstract class AIEntity : MonoBehaviour
 
     public virtual void SetAnimation()
     {
-        animations.SetInteger(StaticGameVariables.animationKeyID, (int)state);
-        animations.SetBool(StaticGameVariables.animationMoveKeyID, rb.velocity.x != 0f);
-        animations.SetBool(StaticGameVariables.animationJumpKeyID, !isGrounded);
+        animations.SetInteger(Game.animationKeyID, (int)state);
+        animations.SetBool(Game.animationMoveKeyID, rb.velocity.x != 0f);
+        animations.SetBool(Game.animationJumpKeyID, !isGrounded);
     }
 
     public virtual void Attack()
@@ -281,7 +281,7 @@ public abstract class AIEntity : MonoBehaviour
         {
             if (target.TryGetComponent(out Collider2D entityCollider))
             {
-                return StaticGameVariables.GetReachedDistance(entityCollider);
+                return Game.GetReachedDistance(entityCollider);
             }
 
             return thisCollider.bounds.size.x + thisCollider.bounds.size.y;
@@ -289,7 +289,7 @@ public abstract class AIEntity : MonoBehaviour
         
         if (target.TryGetComponent(out Collider2D entityCollider1))
         {
-            return StaticGameVariables.GetReachedDistance(entityCollider1) - weapon.gunData.range;
+            return Game.GetReachedDistance(entityCollider1) - weapon.gunData.range;
         }
         
         return weapon.gunData.range;

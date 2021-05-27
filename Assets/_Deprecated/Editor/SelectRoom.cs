@@ -2,8 +2,8 @@ public static class SelectRoom
 {
     public static string GetNextRoom()
     {
-        StaticGameVariables.GetRandom();
-        int random = (int)(StaticGameVariables.random * 6f);
+        Game.GetRandom();
+        int random = (int)(Game.random * 6f);
         return random.ToString();
     }
 }

@@ -15,8 +15,8 @@ public class ItemTrash : Item
             }
 
             itemAmount -= itemAmount;
-            StaticGameVariables.UpdateMaterialUI();
-            StaticGameVariables.itemSelected = null;
+            Game.UpdateMaterialUI();
+            Game.itemSelected = null;
         }
     }
 }
