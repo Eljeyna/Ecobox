@@ -20,7 +20,6 @@ public class TrashBin : MonoBehaviour
 
     public void GetReward(int amount)
     {
-        Player.Instance.stats.money += amount * 10;
         Player.Instance.stats.qualitativeMaterial += 3 * amount;
     }
 }

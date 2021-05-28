@@ -274,11 +274,11 @@ public static class Game
             int amount = itemSelected.itemAmount;
             itemSelected.Use();
 
-            if (itemSelected.itemAmount <= 0)
+            /*if (itemSelected.itemAmount <= 0)
             {
                 Player.Instance.inventory.RemoveItem(itemSelected);
                 itemSelected = null;
-            }
+            }*/
 
             if (itemSelected && itemSelected.itemAmount != amount)
             {

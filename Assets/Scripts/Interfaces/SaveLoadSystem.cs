@@ -97,7 +97,6 @@ public struct Saveable
     public int intelligence;
     public int oratory;
     */
-    public int money;
     public int qualitativeMaterial;
     public int badQualityMaterial;
 
@@ -115,6 +114,8 @@ public struct Saveable
     */
 
     public string weapon;
+
+    public bool finishTutorial;
     /*
     public string weaponRanged;
     public float positionX;

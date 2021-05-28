@@ -10,7 +10,6 @@ public class Stats : MonoBehaviour
     public float staminaTimeRegenWhenUse = 1.5f;
 
     [Space(10)]
-    public int money;
     public int qualitativeMaterial;
     public int badQualityMaterial;
 
@@ -20,11 +19,6 @@ public class Stats : MonoBehaviour
 
     public void Initialize()
     {
-        if (Settings.Instance.gameIsLoaded)
-        {
-            return;
-        }
-
         stamina = maxStamina;
     }
     

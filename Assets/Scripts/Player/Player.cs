@@ -227,7 +227,7 @@ public class Player : AIEntity, ISaveState
         {
             return;
         }
-
+        
         OnLoad();
     }
     
@@ -394,9 +394,17 @@ public class Player : AIEntity, ISaveState
     }
 
     public void OnLoad()
-    {        
-        //StringBuilder sb = new StringBuilder(Path.Combine(StaticGameVariables._SAVE_FOLDER, "save0.json"));
-        SceneLoading.Instance.SwitchToScene(SceneManager.GetActiveScene().name, SceneLoading.startAnimationID);
+    {
+        StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "save0.json"));
+
+        if (File.Exists(sb.ToString()))
+        {
+            Settings.Instance.gameIsLoaded = true;
+            
+            Saveable saveObject = JsonConvert.DeserializeObject<Saveable>(File.ReadAllText(sb.ToString()));
+            
+            SceneLoading.Instance.SwitchToScene(saveObject.scene, SceneLoading.startAnimationID);
+        }
     }
 
     private void Attack_performed(InputAction.CallbackContext obj)
@@ -451,6 +459,11 @@ public class Player : AIEntity, ISaveState
                     {
                         break;
                     }
+                    
+                    if (trashBin)
+                    {
+                        trashBin.icon.enabled = false;
+                    }
 
                     trashBin = newTrashBin;
                     trashBin.icon.enabled = true;
@@ -489,6 +502,11 @@ public class Player : AIEntity, ISaveState
                 {
                     break;
                 }
+
+                if (trashBin.gameObject != collision.gameObject)
+                {
+                    break;
+                }
                 
                 trashBin.icon.enabled = false;
                 trashBin = null;
@@ -503,6 +521,47 @@ public class Player : AIEntity, ISaveState
         rb.isKinematic = true;
         deathTime = Time.time + 1.5f;
         state = EntityState.Death;
+        
+        inventory.ClearInventory();
+        thisEntity.maxHealth = 30f;
+        thisEntity.health = 30f;
+        thisEntity.healthPercent = 1f;
+        thisEntity.invinsibility = false;
+        stats.maxStamina = 100;
+        stats.stamina = 100;
+        stats.staminaRegen = 5;
+        thisEntity.resistances[0] = thisEntity.resistances[1] = thisEntity.resistances[2] = thisEntity.resistances[3] = 0f;
+        
+        buffSystem.buffs = new Dictionary<ScriptableObjectBuff, Buff>();
+        GameDirector.Instance.quests = new Dictionary<string, Quest>();
+        
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Tutorial":
+                GameDirector.Instance.AddNewQuest("New Beginnings");
+                
+                break;
+            case "Tutorial 01":
+                GameDirector.Instance.AddNewQuest("New Beginnings", 4);
+                
+                break;
+        }
+        
+        weaponItem = null;
+        
+        Game.sceneToSave = SceneManager.GetActiveScene().name;
+        
+        if (Directory.Exists(Game._SAVE_FOLDER))
+        {
+            StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "cplQ.json"));
+
+            if (File.Exists(sb.ToString()))
+            {
+                File.Delete(sb.ToString());
+            }
+        }
+        
+        SaveLoadSystem.Instance.Save();
     }
 
     public override void EventEnable()
@@ -708,7 +767,6 @@ public class Player : AIEntity, ISaveState
         saveObject.intelligence = intelligence;
         saveObject.oratory = oratory;
         */
-        saveObject.money = stats.money;
         saveObject.qualitativeMaterial = stats.qualitativeMaterial;
         saveObject.badQualityMaterial = stats.badQualityMaterial;
 
@@ -734,6 +792,9 @@ public class Player : AIEntity, ISaveState
                 i++;
             }
         }
+
+        string currentScene = SceneManager.GetActiveScene().name;
+        saveObject.finishTutorial = currentScene != "Tutorial" && currentScene != "Tutorial 01";
         
         string jsonConvert = JsonConvert.SerializeObject(saveObject);
         
@@ -787,7 +848,6 @@ public class Player : AIEntity, ISaveState
             intelligence = saveObject.intelligence;
             oratory = saveObject.oratory;
             */
-            stats.money = saveObject.money;
             stats.qualitativeMaterial = saveObject.qualitativeMaterial;
             stats.badQualityMaterial = saveObject.badQualityMaterial;
 

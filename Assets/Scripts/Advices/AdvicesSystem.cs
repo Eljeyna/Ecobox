@@ -12,7 +12,7 @@ public class AdvicesSystem : MonoBehaviour, ITranslate
     public int previousAdvice;
     public int advice;
 
-    private float timeToChangeAdvice = 4f;
+    private float timeToChangeAdvice = 15f;
     private float timeFade = 1f;
     
     private float nextTimeAdvice;

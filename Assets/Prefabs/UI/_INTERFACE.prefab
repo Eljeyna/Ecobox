@@ -10531,42 +10531,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 585090547658008076}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Use
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &2286931123580265665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10591,7 +10555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d11a0046116eab458f851becd085dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: World
+  level: 
 --- !u!114 &2626850673216490263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10604,6 +10568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b09658f422eb20f439b6e9147d45b197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchScene: {fileID: 585090547658008076}
 --- !u!1 &7472518458359861560
 GameObject:
   m_ObjectHideFlags: 0

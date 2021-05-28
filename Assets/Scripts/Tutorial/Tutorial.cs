@@ -144,8 +144,9 @@ public class Tutorial : MonoBehaviour
                 }
 
                 Game.sceneToSave = "Tutorial 01";
+                GameDirector.Instance.UpdateQuest("New Beginnings", 4);
                 SaveLoadSystem.Instance.Save();
-                SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
+                SceneLoading.Instance.SwitchToScene("Tutorial 01", SceneLoading.startAnimationID);
                 currentTask = -1;
                 break;
             default:

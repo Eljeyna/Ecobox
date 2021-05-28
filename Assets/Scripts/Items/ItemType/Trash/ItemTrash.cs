@@ -12,11 +12,14 @@ public class ItemTrash : Item
             if (Player.Instance.trashBin.trashType == trashType)
             {
                 Player.Instance.trashBin.GetReward(itemAmount);
+                Game.UpdateMaterialUI();
             }
 
-            itemAmount -= itemAmount;
-            Game.UpdateMaterialUI();
+            Game.DisableInventoryButtons();
+            Game.itemInfoCanvas.enabled = false;
+            Player.Instance.inventory.RemoveItem(Game.itemSelected);
             Game.itemSelected = null;
+            Player.Instance.inventory.CallUpdateInventory();
         }
     }
 }
