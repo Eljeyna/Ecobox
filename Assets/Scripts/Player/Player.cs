@@ -362,7 +362,7 @@ public class Player : AIEntity, ISaveState
 
     public void OnInventory()
     {
-        if (Game.isPause && Game.inventoryCanvas.isActiveAndEnabled)
+        if (Game.isPause || Game.inventoryCanvas.isActiveAndEnabled)
         {
             return;
         }

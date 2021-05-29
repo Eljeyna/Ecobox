@@ -13,7 +13,7 @@ public class TriggerSpawnEnemyWithRandom : Trigger
             enemyScript.SpawnEntities();
         }
 
-        if (destroyOnExit)
+        if (destroyOnExecute)
         {
             Destroy(gameObject);
         }

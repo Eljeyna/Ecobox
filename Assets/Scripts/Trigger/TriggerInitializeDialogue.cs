@@ -8,7 +8,7 @@ public class TriggerInitializeDialogue : Trigger
     {
         GameDirector.Instance.InitializeDialogue(dialogue);
 
-        if (destroyOnExit)
+        if (destroyOnExecute)
         {
             Destroy(gameObject);
         }

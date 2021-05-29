@@ -8,12 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Preview.unity
     guid: 9e403c86b19bcbb42a70f8bf066fccf5
-  - enabled: 0
-    path: Assets/Scenes/MainMenu.unity
-    guid: 3a49edaaf0c6f544eb11a926ee359aca
-  - enabled: 0
-    path: Assets/Scenes/_Unused/World.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: eabf3c1a7473bd84e84f64079eb215f4,
       type: 2}

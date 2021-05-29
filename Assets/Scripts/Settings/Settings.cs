@@ -35,6 +35,8 @@ public class Settings : MonoBehaviour
         }
 
         //For AOT Compiler (fix errors)
+        AotHelper.EnsureList<string[]>();
+        AotHelper.EnsureDictionary<string, string>();
         AotHelper.EnsureList<QuestsTasksStruct>();
         AotHelper.EnsureList<QuestTask>();
         AotHelper.EnsureList<CompletedQuestsID>();

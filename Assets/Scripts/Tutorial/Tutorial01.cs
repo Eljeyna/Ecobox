@@ -56,9 +56,15 @@ public class Tutorial01 : MonoBehaviour
                     Player.Instance.stats.badQualityMaterial += 45;
                     triggerUpgrade.SetActive(true);
                 }
+                
+                waitTime = Time.time + 1f;
 
                 break;
             case 6:
+                waitTime = Time.time + 1f;
+                
+                break;
+            case 7:
                 if (Player.Instance.stats.maxStamina != stamina || Player.Instance.thisEntity.maxHealth != health)
                 {
                     finished = true;

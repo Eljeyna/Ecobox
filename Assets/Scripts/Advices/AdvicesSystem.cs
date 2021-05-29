@@ -18,7 +18,7 @@ public class AdvicesSystem : MonoBehaviour, ITranslate
     private float nextTimeAdvice;
     private float nextTimeChangeAdvice;
 
-    private void Awake()
+    private void Start()
     {
         textField.text = data[advice];
         nextTimeChangeAdvice = Time.unscaledTime + timeFade;
@@ -77,15 +77,16 @@ public class AdvicesSystem : MonoBehaviour, ITranslate
             return;
         }
         
-        translationUI = JsonConvert.DeserializeObject<string[]>(sb.ToString());
+        data = JsonConvert.DeserializeObject<string[]>(sb.ToString());
 #else
         if (!File.Exists(sb.ToString()))
         {
             return;
         }
+        
+        data = JsonConvert.DeserializeObject<string[]>(File.ReadAllText(sb.ToString()));
 #endif
 
-        data = JsonConvert.DeserializeObject<string[]>(File.ReadAllText(sb.ToString()));
         textField.text = data[advice];
     }
 }

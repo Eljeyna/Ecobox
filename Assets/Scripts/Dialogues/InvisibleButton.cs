@@ -4,11 +4,15 @@ public class InvisibleButton : MonoBehaviour
 {
     public void Use()
     {
-        if (!GameDirector.Instance.dialogue)
+        if (GameDirector.Instance && GameDirector.Instance.dialogue)
         {
+            GameDirector.Instance.dialogue.SetDialogue(GameDirector.Instance.dialogue._currentLine + 1);
             return;
         }
-
-        GameDirector.Instance.dialogue.SetDialogue(GameDirector.Instance.dialogue._currentLine + 1);
+        
+        if (BriefingSystem.Instance)
+        {
+            BriefingSystem.Instance.UpdateBriefing(BriefingSystem.Instance.currentBriefing + 1);
+        }
     }
 }

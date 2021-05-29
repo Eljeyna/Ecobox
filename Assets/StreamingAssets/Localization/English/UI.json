@@ -1,4 +1,6 @@
 {
+  "Yes" : "Yes",
+  "No" : "No",
   "New game": "New game",
   "Load": "Load",
   "Content": "Content",
@@ -36,5 +38,6 @@
   "Wrong password": "Wrong password",
   "User does not exists": "User does not exists",
   "Passwords are different": "Passwords are different",
-  "Login/Email already taken": "Login/Email already taken"
+  "Login/Email already taken": "Login/Email already taken",
+  "Confirm exit" : "Are you sure you want to leave this whole mess? Your unsaved progress will be lost until the checkpoint!"
 }

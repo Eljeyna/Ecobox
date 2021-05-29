@@ -2,6 +2,6 @@ using UnityEngine;
 
 public abstract class Trigger : MonoBehaviour
 {
-    public bool destroyOnExit;
+    public bool destroyOnExecute;
     public virtual void Use() {}
 }

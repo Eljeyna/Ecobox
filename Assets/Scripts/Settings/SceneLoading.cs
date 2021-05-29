@@ -105,6 +105,9 @@ public class SceneLoading : MonoBehaviour
             case "Tutorial":
                 MusicDirector.Instance.ChangeMusic((int)MusicList.Tutorial);
                 break;
+            case "Briefing":
+                MusicDirector.Instance.ChangeMusic((int)MusicList.Briefing);
+                break;
             case "Tutorial 01":
                 MusicDirector.Instance.ChangeMusic((int)MusicList.Tutorial01);
                 break;
