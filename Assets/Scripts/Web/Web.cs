@@ -49,7 +49,8 @@ public class Web : MonoBehaviour
 
             return;
         }
-        else if (string.IsNullOrWhiteSpace(passwordField.text))
+        
+        if (string.IsNullOrWhiteSpace(passwordField.text))
         {
             ShowMessageField("Enter password");
 
