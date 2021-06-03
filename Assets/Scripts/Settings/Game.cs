@@ -47,7 +47,6 @@ public static class Game
 
     public static Canvas inventoryCanvas;
     public static Canvas itemInfoCanvas;
-    public static Canvas staticUI;
     public static Canvas inGameUI;
     public static Canvas quickUI;
     public static Canvas inventoryYesNoCanvas;
@@ -160,9 +159,6 @@ public static class Game
         sb.Clear();
         sb.Append("ItemInfo");
         itemInfoCanvas = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
-        sb.Clear();
-        sb.Append("StaticUI");
-        staticUI = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
         sb.Clear();
         sb.Append("InGameInterface");
         inGameUI = GameObject.Find(sb.ToString()).GetComponent<Canvas>();
@@ -407,7 +403,6 @@ public static class Game
 
         HideInGameUI();
 
-        staticUI.enabled = true;
         inventoryCanvas.enabled = true;
     }
 
@@ -419,7 +414,6 @@ public static class Game
             slotSelected.GetComponent<Image>().color = slotDefaultColor;
         itemInfoCanvas.enabled = false;
         inventoryCanvas.enabled = false;
-        staticUI.enabled = false;
         DisableInventoryButtons();
         ShowInGameUI();
         ResumeGame();
@@ -439,14 +433,12 @@ public static class Game
     {
         PauseGame();
         HideInGameUI();
-        staticUI.enabled = true;
         quickUI.enabled = true;
     }
 
     public static void HideQuickMenu()
     {
         quickUI.enabled = false;
-        staticUI.enabled = false;
         ShowInGameUI();
         ResumeGame();
     }

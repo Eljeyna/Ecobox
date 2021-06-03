@@ -22,10 +22,7 @@ public class Settings : MonoBehaviour
     public Canvas thisCanvas;
     public Canvas defaultCanvas;
 
-    public Color colorSlot;
-
-    [HideInInspector] public Image defaultSlot;
-    [HideInInspector] public Image slotSelected;
+    public EventExit eventExit;
 
     private void Awake()
     {
@@ -99,17 +96,6 @@ public class Settings : MonoBehaviour
         {
             Player.Instance.zoomAmount = 0.2f + (0.2f * sliderCameraZoom.value);
         }
-
-        if (GameObject.Find("SoundCategory").TryGetComponent(out Image newImageDefaultSlot))
-        {
-            defaultSlot = newImageDefaultSlot;
-        }
-
-        if (GameObject.Find("SoundCategory").TryGetComponent(out Image newImageSlotSelected))
-        {
-            slotSelected = newImageSlotSelected;
-        }
-        slotSelected.color = colorSlot;
     }
 
     public void SetResolution(int resolutionIndex)
@@ -157,17 +143,5 @@ public class Settings : MonoBehaviour
         {
             Player.Instance.zoomAmount = 0.2f + (0.2f * zoom);
         }
-    }
-
-    public void SetSlot(Image slot)
-    {
-        if (slotSelected == slot)
-        {
-            return;
-        }
-
-        slotSelected.color = Color.white;
-        slotSelected = slot;
-        slotSelected.color = colorSlot;
     }
 }

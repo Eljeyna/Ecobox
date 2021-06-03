@@ -48,7 +48,8 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 2e3d6c96d64961e47a0eb9550a28a16c, type: 3}
     - {fileID: 102900000, guid: cefcda2b71c16434aaefe0869bc62bbc, type: 3}
     - {fileID: 102900000, guid: 85717f2cd6ef85241a3d599d37394644, type: 3}
-    totalSpriteSurfaceArea: 12667904
+    - {fileID: 102900000, guid: 4e896bf209c4f8969aecf7ab7ff48edf, type: 3}
+    totalSpriteSurfaceArea: 12667905
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -101,6 +102,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 04778ce2ab74b5b4abbda109ef29a9d9, type: 3}
   - {fileID: 21300000, guid: 95ffc4f28f629d045b5a5ded06e879fd, type: 3}
   - {fileID: 21300000, guid: fa2077f29659ea042b6a6d4073a1e799, type: 3}
+  - {fileID: 21300000, guid: 2d2c0503fd742b53bad6258d66abbfb7, type: 3}
   - {fileID: 21300000, guid: 7927b9032dc11e841af3f9a1353d7ecd, type: 3}
   - {fileID: 21300000, guid: ab6db91373811284caeba2e9472fa9c2, type: 3}
   - {fileID: 21300000, guid: 137c605350849a743b8a4644b7de27be, type: 3}
@@ -315,6 +317,7 @@ SpriteAtlas:
   - T_3_letter_eye_
   - T_5_coin_bag2_
   - T_25_compas_
+  - White
   - Horizontal_Outline_Arrows
   - Vertical_Plain
   - T_5_arrow_up_

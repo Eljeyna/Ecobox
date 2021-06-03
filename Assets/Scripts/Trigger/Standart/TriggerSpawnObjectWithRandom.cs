@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TriggerSpawnEnemyWithRandom : Trigger
+public class TriggerSpawnObjectWithRandom : Trigger
 {
     [Range(0f, 1f)] public float chance;
     public Addressables_Instantiate enemyScript;
