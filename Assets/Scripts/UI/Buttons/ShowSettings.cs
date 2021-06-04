@@ -6,6 +6,5 @@ public class ShowSettings : MonoBehaviour
     {
         Settings.Instance.thisCanvas.sortingOrder = 200;
         Settings.Instance.thisCanvas.enabled = true;
-        Settings.Instance.defaultCanvas.enabled = true;
     }
 }

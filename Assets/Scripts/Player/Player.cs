@@ -440,7 +440,7 @@ public class Player : AIEntity, ISaveState
             case (int)GameLayers.Trigger:
                 if (collision.TryGetComponent(out Trigger trigger))
                 {
-                    trigger.Use();
+                    trigger.Use(gameObject.GetComponent<Collider2D>());
                 }
                 
                 break;
@@ -786,7 +786,7 @@ public class Player : AIEntity, ISaveState
 
             foreach (ScriptableObjectBuff key in buffsList)
             {
-                buffSystem.AddBuff(key.InitializeBuff(gameObject));
+                key.InitializeBuff(gameObject);
                 buffSystem.buffs[key].duration = saveObject.buffsDuration[i];
                 buffSystem.buffs[key].stacks = saveObject.buffsStacks[i];
                 i++;
@@ -907,7 +907,7 @@ public class Player : AIEntity, ISaveState
                 for (int i = 0; i < saveObject.buffsID.Length; i++)
                 {
                     ScriptableObjectBuff buff = await Database.GetItem<ScriptableObjectBuff>(saveObject.buffsID[i]);
-                    buffSystem.AddBuff(buff.InitializeBuff(gameObject));
+                    buff.InitializeBuff(gameObject);
                     buffSystem.buffs[buff].duration = saveObject.buffsDuration[i];
                     buffSystem.buffs[buff].stacks = saveObject.buffsStacks[i];
                     Addressables.Release(buff);

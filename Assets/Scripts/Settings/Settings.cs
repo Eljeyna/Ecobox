@@ -20,7 +20,7 @@ public class Settings : MonoBehaviour
 
     public AudioMixer audioMixer;
     public Canvas thisCanvas;
-    public Canvas defaultCanvas;
+    public GameObject blurVolume;
 
     public EventExit eventExit;
 

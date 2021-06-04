@@ -10,12 +10,7 @@ public abstract class ScriptableObjectBuff : ScriptableObject
     
     public AssetReference idReference;
 
-    public abstract Buff InitializeBuff(GameObject obj);
-
-    public Buff GetBuff()
-    {
-        return buff;
-    }
+    public abstract void InitializeBuff(GameObject obj);
 
     private void OnDestroy()
     {

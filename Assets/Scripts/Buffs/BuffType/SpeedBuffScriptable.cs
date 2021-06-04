@@ -5,9 +5,8 @@ public class SpeedBuffScriptable : ScriptableObjectBuff
 {
     public int parameter;
 
-    public override Buff InitializeBuff(GameObject obj)
+    public override void InitializeBuff(GameObject obj)
     {
         buff = new SpeedBuff(this, obj);
-        return buff;
     }
 }

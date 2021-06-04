@@ -27,7 +27,7 @@ public abstract class Buff
 
     public void Activate()
     {
-        if (buffData.isStackable || duration <= 0f)
+        if (buffData.isStackable)
         {
             ApplyEffect();
             stacks++;

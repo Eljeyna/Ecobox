@@ -5,9 +5,8 @@ public class HealthBuffScriptable : ScriptableObjectBuff
 {
     public int parameter;
 
-    public override Buff InitializeBuff(GameObject obj)
+    public override void InitializeBuff(GameObject obj)
     {
         buff = new HealthBuff(this, obj);
-        return buff;
     }
 }

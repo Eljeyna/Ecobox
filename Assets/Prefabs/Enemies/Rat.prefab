@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1883501998}
   - component: {fileID: 1883501996}
   - component: {fileID: 1883501997}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,8 +356,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4218d0889c0c28b2cb0a688af4f1f7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyOnExit: 0
+  triggerObject: {fileID: 0}
+  destroyOnExecute: 0
   damage: 10
+  force: 10
   weaponDamageType: 0
   entity: {fileID: 6753366706675599897}
   stun: 1
@@ -371,7 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6645994617631682694}
   - component: {fileID: 6438360520528912911}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Sounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -395,6 +395,7 @@ public static class Game
     {
         itemSelected = null;
         PauseGame();
+        Settings.Instance.blurVolume.SetActive(true);
 
         await Player.Instance.inventory.PreloadInventory();
         Player.Instance.inventory.CallUpdateInventory();
@@ -421,6 +422,7 @@ public static class Game
 
     public static void ShowInGameUI()
     {
+        Settings.Instance.blurVolume.SetActive(false);
         inGameUI.enabled = true;
     }
 
@@ -434,10 +436,12 @@ public static class Game
         PauseGame();
         HideInGameUI();
         quickUI.enabled = true;
+        Settings.Instance.blurVolume.SetActive(true);
     }
 
     public static void HideQuickMenu()
     {
+        Settings.Instance.blurVolume.SetActive(false);
         quickUI.enabled = false;
         ShowInGameUI();
         ResumeGame();

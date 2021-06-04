@@ -5,9 +5,13 @@ public class SpeedBuffPercentScriptable : ScriptableObjectBuff
 {
     public int parameter;
 
-    public override Buff InitializeBuff(GameObject obj)
+    public override void InitializeBuff(GameObject obj)
     {
         buff = new SpeedBuffPercent(this, obj);
-        return buff;
+        
+        if (obj.TryGetComponent(out BuffSystem buffs))
+        {
+            buffs.AddBuff(buff);
+        }
     }
 }
