@@ -12,7 +12,7 @@ public class SpeedBuff: Buff
         }
     }
 
-    protected override void ApplyEffect()
+    public override void ApplyEffect()
     {
         SpeedBuffScriptable appliedBuff = (SpeedBuffScriptable)buffData;
         entity.speed += appliedBuff.parameter;
@@ -22,7 +22,7 @@ public class SpeedBuff: Buff
     {
         SpeedBuffScriptable appliedBuff = (SpeedBuffScriptable)buffData;
         entity.speed -= appliedBuff.parameter * stacks;
-        stacks = 0;
+        stacks = 1;
         isFinished = true;
     }
 }

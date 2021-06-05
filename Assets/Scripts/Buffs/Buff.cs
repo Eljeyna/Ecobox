@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Buff
 {
-    public int stacks;
+    public int stacks = 1;
     public float duration;
     public bool isFinished;
     public readonly ScriptableObjectBuff buffData;
@@ -19,6 +19,7 @@ public abstract class Buff
     public void Tick(float delta)
     {
         duration -= delta;
+        
         if (duration <= 0f)
         {
             End();
@@ -35,5 +36,5 @@ public abstract class Buff
 
         duration = buffData.duration;
     }
-    protected abstract void ApplyEffect();
+    public abstract void ApplyEffect();
 }

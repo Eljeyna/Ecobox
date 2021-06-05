@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c6e3bafd5f2154794a3cb817d6aac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  maxHealth: 20
   health: 0
   healthPercent: 0
   resistances:
@@ -358,11 +358,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerObject: {fileID: 0}
   destroyOnExecute: 0
-  damage: 10
-  force: 10
-  weaponDamageType: 0
   entity: {fileID: 6753366706675599897}
+  damage: 10
+  force: 8
   stun: 1
+  stunTime: 1.25
+  weaponDamageType: 0
 --- !u!1 &8238196106586577484
 GameObject:
   m_ObjectHideFlags: 0

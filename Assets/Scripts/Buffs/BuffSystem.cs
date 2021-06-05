@@ -20,21 +20,22 @@ public class BuffSystem : MonoBehaviour
                 continue;
             }
             
-            buff.Tick(Time.deltaTime);
             if (buff.isFinished)
             {
                 buffList.Add(buff);
+                continue;
             }
+            
+            buff.Tick(Time.deltaTime);
         }
 
         if (buffList.Count > 0)
         {
-            for (int i = buffList.Count - 1; i >= 0; i--)
+            while (buffList.Count > 0)
             {
-                buffs.Remove(buffList[i].buffData);
+                RemoveBuff(buffList[buffList.Count - 1]);
+                buffList.RemoveAt(buffList.Count - 1);
             }
-            
-            buffList.Clear();
         }
     }
 
@@ -53,6 +54,7 @@ public class BuffSystem : MonoBehaviour
         {
             buffs.Add(buff.buffData, buff);
             buff.Activate();
+            buff.ApplyEffect();
         }
     }
     

@@ -12,7 +12,7 @@ public class HealthBuff : Buff
         }
     }
 
-    protected override void ApplyEffect()
+    public override void ApplyEffect()
     {
         HealthBuffScriptable appliedBuff = (HealthBuffScriptable)buffData;
         thisEntity.SetMaxHealth(thisEntity.maxHealth + appliedBuff.parameter);
@@ -24,7 +24,7 @@ public class HealthBuff : Buff
         HealthBuffScriptable appliedBuff = (HealthBuffScriptable)buffData;
         thisEntity.SetMaxHealth(thisEntity.maxHealth - appliedBuff.parameter * stacks);
         thisEntity.EventHealthChanged();
-        stacks = 0;
+        stacks = 1;
         isFinished = true;
     }
 }

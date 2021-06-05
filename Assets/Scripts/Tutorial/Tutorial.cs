@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -14,6 +15,11 @@ public class Tutorial : MonoBehaviour
     private GameObject slime;
     private Addressables_Instantiate copy;
     private BaseCommon healthTest;
+
+    private void Start()
+    {
+        Player.Instance.thisEntity.resistances[0] = 1f;
+    }
 
     private void LateUpdate()
     {
@@ -143,6 +149,7 @@ public class Tutorial : MonoBehaviour
                     return;
                 }
 
+                Player.Instance.thisEntity.resistances[0] = 0f;
                 Game.sceneToSave = "Tutorial 01";
                 GameDirector.Instance.UpdateQuest("New Beginnings", 4);
                 SaveLoadSystem.Instance.Save();

@@ -3,6 +3,7 @@ using UnityEngine;
 public class SpeedBuffPercent: Buff
 {
     private readonly AIEntity entity;
+    private float saveSpeed;
 
     public SpeedBuffPercent(ScriptableObjectBuff buff, GameObject obj) : base(buff, obj)
     {
@@ -12,17 +13,18 @@ public class SpeedBuffPercent: Buff
         }
     }
 
-    protected override void ApplyEffect()
+    public override void ApplyEffect()
     {
         SpeedBuffPercentScriptable appliedBuff = (SpeedBuffPercentScriptable)buffData;
-        entity.speed += entity.speed * appliedBuff.parameter / 100f;
+        saveSpeed += entity.speed * appliedBuff.parameter / 100f;
+        entity.speed += saveSpeed;
     }
 
     public override void End()
     {
-        SpeedBuffPercentScriptable appliedBuff = (SpeedBuffPercentScriptable)buffData;
-        entity.speed -= entity.speed * appliedBuff.parameter * stacks / 100f;
-        stacks = 0;
+        entity.speed -= saveSpeed;
+        stacks = 1;
+        saveSpeed = 0f;
         isFinished = true;
     }
 }
