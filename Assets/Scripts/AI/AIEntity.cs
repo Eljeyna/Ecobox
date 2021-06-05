@@ -35,6 +35,7 @@ public abstract class AIEntity : MonoBehaviour
 {
     public float speed;
     public Rigidbody2D rb;
+    public SpriteRenderer spriteRenderer;
     public Collider2D thisCollider;
     public EntityState state;
     public BaseTag thisTag;
@@ -204,6 +205,11 @@ public abstract class AIEntity : MonoBehaviour
     {
         if (deathTime > Time.time)
         {
+            if (deathTime <= Time.time - 1f)
+            {
+                spriteRenderer.color = new Color(deathTime - Time.time, spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b);
+            }
+        
             return;
         }
         

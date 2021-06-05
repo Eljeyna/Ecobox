@@ -388,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   rb: {fileID: 8664085281891089372}
+  spriteRenderer: {fileID: 2701567796575672075}
   thisCollider: {fileID: 3856828926585660304}
   state: 0
   thisTag: {fileID: 8664085281891089347}
