@@ -48,5 +48,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _WidthHeightRadius: {r: 4, g: -392, b: 10, a: 0}
+    - _WidthHeightRadius: {r: 4, g: 688, b: 10, a: 0}
   m_BuildTextureStacks: []

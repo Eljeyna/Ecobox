@@ -4,7 +4,6 @@ using UnityEngine.Audio;
 public enum MusicList
 {
     MainMenu    = 0,
-    Tutorial    = -1,
     Briefing    = 1,
     Tutorial01  = 2
 }
@@ -49,7 +48,7 @@ public class MusicDirector : MonoBehaviour
     {
         if (nextMusicTime > Time.unscaledTime)
         {
-            if (prevMusic != -1)
+            if (prevMusic >= 0)
             {
                 audioDirector.sources[prevMusic].volume = nextMusicTime - Time.unscaledTime;
             }
@@ -57,35 +56,36 @@ public class MusicDirector : MonoBehaviour
             return;
         }
 
-        if (prevMusic != -1)
+        if (prevMusic >= 0)
         {
             audioDirector.Stop(prevMusic);
             audioDirector.sources[prevMusic].volume = 1f;
         }
 
-        if (nextMusic != -1)
+        if (nextMusic >= 0)
         {
             PlayMusic(nextMusic);
-            nextMusic = -1;
         }
+
+        prevMusic = nextMusic;
 
         this.enabled = false;
     }
 
     public void PlayMusic(int music)
     {
-        if (prevMusic == music)
+        if (prevMusic != -1 && nextMusic != -1 && prevMusic == music)
         {
             return;
         }
 
-        prevMusic = music;
+        nextMusic = music;
         audioDirector.Play(music);
     }
 
     public void ChangeMusic(int music)
     {
-        if (prevMusic == music)
+        if (prevMusic != -1 && nextMusic != -1 && prevMusic == music)
         {
             return;
         }
@@ -95,9 +95,10 @@ public class MusicDirector : MonoBehaviour
         this.enabled = true;
     }
 
-    public void StopMusic(int music)
+    public void StopMusic()
     {
-        prevMusic = -1;
-        audioDirector.Stop(music);
+        nextMusic = -1;
+        nextMusicTime = Time.unscaledTime + 1f;
+        this.enabled = true;
     }
 }

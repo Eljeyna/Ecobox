@@ -84,6 +84,7 @@ public class SceneLoading : MonoBehaviour
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         await loadSceneAsync.Task;
         
+        Settings.Instance.blurVolume.SetActive(false);
         anim.SetTrigger(endAnimationID);
         Translate.Instance.GetTranslate();
         
@@ -103,7 +104,7 @@ public class SceneLoading : MonoBehaviour
                 MusicDirector.Instance.ChangeMusic((int)MusicList.MainMenu);
                 break;
             case "Tutorial":
-                MusicDirector.Instance.ChangeMusic((int)MusicList.Tutorial);
+                MusicDirector.Instance.StopMusic();
                 break;
             case "Briefing":
                 MusicDirector.Instance.ChangeMusic((int)MusicList.Briefing);

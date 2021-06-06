@@ -11,6 +11,7 @@ public class BriefingSystem : MonoBehaviour
     public int currentBriefing;
 
     private float waitTime;
+    private float waitSwitchTime;
 
     private void Awake()
     {
@@ -30,19 +31,24 @@ public class BriefingSystem : MonoBehaviour
         if (briefingScript.briefing.TryGetValue($"Mission {currentBriefing}", out string text))
         {
             briefing.text = text;
-        }
-        else
-        {
-            briefing.text = string.Empty;
-            SceneLoading.Instance.SwitchToScene("Tutorial 01", SceneLoading.startAnimationID);
+            waitSwitchTime = Time.unscaledTime + 1f;
+            invisibleButton.SetActive(true);
+            this.enabled = false;
+            return;
         }
 
-        invisibleButton.SetActive(true);
         this.enabled = false;
+        briefing.text = string.Empty;
+        SceneLoading.Instance.SwitchToScene("Tutorial 01", SceneLoading.startAnimationID);
     }
 
     public void UpdateBriefing(int newBriefing)
     {
+        if (waitSwitchTime > Time.unscaledTime)
+        {
+            return;
+        }
+
         currentBriefing = newBriefing;
         waitTime = Time.unscaledTime + 1f;
         animationText.SetInteger(Game.animationKeyID, 1);
