@@ -58,18 +58,18 @@ public class GameDirector : MonoBehaviour
 
         FindCamera();
 
-        if (SceneManager.GetActiveScene().name == "Tutorial 01")
+        if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            AddNewQuest("New Beginnings", 4);
+            AddNewQuest("New Beginnings");
             UpdateQuestDescription();
-            Game.ResumeGame();
-            noControl = false;
+            InitializeDialogue(startDialogue);
             return;
         }
 
-        AddNewQuest("New Beginnings");
+        AddNewQuest("New Beginnings", 4);
         UpdateQuestDescription();
-        InitializeDialogue(startDialogue);
+        Game.ResumeGame();
+        noControl = false;
     }
 
     public void AddNewQuest(string id)

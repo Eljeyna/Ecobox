@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using System;
 
 public class SceneLoading : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SceneLoading : MonoBehaviour
     private AsyncOperationHandle<SceneInstance> loadSceneAsync;
 
     private bool playAnim = false;
+    private bool preloaded;
     private float waitTime;
     private string scene;
     
@@ -56,11 +58,19 @@ public class SceneLoading : MonoBehaviour
 
         waitTime = 0f;
         this.enabled = false;
+
+        if (preloaded)
+        {
+            LoadPreloadedLevel(scene);
+            return;
+        }
+
         LoadLevel(scene);
     }
 
-    public void SwitchToScene(string sceneName, int animId)
+    public void SwitchToScene(string sceneName, int animId, bool preloaded = false)
     {
+        this.preloaded = preloaded;
         scene = sceneName;
         anim.SetTrigger(animId);
         SwitchToScene();
@@ -73,6 +83,11 @@ public class SceneLoading : MonoBehaviour
         this.enabled = true;
     }
 
+    public void PreloadLevel(string sceneName)
+    {
+        loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single, false);
+    }
+
     public async void LoadLevel(string sceneName)
     {
         if (Player.Instance)
@@ -83,11 +98,37 @@ public class SceneLoading : MonoBehaviour
 
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         await loadSceneAsync.Task;
-        
+
         Settings.Instance.blurVolume.SetActive(false);
         anim.SetTrigger(endAnimationID);
         Translate.Instance.GetTranslate();
         
+        if (GameDirector.Instance)
+        {
+            GameDirector.Instance.Preload();
+        }
+
+        ChangeMusicBetweenScenes();
+    }
+
+    public async void LoadPreloadedLevel(string sceneName)
+    {
+        if (Player.Instance)
+        {
+            Player.Instance.inventory.ClearInventory();
+            Destroy(Player.Instance.gameObject);
+        }
+
+        await loadSceneAsync.Task;
+        loadSceneAsync.Result.ActivateAsync().completed += AfterPreloadLevel;
+    }
+
+    private void AfterPreloadLevel(AsyncOperation obj)
+    {
+        Settings.Instance.blurVolume.SetActive(false);
+        anim.SetTrigger(endAnimationID);
+        Translate.Instance.GetTranslate();
+
         if (GameDirector.Instance)
         {
             GameDirector.Instance.Preload();

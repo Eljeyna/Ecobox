@@ -140,6 +140,7 @@ public class Tutorial : MonoBehaviour
                 }
 
                 GameDirector.Instance.InitializeDialogue(dialogue);
+                SceneLoading.Instance.PreloadLevel("Briefing");
                 waitTime = Time.time + 1f;
                 currentTask = 7;
                 break;
@@ -153,7 +154,7 @@ public class Tutorial : MonoBehaviour
                 Game.sceneToSave = "Tutorial 01";
                 GameDirector.Instance.UpdateQuest("New Beginnings", 4);
                 SaveLoadSystem.Instance.Save();
-                SceneLoading.Instance.SwitchToScene("Briefing", SceneLoading.startAnimationID);
+                SceneLoading.Instance.SwitchToScene("Briefing", SceneLoading.startAnimationID, true);
                 currentTask = -1;
                 break;
             default:

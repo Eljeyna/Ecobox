@@ -237,7 +237,10 @@ public static class Game
         }
         else
         {
-            GameDirector.Instance.Initialize();
+            if (GameDirector.Instance)
+            {
+                GameDirector.Instance.Initialize();
+            }
         }
     }
     #endregion
