@@ -17,7 +17,7 @@ public class BriefingSystem : MonoBehaviour
     {
         Instance = this;
         waitTime = Time.unscaledTime + 2f;
-        SceneLoading.Instance.PreloadLevel("Tutorial 01");
+        SceneLoading.Instance.PreloadLevel("Tutorial 1");
     }
 
     private void Update()
@@ -40,7 +40,7 @@ public class BriefingSystem : MonoBehaviour
 
         this.enabled = false;
         briefing.text = string.Empty;
-        SceneLoading.Instance.SwitchToScene("Tutorial 01", SceneLoading.Instance.startAnimationID, true);
+        SceneLoading.Instance.SwitchToScene("Tutorial 1", SceneLoading.Instance.startAnimationID, true);
     }
 
     public void UpdateBriefing(int newBriefing)

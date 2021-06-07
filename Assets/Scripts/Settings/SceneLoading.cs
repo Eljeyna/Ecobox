@@ -127,8 +127,6 @@ public class SceneLoading : MonoBehaviour
 
     private void AfterPreloadLevel(AsyncOperation obj)
     {
-        loadSceneAsync.Result.ActivateAsync().completed -= AfterPreloadLevel;
-
         Settings.Instance.blurVolume.SetActive(false);
         anim.SetTrigger(endAnimationID);
         Translate.Instance.GetTranslate();
