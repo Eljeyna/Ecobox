@@ -205,7 +205,7 @@ public abstract class AIEntity : MonoBehaviour
     {
         if (deathTime > Time.time)
         {
-            if (deathTime <= Time.time - 1f)
+            if (deathTime - 1f <= Time.time)
             {
                 spriteRenderer.color = new Color(deathTime - Time.time, spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b);
             }

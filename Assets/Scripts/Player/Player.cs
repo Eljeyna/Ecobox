@@ -537,20 +537,25 @@ public class Player : AIEntity, ISaveState
         
         switch (SceneManager.GetActiveScene().name)
         {
-            case "Tutorial":
+            case "Tutorial 0":
                 GameDirector.Instance.AddNewQuest("New Beginnings");
-                
                 break;
-            case "Tutorial 01":
+            case "Tutorial 1":
                 GameDirector.Instance.AddNewQuest("New Beginnings", 4);
-                
                 break;
         }
         
         weaponItem = null;
-        
-        Game.sceneToSave = SceneManager.GetActiveScene().name;
-        
+
+        if (SceneManager.GetActiveScene().name.Contains("Tutorial"))
+        {
+            Game.sceneToSave = SceneManager.GetActiveScene().name;
+        }
+        else
+        {
+            Game.sceneToSave = SceneLoading.Instance.biomes[0] + " " + Game.GetNextScene();
+        }
+
         if (Directory.Exists(Game._SAVE_FOLDER))
         {
             StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "cplQ.json"));
