@@ -40,7 +40,7 @@ public class BriefingSystem : MonoBehaviour
 
         this.enabled = false;
         briefing.text = string.Empty;
-        SceneLoading.Instance.SwitchToScene("Tutorial 01", SceneLoading.startAnimationID, true);
+        SceneLoading.Instance.SwitchToScene("Tutorial 01", SceneLoading.Instance.startAnimationID, true);
     }
 
     public void UpdateBriefing(int newBriefing)

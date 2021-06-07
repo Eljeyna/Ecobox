@@ -30,9 +30,9 @@ public class Tutorial01 : MonoBehaviour
         if (finished)
         {
             this.enabled = false;
-            Game.sceneToSave = "Tutorial 01";
+            Game.sceneToSave = SceneLoading.Instance.biomes[Game.currentBiome] + " " + Game.GetNextScene();
             SaveLoadSystem.Instance.Save();
-            SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
+            SceneLoading.Instance.SwitchToScene(Game.sceneToSave, SceneLoading.Instance.startAnimationID);
         }
         
         if (waitTime > Time.time)

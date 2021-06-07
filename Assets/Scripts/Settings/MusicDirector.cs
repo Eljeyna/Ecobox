@@ -5,7 +5,8 @@ public enum MusicList
 {
     MainMenu    = 0,
     Briefing    = 1,
-    Tutorial01  = 2
+    Tutorial01  = 2,
+    Dungeon     = 3
 }
 
 public class MusicDirector : MonoBehaviour

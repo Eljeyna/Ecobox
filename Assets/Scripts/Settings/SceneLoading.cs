@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using System;
 
 public class SceneLoading : MonoBehaviour
 {
@@ -16,9 +15,12 @@ public class SceneLoading : MonoBehaviour
     private bool preloaded;
     private float waitTime;
     private string scene;
-    
-    public static readonly int startAnimationID = Animator.StringToHash("Start");
-    public static readonly int endAnimationID = Animator.StringToHash("End");
+
+    public readonly int startAnimationID = Animator.StringToHash("Start");
+    public readonly int endAnimationID = Animator.StringToHash("End");
+
+    public readonly string[] biomes = { "Dungeon", "City" };
+    public readonly int[] sceneCounters = { 1, 0 };
 
     private void Start()
     {
@@ -125,6 +127,8 @@ public class SceneLoading : MonoBehaviour
 
     private void AfterPreloadLevel(AsyncOperation obj)
     {
+        loadSceneAsync.Result.ActivateAsync().completed -= AfterPreloadLevel;
+
         Settings.Instance.blurVolume.SetActive(false);
         anim.SetTrigger(endAnimationID);
         Translate.Instance.GetTranslate();
@@ -144,15 +148,27 @@ public class SceneLoading : MonoBehaviour
             case "MainMenu":
                 MusicDirector.Instance.ChangeMusic((int)MusicList.MainMenu);
                 break;
-            case "Tutorial":
-                MusicDirector.Instance.StopMusic();
-                break;
             case "Briefing":
                 MusicDirector.Instance.ChangeMusic((int)MusicList.Briefing);
                 break;
             case "Tutorial 01":
                 MusicDirector.Instance.ChangeMusic((int)MusicList.Tutorial01);
                 break;
+            case "Dungeon 0":
+            case "Dungeon 1":
+                MusicDirector.Instance.ChangeMusic((int)MusicList.Dungeon);
+                break;
+            default:
+                MusicDirector.Instance.StopMusic();
+                break;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (loadSceneAsync.IsValid())
+        {
+            loadSceneAsync.Result.ActivateAsync().completed -= AfterPreloadLevel;
         }
     }
 }

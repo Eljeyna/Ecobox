@@ -403,7 +403,7 @@ public class Player : AIEntity, ISaveState
             
             Saveable saveObject = JsonConvert.DeserializeObject<Saveable>(File.ReadAllText(sb.ToString()));
             
-            SceneLoading.Instance.SwitchToScene(saveObject.scene, SceneLoading.startAnimationID);
+            SceneLoading.Instance.SwitchToScene(saveObject.scene, SceneLoading.Instance.startAnimationID);
         }
     }
 

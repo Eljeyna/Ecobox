@@ -130,13 +130,13 @@ public class Web : MonoBehaviour
         canvasGroup.interactable = false;
         messageField.enabled = false;
         Game.accountID = ID;
-        SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
+        SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.Instance.startAnimationID);
     }
 
     private void PlayOffline()
     {
         canvasGroup.interactable = false;
         messageField.enabled = false;
-        SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.startAnimationID);
+        SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.Instance.startAnimationID);
     }
 }

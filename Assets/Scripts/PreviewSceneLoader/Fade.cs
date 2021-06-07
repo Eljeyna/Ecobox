@@ -66,7 +66,7 @@ public class Fade : MonoBehaviour
     private IEnumerator End()
     {
         yield return new WaitForSeconds(time);
-        fade.SetTrigger(SceneLoading.startAnimationID);
+        fade.SetTrigger(SceneLoading.Instance.startAnimationID);
         yield return new WaitForSeconds(1.0f);
         WaitLoadLevel();
     }

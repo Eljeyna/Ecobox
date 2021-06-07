@@ -151,10 +151,10 @@ public class Tutorial : MonoBehaviour
                 }
 
                 Player.Instance.thisEntity.resistances[0] = 0f;
-                Game.sceneToSave = "Tutorial 01";
+                Game.sceneToSave = "Tutorial 1";
                 GameDirector.Instance.UpdateQuest("New Beginnings", 4);
                 SaveLoadSystem.Instance.Save();
-                SceneLoading.Instance.SwitchToScene("Briefing", SceneLoading.startAnimationID, true);
+                SceneLoading.Instance.SwitchToScene("Briefing", SceneLoading.Instance.startAnimationID, true);
                 currentTask = -1;
                 break;
             default:

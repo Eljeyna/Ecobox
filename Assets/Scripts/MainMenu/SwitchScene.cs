@@ -6,6 +6,6 @@ public class SwitchScene : MonoBehaviour
 
     public void Use()
     {
-        SceneLoading.Instance.SwitchToScene(level, SceneLoading.startAnimationID);
+        SceneLoading.Instance.SwitchToScene(level, SceneLoading.Instance.startAnimationID);
     }
 }

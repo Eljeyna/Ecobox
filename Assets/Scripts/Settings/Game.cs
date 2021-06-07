@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -108,8 +107,11 @@ public static class Game
     #region Extra
     public static event System.EventHandler OnPauseGame;
     public static string sceneToSave = string.Empty;
+    public static int previousScene = -1;
+    public static int currentScene = -1;
+    public static int currentBiome = 0;
     #endregion
-    
+
     #region Folders
     public static string _SAVE_FOLDER = Path.Combine(Application.persistentDataPath, "Saves");
     #endregion
@@ -508,6 +510,32 @@ public static class Game
     {
         GetRandom();
         return random <= value;
+    }
+
+    public static string GetNextScene()
+    {
+        GetRandom();
+        previousScene = currentScene;
+        int random = (int)(Game.random * SceneLoading.Instance.sceneCounters[currentBiome] - 1);
+
+        if (currentScene == previousScene)
+        {
+            if (currentScene == 0)
+            {
+                currentScene = SceneLoading.Instance.sceneCounters[currentBiome] - 1;
+            }
+            else if (currentScene == SceneLoading.Instance.sceneCounters[currentBiome] - 1)
+            {
+                currentScene = 0;
+            }
+            else
+            {
+                GetRandom();
+                currentScene = random * (currentScene - 1);
+            }
+        }
+
+        return currentScene.ToString();
     }
 
     public static float GetReachedDistance(Collider2D collider)
