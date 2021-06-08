@@ -996,6 +996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchScene: {fileID: 9037619936786748809}
+  canvasGroup: {fileID: 9037619935047907547}
 --- !u!114 &3248357122956697407
 MonoBehaviour:
   m_ObjectHideFlags: 0

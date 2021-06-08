@@ -5129,6 +5129,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unsorted Bin
       objectReference: {fileID: 0}
+    - target: {fileID: 2811973980010156789, guid: 8b2d2444fb1c8cb41868e9b0eed088c5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b2d2444fb1c8cb41868e9b0eed088c5, type: 3}
 --- !u!1001 &3265284559337926024
@@ -5340,6 +5345,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Glass Bin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708483176557405983, guid: f907952f38b027145b293759508f598c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f907952f38b027145b293759508f598c, type: 3}
@@ -5566,6 +5576,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Papper Bin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8597223631195770761, guid: 00532320be6fa8c488e616dbf7e59a9c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8597223631195770767, guid: 00532320be6fa8c488e616dbf7e59a9c,
         type: 3}

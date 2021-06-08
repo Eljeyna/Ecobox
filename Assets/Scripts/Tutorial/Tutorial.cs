@@ -139,8 +139,8 @@ public class Tutorial : MonoBehaviour
                     return;
                 }
 
+                //SceneLoading.Instance.PreloadLevel("Briefing");
                 GameDirector.Instance.InitializeDialogue(dialogue);
-                SceneLoading.Instance.PreloadLevel("Briefing");
                 waitTime = Time.time + 1f;
                 currentTask = 7;
                 break;
@@ -154,7 +154,8 @@ public class Tutorial : MonoBehaviour
                 Game.sceneToSave = "Tutorial 1";
                 GameDirector.Instance.UpdateQuest("New Beginnings", 4);
                 SaveLoadSystem.Instance.Save();
-                SceneLoading.Instance.SwitchToScene("Briefing", SceneLoading.Instance.startAnimationID, true);
+                //SceneLoading.Instance.SwitchToScene("Briefing", SceneLoading.Instance.startAnimationID, true);
+                SceneLoading.Instance.SwitchToScene("Briefing", SceneLoading.Instance.startAnimationID);
                 currentTask = -1;
                 break;
             default:

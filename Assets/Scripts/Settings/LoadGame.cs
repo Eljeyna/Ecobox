@@ -6,9 +6,13 @@ using UnityEngine;
 public class LoadGame : MonoBehaviour
 {
     public SwitchScene switchScene;
+    public CanvasGroup canvasGroup;
     
     public void Use()
     {
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+
         StringBuilder sb = new StringBuilder(Path.Combine(Game._SAVE_FOLDER, "save0.json"));
 
         if (File.Exists(sb.ToString()))
@@ -19,6 +23,10 @@ public class LoadGame : MonoBehaviour
             
             switchScene.level = saveObject.scene;
             switchScene.Use();
+            return;
         }
+
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
     }
 }

@@ -11,7 +11,12 @@
   },
   {
     "name": null,
-    "text": "Yellow -> plastic, blue -> glass, green -> paper, red -> unsorted.",
+    "text": "For example, plastic is put in this yellow container. Please note that if you put in a different type of garbage, you will not receive the material.",
+    "answers": []
+  },
+  {
+    "name": null,
+    "text": "There are other containers: blue (glass), green (paper) and red (other types of waste).",
     "answers": []
   },
   {

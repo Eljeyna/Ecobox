@@ -12,6 +12,8 @@ public class Tutorial01 : MonoBehaviour
     private float waitTime;
     private float health;
     private int stamina;
+    private int material;
+    private bool first;
     private bool finished;
 
     private void Awake()
@@ -53,8 +55,6 @@ public class Tutorial01 : MonoBehaviour
                 if (!items[0].createdObjects[0].IsValid() && !items[1].createdObjects[0].IsValid() && !items[2].createdObjects[0].IsValid())
                 {
                     GameDirector.Instance.UpdateQuest(questID, 6);
-                    Player.Instance.stats.qualitativeMaterial += 10;
-                    Player.Instance.stats.badQualityMaterial += 45;
                     triggerUpgrade.SetActive(true);
                 }
                 
@@ -66,6 +66,23 @@ public class Tutorial01 : MonoBehaviour
                 
                 break;
             case 7:
+                waitTime = Time.time + 1f;
+
+                if (!first)
+                {
+                    first = true;
+                    material = Player.Instance.stats.qualitativeMaterial;
+                }
+
+                if (material != Player.Instance.stats.qualitativeMaterial)
+                {
+                    GameDirector.Instance.UpdateQuest(questID, 8);
+                    Player.Instance.stats.qualitativeMaterial += 10;
+                    Player.Instance.stats.badQualityMaterial += 45;
+                }
+
+                break;
+            case 8:
                 if (Player.Instance.stats.maxStamina != stamina || Player.Instance.thisEntity.maxHealth != health)
                 {
                     finished = true;
