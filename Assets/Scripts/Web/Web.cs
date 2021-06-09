@@ -38,7 +38,7 @@ public class Web : MonoBehaviour
         //Debug.Log(StaticGameVariables.GetRequest("http://eztix/GetUsers.php"));
         enterLogin.onClick.AddListener(Login);
         enterRegister.onClick.AddListener(Register);
-        playOffline.onClick.AddListener(PlayOffline);
+        playOffline.onClick.AddListener(Play);
     }
 
     private void Login()
@@ -127,13 +127,11 @@ public class Web : MonoBehaviour
 
     private void PlayOnline(string ID)
     {
-        canvasGroup.interactable = false;
-        messageField.enabled = false;
         Game.accountID = ID;
-        SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.Instance.startAnimationID);
+        Play();
     }
 
-    private void PlayOffline()
+    private void Play()
     {
         canvasGroup.interactable = false;
         messageField.enabled = false;
