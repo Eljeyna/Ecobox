@@ -584,19 +584,19 @@ public static class Game
         form.AddField("userLogin", login);
         form.AddField("userPassword", password);
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/EztixUnity/Login.php", form))
+        UnityWebRequest webRequest = UnityWebRequest.Post("https://eztixunity.ddns.net/EztixUnity/Login.php", form);
+        webRequest.certificateHandler = new CertificateHandlerAcceptAll();
+
+        webRequest.SendWebRequest();
+
+        while (!webRequest.isDone) { }
+
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError)
         {
-            webRequest.SendWebRequest();
-
-            while (!webRequest.isDone) {}
-
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
-            {
-                return string.Empty;
-            }
-
-            return webRequest.downloadHandler.text;
+            return string.Empty;
         }
+
+        return webRequest.downloadHandler.text;
     }
 
     public static string UserRegister(string login, string email, string password)
@@ -606,19 +606,19 @@ public static class Game
         form.AddField("userEmail", email);
         form.AddField("userPassword", password);
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/EztixUnity/Register.php", form))
+        UnityWebRequest webRequest = UnityWebRequest.Post("https://eztixunity.ddns.net/EztixUnity/Register.php", form);
+        webRequest.certificateHandler = new CertificateHandlerAcceptAll();
+
+        webRequest.SendWebRequest();
+
+        while (!webRequest.isDone) {}
+
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError)
         {
-            webRequest.SendWebRequest();
-
-            while (!webRequest.isDone) {}
-
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
-            {
-                return string.Empty;
-            }
-
-            return webRequest.downloadHandler.text;
+            return string.Empty;
         }
+
+        return webRequest.downloadHandler.text;
     }
 
     public static string SaveAccountData(string ID, string json)
@@ -627,19 +627,19 @@ public static class Game
         form.AddField("userID", ID);
         form.AddField("userData", json);
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/EztixUnity/SaveData.php", form))
+        UnityWebRequest webRequest = UnityWebRequest.Post("https://eztixunity.ddns.net/EztixUnity/SaveData.php", form);
+        webRequest.certificateHandler = new CertificateHandlerAcceptAll();
+
+        webRequest.SendWebRequest();
+
+        while (!webRequest.isDone) { }
+
+        if (webRequest.result == UnityWebRequest.Result.ConnectionError)
         {
-            webRequest.SendWebRequest();
-
-            while (!webRequest.isDone) {}
-
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
-            {
-                return string.Empty;
-            }
-
-            return webRequest.downloadHandler.text;
+            return string.Empty;
         }
+
+        return webRequest.downloadHandler.text;
     }
     #endregion
 }
