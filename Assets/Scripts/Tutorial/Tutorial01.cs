@@ -35,9 +35,10 @@ public class Tutorial01 : MonoBehaviour
             GameDirector.Instance.UpdateQuest("New Beginnings", 4);
             Game.sceneToSave = SceneLoading.Instance.biomes[Game.currentBiome] + " " + Game.GetNextScene();
             SaveLoadSystem.Instance.Save();
+            Settings.Instance.gameIsLoaded = true;
             SceneLoading.Instance.SwitchToScene(Game.sceneToSave, SceneLoading.Instance.startAnimationID);
         }
-        
+
         if (waitTime > Time.time)
         {
             return;

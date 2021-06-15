@@ -44,13 +44,15 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 543245d4805e23346996c3125dde5a28, type: 3}
-    totalSpriteSurfaceArea: 0
+    totalSpriteSurfaceArea: 200
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 1422259861377778311, guid: 95a463461f0bbd54a986aa777db56d66, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - MegaPixelArt32x32pxIcons_SpriteSheet_0
   m_RenderDataMap: {}
   m_Tag: ItemsAtlas
   m_IsVariant: 0

@@ -1180,6 +1180,7 @@ GameObject:
   - component: {fileID: 272778758793215289}
   - component: {fileID: 2147459252304596868}
   - component: {fileID: 846969245711825877}
+  - component: {fileID: 4474731941061395912}
   - component: {fileID: 7035325649506568370}
   m_Layer: 5
   m_Name: Jump Button
@@ -1329,6 +1330,18 @@ MonoBehaviour:
     m_AssetGUID: 300aee4dd2d2a7f4b96986988a31e1b3
     m_SubObjectName: T_9_arrow_rounded_up_
     m_SubObjectType: 
+--- !u!114 &4474731941061395912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2622751827533977617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec2487c6c5a6244ca3a958d0053e4c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7035325649506568370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13838,6 +13851,7 @@ GameObject:
   - component: {fileID: 9006928568719002726}
   - component: {fileID: 8005616793904744128}
   - component: {fileID: 130081981524468111}
+  - component: {fileID: 7012384757440978782}
   m_Layer: 5
   m_Name: Dash Button
   m_TagString: Untagged
@@ -13996,5 +14010,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e78b9dceaac61e64fab8844f23e60814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7012384757440978782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8483181375145698687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec2487c6c5a6244ca3a958d0053e4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

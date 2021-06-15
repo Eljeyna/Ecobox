@@ -380,11 +380,13 @@ public static class Game
 
     public static void OpenConfirmMenu()
     {
+        GameDirector.Instance.noControl = true;
         yesNoAmount.text = defaultValueAmount;
         yesNoSlider.value = 1;
         yesNoSlider.maxValue = itemSelected.itemAmount;
         inventoryGroup.blocksRaycasts = false;
         inventoryYesNoCanvas.enabled = true;
+        GameDirector.Instance.noControl = false;
     }
 
     public static void HideConfirmMenu()
@@ -398,6 +400,7 @@ public static class Game
 
     public static async void OpenInventory()
     {
+        GameDirector.Instance.noControl = true;
         itemSelected = null;
         PauseGame();
         Settings.Instance.blurVolume.SetActive(true);
@@ -410,10 +413,12 @@ public static class Game
         HideInGameUI();
 
         inventoryCanvas.enabled = true;
+        GameDirector.Instance.noControl = false;
     }
 
     public static void HideInventory()
     {
+        GameDirector.Instance.noControl = true;
         Player.Instance.inventory.UnloadInventory();
 
         if (slotSelected)
@@ -423,6 +428,7 @@ public static class Game
         DisableInventoryButtons();
         ShowInGameUI();
         ResumeGame();
+        GameDirector.Instance.noControl = false;
     }
 
     public static void ShowInGameUI()
@@ -438,18 +444,22 @@ public static class Game
 
     public static void ShowQuickMenu()
     {
+        GameDirector.Instance.noControl = true;
         PauseGame();
         HideInGameUI();
         quickUI.enabled = true;
         Settings.Instance.blurVolume.SetActive(true);
+        GameDirector.Instance.noControl = false;
     }
 
     public static void HideQuickMenu()
     {
+        GameDirector.Instance.noControl = true;
         Settings.Instance.blurVolume.SetActive(false);
         quickUI.enabled = false;
         ShowInGameUI();
         ResumeGame();
+        GameDirector.Instance.noControl = false;
     }
 
     public static void DisableInventoryButtons()

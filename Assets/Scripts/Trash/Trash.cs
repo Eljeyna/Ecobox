@@ -1,7 +1,7 @@
 public enum TrashType
 {
-    Unsorted = 0,
-    Plastic  = 1,
-    Glass    = 2,
-    Paper    = 3
+    Unsorted = 0, // Red
+    Plastic  = 1, // Yellow
+    Glass    = 2, // Blue
+    Paper    = 3  // Green
 }

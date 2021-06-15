@@ -134,7 +134,7 @@ public class Player : AIEntity, ISaveState
         }
 
 #if UNITY_ANDROID || UNITY_IOS
-        if (!touch || state == EntityState.Attack)
+        if (touch || state == EntityState.Attack)
         {
             StatePerform();
             return;
@@ -328,7 +328,7 @@ public class Player : AIEntity, ISaveState
 
     public void OnDash()
     {
-        if (!Game.isPause && dashing && state == EntityState.Normal && stats.stamina > dash.staminaCost && dash.nextDashTime <= Time.time)
+        if (!Game.isPause && dashing && state == EntityState.Normal && stats.stamina >= dash.staminaCost && dash.nextDashTime <= Time.time)
         {
             Standing();
             dashing = false;
@@ -380,6 +380,13 @@ public class Player : AIEntity, ISaveState
         if (Game.inventoryCanvas.isActiveAndEnabled)
         {
             Game.HideInventory();
+            return;
+        }
+
+        if (Settings.Instance.thisCanvas.isActiveAndEnabled)
+        {
+            Settings.Instance.thisCanvas.enabled = false;
+            Settings.Instance.eventExit.Call();
             return;
         }
 
