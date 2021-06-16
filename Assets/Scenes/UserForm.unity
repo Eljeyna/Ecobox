@@ -657,7 +657,6 @@ GameObject:
   - component: {fileID: 265752741}
   - component: {fileID: 265752740}
   - component: {fileID: 265752738}
-  - component: {fileID: 265752739}
   m_Layer: 5
   m_Name: WebFormLogin
   m_TagString: Untagged
@@ -682,18 +681,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!225 &265752739
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265752737}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!223 &265752740
 Canvas:
   m_ObjectHideFlags: 0
@@ -2581,6 +2568,7 @@ GameObject:
   - component: {fileID: 849678968}
   - component: {fileID: 849678964}
   - component: {fileID: 849678967}
+  - component: {fileID: 849678969}
   - component: {fileID: 849678966}
   - component: {fileID: 849678965}
   m_Layer: 0
@@ -2602,8 +2590,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e40a98b3667bdf34eb99e45abd79bf34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: MainMenu
   canvasSignIn: {fileID: 265752740}
-  canvasGroup: {fileID: 265752739}
+  canvasGroup: {fileID: 849678969}
   canvasSignUp: {fileID: 424355095}
   loginField: {fileID: 1092318286}
   loginFieldRegister: {fileID: 1873329243}
@@ -2702,6 +2691,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &849678969
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849678963}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &873559853
 GameObject:
   m_ObjectHideFlags: 0

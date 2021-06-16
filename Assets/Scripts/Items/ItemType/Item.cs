@@ -70,9 +70,9 @@ public class Item : ScriptableObject
         }
     }
 
-    public void GetTranslate()
+    public async Task GetTranslate()
     {
-        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Items", $"{itemName}.json")));
+        StringBuilder sb = new StringBuilder(await GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Items", $"{itemName}.json")));
 
 #if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
@@ -81,7 +81,7 @@ public class Item : ScriptableObject
             translationString[1] = string.Empty;
             return;
         }
-        
+
         ItemStruct json = JsonConvert.DeserializeObject<ItemStruct>(sb.ToString());
 #else
         if (!File.Exists(sb.ToString()))

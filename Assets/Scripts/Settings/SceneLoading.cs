@@ -8,7 +8,7 @@ public class SceneLoading : MonoBehaviour
 {
     public static SceneLoading Instance { get; private set; }
 
-    private Animator anim;
+    public Animator anim;
     private AsyncOperationHandle<SceneInstance> loadSceneAsync;
 
     private bool playAnim = false;
@@ -22,10 +22,8 @@ public class SceneLoading : MonoBehaviour
     public readonly string[] biomes = { "Dungeon", "City" };
     public readonly int[] sceneCounters = { 1, 0 };
 
-    private void Start()
+    private void Awake()
     {
-        Game.PauseGame();
-        
         if (ReferenceEquals(Instance, null))
         {
             Instance = this;
@@ -35,6 +33,11 @@ public class SceneLoading : MonoBehaviour
                 anim = animator;
             }
         }
+    }
+
+    private void Start()
+    {
+        Game.PauseGame();
 
         if (playAnim)
         {
@@ -101,16 +104,7 @@ public class SceneLoading : MonoBehaviour
         loadSceneAsync = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         await loadSceneAsync.Task;
 
-        Settings.Instance.blurVolume.SetActive(false);
-        anim.SetTrigger(endAnimationID);
-        Translate.Instance.GetTranslate();
-        
-        if (GameDirector.Instance)
-        {
-            GameDirector.Instance.Preload();
-        }
-
-        ChangeMusicBetweenScenes();
+        AfterLoadLevel();
     }
 
     public async void LoadPreloadedLevel(string sceneName)
@@ -127,6 +121,11 @@ public class SceneLoading : MonoBehaviour
 
     private void AfterPreloadLevel(AsyncOperation obj)
     {
+        AfterLoadLevel();
+    }
+
+    private void AfterLoadLevel()
+    {
         Settings.Instance.blurVolume.SetActive(false);
         anim.SetTrigger(endAnimationID);
         Translate.Instance.GetTranslate();
@@ -134,6 +133,11 @@ public class SceneLoading : MonoBehaviour
         if (GameDirector.Instance)
         {
             GameDirector.Instance.Preload();
+        }
+
+        if (Player.Instance)
+        {
+            Game.lastCheckpointPosition = Player.Instance.transform.position;
         }
 
         ChangeMusicBetweenScenes();
@@ -158,14 +162,6 @@ public class SceneLoading : MonoBehaviour
             default:
                 MusicDirector.Instance.StopMusic();
                 break;
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (loadSceneAsync.IsValid())
-        {
-            loadSceneAsync.Result.ActivateAsync().completed -= AfterPreloadLevel;
         }
     }
 }

@@ -13,11 +13,24 @@ public class IsTalking : MonoBehaviour
 
     public DialogueScript scriptAfterDialogue;
 
-    private void Awake()
+    private async void Awake()
     {
-        dialogue.GetTranslate();
+#if !(UNITY_ANDROID || UNITY_IOS)
+        this.enabled = false;
+#endif
+        await dialogue.GetTranslate();
         StartTalk();
     }
+
+#if !(UNITY_ANDROID || UNITY_IOS)
+    private void Update()
+    {
+        if (GetInput())
+        {
+            GameDirector.Instance.dialogue.SetDialogue(GameDirector.Instance.dialogue._currentLine + 1);
+        }
+    }
+#endif
 
     public void StartTalk()
     {
@@ -35,6 +48,7 @@ public class IsTalking : MonoBehaviour
 
     public void IsTalkingDone()
     {
+        GameUI.Instance.invisibleButton.gameObject.SetActive(false);
         _currentLine = _defaultLine;
 
         if (scriptAfterDialogue != null)
@@ -88,7 +102,11 @@ public class IsTalking : MonoBehaviour
 
         if (dialogue.dialogues[_currentLine].answers.Length > 0)
         {
+#if UNITY_ANDROID || UNITY_IOS
             GameUI.Instance.invisibleButton.gameObject.SetActive(false);
+#else
+            this.enabled = false;
+#endif
 
             int length = GameUI.Instance.dialogueButtons.Length - dialogue.answersArray[_currentLine].answers.Length;
 
@@ -100,7 +118,7 @@ public class IsTalking : MonoBehaviour
             for (int i = 0; i < dialogue.answersArray[_currentLine].answers.Length; i++)
             {
                 GameUI.Instance.dialogueButtons[i + length].gameObject.SetActive(true);
-                
+
                 GameUI.Instance.dialogueButtons[i + length].text.text = GetStringByGender(dialogue.dialogues[_currentLine].answers[i].answer_text);
                 GameUI.Instance.dialogueButtons[i + length].line = dialogue.answersArray[_currentLine].answers[i].goto_line;
 
@@ -123,7 +141,11 @@ public class IsTalking : MonoBehaviour
         else
         {
             GameDirector.Instance.HideButtons();
+#if UNITY_ANDROID || UNITY_IOS
             GameUI.Instance.invisibleButton.gameObject.SetActive(true);
+#else
+            this.enabled = true;
+#endif
         }
     }
     

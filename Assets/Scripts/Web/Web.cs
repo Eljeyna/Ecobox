@@ -4,6 +4,8 @@ using TMPro;
 
 public class Web : MonoBehaviour
 {
+    public string level;
+
     public Canvas canvasSignIn;
     public CanvasGroup canvasGroup;
     public Canvas canvasSignUp;
@@ -36,13 +38,17 @@ public class Web : MonoBehaviour
     private void Start()
     {
         //Debug.Log(StaticGameVariables.GetRequest("http://eztix/GetUsers.php"));
+        SceneLoading.Instance.PreloadLevel(level);
         enterLogin.onClick.AddListener(Login);
         enterRegister.onClick.AddListener(Register);
         playOffline.onClick.AddListener(Play);
     }
 
-    private void Login()
+    private async void Login()
     {
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+
         if (string.IsNullOrWhiteSpace(loginField.text))
         {
             ShowMessageField("Enter login/email");
@@ -57,10 +63,12 @@ public class Web : MonoBehaviour
             return;
         }
 
-        message = Game.UserLogin(loginField.text, passwordField.text);
+        message = await Game.UserLogin(loginField.text, passwordField.text);
 
         if (message != string.Empty && message != errorLogin && message != errorPassword && !message.Contains(errorConnection))
         {
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
             PlayOnline(message);
         }
         else
@@ -69,8 +77,11 @@ public class Web : MonoBehaviour
         }
     }
 
-    private void Register()
+    private async void Register()
     {
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+
         if (string.IsNullOrWhiteSpace(loginFieldRegister.text))
         {
             ShowMessageField("Enter login/email");
@@ -99,10 +110,12 @@ public class Web : MonoBehaviour
             return;
         }
 
-        message = Game.UserRegister(loginFieldRegister.text, emailRegister.text, passwordFieldRegister.text);
+        message = await Game.UserRegister(loginFieldRegister.text, emailRegister.text, passwordFieldRegister.text);
 
         if (message != string.Empty && message == confirmRegisterMessage)
         {
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
             canvasSignUp.enabled = false;
             canvasSignIn.enabled = true;
         }
@@ -123,6 +136,9 @@ public class Web : MonoBehaviour
                 messageField.enabled = true;
             }
         }
+
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
     }
 
     private void PlayOnline(string ID)
@@ -135,6 +151,6 @@ public class Web : MonoBehaviour
     {
         canvasGroup.interactable = false;
         messageField.enabled = false;
-        SceneLoading.Instance.SwitchToScene("MainMenu", SceneLoading.Instance.startAnimationID);
+        SceneLoading.Instance.SwitchToScene(level, SceneLoading.Instance.startAnimationID, true);
     }
 }

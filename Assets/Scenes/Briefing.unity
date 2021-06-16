@@ -238,6 +238,7 @@ MonoBehaviour:
   briefing: {fileID: 1447392015}
   invisibleButton: {fileID: 678848074}
   currentBriefing: 0
+  readyForInput: 0
 --- !u!1 &217942472
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +712,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 678848074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19eab5cc79801f445b7b4da08e7e620a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3be7686ebf55fe74bae3d85a4d92b054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &678848077

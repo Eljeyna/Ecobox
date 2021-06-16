@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 using static Game;
@@ -22,7 +23,7 @@ public class QuestTasks : ITranslate
 
     public async void Initialize(int taskID)
     {
-        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Quests", "QuestsID.json")));
+        StringBuilder sb = new StringBuilder(await GetAsset(Path.Combine("Quests", "QuestsID.json")));
 
 #if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
@@ -50,9 +51,9 @@ public class QuestTasks : ITranslate
         }
     }
 
-    public void GetTranslate()
+    public async Task GetTranslate()
     {
-        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Quests", $"{id}.json")));
+        StringBuilder sb = new StringBuilder(await GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Quests", $"{id}.json")));
 
 #if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)

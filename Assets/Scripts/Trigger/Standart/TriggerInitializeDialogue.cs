@@ -7,11 +7,18 @@ public class TriggerInitializeDialogue : Trigger
     
     public override void Use(Collider2D obj)
     {
-        GameDirector.Instance.InitializeDialogue(dialogue);
-
-        if (destroyOnExecute)
+        if (obj.TryGetComponent(out BaseTag tagEntity))
         {
-            Destroy(gameObject);
+            if ((tagEntity.entityTag & Tags.FL_PLAYER) != 0)
+            {
+                GameDirector.Instance.InitializeDialogue(dialogue);
+
+                if (destroyOnExecute)
+                {
+                    gameObject.SetActive(false);
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 }

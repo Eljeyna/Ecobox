@@ -60,16 +60,6 @@ public abstract class AIEntity : MonoBehaviour
     public bool isGrounded;
     public bool isJumping;
 
-    private void FixedUpdate()
-    {
-        if (Game.isPause)
-        {
-            return;
-        }
-
-        isGrounded = IsGrounded();
-    }
-
     public void InitializeEntity()
     {
         state = EntityState.Normal;

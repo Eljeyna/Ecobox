@@ -15,7 +15,7 @@ public class ItemInfoSelected : MonoBehaviour
         }
     }
 
-    public void GetItemInfo()
+    public async void GetItemInfo()
     {
         if (Game.slotSelected)
         {
@@ -32,7 +32,7 @@ public class ItemInfoSelected : MonoBehaviour
         }
 
         Game.itemSelected = item;
-        Game.itemSelected.GetTranslate();
+        await Game.itemSelected.GetTranslate();
         Game.itemName.text = Game.translationString[0];
         Game.itemDescription.text = Game.translationString[1];
 

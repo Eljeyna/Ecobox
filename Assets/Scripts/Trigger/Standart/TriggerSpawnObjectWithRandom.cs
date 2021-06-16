@@ -6,16 +6,23 @@ public class TriggerSpawnObjectWithRandom : Trigger
     public Addressables_Instantiate enemyScript;
     public override void Use(Collider2D obj)
     {
-        Game.GetRandom();
-        
-        if (Game.random <= chance)
+        if (obj.TryGetComponent(out BaseTag tagEntity))
         {
-            enemyScript.SpawnEntities();
-        }
+            if ((tagEntity.entityTag & Tags.FL_PLAYER) != 0)
+            {
+                Game.GetRandom();
 
-        if (destroyOnExecute)
-        {
-            Destroy(gameObject);
+                if (Game.random <= chance)
+                {
+                    enemyScript.SpawnEntities();
+                }
+
+                if (destroyOnExecute)
+                {
+                    gameObject.SetActive(false);
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 }

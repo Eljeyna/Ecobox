@@ -736,7 +736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8354802474745370249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2408,7 +2408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4979804898625283883
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4112,33 +4112,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6121860477016326441}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6121860477016326441}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_sortingOrder
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 920415322}
-        m_TargetAssemblyTypeName: EventExit, Assembly-CSharp
-        m_MethodName: Call
+      - m_Target: {fileID: 6121860477016326442}
+        m_TargetAssemblyTypeName: Settings, Assembly-CSharp
+        m_MethodName: HideSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4304,6 +4280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6121860477016326446}
   - component: {fileID: 6121860477016326441}
+  - component: {fileID: 6269096811286679118}
   - component: {fileID: 4108790767035010548}
   - component: {fileID: 6121860477016326443}
   - component: {fileID: 6121860477016326442}
@@ -4359,6 +4336,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &6269096811286679118
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6121860477016326454}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &4108790767035010548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4419,6 +4408,7 @@ MonoBehaviour:
   sliderCameraZoom: {fileID: 2884379547739408817}
   audioMixer: {fileID: 24100000, guid: 94f1d53f0f53675439b3f6cdf098dd77, type: 2}
   thisCanvas: {fileID: 6121860477016326441}
+  canvasGroup: {fileID: 6269096811286679118}
   blurVolume: {fileID: 5860043990439490406}
   eventExit: {fileID: 920415322}
 --- !u!114 &6121860477016326453
@@ -4780,7 +4770,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: afbcf59d9c2227d4aaf81bf6bfa4d8dc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

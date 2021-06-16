@@ -11,7 +11,7 @@ public class TriggerAttackPlayerWhenTouching : Trigger
 
     public override void Use(Collider2D obj)
     {
-        if (obj.TryGetComponent(out BaseEntity baseEntity))
+        if (obj.TryGetComponent(out BaseEntity baseEntity) && obj.TryGetComponent(out BaseTag entityTag) && Damage.IsEnemy(entity.thisTag, entityTag))
         {
             baseEntity.TakeDamage(damage, (int)weaponDamageType, entity.thisEntity);
             entity.rb.AddForce(-entity.transform.localScale * force, ForceMode2D.Impulse);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using static Game;
+using System.Threading.Tasks;
 
 public class Translate : MonoBehaviour
 {
@@ -22,14 +23,19 @@ public class Translate : MonoBehaviour
         InitializeLanguage();
     }
 
-    public void GetTranslate()
+    public void Translation()
+    {
+        GetTranslate();
+    }
+
+    public async void GetTranslate()
     {
         if (language != (int)Game.language)
         {
             language = (int)Game.language;
         }
         
-        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[language], "UI.json")));
+        StringBuilder sb = new StringBuilder(await GetAsset(Path.Combine("Localization", languageKeys[language], "UI.json")));
 
 #if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
@@ -56,7 +62,7 @@ public class Translate : MonoBehaviour
         {
             if (monoBehaviour is ITranslate persist)
             {
-                persist.GetTranslate();
+                _ = persist.GetTranslate();
             }
         }
     }
@@ -64,5 +70,5 @@ public class Translate : MonoBehaviour
 
 internal interface ITranslate
 {
-    void GetTranslate();
+    Task GetTranslate();
 }

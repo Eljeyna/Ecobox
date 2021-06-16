@@ -385,8 +385,7 @@ public class Player : AIEntity, ISaveState
 
         if (Settings.Instance.thisCanvas.isActiveAndEnabled)
         {
-            Settings.Instance.thisCanvas.enabled = false;
-            Settings.Instance.eventExit.Call();
+            Settings.Instance.HideSettings();
             return;
         }
 
@@ -541,13 +540,14 @@ public class Player : AIEntity, ISaveState
         
         buffSystem.buffs = new Dictionary<ScriptableObjectBuff, Buff>();
         GameDirector.Instance.quests = new Dictionary<string, Quest>();
+        GameDirector.Instance.activeQuest = null;
         
         switch (SceneManager.GetActiveScene().name)
         {
             case "Tutorial 0":
                 GameDirector.Instance.AddNewQuest("New Beginnings");
                 break;
-            case "Tutorial 1":
+            default:
                 GameDirector.Instance.AddNewQuest("New Beginnings", 4);
                 break;
         }
@@ -806,13 +806,13 @@ public class Player : AIEntity, ISaveState
         }
 
         string currentScene = SceneManager.GetActiveScene().name;
-        saveObject.finishTutorial = currentScene != "Tutorial" && currentScene != "Tutorial 01";
+        saveObject.finishTutorial = currentScene != "Tutorial 0" && currentScene != "Tutorial 1";
         
         string jsonConvert = JsonConvert.SerializeObject(saveObject);
         
         if (Game.accountID != string.Empty)
         {
-            Game.SaveAccountData(Game.accountID, jsonConvert);
+            _ = Game.SaveAccountData(Game.accountID, jsonConvert);
         }
         
         return jsonConvert;

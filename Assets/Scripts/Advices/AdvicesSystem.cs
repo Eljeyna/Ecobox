@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
@@ -20,7 +21,6 @@ public class AdvicesSystem : MonoBehaviour, ITranslate
 
     private void Start()
     {
-        textField.text = data[advice];
         nextTimeChangeAdvice = Time.unscaledTime + timeFade;
         nextTimeAdvice = Time.unscaledTime + timeToChangeAdvice;
     }
@@ -57,7 +57,7 @@ public class AdvicesSystem : MonoBehaviour, ITranslate
             else
             {
                 Game.GetRandom();
-                advice = (int)(Game.random * (advice - 1));
+                advice = (int)(Game.random * (advice - 1) + 0.5f);
             }
         }
         
@@ -67,9 +67,9 @@ public class AdvicesSystem : MonoBehaviour, ITranslate
         nextTimeChangeAdvice = Time.unscaledTime + timeFade;
     }
 
-    public void GetTranslate()
+    public async Task GetTranslate()
     {
-        StringBuilder sb = new StringBuilder(Game.GetAsset(Path.Combine("Localization", Game.languageKeys[(int) Game.language], "Advices.json")));
+        StringBuilder sb = new StringBuilder(await Game.GetAsset(Path.Combine("Localization", Game.languageKeys[(int) Game.language], "Advices.json")));
 
 #if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
@@ -87,6 +87,9 @@ public class AdvicesSystem : MonoBehaviour, ITranslate
         data = JsonConvert.DeserializeObject<string[]>(File.ReadAllText(sb.ToString()));
 #endif
 
+        Game.GetRandom();
+        advice = (int)(Game.random * (data.Length - 1) + 0.5f);
         textField.text = data[advice];
+        this.enabled = true;
     }
 }

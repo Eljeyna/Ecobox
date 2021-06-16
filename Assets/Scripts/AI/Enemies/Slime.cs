@@ -13,6 +13,16 @@ public class Slime : AIEnemy
 {
     public AudioDirector audioDirector;
 
+    private void FixedUpdate()
+    {
+        if (Game.isPause)
+        {
+            return;
+        }
+
+        isGrounded = IsGrounded();
+    }
+
     public override void Attack()
     {
         if (!weapon)

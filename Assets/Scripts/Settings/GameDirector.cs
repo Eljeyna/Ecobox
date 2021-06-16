@@ -92,10 +92,10 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public void UpdateQuestDescription()
+    public async void UpdateQuestDescription()
     {
         StringBuilder sb = new StringBuilder();
-        activeQuest.tasks.GetTranslate();
+        await activeQuest.tasks.GetTranslate();
         Game.questName.text = activeQuest.tasks.nameQuest;
         
         for (int i = 0; i < activeQuest.tasks.tasksDescriptions[activeQuest.currentTask].description.Length; i++)

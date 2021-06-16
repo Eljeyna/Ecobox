@@ -20,6 +20,7 @@ public class Settings : MonoBehaviour
 
     public AudioMixer audioMixer;
     public Canvas thisCanvas;
+    public CanvasGroup canvasGroup;
     public GameObject blurVolume;
 
     public EventExit eventExit;
@@ -143,5 +144,22 @@ public class Settings : MonoBehaviour
         {
             Player.Instance.zoomAmount = 0.2f + (0.2f * zoom);
         }
+    }
+
+    public void ShowSettings()
+    {
+        thisCanvas.enabled = true;
+        thisCanvas.sortingOrder = 200;
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
+    }
+
+    public void HideSettings()
+    {
+        thisCanvas.enabled = false;
+        thisCanvas.sortingOrder = 0;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.interactable = false;
+        eventExit.Call();
     }
 }

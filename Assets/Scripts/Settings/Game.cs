@@ -6,6 +6,9 @@ using UnityEngine.Networking;
 using System.IO;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using System.Threading.Tasks;
+using UnityEngine.InputSystem;
+using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 
 public static class Game
 {
@@ -99,8 +102,10 @@ public static class Game
     public static readonly int qualitativeMaterialNeededForUpgrade = 10;
     public static readonly int badQualityMaterialNeededForUpgrade  = 45;
     #endregion
-    
+
     #region Web
+    public static int retries;
+    public static readonly int maxRetries = 1000;
     public static string accountID = string.Empty;
     #endregion
 
@@ -124,6 +129,10 @@ public static class Game
     }
     
     public static string defaultValueAmount = "1";
+    #endregion
+
+    #region InGame
+    public static Vector3 lastCheckpointPosition;
     #endregion
     #endregion
 
@@ -548,6 +557,15 @@ public static class Game
         return currentScene.ToString();
     }
 
+    public static bool GetInput()
+    {
+#if UNITY_ANDROID || UNITY_IOS
+        return Mouse.current.leftButton.wasPressedThisFrame || Keyboard.current.anyKey.wasPressedThisFrame || Pointer.current.IsPressed();
+#else
+        return Mouse.current.leftButton.wasPressedThisFrame || Keyboard.current.anyKey.wasPressedThisFrame;
+#endif
+    }
+
     public static float GetReachedDistance(Collider2D collider)
     {
         Vector2 size = collider.bounds.size;
@@ -560,23 +578,26 @@ public static class Game
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
 
-    public static string GetAsset(string path)
+    public static async Task<string> GetAsset(string path)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR_LINUX
-        return GetRequest(Path.Combine(Application.streamingAssetsPath, path));
+        return await GetRequest(Path.Combine(Application.streamingAssetsPath, path));
 #else
-        return new StringBuilder(Path.Combine(Application.streamingAssetsPath, path)).ToString();
+        return await Task.FromResult(new StringBuilder(Path.Combine(Application.streamingAssetsPath, path)).ToString());
 #endif
     }
 
 #if UNITY_ANDROID
-    public static string GetRequest(string uri)
+    public static async Task<string> GetRequest(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             webRequest.SendWebRequest();
 
-            while (!webRequest.isDone) {}
+            while (!webRequest.isDone)
+            {
+                await Task.Yield();
+            }
 
             if (webRequest.result == UnityWebRequest.Result.ConnectionError)
             {
@@ -588,8 +609,9 @@ public static class Game
     }
 #endif
 
-    public static string UserLogin(string login, string password)
+    public static async Task<string> UserLogin(string login, string password)
     {
+        retries = 0;
         WWWForm form = new WWWForm();
         form.AddField("userLogin", login);
         form.AddField("userPassword", password);
@@ -599,7 +621,17 @@ public static class Game
 
         webRequest.SendWebRequest();
 
-        while (!webRequest.isDone) { }
+        while (!webRequest.isDone)
+        {
+            retries++;
+
+            if (retries > maxRetries)
+            {
+                return string.Empty;
+            }
+
+            await Task.Yield();
+        }
 
         if (webRequest.result == UnityWebRequest.Result.ConnectionError)
         {
@@ -609,8 +641,9 @@ public static class Game
         return webRequest.downloadHandler.text;
     }
 
-    public static string UserRegister(string login, string email, string password)
+    public static async Task<string> UserRegister(string login, string email, string password)
     {
+        retries = 0;
         WWWForm form = new WWWForm();
         form.AddField("userLogin", login);
         form.AddField("userEmail", email);
@@ -621,7 +654,17 @@ public static class Game
 
         webRequest.SendWebRequest();
 
-        while (!webRequest.isDone) {}
+        while (!webRequest.isDone)
+        {
+            retries++;
+
+            if (retries > maxRetries)
+            {
+                return string.Empty;
+            }
+
+            await Task.Yield();
+        }
 
         if (webRequest.result == UnityWebRequest.Result.ConnectionError)
         {
@@ -631,8 +674,9 @@ public static class Game
         return webRequest.downloadHandler.text;
     }
 
-    public static string SaveAccountData(string ID, string json)
+    public static async Task<string> SaveAccountData(string ID, string json)
     {
+        retries = 0;
         WWWForm form = new WWWForm();
         form.AddField("userID", ID);
         form.AddField("userData", json);
@@ -642,7 +686,17 @@ public static class Game
 
         webRequest.SendWebRequest();
 
-        while (!webRequest.isDone) { }
+        while (!webRequest.isDone)
+        {
+            retries++;
+
+            if (retries > maxRetries)
+            {
+                return string.Empty;
+            }
+
+            await Task.Yield();
+        }
 
         if (webRequest.result == UnityWebRequest.Result.ConnectionError)
         {

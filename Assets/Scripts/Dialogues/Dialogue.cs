@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 using static Game;
@@ -18,9 +19,9 @@ public class Dialogue : MonoBehaviour, ITranslate
     [SerializeField] public Sentences[] dialogues;
     [SerializeField] public AnswersArray[] answersArray;
 
-    public void GetTranslate()
+    public async Task GetTranslate()
     {
-        StringBuilder sb = new StringBuilder(GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Dialogues", $"{key}.json")));
+        StringBuilder sb = new StringBuilder(await GetAsset(Path.Combine("Localization", languageKeys[(int)language], "Dialogues", $"{key}.json")));
 
 #if UNITY_ANDROID && !UNITY_EDITOR_LINUX
         if (sb.ToString() == string.Empty)
